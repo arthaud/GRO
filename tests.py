@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 from graphs import Graph, Node, Edge
+import hamiltonien
 
 def print_ok(string):
     print "\033[92m" + string

@@ -2,11 +2,14 @@
 # -*- coding: utf-8 -*-
 import copy
 
-"""
-min_degree = min(node.degree() for node in graph.nodes)
-if min_degree >= graph.order() / 2:
-    le graphe est hamiltonien
-"""
+def is_hamiltonian(graph):
+    # rapid test, only sufficient, not necessary
+    min_degree = min(node.degree() for node in graph.nodes)
+    if min_degree >= graph.order() / 2:
+        return True
+
+    # general test, complexity sucks
+    return hamiltonian_path(graph) != None
 
 def hamiltonian_path(graph, node_from=None, nodes_done=frozenset()):
     if node_from is None:
