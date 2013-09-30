@@ -1,0 +1,104 @@
+\documentclass[draft]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+\title{Rapport du projet 1 de théorie des graphes}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+          \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
+\date{todo date}
+\maketitle
+
+\section{TPs} % TODO: meilleurs titre
+    Nous avons commencé les TPs par le choix du langage utilisé pour
+    implémenter nos algorithmes: le python, (pour la simplicité qu'il offre pour
+    représenter les graphes et la lecture/le parsage d'un fichier représentant
+    un graphe), puis l'écriture des classes permettant de représenter un
+    graphe.
+
+    Puis nous nous sommes séparés en trois binômes ayant travaillé sur:
+    \begin{itemize}
+      \item un algorithme permettant de savoir si un graphe est connexe ou non
+        (dans le cas non orienté);
+      \item  la création d'un algorithme (brute force) qui trouve un chemin
+        hamiltonien dans un graphe;
+      \item  la création de quelques fonctions qui génèrent des graphes simples
+        de tests.
+    \end{itemize}
+    
+\section{Problème 1}
+  \subsection{Exercice 1}
+    Pour représenter ce problème par un graphe, on représente les carrefours
+    par les nœuds du graphe et les routes par des arêtes. Goudronner toutes les
+    routes revient alors à parcourir toutes les arêtes une et une seule fois
+    dans le graphe.
+
+    Afin que le problème soit soluble, il faut que le graphe soit eulérien,
+    c'est à dire connexe et que chaque nœud ait un nombre pair d'arêtes. Cette
+    condition n'est pas nécessaire, car il peut toutefois aussi contenir
+    exactement deux nœuds ayant un nombre impair d'arêtes, si on part d'un de
+    ces deux nœuds (et on arrivera à l'autre).
+
+    On peut utiliser l'algorithme d'Euler, qui consiste à trouver un cycle dans
+    le graphe (en le parcourant «~au hasard~»), puis à s'appeler récursivement
+    sur le sous-graphe construit en retirant les arêtes du cycle trouvé, en
+    partant d'un nœud du cycle qui n'a pas d'arêtes qui n'appartiennent pas à
+    ce cycle.
+
+  \subsection{Exercice 2}
+    On commence par construire le graphe représentant le musée où les arêtes
+    représentent les portes et les sommets des salles du musée. Par définition,
+    l'objectif de cet enfant est réalisable si ce graphe est hamiltonien ou
+    semi-hamiltonien.
+
+    Un graphe hamiltonien est un graphe qui contient au moins un cycle
+    hamiltonien, c'est à dire un cycle passant une et une seule fois par chaque
+    sommet en revenant au sommet de départ. S'il est uniquement
+    semi-hamiltonien, il n'a qu'une chaîne hamiltonienne: l'enfant ne se
+    retrouvera pas dans la salle de départ.
+
+    Un moyen simple de résoudre ce problème est de tester toutes les
+    possibilités de chaînes, jusqu'à en trouver une qui soit hamiltonienne.
+    Toutefois, cette solution a une complexité en $O(n!)$ (avec $n$ le nombre
+    d'arêtes), et par conséquent est peu envisageable pour des graphes de
+    grande taille.
+
+    Nous avons implémenté cet algorithme dans la fonction
+    \verb+hamiltonian_path+.
+    
+    Pour améliorer cet algorithme, on peut arrêter de chercher
+    quand le graphe restant à parcourir n'est pas connexe.
+
+    Un autre moyen serait de calculer les puissances successives de la matrice
+    latine représentant le graphe. Il suffirait alors d'éliminer tous les
+    chemins ne contenant pas une et une seule fois tous les sommets du graphe.
+    Lors du calcul des puissances successives, on peut remplacer par des 0 tous
+    les chemins contenant deux fois le même sommet. Toutefois, cet algorithme
+    est également très complexe.
+
+    Ce problème étant NP-complet, il n'existe pas de moyen simple de déterminer
+    le chemin, ni même si un tel chemin existe pour un graphe donné quelconque.
+
+  \subsection{Exercice 3}
+    Il est possible de résoudre le premier problème en transformant le graphe:
+    il suffit de créer le graphe dont les sommets sont les arêtes du premier
+    graphe, et les arêtes sont les sommets de ce premier graphe. Ce nouveau
+    graphe est appelé «~line graph~». En trouvant une chaîne hamiltonienne
+    dans ce graphe, on obtient une chaîne eulérienne.
+
+    Par contre, il est impossible de transformer le problème 2 en problème 1.
+    Le problème 2 est NP-complet, alors que le premier est soluble en $O(n)$ (à
+    l'aide par exemple de l'algorithme de Hierholzer). Les 2 problèmes ne sont
+    donc pas équivalents.
+
+    %todo: parler des graphes orientés
+
+\section{Problème 2}
+
+%\section{Problème 3}
+%  On en parle un peu juste pour faire bien ?
+
+\end{document}
+
