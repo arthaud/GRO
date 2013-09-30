@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 from graphs import Graph, Node, Edge
+import hamiltonien
 
 def test1():
     node1 = Node(1)
@@ -71,13 +72,18 @@ def test3():
     g.nodes = [node1, node2, node3, node4]
     return g
 
-def test(toto):
-    print "OK" if toto else "BOOOO"
+def test(passed):
+    print "Passed" if passed else "Failed"
 
 if __name__ == '__main__':
     g = test1()
     test(g.is_connected())
+    test(hamiltonien.is_hamiltonian(g))
+
     g = test2()
     test(g.is_connected())
+    test(not hamiltonien.is_hamiltonian(g))
+
     g = test3()
     test(not g.is_connected())
+    test(not hamiltonien.is_hamiltonian(g))
