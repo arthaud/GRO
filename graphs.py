@@ -15,7 +15,7 @@ class Edge:
 
 class Node:
     def __init__(self, data):
-        self.edges_out = set() # liste des arêtes qui sortent du nœud pour pointer sur d'autres
+        self.edges_out = [] # liste des arêtes qui sortent du nœud pour pointer sur d'autres
         self.data = data # must be unique
     
     def __hash__(self):
