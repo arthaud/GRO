@@ -26,6 +26,7 @@ if __name__ == '__main__':
     graphs.append([Graph('tests/1.gph'), True, True])
     graphs.append([Graph('tests/2.gph'), True, True])
     graphs.append([Graph('tests/3.gph'), False, False])
+    graphs.append([Graph('tests/4.gph'), True, False])
 
     #tests connexité
     tested_fn = "Graph.is_connected"
@@ -35,7 +36,7 @@ if __name__ == '__main__':
         test(g[0].is_connected() == g[1], tested_fn, i)
 
     #tests eulérianité
-    tested_fn = "Graph.is_eulerian"
+    tested_fn = "is_eulerian"
     i = 0
     for g in graphs:
         i = i + 1
