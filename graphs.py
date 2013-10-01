@@ -11,7 +11,7 @@ class Edge:
         return self.origin if node is self.dest else self.dest
     
     def __repr__(self):
-        return "Edge(%s, %s, %s)" % (repr(self.origin), repr(self.dest), cost)
+        return "Edge(%s, %s, %s)" % (self.origin.data, self.dest.data, self.cost)
 
 class Node:
     def __init__(self, data):
@@ -25,7 +25,7 @@ class Node:
         return len(self.edges_out)
 
     def __repr__(self):
-        return "Node(%s)" % self.data
+        return "Node(%s, [%s])" % (self.data, ', '.join(map(repr, self.edges_out)))
 
 class Graph:
     def __init__(self, path=None):
@@ -58,6 +58,9 @@ class Graph:
                     n_orig.edges_out.add(edge)
                     if not self.oriented:
                         n_dest.edges_out.add(edge)
+
+    def __repr__(self):
+        return 'Graph(\n%s\n)' % ',\n'.join(map(repr, self.nodes))
 
     def order(self):
         return len(self.nodes)
