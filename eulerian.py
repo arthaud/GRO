@@ -1,12 +1,12 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-import copy
 
 def is_eulerian(graph):
     """
     Returns true if the graph is eulerian or semi-eulerian
     """
-    if not graph.oriented():
+    if not graph.oriented:
+        nb_odd_deg = 0
         for n in graph.nodes:
             if len(n.edges_out) % 2 != 0:
                 nb_odd_deg += 1
