@@ -15,5 +15,15 @@ def is_eulerian(graph):
         print "TODO: is_eulerian case oriented"
         return None
 
-def eulerian_path():
+def eulerian_path_lat_mat(graph):
+    def gen_lat_mat(graph):
+        nb_n = len(graph.nodes)
+        lat_mat = [[[[0]] for i in range(nb_n) ] for j in range(nb_n) ]
+        for n in graph.nodes:
+            for e in n.edges_out:
+                n2 = e.other_side(n)
+                lat_mat[n.data-1][n2.data-1] = [[n, n2]]
+        return lat_mat
+        
+    gen_lat_mat(graph)
     return None
