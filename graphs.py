@@ -28,34 +28,37 @@ class Node:
         return "Node(%s)" % self.data
 
 class Graph:
-    def __init__(self, path, oriented=False):
+    def __init__(self, path=None, oriented=False):
         self.nodes = [] # liste des noeuds du graphe
         self.oriented = oriented
 
-        nodes_added = dict()
-        f = open(path, 'r')
-        (nb_v, nb_e, oriented) = map(int, f.readline().split(' '))
-        self.oriented = oriented == 1
-        for i in range(nb_v):
-            data = int(f.readline())
-            n = Node(data)
-            self.nodes.append(n)
-            nodes_added[data] = n
-        for i in range(nb_e):
-            #(orig, dest, cost) = map(int, (f.readline()+" 1").split(' ')[:3])
-            line = f.readline()
-            try:
-                (orig, dest, cost) = map(int, line.split(' '))
-            except(ValueError):
-                (orig, dest) = map(int, line.split(' '))
-                cost = 1
-                
-            n_orig = nodes_added[orig]
-            n_dest = nodes_added[dest]
-            n_orig.edges_out.add(Edge(n_orig, n_dest, cost))
-            if self.oriented:
-                n_dest.edges_out.add(Edge(n_orig, n_dest, cost))
-        
+        if path:
+            nodes_added = dict()
+            with open(path, 'r') as f:
+                nb_v, nb_e, oriented = map(int, f.readline().split(' '))
+                self.oriented = oriented == 1
+
+                for i in range(nb_v):
+                    data = int(f.readline())
+                    n = Node(data)
+                    self.nodes.append(n)
+                    nodes_added[data] = n
+
+                for i in range(nb_e):
+                    #(orig, dest, cost) = map(int, (f.readline()+" 1").split(' ')[:3])
+                    line = f.readline()
+                    try:
+                        orig, dest, cost = map(int, line.split(' '))
+                    except(ValueError):
+                        orig, dest = map(int, line.split(' '))
+                        cost = 1
+
+                    n_orig = nodes_added[orig]
+                    n_dest = nodes_added[dest]
+                    n_orig.edges_out.add(Edge(n_orig, n_dest, cost))
+                    if self.oriented:
+                        n_dest.edges_out.add(Edge(n_orig, n_dest, cost))
+
     def order(self):
         return len(self.nodes)
 
