@@ -15,6 +15,7 @@ def is_eulerian(graph):
         print "TODO: is_eulerian case oriented"
         return None
 
+# no multigraph nor reflexive edge
 def eulerian_path_lat_mat(graph):
     def gen_lat_mat(graph):
         nb_n = len(graph.nodes)
@@ -36,14 +37,13 @@ def eulerian_path_lat_mat(graph):
                     # "multiplication"
                     cell_a = a[i][k]
                     cell_b = b[k][j]
-                    if cell_a is not None and cell_b is not None and i != j:
+                    if cell_a is not None and cell_b is not None:
                         for l in cell_a: # for each path in cell_a
                             for m in cell_b: # for each path in cell_b
                                 path = l[:]
                                 path.extend(m[1:])
-                                print path
                                 edges = set()
-                                for n in range(len(path)-2):
+                                for n in range(len(path)-1):
                                     edge = (path[n], path[n+1])
                                     edge_rev = (path[n+1], path[n])
                                     if edge not in edges:
@@ -57,9 +57,21 @@ def eulerian_path_lat_mat(graph):
                 if result[i][j] == []:
                     result[i][j] = None
         return result
-        
+
+    def lat_mat_pow(lat_mat, n):
+        result = lat_mat_mul(lat_mat, lat_mat)
+        for i in range(n-2):
+            result = lat_mat_mul(lat_mat, result)
+
+        return result
+
+
+    nb_a = 0
+    for n in graph.nodes:
+        nb_a += len(n.edges_out)
+    nb_a /=2
     a = gen_lat_mat(graph)
-    b = lat_mat_mul(a, a)
+    b = lat_mat_pow(a, nb_a)
     for row in b:
         for cell in row:
             print cell
