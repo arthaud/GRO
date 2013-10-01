@@ -29,7 +29,7 @@ class Node:
 
 class Graph:
     def __init__(self, path, oriented=False):
-        self.nodes = set() # liste des noeuds du graphe
+        self.nodes = [] # liste des noeuds du graphe
         self.oriented = oriented
 
         nodes_added = dict()
@@ -39,7 +39,7 @@ class Graph:
         for i in range(nb_v):
             data = int(f.readline())
             n = Node(data)
-            self.nodes.add(n)
+            self.nodes.append(n)
             nodes_added[data] = n
         for i in range(nb_e):
             #(orig, dest, cost) = map(int, (f.readline()+" 1").split(' ')[:3])
