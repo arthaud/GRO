@@ -19,13 +19,7 @@ def nearest_neighbor(graph, node_from=None, first_node=None, nodes_done=frozense
     nodes_done = nodes_done | frozenset((node_from,))
 
     if len(nodes_done) == graph.order():
-        return_distance = 0
-        for edge in first_node.edges_out:
-            if edge.other_side(node_from) == first_node:
-                return_distance = edge.cost
-                break
-
-        return (return_distance, [node_from, first_node])
+        return (node_from.cost_to(first_node), [node_from, first_node])
 
     closest = None
     closest_distance = sys.maxint
