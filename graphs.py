@@ -15,8 +15,8 @@ class Edge:
 
 class Node:
     def __init__(self, data):
-        self.edges_out = [] # liste des arêtes qui sortent du nœud pour pointer sur d'autres
-        self.data = data
+        self.edges_out = set() # liste des arêtes qui sortent du nœud pour pointer sur d'autres
+        self.data = data # must be unique
     
     def __hash__(self):
         return hash(self.data)
@@ -28,10 +28,34 @@ class Node:
         return "Node(%s)" % self.data
 
 class Graph:
-    def __init__(self, oriented=False):
+    def __init__(self, path, oriented=False):
         self.nodes = set() # liste des noeuds du graphe
         self.oriented = oriented
 
+        nodes_added = dict()
+        f = open(path, 'r')
+        (nb_v, nb_e, oriented) = map(int, f.readline().split(' '))
+        self.oriented = oriented == 1
+        for i in range(nb_v):
+            data = int(f.readline())
+            n = Node(data)
+            self.nodes.add(n)
+            nodes_added[data] = n
+        for i in range(nb_e):
+            #(orig, dest, cost) = map(int, (f.readline()+" 1").split(' ')[:3])
+            line = f.readline()
+            try:
+                (orig, dest, cost) = map(int, line.split(' '))
+            except(ValueError):
+                (orig, dest) = map(int, line.split(' '))
+                cost = 1
+                
+            n_orig = nodes_added[orig]
+            n_dest = nodes_added[dest]
+            n_orig.edges_out.add(Edge(n_orig, n_dest, cost))
+            if self.oriented:
+                n_dest.edges_out.add(Edge(n_orig, n_dest, cost))
+        
     def order(self):
         return len(self.nodes)
 
@@ -47,8 +71,10 @@ class Graph:
             return True
         if not self.oriented:
             visited = set()
-            visit(self.nodes[0], visited)
+            x = next(iter(self.nodes))
+            visit(x, visited)
             return len(visited) == self.order()
         else:
             print "TODO: Graph.is_connected : case oriented"
             return None
+
