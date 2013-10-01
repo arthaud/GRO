@@ -27,6 +27,11 @@ class Node:
     def __repr__(self):
         return "Node(%s, [%s])" % (self.data, ', '.join(map(repr, self.edges_out)))
 
+    def cost_to(self, other):
+        for edge in self.edges_out:
+            if edge.other_side(self) == other:
+                return edge.cost
+
 class Graph:
     def __init__(self, path=None):
         self.nodes = [] # liste des noeuds du graphe
