@@ -11,7 +11,7 @@ class Edge:
         return self.origin if node is self.dest else self.dest
     
     def __repr__(self):
-        return "Edge(%s, %s, %s)" % (repr(self.origin), repr(self.dest), cost)
+        return "Edge(%s, %s, %s)" % (repr(self.origin), repr(self.dest), self.cost)
 
 class Node:
     def __init__(self, data):
