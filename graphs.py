@@ -28,9 +28,8 @@ class Node:
         return "Node(%s)" % self.data
 
 class Graph:
-    def __init__(self, path=None, oriented=False):
+    def __init__(self, path=None):
         self.nodes = [] # liste des noeuds du graphe
-        self.oriented = oriented
 
         if path:
             nodes_added = dict()
@@ -56,7 +55,7 @@ class Graph:
                     n_orig = nodes_added[orig]
                     n_dest = nodes_added[dest]
                     n_orig.edges_out.add(Edge(n_orig, n_dest, cost))
-                    if self.oriented:
+                    if not self.oriented:
                         n_dest.edges_out.add(Edge(n_orig, n_dest, cost))
 
     def order(self):
