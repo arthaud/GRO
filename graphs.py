@@ -54,9 +54,10 @@ class Graph:
 
                     n_orig = nodes_added[orig]
                     n_dest = nodes_added[dest]
-                    n_orig.edges_out.add(Edge(n_orig, n_dest, cost))
+                    edge = Edge(n_orig, n_dest, cost)
+                    n_orig.edges_out.add(edge)
                     if not self.oriented:
-                        n_dest.edges_out.add(Edge(n_orig, n_dest, cost))
+                        n_dest.edges_out.add(edge)
 
     def order(self):
         return len(self.nodes)
