@@ -28,9 +28,12 @@ class Node:
         return "Node(%s, [%s])" % (self.data, ', '.join(map(repr, self.edges_out)))
 
     def cost_to(self, other):
+        return self.edge_to(other).cost
+
+    def edge_to(self, other):
         for edge in self.edges_out:
             if edge.other_side(self) == other:
-                return edge.cost
+                return edge
 
 class Graph:
     def __init__(self, path=None):
