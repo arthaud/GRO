@@ -23,6 +23,38 @@ def is_semi_eulerian(graph):
     nb_odd_vertices = len(get_odd_vertices(graph))
     return nb_odd_vertices == 2 and graph.is_connected()
 
+def eulerian_path_euler(graph):
+    def aux(node, visited_edges):
+        result = [node]
+        final_result = [node]
+
+        while True:
+            edges = filter(lambda e: e not in visited_edges, node.edges_out)
+            if not edges:
+                break
+            else:
+                edge = edges[0]
+                node = edge.other_side(node)
+                result.append(node)
+                visited_edges.add(edge)
+
+        for node in result[1:]:
+            cycle = aux(node, visited_edges)
+            final_result += cycle
+
+        return final_result
+
+    if not graph.is_connected():
+        return None
+
+    odd_vertices = get_odd_vertices(graph)
+    if len(odd_vertices) == 0:
+        return aux(graph.nodes[0], set())
+    elif len(odd_vertices) == 2:
+        return aux(odd_vertices[0], set())
+    else:
+        return None
+
 # no multigraph nor reflexive edge
 # equivalent to bruteforce
 def eulerian_path_lat_mat(graph):
