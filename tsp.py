@@ -60,6 +60,14 @@ def two_opt(solution, max_iteration):
     return None if best_cost == solution[0] else (best_cost, best_path)
 
 def read_tsp(path):
+    """
+        Create a graph from a file of the form:
+            [6 useless lines]
+            1 x1 y1
+            2 x2 y2
+            ...
+        These graphs are found here http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/
+    """
     def distance(a, b):
         return ( (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]) ) ** 0.5
     points = []
@@ -68,7 +76,7 @@ def read_tsp(path):
 
         line = f.readline()
         while line != "EOF\n":
-            x, y = map(float, line.split(' ')[1:3])
+            x, y = map(float, line.split()[1:3])
             points += [(x, y)]
             line = f.readline()
 
