@@ -14,10 +14,10 @@ def print_err(string):
     print "\033[91m" + string + "\033[0m"
 
 def test(condition, tested_fn, graph_nb):
-    if(condition):
+    if condition:
         print_ok("OK")
     else:
-        print_err("Error testing " + tested_fn + " on graph number " + str(graph_nb))
+        print_err("Error testing %s on graph number %s" % (tested_fn, graph_nb))
 
 if __name__ == '__main__':
     graphs = []
@@ -48,4 +48,3 @@ if __name__ == '__main__':
     for g in graphs:
         i = i + 1
         test(is_eulerian(g[0]) == g[2], tested_fn, i)
-

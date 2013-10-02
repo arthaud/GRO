@@ -20,7 +20,6 @@ def nearest_neighbor(graph, node_from=None, first_node=None, nodes_done=frozense
     nodes_done = nodes_done | frozenset((node_from,))
 
     if len(nodes_done) == graph.order():
-
         return (node_from.cost_to(first_node), [node_from, first_node])
 
     closest = None
@@ -70,6 +69,7 @@ def read_tsp(path):
     """
     def distance(a, b):
         return ( (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]) ) ** 0.5
+
     points = []
     with open(path, 'r') as f:
         for i in range(1, 7): f.readline()
@@ -77,7 +77,7 @@ def read_tsp(path):
         line = f.readline()
         while line != "EOF\n":
             x, y = map(float, line.split()[1:3])
-            points += [(x, y)]
+            points.append((x, y))
             line = f.readline()
 
     node_id = 0

@@ -13,8 +13,7 @@ def get_odd_vertices(graph):
                 odd_list.append(n)
         return odd_list
     else:
-        print "TODO: is_eulerian case oriented"
-        return None
+        raise NotImplementedError()
 
 def is_eulerian(graph):
     nb_odd_vertices=len(get_odd_vertices(graph))
