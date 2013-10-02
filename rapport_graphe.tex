@@ -3,6 +3,7 @@
 \usepackage[frenchb]{babel}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{hyperref}
 
 \begin{document}
 \title{Rapport du projet 1 de théorie des graphes}
@@ -96,9 +97,81 @@
     %todo: parler des graphes orientés
 
 \section{Problème 2}
+  \subsection{Exercice 1}
+    Si le graphe est eulérien, ou semi-eulérien, l'algorithme d'Euler résout le
+    problème, en trouvant un cycle qui passe par toutes les routes, une et une
+    seule fois: c'est donc forcément la solution la plus efficace.
+
+    Sinon, il suffit de transformer le graphe en un graphe eulérien en créant
+    des arêtes: on prend le graphe partiel contenant uniquement les sommets de
+    degré impair, qu'on transforme en clique. Pour cela, pour chaque couple de
+    sommets non reliés entre eux, on crée une arête les rejoignant, de poids
+    égal au coût le plus faible possible pour rejoindre ces sommets sur le
+    graphe total.
+
+    Puis on cherche le couplage parfait de coût minimum: c'est à dire
+    l'ensemble des arêtes disjointes couvrant tous les sommets du graphe (il
+    existe car on aura forcément un nombre de sommets pair dans le graphe
+    partiel).
+
+    Il suffit de doubler le nombre des arêtes de cet ensemble, on obtient ainsi
+    un graphe eulérien, et avec l'algorithme d'Euler, on a un parcours passant
+    par toutes les arêtes, qui est donc optimal (cf.\ le cas du graphe eulérien
+    ci-dessus).
+
+  \subsection{Exercice 2}
+    Pour résoudre ce problème, on commence par construire le graphe où les
+    sommets sont les points à percer et où on relie tout les sommets par des
+    arêtes (le graphe est complet), auquel on attribue un poids correspondant à
+    la distance entre ces points.
+    
+    Le problème est alors un problème du voyageur de commerce dans ce graphe:
+    on cherche une chaine hamiltonienne de poids minimal, dont on sait qu'il en
+    existe au moins une (car le graphe est complet).
+    
+    Ce problème est NP-difficile, on ne connait donc pas d'algorithme efficace
+    pour résoudre ce problème.    
+
+    Pour résoudre ce problème, nous avons implémenté l'algorithme ``du plus
+    proche voisin'', cette algorithme est un algorithme approximatif, dont on
+    sait qu'il peut donner le pire chemin sur certains graphes.
+
+    Nous avons lancé cet algorithme sur plusieurs ``grands''
+    graphes\footnote{Trouvés sur
+      \url{http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/.}
+    }, les résultats sont présentés dans la table \ref{table:tsp} (sont données
+    les longueurs des chemins trouvés et le ratio longueur trouvée/longueur
+    minimale).
+
+    \begin{center}\begin{table}[h]
+      \centering
+      \begin{tabular}{| c | c | c |}
+      \hline
+      Fichier de test & Meilleur résultat & Plus proche voisin\\
+      \hline
+      berlin52.tsp & $7542$  & $8981$, $119\%$ \\
+      bier127.tsp & $118282$  & $139505$, $118\%$ \\
+      d657.tsp & $48912$  & $62176$, $127\%$ \\
+      fl1577.tsp & $22249$  & N/A\footnote{L'algorithme cause une RuntimeError
+                                           car ce graph est trop grand} \\
+      u724.tsp     & $41910$ & $55344$, $132\%$\\
+      \hline  
+      \end{tabular}
+      \caption{Résultats pour TSP}
+      \label{table:tsp}
+    \end{table}\end{center}
+
+    On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
+    plus proche voisin donne des résultats plutôt bons. % todo: mal dit
+
+  \subsection{Exercice 3}
+    Ce problème ressemble au problème précédent sans la contrainte de ne passer
+    qu'une seule fois par ville/point à percer. On pourrait donc utiliser les
+    mêmes algorithmes, mais il pourrait y avoir des solutions plus efficaces en
+    repassant par une ville déjà visitée.
 
 %\section{Problème 3}
 %  On en parle un peu juste pour faire bien ?
-
+ 
 \end{document}
 
