@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import graphs
 
 def nearest_neighbor(graph, node_from=None, first_node=None, nodes_done=frozenset()):
     """
@@ -57,3 +58,33 @@ def two_opt(solution, max_iteration):
             return None 
 
     return None if best_cost == solution[0] else (best_cost, best_path)
+
+def read_tsp(path):
+    def distance(a, b):
+        return ( (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]) ) ** 0.5
+    points = []
+    with open(path, 'r') as f:
+        for i in range(1, 7): f.readline()
+
+        line = f.readline()
+        while line != "EOF\n":
+            x, y = map(float, line.split(' ')[1:3])
+            points += [(x, y)]
+            line = f.readline()
+
+    node_id = 0
+    nodes = []
+    for (x, y) in points:
+        new_node = graphs.Node(node_id)
+        node_id += 1
+        for other in nodes:
+            edge = graphs.Edge(other[1], new_node, distance((x, y), other[0]))
+            other[1].edges_out.add(edge)
+            new_node.edges_out.add(edge)
+
+        nodes += [((x, y), new_node)]
+
+    g = graphs.Graph()
+    g.nodes = map(lambda x: x[1], nodes)
+    return g
+
