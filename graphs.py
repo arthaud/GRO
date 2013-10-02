@@ -89,3 +89,24 @@ class Graph:
             print "TODO: Graph.is_connected : case oriented"
             return None
 
+    def copy(self):
+        g = Graph()
+        g.oriented = self.oriented
+
+        for node in self.nodes:
+            g.nodes.append(Node(node.data))
+
+        g_nodes = set(g.nodes)
+        while g_nodes:
+            node_g = g_nodes.pop()
+            node = filter(lambda n: n.data == node_g.data, self.nodes)[0]
+            for edge in node.edges_out:
+                other_side_g = filter(lambda n: n.data == edge.other_side(node).data, g.nodes)[0]
+                if self.oriented:
+                    node_g.edges_out.add(Edge(node_g, other_side_g, edge.cost))
+                elif other_side_g in g_nodes:
+                    edge_g = Edge(node_g, other_side_g, edge.cost)
+                    node_g.edges_out.add(edge_g)
+                    other_side_g.edges_out.add(edge_g)
+
+        return g
