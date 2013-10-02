@@ -29,6 +29,6 @@ def postier_chinois(g):
             other_side_pg = filter(lambda n: n.data == edge.other_side(node).data, pg_nodes)
             if other_side_pg:
                 other_side_pg = other_side_pg[0]
-                edge_pg = Edge(node_pg, other_side_pg)
+                edge_pg = Edge(node_pg, other_side_pg, edge.cost)
                 node_pg.edges_out.add(edge_pg)
                 other_side_pg.edges_out.add(edge_pg)
