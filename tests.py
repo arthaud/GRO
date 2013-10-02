@@ -20,11 +20,11 @@ def test(condition, tested_fn, graph_nb):
     else:
         print_err("Error testing %s on graph number %s" % (tested_fn, graph_nb))
 
-def test_one(graphs, fun, tested_fn):
+def test_one(graphs, fun, tested_fn, indice):
     i = 0
     for g in graphs:
         i = i + 1
-        test(g[0].is_connected() == g[1], tested_fn, i)
+        test(fun(g[0]) == g[indice], tested_fn, i)
 
 if __name__ == '__main__':
     graphs = []
@@ -34,17 +34,17 @@ if __name__ == '__main__':
     graphs.append([Graph('tests/2.gph'), True, False, True, False])
     graphs.append([Graph('tests/3.gph'), False, False, False, False])
     graphs.append([Graph('tests/4.gph'), True, False, False, True])
-    graphs.append([read_tsp('tests/berlin52.tsp'), True, False, None, True])
-    graphs.append([read_tsp('tests/d657.tsp'), True, False, None, True])
+    graphs.append([read_tsp('tests/berlin52.tsp'), True, False, False, True])
+    graphs.append([read_tsp('tests/d657.tsp'), True, True, False, True])
 
     #tests connexité
-    #test_one(graphs, is_connected, "Graph.is_connected")
+    #test_one(graphs, is_connected, "Graph.is_connected", 1)
 
     #tests eulérianité
-    test_one(graphs, is_eulerian, "Graph.is_eulerian")
+    test_one(graphs, is_eulerian, "Graph.is_eulerian", 2)
 
     # tests semi eulerianité
-    test_one(graphs, is_semi_eulerian, "Graph.is_semi_eulerian")
+    test_one(graphs, is_semi_eulerian, "Graph.is_semi_eulerian", 3)
 
     # tests hamiltonian
-    test_one(graphs, is_hamiltonian, "Graph.is_hamiltonian")
+    test_one(graphs, is_hamiltonian, "Graph.is_hamiltonian", 4)
