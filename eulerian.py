@@ -1,21 +1,30 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-def is_eulerian(graph):
+def get_odd_vertices(graph):
     """
     Returns true if the graph is eulerian or semi-eulerian
     """
     if not graph.oriented:
         nb_odd_deg = 0
+        odd_list = []
         for n in graph.nodes:
             if len(n.edges_out) % 2 != 0:
-                nb_odd_deg += 1
-        return (nb_odd_deg == 0 or nb_odd_deg == 2) and graph.is_connected()
+                odd_list.append(n)
+        return odd_list
     else:
-        print "TODO: is_eulerian case oriented"
-        return None
+        raise NotImplementedError()
+
+def is_eulerian(graph):
+    nb_odd_vertices=len(get_odd_vertices(graph))
+    return nb_odd_vertices == 0 and graph.is_connected()
+
+def is_semi_eulerian(graph):
+    nb_odd_vertices = len(get_odd_vertices(graph))
+    return nb_odd_vertices == 2 and graph.is_connected()
 
 # no multigraph nor reflexive edge
+# equivalent to bruteforce
 def eulerian_path_lat_mat(graph):
     def gen_lat_mat(graph):
         nb_n = len(graph.nodes)

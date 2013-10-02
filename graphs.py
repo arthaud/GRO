@@ -76,18 +76,18 @@ class Graph:
             for e in node.edges_out:
                 n = e.other_side(node)
                 if n not in visited:
-                    visit(n,visited)
+                    visit(n, visited)
 
         if self.order() <= 1: # useless cases                   
             return True
+
         if not self.oriented:
             visited = set()
             x = next(iter(self.nodes))
             visit(x, visited)
             return len(visited) == self.order()
         else:
-            print "TODO: Graph.is_connected : case oriented"
-            return None
+            raise NotImplementedError()
 
     def copy(self):
         g = Graph()
