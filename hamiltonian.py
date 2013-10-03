@@ -129,7 +129,7 @@ def read_hcp(path):
             nodes[b-1].edges_out.add(edge)
             line = f.readline()
 
-        g = graphs.Graph()
+        g = graphs.Graph(path)
         g.nodes = nodes
         g.oriented = False
         return g

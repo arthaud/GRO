@@ -1,6 +1,6 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-from graphs import Graph, Node, Edge
+from graphs import *
 from hamiltonian import *
 from connected import *
 from eulerian import *
@@ -37,17 +37,17 @@ if __name__ == '__main__':
     graphs = []
 
     # Format: [Graph, connected, eulerian, semi-eulerian, semi-hamiltonian]
-    graphs.append([Graph('tests/1.gph'), True, True, False, True])
-    graphs.append([Graph('tests/2.gph'), True, False, True, False])
-    graphs.append([Graph('tests/3.gph'), False, False, False, False])
-    graphs.append([Graph('tests/4.gph'), True, False, False, True])
+    graphs.append([read_gph('tests/1.gph'), True, True, False, True])
+    graphs.append([read_gph('tests/2.gph'), True, False, True, False])
+    graphs.append([read_gph('tests/3.gph'), False, False, False, False])
+    graphs.append([read_gph('tests/4.gph'), True, False, False, True])
     graphs.append([read_tsp('tests/berlin52.tsp'), True, False, False, True])
     graphs.append([read_tsp('tests/d657.tsp'), True, True, False, True])
 #    graphs.append([read_tsp('tests/fl1577.tsp'), False, False, False, False])
     graphs.append([read_tsp('tests/bier127.tsp'), True, True, False, True])
     graphs.append([read_tsp('tests/u724.tsp'), True, False, False, True])
-    graphs.append([Graph('tests/complete.gph'), True, True, False, True])
-    graphs.append([Graph('tests/complete_cost.gph'), True, True, False, True])
+    graphs.append([read_gph('tests/complete.gph'), True, True, False, True])
+    graphs.append([read_gph('tests/complete_cost.gph'), True, True, False, True])
 #    graphs.append([read_hcp('tests/alb1000.hcp'), True, True, False, True]) #todo
 #    graphs.append([read_hcp('tests/alb2000.hcp'), True, True, False, True]) #todo
 
