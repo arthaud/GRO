@@ -147,14 +147,14 @@
       \centering
       \begin{tabular}{| c | c | c |}
       \hline
-      Fichier de test & Meilleur résultat & Plus proche voisin\\
+      Fichier de test & Meilleur résultat & Plus proche voisin & Plus proche voisin + 2-opt & Plus proche voisin heuristique + 2-opt\\
       \hline
-      berlin52.tsp & $7542$  & $8981$, $119\%$ \\
-      bier127.tsp & $118282$  & $139505$, $118\%$ \\
-      d657.tsp & $48912$  & $62176$, $127\%$ \\
+      berlin52.tsp & $7542$  & $8981$ & $8060$ & $7810$ \\
+      bier127.tsp & $118282$  & $137297$ & $125669$ & N/A \\
+      d657.tsp & $48912$  & $62176$ & N/A & N/A \\
       fl1577.tsp & $22249$  & N/A\footnote{L'algorithme cause une RuntimeError
-                                           car ce graph est trop grand} \\
-      u724.tsp     & $41910$ & $55344$, $132\%$\\
+                                           car ce graph est trop grand} & N/A \\
+      u724.tsp     & $41910$ & $55344$ & N/A & N/A \\
       \hline  
       \end{tabular}
       \caption{Résultats pour TSP}

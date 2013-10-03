@@ -34,6 +34,7 @@ class Node:
         for edge in self.edges_out:
             if edge.other_side(self) == other:
                 return edge
+        raise RuntimeError("Martin fait trop de C (en vrai, le graphe est pas complet)")
 
 class Graph:
     def __init__(self, path=None):
