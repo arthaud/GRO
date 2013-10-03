@@ -5,6 +5,7 @@ from hamiltonian import *
 from connected import *
 from eulerian import *
 from tsp import *
+import datetime
 
 def print_ok(string):
     print "\033[92m" + string + "\033[0m"
@@ -15,9 +16,9 @@ def print_warn(string):
 def print_err(string):
     print "\033[91m" + string + "\033[0m"
 
-def test(condition, tested_fn, graph_nb, graph_name):
+def test(condition, tested_fn, graph_nb, graph_name, exec_time):
     if condition:
-        print_ok("OK")
+        print_ok("OK in %s.%ss"% (exec_time.seconds, exec_time.microseconds))
     else:
         print_err("Error testing %s on graph number %s: %s" % (tested_fn, graph_nb, graph_name))
 
@@ -27,7 +28,10 @@ def test_one(graphs, fun, indice):
     i = 0
     for g in graphs:
         i = i + 1
-        test(fun(g[0]) == g[indice], fun_name, i, g[0].name)
+        start = datetime.datetime.now()
+        condition = fun(g[0]) == g[indice]
+        exec_time = datetime.datetime.now() - start
+        test(condition, fun_name, i, g[0].name, exec_time)
 
 if __name__ == '__main__':
     graphs = []
@@ -44,6 +48,8 @@ if __name__ == '__main__':
     graphs.append([read_tsp('tests/u724.tsp'), True, False, False, True])
     graphs.append([Graph('tests/complete.gph'), True, True, False, True])
     graphs.append([Graph('tests/complete_cost.gph'), True, True, False, True])
+#    graphs.append([read_hcp('tests/alb1000.hcp'), True, True, False, True]) #todo
+#    graphs.append([read_hcp('tests/alb2000.hcp'), True, True, False, True]) #todo
 
     #tests connexité
     test_one(graphs, is_connected, 1)
