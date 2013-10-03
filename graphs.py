@@ -38,8 +38,11 @@ class Node:
 class Graph:
     def __init__(self, path=None):
         self.nodes = [] # liste des noeuds du graphe
-
+        self.name = ""
+        
         if path:
+            self.name = path.split('/')[-1]
+
             nodes_added = dict()
             with open(path, 'r') as f:
                 nb_v, nb_e, oriented = map(int, f.readline().split(' '))

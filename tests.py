@@ -15,11 +15,11 @@ def print_warn(string):
 def print_err(string):
     print "\033[91m" + string + "\033[0m"
 
-def test(condition, tested_fn, graph_nb):
+def test(condition, tested_fn, graph_nb, graph_name):
     if condition:
         print_ok("OK")
     else:
-        print_err("Error testing %s on graph number %s" % (tested_fn, graph_nb))
+        print_err("Error testing %s on graph number %s: %s" % (tested_fn, graph_nb, graph_name))
 
 def test_one(graphs, fun, indice):
     fun_name = "Graph." + fun.__name__ + "()"
@@ -27,7 +27,7 @@ def test_one(graphs, fun, indice):
     i = 0
     for g in graphs:
         i = i + 1
-        test(fun(g[0]) == g[indice], fun_name, i)
+        test(fun(g[0]) == g[indice], fun_name, i, g[0].name)
 
 if __name__ == '__main__':
     graphs = []
