@@ -51,7 +51,7 @@ def hamiltonian_path2(graph, node_from=None, nodes_done=frozenset()):
         other = edge.other_side(node_from)
         if other in nodes_done:
             continue
-        path = hamiltonian_path(graph, other, nodes_done)
+        path = hamiltonian_path2(graph, other, nodes_done)
         if path:
             return [node_from] + path
 

@@ -1,6 +1,8 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
+from connected import *
+
 def get_odd_vertices(graph):
     """
     Returns true if the graph is eulerian or semi-eulerian
@@ -17,11 +19,11 @@ def get_odd_vertices(graph):
 
 def is_eulerian(graph):
     nb_odd_vertices=len(get_odd_vertices(graph))
-    return nb_odd_vertices == 0 and graph.is_connected()
+    return nb_odd_vertices == 0 and is_connected(graph)
 
 def is_semi_eulerian(graph):
     nb_odd_vertices = len(get_odd_vertices(graph))
-    return nb_odd_vertices == 2 and graph.is_connected()
+    return nb_odd_vertices == 2 and is_connected(graph)
 
 def eulerian_path_euler(graph):
     def aux(node, visited_edges):

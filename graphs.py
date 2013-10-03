@@ -38,8 +38,11 @@ class Node:
 class Graph:
     def __init__(self, path=None):
         self.nodes = [] # liste des noeuds du graphe
-
+        self.name = ""
+        
         if path:
+            self.name = path.split('/')[-1]
+
             nodes_added = dict()
             with open(path, 'r') as f:
                 nb_v, nb_e, oriented = map(int, f.readline().split(' '))
@@ -72,25 +75,6 @@ class Graph:
 
     def order(self):
         return len(self.nodes)
-
-    def is_connected(self):
-        def visit(node, visited):
-            visited.add(node)
-            for e in node.edges_out:
-                n = e.other_side(node)
-                if n not in visited:
-                    visit(n, visited)
-
-        if self.order() <= 1: # useless cases                   
-            return True
-
-        if not self.oriented:
-            visited = set()
-            x = next(iter(self.nodes))
-            visit(x, visited)
-            return len(visited) == self.order()
-        else:
-            raise NotImplementedError()
 
     def copy(self):
         g = Graph()
