@@ -39,11 +39,11 @@ if __name__ == '__main__':
     graphs.append([Graph('tests/4.gph'), True, False, False, True])
     graphs.append([read_tsp('tests/berlin52.tsp'), True, False, False, True])
     graphs.append([read_tsp('tests/d657.tsp'), True, True, False, True])
-#    graphs.append([read_tsp('tests/fl1577.tsp'), False, False, False, False]) # TODO: get values
-    graphs.append([read_tsp('tests/bier127.tsp'), True, True, False, True]) # TODO: get values
-    graphs.append([read_tsp('tests/u724.tsp'), True, False, False, True]) # TODO: get values
-    graphs.append([Graph('tests/complete.gph'), True, True, False, True]) #TODO: get values
-    graphs.append([Graph('tests/complete_cost.gph'), True, True, False, True]) #TODO: get values
+#    graphs.append([read_tsp('tests/fl1577.tsp'), False, False, False, False])
+    graphs.append([read_tsp('tests/bier127.tsp'), True, True, False, True])
+    graphs.append([read_tsp('tests/u724.tsp'), True, False, False, True])
+    graphs.append([Graph('tests/complete.gph'), True, True, False, True])
+    graphs.append([Graph('tests/complete_cost.gph'), True, True, False, True])
 
     #tests connexité
     test_one(graphs, is_connected, 1)
