@@ -4,19 +4,125 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
+\usepackage{verbatim}
+
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
 \begin{document}
-\title{Rapport du projet 1 de théorie des graphes}
+\title{Rapport du projet de théorie des graphes}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
           \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
-\date{todo date}
+\date{7 octobre 2013}
 \maketitle
+\tableofcontents
+\newpage
 
 \section{Présentation de l'équipe}
-Cette équipe a été menée par Korantin Auguste, assisté de son Responsable Qualité Martin Carton. Les autres membres de l'équipe sont Thomas Wagner, Thomas Forgione, Maxime Arthaud, et Maxence Ahlouche.
-Tous les membres de l'équipe ont été présents à chacune des séances lors de cette UA.
+  Cette équipe a été menée par Korantin Auguste, assisté de son Responsable
+  Qualité Martin Carton. Les autres membres de l'équipe sont Thomas Wagner,
+  Thomas Forgione, Maxime Arthaud, et Maxence Ahlouche.  Tous les membres de
+  l'équipe ont été présents à chacune des séances lors de cette UA.
 
-\section{TPs} % TODO: meilleurs titre
+\section{Modélisation mathématique}
+  Nous avons choisi de représenter nos graphes comme une liste de sommets,
+  chacun ayant une liste d'arêtes.
+  % todo blabla
+
+\section{Analyse mathématique}
+  \subsection{Graphes eulériens}
+  \subsection{Graphes hamiltonien}
+    Un graphe hamiltonien est un graphe est un graphe sur lequel on peut
+    trouver un cycle passant par tout les sommets une et une seule fois.
+
+    Le problème de savoir si un graphe admet un cycle, ou même un chemin
+    hamiltonien est NP-complet, de même que de trouver un tel cycle ou chemin
+    s'il y en a.
+
+    Il existe cependant des conditions suffisantes pour lesquelles on peut
+    affirmer qu'un graphe est hamiltonien ou non.
+    % todo: graphe complet, théorème de Dirac/Ore, etc
+
+  \subsection{Problème du postier chinois}
+  \subsection{Problème voyageur de commerce}
+    On s'intéresse ici à passer par tout les points d'un ensemble une et une
+    seule fois en minimisant la distance totale du cycle.
+
+    On peut modéliser ce problème par un graphe complet, dont les arêtes ont un
+    coup qui correspond à la distance entre chaque point, on cherche alors le
+    cycle hamiltonien de coût minimal. On sait qu'un tel cycle existe car le
+    graphe est complet.
+
+    Cependant trouver un tel graphe est un problème NP-difficile, il n'existe
+    donc pas d'algorithme efficaces pour trouver ce cycle.
+
+    Il existe cependant plusieurs heuristique pour trouver un cycle dans ce
+    graphe.
+
+    Un heuristique simple consiste à partir d'un sommet au hasard du graphe et
+    d'aller au sommet le plus proche sur lequel on est pas encore passer (puis
+    à retourner au sommet de départ pour boucler le cycle). Cet algorithme
+    n'offre cependant aucune garantie de résultat, il existe même des graphes
+    pour lesquels il donne le pire cycle.
+
+    Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
+    d'améliorer un cycle donné en échangeant des sommets.
+
+\section{Méthode de résolution}
+  \subsection{Graphes eulériens}
+  \subsection{Graphes hamiltonien}
+  \subsection{Problème du postier chinois}
+  \subsection{Problème voyageur de commerce}
+
+\section{Algorithmes}
+  \subsection{Graphes eulériens}
+  \subsection{Graphes hamiltonien}
+  \subsection{Problème du postier chinois}
+  \subsection{Problème voyageur de commerce}
+  
+\section{Conclusion}
+
+\section{Tests}
+\subsection{Problème voyageur de commerce}
+    Nous avons lancé cet algorithme sur plusieurs ``grands''
+    graphes\footnote{Trouvés sur
+      \url{http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/}.
+    }, les résultats sont présentés dans la table \ref{table:tsp}\footnote{N/A
+    indique que l'algorithme est trop long ou cause une erreur à cause de la
+    taille du graphe, pour chaque méthode de résolution sont données les
+    longueurs des chemins trouvés et l'erreur relative avec le résultat
+    optimum.}.
+
+    \begin{center}\begin{table}[h]
+      \centering
+      \begin{tabular}{| c | c | c | c | c |}
+      \hline
+        Fichier de test
+      & \brokencell{Résultat\\optimum}
+      & \brokencell{Plus proche\\voisin}
+      & \brokencell{Plus proche\\voisin + 2-opt}
+      & \brokencell{Plus proche\\voisin amélioré\\+ 2-opt}\\
+      \hline
+      berlin52.tsp & $7542$  & $8981/19.1\%$ & $8060/6.7\%$ & $7810/3.6\%$ \\
+      bier127.tsp & $118282$  & $137297/16.7\%$ & $125669/6.2\%$ & N/A \\
+      d657.tsp & $48912$  & $62176/27.1\%$ & N/A & N/A \\
+      fl1577.tsp & $22249$  & N/A & N/A & N/A\\
+      u724.tsp     & $41910$ & $55344,32.1\%$ & N/A & N/A \\
+      \hline  
+      \end{tabular}
+      \caption{Résultats pour TSP}
+      \label{table:tsp}
+    \end{table}\end{center}
+
+    On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
+    plus proche voisin donne des résultats plutôt bons. % todo: mal dit
+
+
+\section{Annexe}
+  %todo: listings de tout les codes
+
+
+\begin{comment} % todo: à merger ci-dessus
+\section{TPs}
     Nous avons commencé les TPs par le choix du langage utilisé pour
     implémenter nos algorithmes: le python, (pour la simplicité qu'il offre pour
     représenter les graphes et la lecture/le parsage d'un fichier représentant
@@ -124,49 +230,7 @@ Tous les membres de l'équipe ont été présents à chacune des séances lors d
     ci-dessus).
 
   \subsection{Exercice 2}
-    Pour résoudre ce problème, on commence par construire le graphe où les
-    sommets sont les points à percer et où on relie tout les sommets par des
-    arêtes (le graphe est complet), auquel on attribue un poids correspondant à
-    la distance entre ces points.
-    
-    Le problème est alors un problème du voyageur de commerce dans ce graphe:
-    on cherche une chaine hamiltonienne de poids minimal, dont on sait qu'il en
-    existe au moins une (car le graphe est complet).
-    
-    Ce problème est NP-difficile, on ne connait donc pas d'algorithme efficace
-    pour résoudre ce problème.    
-
-    Pour résoudre ce problème, nous avons implémenté l'algorithme ``du plus
-    proche voisin'', cette algorithme est un algorithme approximatif, dont on
-    sait qu'il peut donner le pire chemin sur certains graphes.
-
-    Nous avons lancé cet algorithme sur plusieurs ``grands''
-    graphes\footnote{Trouvés sur
-      \url{http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/.}
-    }, les résultats sont présentés dans la table \ref{table:tsp} (sont données
-    les longueurs des chemins trouvés et le ratio longueur trouvée/longueur
-    minimale).
-
-    \begin{center}\begin{table}[h]
-      \centering
-      \begin{tabular}{| c | c | c |}
-      \hline
-      Fichier de test & Meilleur résultat & Plus proche voisin & Plus proche voisin + 2-opt & Plus proche voisin heuristique + 2-opt\\
-      \hline
-      berlin52.tsp & $7542$  & $8981$ & $8060$ & $7810$ \\
-      bier127.tsp & $118282$  & $137297$ & $125669$ & N/A \\
-      d657.tsp & $48912$  & $62176$ & N/A & N/A \\
-      fl1577.tsp & $22249$  & N/A\footnote{L'algorithme cause une RuntimeError
-                                           car ce graph est trop grand} & N/A \\
-      u724.tsp     & $41910$ & $55344$ & N/A & N/A \\
-      \hline  
-      \end{tabular}
-      \caption{Résultats pour TSP}
-      \label{table:tsp}
-    \end{table}\end{center}
-
-    On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
-    plus proche voisin donne des résultats plutôt bons. % todo: mal dit
+    % déjà mergé
 
   \subsection{Exercice 3}
     Ce problème ressemble au problème précédent sans la contrainte de ne passer
@@ -177,5 +241,6 @@ Tous les membres de l'équipe ont été présents à chacune des séances lors d
 %\section{Problème 3}
 %  On en parle un peu juste pour faire bien ?
  
+\end{comment}
 \end{document}
 
