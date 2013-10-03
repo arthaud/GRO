@@ -22,10 +22,12 @@ def test(condition, tested_fn, graph_nb):
         print_err("Error testing %s on graph number %s" % (tested_fn, graph_nb))
 
 def test_one(graphs, fun, indice):
+    fun_name = "Graph." + fun.__name__ + "()"
+    print "Testing " + fun_name + "..."
     i = 0
     for g in graphs:
         i = i + 1
-        test(fun(g[0]) == g[indice], "Graph." + fun.__name__ + "()", i)
+        test(fun(g[0]) == g[indice], fun_name, i)
 
 if __name__ == '__main__':
     graphs = []
