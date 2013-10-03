@@ -56,7 +56,10 @@
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien ou non.
-    % todo: graphe complet, théorème de Dirac/Ore, etc
+
+    Par exemple un graphe complet est forcement hamiltonien (utile dans le cas
+    du voyageur de commerce), il existe aussi des conditions sur les degrès des
+    sommets (théorème de Dirac, d'Ore, etc.).
 
   \subsection{Problème du postier chinois}
   \subsection{Problème voyageur de commerce}
@@ -68,11 +71,16 @@
     cycle hamiltonien de coût minimal. On sait qu'un tel cycle existe car le
     graphe est complet.
 
-    Cependant trouver un tel graphe est un problème NP-difficile, il n'existe
-    donc pas d'algorithme efficaces pour trouver ce cycle.
+    Cependant trouver un tel cycle est un problème NP-difficile, il n'existe
+    donc pas d'algorithme efficace pour trouver ce cycle.
 
-    Il existe cependant plusieurs heuristique pour trouver un cycle dans ce
-    graphe.
+\section{Méthode de résolution}
+  \subsection{Graphes eulériens}
+  \subsection{Graphes hamiltonien}
+  \subsection{Problème du postier chinois}
+  \subsection{Problème voyageur de commerce}
+    Bien que la résolution exact de ce problème soit NP-complet, il existe des
+    méthodes approchées de résolution.
 
     Un heuristique simple consiste à partir d'un sommet au hasard du graphe et
     d'aller au sommet le plus proche sur lequel on est pas encore passer (puis
@@ -83,11 +91,7 @@
     Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
     d'améliorer un cycle donné en échangeant des sommets.
 
-\section{Méthode de résolution}
-  \subsection{Graphes eulériens}
-  \subsection{Graphes hamiltonien}
-  \subsection{Problème du postier chinois}
-  \subsection{Problème voyageur de commerce}
+    %todo: fourmis ?
 
 \section{Algorithmes}
   \subsection{Graphes eulériens}
