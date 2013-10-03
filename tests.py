@@ -36,7 +36,7 @@ def test_one(graphs, fun, indice):
 if __name__ == '__main__':
     graphs = []
 
-    # Format: [Graph, connected, eulerian, semi-eulerian, hamiltonian]
+    # Format: [Graph, connected, eulerian, semi-eulerian, semi-hamiltonian]
     graphs.append([Graph('tests/1.gph'), True, True, False, True])
     graphs.append([Graph('tests/2.gph'), True, False, True, False])
     graphs.append([Graph('tests/3.gph'), False, False, False, False])
@@ -60,5 +60,5 @@ if __name__ == '__main__':
     # tests semi eulerianité
     test_one(graphs, is_semi_eulerian, 3)
 
-    # tests hamiltonian
-    test_one(graphs, is_hamiltonian, 4)
+    # tests semi hamiltoniannité
+    test_one(graphs, is_semi_hamiltonian, 4)
