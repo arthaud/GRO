@@ -19,6 +19,7 @@
                    {à}{{\`a}}1{À}{{\`A}}1
                    {ù}{{\`u}}1{Ù}{{\`U}}1
                    {ô}{{\^o}}1{Ô}{{\^O}}1
+                   {ó}{{\'o}}1{Ó}{{\'O}}1
                    {ç}{{\c c}}1{Ç}{{\c C}}1
                    {œ}{{\oe}}1{Œ}{{\OE}}1
         }
@@ -47,12 +48,12 @@
 \section{Analyse mathématique}
   \subsection{Graphes eulériens}
   \subsection{Graphes hamiltonien}
-    Un graphe hamiltonien est un graphe est un graphe sur lequel on peut
-    trouver un cycle passant par tout les sommets une et une seule fois.
+    Un graphe (semi-)hamiltonien est un graphe est un graphe sur lequel on peut
+    trouver un cycle(/chemin) passant par tout les sommets une et une seule
+    fois.
 
-    Le problème de savoir si un graphe admet un cycle, ou même un chemin
-    hamiltonien est NP-complet, de même que de trouver un tel cycle ou chemin
-    s'il y en a.
+    Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
+    de même que de trouver un tel cycle ou chemin s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien ou non.
@@ -77,16 +78,23 @@
 \section{Méthode de résolution}
   \subsection{Graphes eulériens}
   \subsection{Graphes hamiltonien}
+    Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
+    de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
+    ne sont pas vérifiées, comme il n'y a aucune méthode qui permette
+    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on cherche par brute
+    force si un chemin existe, mais ceci n'est pas efficace du tout.
+
   \subsection{Problème du postier chinois}
   \subsection{Problème voyageur de commerce}
     Bien que la résolution exact de ce problème soit NP-complet, il existe des
     méthodes approchées de résolution.
 
+    % todo: définir n = |V| qq part
     Un heuristique simple consiste à partir d'un sommet au hasard du graphe et
     d'aller au sommet le plus proche sur lequel on est pas encore passer (puis
-    à retourner au sommet de départ pour boucler le cycle). Cet algorithme
-    n'offre cependant aucune garantie de résultat, il existe même des graphes
-    pour lesquels il donne le pire cycle.
+    à retourner au sommet de départ pour boucler le cycle). Cet algorithme est
+    en $O(n)$ et donc rapide. Mais il n'offre cependant aucune garantie de
+    résultat, il existe même des graphes pour lesquels il donne le pire cycle.
 
     Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
     d'améliorer un cycle donné en échangeant des sommets.
