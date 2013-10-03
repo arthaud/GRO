@@ -81,5 +81,6 @@ def read_hcp(path):
 
         g = graphs.Graph()
         g.nodes = nodes
+        g.oriented = False
         return g
 
