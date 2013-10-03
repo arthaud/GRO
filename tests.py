@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from graphs import Graph, Node, Edge
 from hamiltonian import *
+from connected import *
 from eulerian import *
 from tsp import *
 
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     graphs.append([read_tsp('tests/d657.tsp'), True, True, False, True])
 
     #tests connexité
-    #test_one(graphs, is_connected, "Graph.is_connected", 1)
+    test_one(graphs, is_connected, "Graph.is_connected", 1)
 
     #tests eulérianité
     test_one(graphs, is_eulerian, "Graph.is_eulerian", 2)
