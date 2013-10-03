@@ -104,5 +104,6 @@ def read_tsp(path):
     g = graphs.Graph()
     g.nodes = map(lambda x: x[1], nodes)
     g.oriented = False
+    g.name = path.split('/')[-1]
     return g
 
