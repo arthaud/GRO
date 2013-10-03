@@ -21,11 +21,11 @@ def test(condition, tested_fn, graph_nb):
     else:
         print_err("Error testing %s on graph number %s" % (tested_fn, graph_nb))
 
-def test_one(graphs, fun, tested_fn, indice):
+def test_one(graphs, fun, indice):
     i = 0
     for g in graphs:
         i = i + 1
-        test(fun(g[0]) == g[indice], tested_fn, i)
+        test(fun(g[0]) == g[indice], "Graph." + fun.__name__ + "()", i)
 
 if __name__ == '__main__':
     graphs = []
@@ -39,13 +39,13 @@ if __name__ == '__main__':
     graphs.append([read_tsp('tests/d657.tsp'), True, True, False, True])
 
     #tests connexité
-    test_one(graphs, is_connected, "Graph.is_connected", 1)
+    test_one(graphs, is_connected, 1)
 
     #tests eulérianité
-    test_one(graphs, is_eulerian, "Graph.is_eulerian", 2)
+    test_one(graphs, is_eulerian, 2)
 
     # tests semi eulerianité
-    test_one(graphs, is_semi_eulerian, "Graph.is_semi_eulerian", 3)
+    test_one(graphs, is_semi_eulerian, 3)
 
     # tests hamiltonian
-    test_one(graphs, is_hamiltonian, "Graph.is_hamiltonian", 4)
+    test_one(graphs, is_hamiltonian, 4)
