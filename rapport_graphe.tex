@@ -47,8 +47,12 @@
 
 \section{Analyse mathématique}
   \subsection{Graphes eulériens}
+    Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire un chemin parcourant toutes les arêtes du graphe une et une seule fois, en revenant au sommet de départ. Pour qu'un graphe soit eulérien, il faut évidemment qu'il soit connexe, et il faut également que chacun de ses sommets ait un degré pair.
+
+    Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne : celle-ci passe également par toutes les arêtes du graphe une seule et unique fois, mais ne retourne pas au point de départ. Un graphe semi-eulérien se caractérise également par sa connexité, mais doit avoir exactement deux sommets de degré impair. 
+
   \subsection{Graphes hamiltonien}
-    Un graphe (semi-)hamiltonien est un graphe est un graphe sur lequel on peut
+    Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
     trouver un cycle(/chemin) passant par tout les sommets une et une seule
     fois.
 
@@ -77,6 +81,8 @@
 
 \section{Méthode de résolution}
   \subsection{Graphes eulériens}
+    
+  
   \subsection{Graphes hamiltonien}
     Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
     de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
