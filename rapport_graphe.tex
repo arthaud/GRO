@@ -18,6 +18,7 @@
                    {ê}{{\^e}}1{Ê}{{\^E}}1
                    {à}{{\`a}}1{À}{{\`A}}1
                    {ù}{{\`u}}1{Ù}{{\`U}}1
+                   {û}{{\^u}}1{Û}{{\^U}}1
                    {ô}{{\^o}}1{Ô}{{\^O}}1
                    {ó}{{\'o}}1{Ó}{{\'O}}1
                    {ç}{{\c c}}1{Ç}{{\c C}}1
@@ -31,7 +32,6 @@
 \date{7 octobre 2013}
 \maketitle
 \tableofcontents
-\lstlistoflistings
 \newpage
 
 \section{Présentation de l'équipe}
@@ -45,19 +45,41 @@
   chacun ayant une liste d'arêtes.
   % todo blabla
 
-\section{Analyse mathématique}
-  \subsection{Graphes eulériens}
-    Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire un chemin parcourant toutes les arêtes du graphe une et une seule fois, en revenant au sommet de départ. Pour qu'un graphe soit eulérien, il faut évidemment qu'il soit connexe, et il faut également que chacun de ses sommets ait un degré pair.
+\section{Graphes eulériens}
+  \subsection{Analyse mathématique}
+    Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
+    un chemin parcourant toutes les arêtes du graphe une et une seule fois, en
+    revenant au sommet de départ. Pour qu'un graphe soit eulérien, il faut
+    évidemment qu'il soit connexe, et il faut également que chacun de ses
+    sommets ait un degré pair.
 
-    Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne : celle-ci passe également par toutes les arêtes du graphe une seule et unique fois, mais ne retourne pas au point de départ. Un graphe semi-eulérien se caractérise également par sa connexité, mais doit avoir exactement deux sommets de degré impair. 
+    Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
+    celle-ci passe également par toutes les arêtes du graphe une seule et
+    unique fois, mais ne retourne pas au point de départ. Un graphe
+    semi-eulérien se caractérise également par sa connexité, mais doit avoir
+    exactement deux sommets de degré impair. 
 
-  \subsection{Graphes hamiltonien}
+  \subsection{Méthode de résolution}
+    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons
+    implémenté deux méthodes: une méthode qui teste toutes les possibilités,
+    et une autre plus intelligente et moins coûteuse.
+
+    \subsubsection{Matrices latines}
+      La première méthode est inspirée des matrices latines: une fois la
+      matrice latine du graphe construite, on la multiplie par elle-même $n-1$
+      fois ($n$ étant le nombre de points du graphe) afin de connaître tous les
+      chemins de % TODO
+
+  \subsection{Algorithmes}
+
+\section{Graphes hamiltonien}
+  \subsection{Analyse mathématique}
     Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
     trouver un cycle(/chemin) passant par tout les sommets une et une seule
     fois.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
-    de même que de trouver un tel cycle ou chemin s'il y en a.
+    de même que de trouver un cycle ou chemin s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien ou non.
@@ -66,8 +88,19 @@
     du voyageur de commerce), il existe aussi des conditions sur les degrès des
     sommets (théorème de Dirac, d'Ore, etc.).
 
-  \subsection{Problème du postier chinois}
-  \subsection{Problème voyageur de commerce}
+  \subsection{Méthode de résolution}
+    Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
+    de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
+    ne sont pas vérifiées, comme il n'y a aucune méthode qui permette
+    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on cherche par brute
+    force si un chemin existe, mais ceci n'est pas efficace du tout.
+
+  \subsection{Algorithmes}
+
+\section{Problème du postier chinois}
+
+\section{Problème voyageur de commerce}
+  \subsection{Analyse mathématique}
     On s'intéresse ici à passer par tout les points d'un ensemble une et une
     seule fois en minimisant la distance totale du cycle.
 
@@ -79,21 +112,7 @@
     Cependant trouver un tel cycle est un problème NP-difficile, il n'existe
     donc pas d'algorithme efficace pour trouver ce cycle.
 
-\section{Méthode de résolution}
-  \subsection{Graphes eulériens}
-    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons implémenté deux méthodes : une méthode qui teste toutes les possibilités, et une autre plus intelligente et moins coûteuse.
-    \subsubsection{Matrices latines}
-      La première méthode est inspirée des matrices latines: une fois la matrice latine du graphe construite, on la multiplie par elle-même $n-1$ fois ($n$ étant le nombre de points du graphe) afin de connaître tous les chemins de % TODO
-  
-  \subsection{Graphes hamiltonien}
-    Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
-    de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
-    ne sont pas vérifiées, comme il n'y a aucune méthode qui permette
-    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on cherche par brute
-    force si un chemin existe, mais ceci n'est pas efficace du tout.
-
-  \subsection{Problème du postier chinois}
-  \subsection{Problème voyageur de commerce}
+  \subsection{Méthode de résolution}
     Bien que la résolution exact de ce problème soit NP-complet, il existe des
     méthodes approchées de résolution.
 
@@ -109,20 +128,13 @@
 
     %todo: fourmis ?
 
-\section{Algorithmes}
-  \subsection{Graphes eulériens}
-  \subsection{Graphes hamiltonien}
-  \subsection{Problème du postier chinois}
-  \subsection{Problème voyageur de commerce}
-  
-\section{Conclusion}
+  \subsection{Algorithmes}
 
-\section{Tests}
-\subsection{Problème voyageur de commerce}
+  \subsection{Tests}
     Nous avons lancé cet algorithme sur plusieurs ``grands''
     graphes\footnote{Trouvés sur
       \url{http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/}.
-    }, les résultats sont présentés dans la table \ref{table:tsp}\footnote{N/A
+    }, les résultats sont présentés dans la table~\ref{table:tsp}\footnote{N/A
     indique que l'algorithme est trop long ou cause une erreur à cause de la
     taille du graphe, pour chaque méthode de résolution sont données les
     longueurs des chemins trouvés et l'erreur relative avec le résultat
@@ -152,135 +164,16 @@
     On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
     plus proche voisin donne des résultats plutôt bons. % todo: mal dit
 
+\section{Conclusion}
 
 \section{Annexe}
+  \lstlistoflistings
   %todo: listings de tout les codes
   \lstinputlisting[caption=Classe pour représenter un graphe]{graphs.py}
-  \lstinputlisting[caption=Algorithmes relatifs au graphes eulériens]{eulerian.py}
-  \lstinputlisting[caption=Algorithmes relatifs au graphes hamiltonien]{hamiltonian.py}
-  \lstinputlisting[caption=Algorithmes relatifs au TSP]{tsp.py}
+  \lstinputlisting[caption=Codes relatifs au graphes eulériens]{eulerian.py}
+  \lstinputlisting[caption=Codes relatifs au graphes hamiltonien]{hamiltonian.py}
+  \lstinputlisting[caption=Codes relatifs postier chinois]{postier_chinois.py}
+  \lstinputlisting[caption=Codes relatifs au TSP]{tsp.py}
   \lstinputlisting[caption=Tests]{tests.py}
-
-\begin{comment} % todo: à merger ci-dessus
-\section{TPs}
-    Nous avons commencé les TPs par le choix du langage utilisé pour
-    implémenter nos algorithmes: le python, (pour la simplicité qu'il offre pour
-    représenter les graphes et la lecture/le parsage d'un fichier représentant
-    un graphe), puis l'écriture des classes permettant de représenter un
-    graphe.
-
-    Puis nous nous sommes séparés en trois binômes ayant travaillé sur:
-    \begin{itemize}
-      \item un algorithme permettant de savoir si un graphe est connexe ou non
-        (dans le cas non orienté);
-      \item  la création d'un algorithme (brute force) qui trouve un chemin
-        hamiltonien dans un graphe;
-      \item  la création de quelques fonctions qui génèrent des graphes simples
-        de tests.
-    \end{itemize}
-    
-\section{Problème 1}
-  \subsection{Exercice 1}
-    Pour représenter ce problème par un graphe, on représente les carrefours
-    par les nœuds du graphe et les routes par des arêtes. Goudronner toutes les
-    routes revient alors à parcourir toutes les arêtes une et une seule fois
-    dans le graphe.
-
-    Afin que le problème soit soluble, il faut que le graphe soit eulérien,
-    c'est à dire connexe et que chaque nœud ait un nombre pair d'arêtes. Cette
-    condition n'est pas nécessaire, car il peut toutefois aussi contenir
-    exactement deux nœuds ayant un nombre impair d'arêtes, si on part d'un de
-    ces deux nœuds (et on arrivera à l'autre).
-
-    On peut utiliser l'algorithme d'Euler, qui consiste à trouver un cycle dans
-    le graphe (en le parcourant «~au hasard~»), puis à s'appeler récursivement
-    sur le sous-graphe construit en retirant les arêtes du cycle trouvé, en
-    partant d'un nœud du cycle qui n'a pas d'arêtes qui n'appartiennent pas à
-    ce cycle.
-
-  \subsection{Exercice 2}
-    On commence par construire le graphe représentant le musée où les arêtes
-    représentent les portes et les sommets des salles du musée. Par définition,
-    l'objectif de cet enfant est réalisable si ce graphe est hamiltonien ou
-    semi-hamiltonien.
-
-    Un graphe hamiltonien est un graphe qui contient au moins un cycle
-    hamiltonien, c'est à dire un cycle passant une et une seule fois par chaque
-    sommet en revenant au sommet de départ. S'il est uniquement
-    semi-hamiltonien, il n'a qu'une chaîne hamiltonienne: l'enfant ne se
-    retrouvera pas dans la salle de départ.
-
-    Un moyen simple de résoudre ce problème est de tester toutes les
-    possibilités de chaînes, jusqu'à en trouver une qui soit hamiltonienne.
-    Toutefois, cette solution a une complexité en $O(n!)$ (avec $n$ le nombre
-    d'arêtes), et par conséquent est peu envisageable pour des graphes de
-    grande taille.
-
-    Nous avons implémenté cet algorithme dans la fonction
-    \verb+hamiltonian_path+.
-    
-    Pour améliorer cet algorithme, on peut arrêter de chercher
-    quand le graphe restant à parcourir n'est pas connexe.
-
-    Un autre moyen serait de calculer les puissances successives de la matrice
-    latine représentant le graphe. Il suffirait alors d'éliminer tous les
-    chemins ne contenant pas une et une seule fois tous les sommets du graphe.
-    Lors du calcul des puissances successives, on peut remplacer par des 0 tous
-    les chemins contenant deux fois le même sommet. Toutefois, cet algorithme
-    est également très complexe.
-
-    Ce problème étant NP-complet, il n'existe pas de moyen simple de déterminer
-    le chemin, ni même si un tel chemin existe pour un graphe donné quelconque.
-
-  \subsection{Exercice 3}
-    Il est possible de résoudre le premier problème en transformant le graphe:
-    il suffit de créer le graphe dont les sommets sont les arêtes du premier
-    graphe, et les arêtes sont les sommets de ce premier graphe. Ce nouveau
-    graphe est appelé «~line graph~». En trouvant une chaîne hamiltonienne
-    dans ce graphe, on obtient une chaîne eulérienne.
-
-    Par contre, il est impossible de transformer le problème 2 en problème 1.
-    Le problème 2 est NP-complet, alors que le premier est soluble en $O(n)$ (à
-    l'aide par exemple de l'algorithme de Hierholzer). Les 2 problèmes ne sont
-    donc pas équivalents.
-
-    %todo: parler des graphes orientés
-
-\section{Problème 2}
-  \subsection{Exercice 1}
-    Si le graphe est eulérien, ou semi-eulérien, l'algorithme d'Euler résout le
-    problème, en trouvant un cycle qui passe par toutes les routes, une et une
-    seule fois: c'est donc forcément la solution la plus efficace.
-
-    Sinon, il suffit de transformer le graphe en un graphe eulérien en créant
-    des arêtes: on prend le graphe partiel contenant uniquement les sommets de
-    degré impair, qu'on transforme en clique. Pour cela, pour chaque couple de
-    sommets non reliés entre eux, on crée une arête les rejoignant, de poids
-    égal au coût le plus faible possible pour rejoindre ces sommets sur le
-    graphe total.
-
-    Puis on cherche le couplage parfait de coût minimum: c'est à dire
-    l'ensemble des arêtes disjointes couvrant tous les sommets du graphe (il
-    existe car on aura forcément un nombre de sommets pair dans le graphe
-    partiel).
-
-    Il suffit de doubler le nombre des arêtes de cet ensemble, on obtient ainsi
-    un graphe eulérien, et avec l'algorithme d'Euler, on a un parcours passant
-    par toutes les arêtes, qui est donc optimal (cf.\ le cas du graphe eulérien
-    ci-dessus).
-
-  \subsection{Exercice 2}
-    % déjà mergé
-
-  \subsection{Exercice 3}
-    Ce problème ressemble au problème précédent sans la contrainte de ne passer
-    qu'une seule fois par ville/point à percer. On pourrait donc utiliser les
-    mêmes algorithmes, mais il pourrait y avoir des solutions plus efficaces en
-    repassant par une ville déjà visitée.
-
-%\section{Problème 3}
-%  On en parle un peu juste pour faire bien ?
- 
-\end{comment}
 \end{document}
 
