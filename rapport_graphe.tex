@@ -11,7 +11,7 @@
 
 \lstset{language=python, frame=single, breaklines=true,
           breakatwhitespace=true, basicstyle=\ttfamily\scriptsize,
-          showstringspaces=false,
+          showstringspaces=false, escapeinside={(*}{*)},
           literate=
                    {é}{{\'e}}1{É}{{\'E}}1
                    {è}{{\`e}}1{È}{{\`E}}1
@@ -45,6 +45,8 @@
   chacun ayant une liste d'arêtes.
   % todo blabla
 
+  Dans la suite nous noterons $n$ le nombre de sommets du graphe.
+
 \section{Graphes eulériens}
   \subsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
@@ -67,8 +69,7 @@
     \subsubsection{Matrices latines}
       La première méthode est inspirée des matrices latines: une fois la
       matrice latine du graphe construite, on la multiplie par elle-même $n-1$
-      fois ($n$ étant le nombre de points du graphe) afin de connaître tous les
-      chemins de % TODO
+      fois afin de connaître tous les chemins de % TODO
 
   \subsection{Algorithmes}
 
@@ -85,21 +86,30 @@
     affirmer qu'un graphe est hamiltonien ou non.
 
     Par exemple un graphe complet est forcement hamiltonien (utile dans le cas
-    du voyageur de commerce), il existe aussi des conditions sur les degrès des
-    sommets (théorème de Dirac, d'Ore, etc.).
+    du voyageur de commerce, voir section~\ref{sec:tsp}), il existe aussi des
+    conditions sur les degrès des sommets (théorème de Dirac, d'Ore, etc.).
 
   \subsection{Méthode de résolution}
     Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
     de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
-    ne sont pas vérifiées, comme il n'y a aucune méthode qui permette
-    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on cherche par brute
-    force si un chemin existe, mais ceci n'est pas efficace du tout.
+    ne sont pas vérifiées, comme il n'y a aucun théorème qui permette
+    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on recherche un chemin
+    hamiltonien dans ce graphe.
+
+    Pour rechercher un chemin hamiltonien dans un graphe, nous avons écrit un
+    algorithme qui recherche parmi tout les chemins possibles. Sa complexité
+    dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
+    s'arrêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
+    chemins possibles, la complexité moyenne sera inférieure.
+
+    Nous avons écrit une version améliorée de cet algorithme qui essaye
+    d'éviter les culs de sac.
 
   \subsection{Algorithmes}
 
 \section{Problème du postier chinois}
 
-\section{Problème voyageur de commerce}
+\section{Problème voyageur de commerce} \label{sec:tsp}
   \subsection{Analyse mathématique}
     On s'intéresse ici à passer par tout les points d'un ensemble une et une
     seule fois en minimisant la distance totale du cycle.
@@ -116,7 +126,6 @@
     Bien que la résolution exact de ce problème soit NP-complet, il existe des
     méthodes approchées de résolution.
 
-    % todo: définir n = |V| qq part
     Un heuristique simple consiste à partir d'un sommet au hasard du graphe et
     d'aller au sommet le plus proche sur lequel on est pas encore passer (puis
     à retourner au sommet de départ pour boucler le cycle). Cet algorithme est
@@ -129,6 +138,45 @@
     %todo: fourmis ?
 
   \subsection{Algorithmes}
+    \subsubsection{Plus proche voisin}
+      \begin{lstlisting}
+Entrée : g (Graphe complet)
+Sortie : (coût, cycle) où cycle est un cycle hamiltonien construit selon la méthode du plus proche voisin et coût son coût associé sous forme de liste de points
+coût = 0
+cycle = ["un point de g au hasard"]
+
+tant qu'il reste des points:
+    # On ajoute au cycle le point suivant
+    plus_proche = "point de g sur lequel on est pas encore passé le plus proche du dernier point du cycle"
+
+    coût += "coût de plus_proche au dernier point du cycle"
+    cycle = cycle :: plus_proche
+
+# On ferme le cycle
+coût += "coût du dernier au premier point de cycle"
+cycle = chemin :: "premier point de chemin"
+
+retourner (coût, cycle)
+      \end{lstlisting}
+
+    \subsubsection{$2$-opt}
+      \begin{lstlisting}
+Entrée : un cycle hamiltonien (liste de sommets) et son coût
+Sortie : un cycle hamiltonien et son coût inférieur ou égal au coup d'entrée
+
+pour chaque couple de points (a, b) dans le cycle:
+    nouveau_coût = coût
+                     - "coût de a à son successeur dans le cycle"
+                     - "coût de b à son successeur dans le cycle"
+                     + "coût de a à b"
+                     + "coût du successeur de a et au successeur de b dans le cycle"
+
+    si nouveau_coût < coût:
+        coût = nouveau_coût
+        cycle = cycle crée en échangeant a et b dans cycle
+
+retourner (coût, cycle)
+      \end{lstlisting}
 
   \subsection{Tests}
     Nous avons lancé cet algorithme sur plusieurs ``grands''
@@ -140,26 +188,29 @@
     longueurs des chemins trouvés et l'erreur relative avec le résultat
     optimum.}.
 
-    \begin{center}\begin{table}[h]
+    \begin{table}[h]
+      \makebox[\textwidth]{%
       \centering
-      \begin{tabular}{| c | c | c | c | c |}
+      \begin{tabular}{| c | c | c | c | c | c |}
       \hline
-        Fichier de test
+        \brokencell{Fichier de\\test}
       & \brokencell{Résultat\\optimum}
       & \brokencell{Plus proche\\voisin}
       & \brokencell{Plus proche\\voisin + 2-opt}
+      & \brokencell{Plus proche\\voisin amélioré}
       & \brokencell{Plus proche\\voisin amélioré\\+ 2-opt}\\
       \hline
-      berlin52.tsp & $7542$  & $8981/19.1\%$ & $8060/6.7\%$ & $7810/3.6\%$ \\
-      bier127.tsp & $118282$  & $137297/16.7\%$ & $125669/6.2\%$ & N/A \\
-      d657.tsp & $48912$  & $62176/27.1\%$ & N/A & N/A \\
-      fl1577.tsp & $22249$  & N/A & N/A & N/A\\
-      u724.tsp     & $41910$ & $55344,32.1\%$ & N/A & N/A \\
+      berlin52.tsp & $7542$  & $8981/19.1\%$ & $8060/6.7\%$ & $7972/5.7\%$ & $7810/3.6\%$ \\
+      bier127.tsp & $118282$  & $137297/16.7\%$ & $125669/6.2\%$ & $127857/8.1\%$ & $122072/3.2\%$ \\
+      d657.tsp & $48912$  & $62176/27.1\%$ & N/A & N/A & N/A \\
+      u724.tsp     & $41910$ & $55344,32.1\%$ & N/A & N/A & N/A \\
+      fl1577.tsp & $22249$  & N/A & N/A & N/A & N/A \\
       \hline  
       \end{tabular}
+      }
       \caption{Résultats pour TSP}
       \label{table:tsp}
-    \end{table}\end{center}
+    \end{table}
 
     On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
     plus proche voisin donne des résultats plutôt bons. % todo: mal dit
@@ -170,6 +221,7 @@
   \lstlistoflistings
   %todo: listings de tout les codes
   \lstinputlisting[caption=Classe pour représenter un graphe]{graphs.py}
+  \lstinputlisting[caption=Codes à la connexité]{connected.py}
   \lstinputlisting[caption=Codes relatifs au graphes eulériens]{eulerian.py}
   \lstinputlisting[caption=Codes relatifs au graphes hamiltonien]{hamiltonian.py}
   \lstinputlisting[caption=Codes relatifs postier chinois]{postier_chinois.py}
