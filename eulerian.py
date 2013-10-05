@@ -70,23 +70,23 @@ def eulerian_path_lat_mat(graph):
         return lat_mat
 
     def path_list_mul(list1,list2):
-    	result = []
-	for i in list1:
-		for j in list2:
-       			path = i[:]
-			path.extend(j[1:])
-			edges = set()
-			for n in range(len(path)-1):
-				edge = (path[n], path[n+1])
-				edge_rev = (path[n+1], path[n])
-				if edge not in edges:
-					edges.add(edge)
-					edges.add(edge_rev)
-				else:
-					path = None
-					break
-			if path is not None:
-				result.append(path)
+        result = []
+        for i in list1:
+            for j in list2:
+       	        path = i[:]
+	        path.extend(j[1:])
+	        edges = set()
+	        for n in range(len(path)-1):
+	            edge = (path[n], path[n+1])
+	    	    edge_rev = (path[n+1], path[n])
+	    	    if edge not in edges:
+	    	        edges.add(edge)
+	    	        edges.add(edge_rev)
+	    	    else:
+	    	        path = None
+	    	        break
+	    	if path is not None:
+	    	    result.append(path)
 	return result;
 
     def lat_mat_mul(a, b):
