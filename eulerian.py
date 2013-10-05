@@ -5,7 +5,7 @@ from connected import *
 
 def get_odd_vertices(graph):
     """
-    Returns true if the graph is eulerian or semi-eulerian
+        Returns the number of nodes with odd number of vertices.
     """
     if not graph.oriented:
         nb_odd_deg = 0
@@ -18,20 +18,30 @@ def get_odd_vertices(graph):
         raise NotImplementedError()
 
 def is_eulerian(graph):
+    """
+        Returns whether the graph is eulerian or not.
+    """
     nb_odd_vertices=len(get_odd_vertices(graph))
     return nb_odd_vertices == 0 and is_connected(graph)
 
 def is_semi_eulerian(graph):
+    """
+        Returns whether the graph is semi-eulerian but not eulerian or not.
+    """
     nb_odd_vertices = len(get_odd_vertices(graph))
     return nb_odd_vertices == 2 and is_connected(graph)
 
 def eulerian_path_euler(graph):
+    """
+        Returns an eulerian path og the graph or None if no such path exists.
+    """
     def aux(node, visited_edges):
         result = [node]
         final_result = [node]
 
         while True:
             edges = filter(lambda e: e not in visited_edges, node.edges_out)
+            edges = [e for e in node.edges_out if e not in visited_edges]
             if not edges:
                 break
             else:
@@ -46,7 +56,7 @@ def eulerian_path_euler(graph):
 
         return final_result
 
-    if not graph.is_connected():
+    if not is_connected(graph):
         return None
 
     odd_vertices = get_odd_vertices(graph)
