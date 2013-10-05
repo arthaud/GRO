@@ -84,7 +84,7 @@
       dont chaque coefficient $m_{i,j}$ vaudra:
       \begin{itemize}
         \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
-          le graphe.
+          le graphe;
         \item un ensemble contenant pour unique élément le chemin $[N_i,N_j]$
           si les nœuds $i$ et $j$ sont reliés (où $N_k$ représente le nœud
           $k$).
@@ -112,13 +112,13 @@
       on trouve l'ensemble des cycles eulériens.
 	
     \subsubsection{Algorithme d'Euler}
-      La deuxième méthode, basée sur l'algorithme d'Euler, et nettement plus
+      La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
       efficace. Une fonction récursive cherche un cycle eulérien d'un
       sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
       chacun des sommets parcourus par ce chemin, dans le graphe où l'on a
       supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
-      astucieusement, on parvient à trouve un cycle eulérien avec une
-      complexité en $O(k)$ où $k$ représente le nombre d'arêtes du graphe. 
+      astucieusement, on parvient à trouve un cycle eulérien de complexité
+      linéaire en le nombre d'arêtes du graphe. 
 
   \subsection{Algorithmes}
 	%TODO
@@ -316,8 +316,8 @@ retourner (coût, cycle)
 \section{Annexes}
   \lstlistoflistings
   %todo: listings de tout les codes
-  \lstinputlisting[language=python, caption=Classe pour représenter un graphe]{graphs.py}
-  \lstinputlisting[language=python, caption=Codes à la connexité]{connected.py}
+  \lstinputlisting[language=python, caption=Classes pour représenter un graphe]{graphs.py}
+  \lstinputlisting[language=python, caption=Codes relatifs à la connexité]{connected.py}
   \lstinputlisting[language=python, caption=Codes relatifs au graphes eulériens]{eulerian.py}
   \lstinputlisting[language=python, caption=Codes relatifs au graphes hamiltonien]{hamiltonian.py}
   \lstinputlisting[language=python, caption=Codes relatifs postier chinois]{postier_chinois.py}
