@@ -108,6 +108,40 @@
   \subsection{Algorithmes}
 
 \section{Problème du postier chinois}
+  \subsection{Analyse mathématique}
+    Le problème du postier chinois consiste à trouver un plus court chemin dans
+    un graphe connexe passant au moins une fois par chaque arête, et revenant
+    à son point de départ.
+
+    Ce problème peut être réduit à la recherche d'un couplage parfait de coût
+    minimum, il peut donc être résolu en temps polynomial dans le cas général.
+
+  \subsection{Méthode de résolution}
+    Tout d'abord, si le graphe est Eulérien, il suffit d'appliquer l'algorithme
+    d'Euler pour avoir le chemin voulu.
+
+    Sinon, la méthode de résolution consiste à transformer le graphe en graphe
+    Eulérien :
+
+    \begin{itemize}
+      \item On crée d'abord le graphe partiel contenant uniquement les sommets
+        de degré impair
+      \item On transforme ensuite ce graphe en clique : pour chaque couple de
+        sommets non reliés entre eux, on crée une arête les rejoignant,
+        de poids égal au coût le plus faible possible pour rejoindre ces
+        sommets dans le graphe inital (ceci se calcul facilement avec
+        l'algorithme de Dijkstra)
+      \item On cherche le couplage parfait de coût minimum : c'est à dire
+        l'ensemble d'arêtes disjointes couvrant tous les sommets du graphe,
+        dont la somme des poids doit est le plus faible possible.
+        Pour cela, on peut utiliser des algorithmes comme celui d'Edmonds.
+        Dans notre implémentation, on a utilisé la bruteforce, par manque
+        de temps.
+      \item Pour chaque arête de cet ensemble, on double le chemin le plus court
+        reliant les nœuds reliés par cette arête dans le graphe initial
+      \item On obtient un graphe Eulérien, il suffit d'appliquer l'algorithme
+        d'Euler
+    \end{itemize}
 
 \section{Problème voyageur de commerce} \label{sec:tsp}
   \subsection{Analyse mathématique}
