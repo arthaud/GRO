@@ -7,11 +7,19 @@
 \usepackage{verbatim}
 \usepackage{listings}
 
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
 \newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
-\lstset{language=python, frame=single, breaklines=true,
-          breakatwhitespace=true, basicstyle=\ttfamily\scriptsize,
+\lstset{frame=single, breaklines=true,
+          breakatwhitespace=true, basicstyle=\scriptsize,
           showstringspaces=false, escapeinside={(*}{*)},
+          keywordstyle=\color{deepblue},
+          stringstyle=\color{deepred},
+          commentstyle=\color{deepgreen},
           literate=
                    {é}{{\'e}}1{É}{{\'E}}1
                    {è}{{\`e}}1{È}{{\`E}}1
@@ -220,12 +228,12 @@ retourner (coût, cycle)
 \section{Annexe}
   \lstlistoflistings
   %todo: listings de tout les codes
-  \lstinputlisting[caption=Classe pour représenter un graphe]{graphs.py}
-  \lstinputlisting[caption=Codes à la connexité]{connected.py}
-  \lstinputlisting[caption=Codes relatifs au graphes eulériens]{eulerian.py}
-  \lstinputlisting[caption=Codes relatifs au graphes hamiltonien]{hamiltonian.py}
-  \lstinputlisting[caption=Codes relatifs postier chinois]{postier_chinois.py}
-  \lstinputlisting[caption=Codes relatifs au TSP]{tsp.py}
-  \lstinputlisting[caption=Tests]{tests.py}
+  \lstinputlisting[language=python, caption=Classe pour représenter un graphe]{graphs.py}
+  \lstinputlisting[language=python, caption=Codes à la connexité]{connected.py}
+  \lstinputlisting[language=python, caption=Codes relatifs au graphes eulériens]{eulerian.py}
+  \lstinputlisting[language=python, caption=Codes relatifs au graphes hamiltonien]{hamiltonian.py}
+  \lstinputlisting[language=python, caption=Codes relatifs postier chinois]{postier_chinois.py}
+  \lstinputlisting[language=python, caption=Codes relatifs au TSP]{tsp.py}
+  \lstinputlisting[language=python, caption=Tests]{tests.py}
 \end{document}
 
