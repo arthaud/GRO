@@ -59,15 +59,18 @@
   \subsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
     un chemin parcourant toutes les arêtes du graphe une et une seule fois, en
-    revenant au sommet de départ. Pour qu'un graphe soit eulérien, il faut
-    évidemment qu'il soit connexe, et il faut également que chacun de ses
-    sommets ait un degré pair.
+    revenant au sommet de départ. Un théorème fondamental garantit qu'un graphe
+	connexe est eulérien si et seulement si chacun de ses sommets est associé à
+	un nombre pair d'ar\^etes.
 
     Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
-    unique fois, mais ne retourne pas au point de départ. Un graphe
-    semi-eulérien se caractérise également par sa connexité, mais doit avoir
-    exactement deux sommets de degré impair. 
+    unique fois, mais ne retourne pas au point de départ. Le théorème précédent
+	se généralise alors aux graphes semi-eulériens : un graphe connexe et semi-
+	eulérien si et seulement tous ses sommets sauf deux sont associés à un 
+	nombre pair d'ar\^etes. Dans ce cas, la cha\^ine eulérienne aura pour 
+	départ l'un	des deux sommets associés à un nombre impair d'ar\^etes et 
+	pour point d'arrivée le deuxième.
 
   \subsection{Méthode de résolution}
     Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons
@@ -75,11 +78,50 @@
     et une autre plus intelligente et moins coûteuse.
 
     \subsubsection{Matrices latines}
-      La première méthode est inspirée des matrices latines: une fois la
-      matrice latine du graphe construite, on la multiplie par elle-même $n-1$
-      fois afin de connaître tous les chemins de % TODO
+    La première méthode est inspirée des matrices latines. Chaque coefficient
+	de la matrice sera un ensemble de chemins, un chemin étant lui-m\^eme une
+	liste de sommets. La matrice latine de notre graphe sera la matrice $M$
+	dont chaque coefficient $m_{i,j}$ vaudra :
+	\begin{itemize}
+		\item une ensemble vide si le n\oe ud $i$ n'est pas relié au n\oe ud $j$
+		dans le graphe.
+		\item une ensemble contenant pour unique élément le chemin $[N_i,N_j]$
+		si les n\oe uds $i$ et $j$ sont reliés (où $N_k$ représente le 
+		n\oe ud $k$).
+	\end{itemize}
+
+	Nous définissions ensuite un produit sur les coefficients d'une telle
+	matrice. Le produit de deux chemins sera :
+	\begin{itemize}
+		\item nul si le dernier n\oe ud du premier chemin n'est pas
+		le premier n\oe ud du deuxième
+		\item la concaténation des deux chemins sinon.
+	\end{itemize}
+	Le produit de deux ensembles de chemins sera l'ensemble contenant
+	les produits de chaque couple de n\oe uds.
+
+	Si on note $M$ la matrice latine d'un graphe, pour tout $k$ entier
+	naturel, le coefficient $(i,j)$ de la matrice $M^k$ représentera 
+	l'ensemble des chemins de longueur $k$ reliant les n\oe uds $i$ et $j$.
+	
+	Puisque un chemin eulérien passe une unique fois par chaque ar\^ete,
+	il suffira de calculer la matrice latine élevée à cette puissance
+	pour trouver sur sa diagonale l'ensemble des cycles possibles. En
+	éliminant à chaque produit les chemins qui passent plusieurs fois
+	par la m\^eme ar\^ete, on trouve l'ensemble des cycles eulériens.
+	
+  \subsection{Algorithme d'Euler}
+	La deuxième méthode, basée sur l'algorithme d'Euler, et nettement
+	plus efficace. Une fonction récursive cherche un cycle eulérien d'un
+	sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
+	chacun des sommets parcourus par ce chemin, dans le graphe où l'on a
+	supprimé les ar\^etes déjà parcourues. En reconstruisant ces cycles
+	astucieusement, on parvient à trouve un cycle eulérien avec une
+	complexité en $O(k)$ où $k$ représente le nombre d'ar\^etes du graphe. 
+
 
   \subsection{Algorithmes}
+	%TODO
 
 \section{Graphes hamiltonien}
   \subsection{Analyse mathématique}
