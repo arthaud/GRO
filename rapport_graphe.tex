@@ -60,17 +60,17 @@
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
     un chemin parcourant toutes les arêtes du graphe une et une seule fois, en
     revenant au sommet de départ. Un théorème fondamental garantit qu'un graphe
-	connexe est eulérien si et seulement si chacun de ses sommets est associé à
-	un nombre pair d'ar\^etes.
+    connexe est eulérien si et seulement si chacun de ses sommets est associé à
+    un nombre pair d'arêtes.
 
     Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
     unique fois, mais ne retourne pas au point de départ. Le théorème précédent
-	se généralise alors aux graphes semi-eulériens : un graphe connexe et semi-
-	eulérien si et seulement tous ses sommets sauf deux sont associés à un 
-	nombre pair d'ar\^etes. Dans ce cas, la cha\^ine eulérienne aura pour 
-	départ l'un	des deux sommets associés à un nombre impair d'ar\^etes et 
-	pour point d'arrivée le deuxième.
+    se généralise alors aux graphes semi-eulériens: un graphe connexe et
+    semi-eulérien si et seulement tous ses sommets sauf deux sont associés à un
+    nombre pair d'arêtes. Dans ce cas, la chaîne eulérienne aura pour départ
+    l'un des deux sommets associés à un nombre impair d'arêtes et pour point
+    d'arrivée le deuxième.
 
   \subsection{Méthode de résolution}
     Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons
@@ -78,47 +78,47 @@
     et une autre plus intelligente et moins coûteuse.
 
     \subsubsection{Matrices latines}
-    La première méthode est inspirée des matrices latines. Chaque coefficient
-	de la matrice sera un ensemble de chemins, un chemin étant lui-m\^eme une
-	liste de sommets. La matrice latine de notre graphe sera la matrice $M$
-	dont chaque coefficient $m_{i,j}$ vaudra :
-	\begin{itemize}
-		\item une ensemble vide si le n\oe ud $i$ n'est pas relié au n\oe ud $j$
-		dans le graphe.
-		\item une ensemble contenant pour unique élément le chemin $[N_i,N_j]$
-		si les n\oe uds $i$ et $j$ sont reliés (où $N_k$ représente le 
-		n\oe ud $k$).
-	\end{itemize}
+      La première méthode est inspirée des matrices latines. Chaque coefficient
+      de la matrice sera un ensemble de chemins, un chemin étant lui-même une
+      liste de sommets. La matrice latine de notre graphe sera la matrice $M$
+      dont chaque coefficient $m_{i,j}$ vaudra:
+      \begin{itemize}
+        \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
+          le graphe.
+        \item un ensemble contenant pour unique élément le chemin $[N_i,N_j]$
+          si les nœuds $i$ et $j$ sont reliés (où $N_k$ représente le nœud
+          $k$).
+      \end{itemize}
 
-	Nous définissions ensuite un produit sur les coefficients d'une telle
-	matrice. Le produit de deux chemins sera :
-	\begin{itemize}
-		\item nul si le dernier n\oe ud du premier chemin n'est pas
-		le premier n\oe ud du deuxième
-		\item la concaténation des deux chemins sinon.
-	\end{itemize}
-	Le produit de deux ensembles de chemins sera l'ensemble contenant
-	les produits de chaque couple de n\oe uds.
+      Nous définissions ensuite un produit sur les coefficients d'une telle
+      matrice. Le produit de deux chemins sera:
+      \begin{itemize}
+        \item nul si le dernier nœud du premier chemin n'est pas le premier
+          nœud du deuxième;
+        \item la concaténation des deux chemins sinon.
+      \end{itemize}
 
-	Si on note $M$ la matrice latine d'un graphe, pour tout $k$ entier
-	naturel, le coefficient $(i,j)$ de la matrice $M^k$ représentera 
-	l'ensemble des chemins de longueur $k$ reliant les n\oe uds $i$ et $j$.
+      Le produit de deux ensembles de chemins sera l'ensemble contenant les
+      produits de chaque couple de nœuds.
+
+      Pour tout $k$ entier naturel, le coefficient $(i,j)$ de la matrice $M^k$
+      représentera l'ensemble des chemins de longueur $k$ reliant les nœuds $i$
+      et $j$.
+      
+      Puisque un chemin eulérien passe une unique fois par chaque arête, il
+      suffira de calculer la matrice latine élevée à cette puissance pour
+      trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
+      chaque produit les chemins qui passent plusieurs fois par la même arête,
+      on trouve l'ensemble des cycles eulériens.
 	
-	Puisque un chemin eulérien passe une unique fois par chaque ar\^ete,
-	il suffira de calculer la matrice latine élevée à cette puissance
-	pour trouver sur sa diagonale l'ensemble des cycles possibles. En
-	éliminant à chaque produit les chemins qui passent plusieurs fois
-	par la m\^eme ar\^ete, on trouve l'ensemble des cycles eulériens.
-	
-  \subsection{Algorithme d'Euler}
-	La deuxième méthode, basée sur l'algorithme d'Euler, et nettement
-	plus efficace. Une fonction récursive cherche un cycle eulérien d'un
-	sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
-	chacun des sommets parcourus par ce chemin, dans le graphe où l'on a
-	supprimé les ar\^etes déjà parcourues. En reconstruisant ces cycles
-	astucieusement, on parvient à trouve un cycle eulérien avec une
-	complexité en $O(k)$ où $k$ représente le nombre d'ar\^etes du graphe. 
-
+    \subsubsection{Algorithme d'Euler}
+      La deuxième méthode, basée sur l'algorithme d'Euler, et nettement plus
+      efficace. Une fonction récursive cherche un cycle eulérien d'un
+      sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
+      chacun des sommets parcourus par ce chemin, dans le graphe où l'on a
+      supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
+      astucieusement, on parvient à trouve un cycle eulérien avec une
+      complexité en $O(k)$ où $k$ représente le nombre d'arêtes du graphe. 
 
   \subsection{Algorithmes}
 	%TODO
@@ -159,7 +159,7 @@
 
 \section{Problème du postier chinois}
   \subsection{Analyse mathématique}
-    Le problème du postier chinois consiste à trouver un plus court chemin dans
+    Le problème du postier chinois consiste à trouver le plus court chemin dans
     un graphe connexe passant au moins une fois par chaque arête, et revenant
     à son point de départ.
 
@@ -167,30 +167,29 @@
     minimum, il peut donc être résolu en temps polynomial dans le cas général.
 
   \subsection{Méthode de résolution}
-    Tout d'abord, si le graphe est Eulérien, il suffit d'appliquer l'algorithme
+    Tout d'abord, si le graphe est eulérien, il suffit d'appliquer l'algorithme
     d'Euler pour avoir le chemin voulu.
 
     Sinon, la méthode de résolution consiste à transformer le graphe en graphe
-    Eulérien :
-
+    eulérien:
     \begin{itemize}
-      \item On crée d'abord le graphe partiel contenant uniquement les sommets
-        de degré impair
-      \item On transforme ensuite ce graphe en clique : pour chaque couple de
+      \item on crée d'abord le graphe partiel contenant uniquement les sommets
+        de degré impair;
+      \item on transforme ensuite ce graphe en clique: pour chaque couple de
         sommets non reliés entre eux, on crée une arête les rejoignant,
         de poids égal au coût le plus faible possible pour rejoindre ces
         sommets dans le graphe inital (ceci se calcul facilement avec
-        l'algorithme de Dijkstra)
-      \item On cherche le couplage parfait de coût minimum : c'est à dire
+        l'algorithme de Dijkstra);
+      \item on cherche le couplage parfait de coût minimum: c'est à dire
         l'ensemble d'arêtes disjointes couvrant tous les sommets du graphe,
         dont la somme des poids doit est le plus faible possible.
-        Pour cela, on peut utiliser des algorithmes comme celui d'Edmonds.
-        Dans notre implémentation, on a utilisé la bruteforce, par manque
-        de temps.
-      \item Pour chaque arête de cet ensemble, on double le chemin le plus court
-        reliant les nœuds reliés par cette arête dans le graphe initial
-      \item On obtient un graphe Eulérien, il suffit d'appliquer l'algorithme
-        d'Euler
+        Pour cela, on peut utiliser des algorithmes comme celui d'Edmonds, mais
+        dans notre implémentation, nous avons utilisé la bruteforce, par manque
+        de temps;
+      \item pour chaque arête de cet ensemble, on double le chemin le plus court
+        reliant les nœuds reliés par cette arête dans le graphe initial;
+      \item on obtient alors un graphe Eulérien sur lequel on applique
+        l'algorithme d'Euler.
     \end{itemize}
 
 \section{Problème voyageur de commerce} \label{sec:tsp}
@@ -218,8 +217,6 @@
 
     Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
     d'améliorer un cycle donné en échangeant des sommets.
-    L'application du 2-opt sur les résultats donnés par la méthode du plus proche
-    voisin donne des résultats assez intéressants.
 
     %todo: fourmis ?
 
@@ -301,9 +298,22 @@ retourner (coût, cycle)
     On remarque que bien qu'il ne fournisse aucune garantie, l'algorithme du
     plus proche voisin donne des résultats plutôt bons. % todo: mal dit
 
-\section{Conclusion}
+    L'application du 2-opt sur les résultats donnés par la méthode du plus
+    proche voisin donne des résultats assez intéressants: ils sont très proches
+    du résultat optimum. Malheuresement, cet algorithme est très coûteux en
+    temps.
 
-\section{Annexe}
+    L'algorithme du 2-opt a été appliqué en boucle tant qu'il améliorait le
+    résultat pour \verb+berlin52.tsp+ et \verb+bier127.tsp+, mais pour le
+    fichier \verb+d657.tsp+, il était beaucoup trop long pour pouvoir faire ça,
+    cependant, après 50 itérations (4h de calcul), on obtient un chemin de coût
+    $58754$, soit une erreur relative de $20.1\%$. L'algorithme est d'autant
+    plus long que le cycle est déjà bon.
+
+\section{Conclusion}
+   Le python n'est évidemment pas adapté blabla
+
+\section{Annexes}
   \lstlistoflistings
   %todo: listings de tout les codes
   \lstinputlisting[language=python, caption=Classe pour représenter un graphe]{graphs.py}
