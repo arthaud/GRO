@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 from graphs import Graph, Node, Edge
+from connected import is_connected
 from eulerian import eulerian_path_euler
 
 def dijkstra_min_cost(origin, dest):
@@ -52,7 +53,7 @@ def postier_chinois(g):
     Retourne le chemin optimal pour le problème du postier chinois, ou None s'il n'y a pas de chemin.
     Attention : l'algorithme peut modifier le graphe.
     '''
-    if not g.is_connected():
+    if not is_connected(g):
         return None
 
     if g.oriented:

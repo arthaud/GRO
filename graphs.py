@@ -54,6 +54,12 @@ class Node:
                 return edge
         raise RuntimeError("Not complete graph")
 
+    def exists_edge_to(self, other):
+        """
+            Returns true if there is an edge between self and other.
+        """
+        return any(edge.other_side(self) == other for edge in self.edges_out)
+
 class Graph:
     """
         Represents a graph as a list of node.
