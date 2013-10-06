@@ -54,7 +54,10 @@
 \section{Modélisation mathématique}
   Nous avons choisi de représenter nos graphes comme une liste de sommets,
   chacun ayant une liste d'arêtes.
-  % todo blabla
+
+  En mémoire, cette structure est donc constituée d'une liste de pointeurs
+  vers des sommets. Les sommets contenant une liste de pointeurs vers des
+  arêtes. Chaque arête ayant un pointeur vers chaque sommet extrêmité.
 
   Dans la suite nous noterons $n$ le nombre de sommets du graphe.
 
@@ -544,7 +547,11 @@ retourner (coût, cycle)
     plus long que le cycle est déjà bon.
 
 \section{Conclusion}
-   Le python n'est évidemment pas adapté blabla
+  En tant que chef de projet, je tiens à remercier toute l'équipe pour son travail incroyablement magnifique.
+
+  Concernant le choix du langage, le python nous a permis de développer rapidement des prototypes de solutions.
+  Il reste toutefois clair que ce n'est pas un langage à utiliser pour faire du calcul intensif, et qu'il se révèlerait vite
+  inadapté si on voulait l'utiliser pour résoudre des problèmes de grande taille.
 
 \section{Annexes}
   \lstlistoflistings
