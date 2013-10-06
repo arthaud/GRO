@@ -194,7 +194,16 @@ pour i dans liste_1:
 retourner la liste de retour
 			\end{lstlisting}
 
+  \subsection{Tests}
+    La première solution étant très coûteuse en espace mémoire, elle lève une
+    erreur mémoire dès que la taille du graphe devient trop importante.
+    Afin de comparer nos deux algorithmes, nous avons lancé un test sur un
+    graphe complet à 6 nœuds. Le premier algorithme met 138 secondes avant de
+    donner son résultat, tandis que le deuxième met à peine plus d'un dixième
+    de seconde.
 
+    On voit donc que la première méthode est inexploitable même sur de toutes
+    petites matrices.
 
 \section{Graphes hamiltonien}
   \subsection{Analyse mathématique}
@@ -223,7 +232,7 @@ retourner la liste de retour
     Pour rechercher un chemin hamiltonien dans un graphe, nous avons écrit un
     algorithme qui recherche parmi tout les chemins possibles. Sa complexité
     dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
-    s'arêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
+    s'arrêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
     chemins possibles, la complexité moyenne sera inférieure.
 
     Nous avons écrit une version améliorée de cet algorithme qui essaye
