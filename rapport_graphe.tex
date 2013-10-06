@@ -227,9 +227,58 @@ retourner la liste de retour
     d'éviter les culs de sac.
 
   \subsection{Algorithmes}
+    \subsubsection{Tests de semi-hamiltoniannité}
+      \begin{lstlisting}
+Entrée : un graphe
+Sortie : un booléen indiquant si le graphe est semi-hamiltonien ou non
+
+si le graphe suit les conditions du théorème de Dirac ou du théorème de Pósa:
+    retourner Vrai
+sinon:
+    chercher un chemin hamiltonien
+    retourner Vrai si on en a trouvé un, Faux sinon
+      \end{lstlisting}
+
+    \subsubsection{Recherche de chemin hamiltonien}
+      \begin{lstlisting}
+Entrée : un graphe graph
+         un point de départ optionnel node_from
+         un ensemble (éventuellement vide) de nœuds déjà parcouru nodes_done
+Sortie : un chemin hamiltonien sous la forme d'une liste ordonnée de points, ou None s'il n'en existe pas
+
+Si la fonction a été appelée sans node_from:
+    node_from = "un nœud de graph"
+
+ajouter node_from à nodes_dones
+
+si cardinal(node_from) == ordre(graph):
+    retourner [node_from]
+
+pour chaque arrête dans le graphe:
+    autre = "le point opposé à node_from par rapport à cette arrête"
+    si autre dans nodes_done:
+        passer à la prochaine arrête
+
+    appeler la fonction récursivement avec graphe, node_from et nodes_dones comme paramètre
+    si la liste retournée est non-vide:
+        y ajouter node_from au début et la retourner
+
+retourner None (si on arrive ici, aucun chemin n'est bon)
+      \end{lstlisting}
+
   \subsection{Tests}
     Nos algorithmes fonctionnent biens sur de petits graphes, mais ils sont
-    beaucoup trop lents pour être utilisés sur de grands graphes.
+    beaucoup trop lents pour être utilisés sur de grands graphes pour lesquels
+    il y a ``peu'' d'arêtes: jusqu'à 30 sommets et 46 arrêtes, l'algorithme
+    trouve une solution en moins d'une seconde. Pour 40 sommets et 63 arrêtes,
+    il faut déjà une minute. Pour 100 sommets et 150 arrêtes, l'algorithme
+    prend tellement de temps que l'avons arrêté après quelques heures.
+
+    Par contre, pour des graphes ayant beaucoup d'arêtes (graphes ``presque
+    complets''), l'algorithme reste rapide.
+
+    Nous avons pu constater que la deuxième version de notre algorithme ne sert
+    à rien: il n'y a aucune amélioration des performances.
 
 \section{Problème du postier chinois}
   \subsection{Analyse mathématique}
