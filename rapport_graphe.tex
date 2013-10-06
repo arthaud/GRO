@@ -343,10 +343,18 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
     en $O(n)$ et donc rapide. Mais il n'offre cependant aucune garantie de
     résultat, il existe même des graphes pour lesquels il donne le pire cycle.
 
-    Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
-    d'améliorer un cycle donné en échangeant des sommets.
+    Nous avons aussi écrit une version améliorée de cet algorithme qui plutôt
+    que d'aller systématiquement vers le voisin le plus proche essaye les deux
+    voisins les plus proches, la complexité de l'algorithme serait alors
+    exponentielle, nous avons donc limité ce choix au début du cycle construit,
+    puis l'algorithme choisit toujours le voisin le plus proche. La longueur du
+    chemin à partir de laquelle on repart vers le voisin le plus proche, ou le
+    nombre de voisins proches à essayer peuvent être choisit.
 
-    %todo: fourmis ?
+    Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
+    d'améliorer un cycle donné en échangeant des sommets. Sa compléxité est en
+    $O(n^2)$, mais comme l'ont montrés nos tests, l'appliquer une seule fois
+    donne parfois une amélioration négligeable.
 
   \subsection{Algorithmes}
     \subsubsection{Plus proche voisin}
