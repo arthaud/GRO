@@ -45,8 +45,10 @@
 \section{Présentation de l'équipe}
   Cette équipe a été menée par Korantin Auguste, assisté de son Responsable
   Qualité Martin Carton. Les autres membres de l'équipe sont Thomas Wagner,
-  Thomas Forgione, Maxime Arthaud, et Maxence Ahlouche.  Tous les membres de
-  l'équipe ont été présents à chacune des séances lors de cette UA.
+  Thomas Forgione, Maxime Arthaud, et Maxence Ahlouche.
+  
+  Tous les membres de l'équipe ont été présents à chacune des séances lors de
+  cette UA.
 
 \section{Modélisation mathématique}
   Nous avons choisi de représenter nos graphes comme une liste de sommets,
@@ -59,9 +61,11 @@
   \subsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
     un chemin parcourant toutes les arêtes du graphe une et une seule fois, en
-    revenant au sommet de départ. Un théorème fondamental garantit qu'un graphe
-    connexe est eulérien si et seulement si chacun de ses sommets est associé à
-    un nombre pair d'arêtes.
+    revenant au sommet de départ; ce problème est donc celui de la goudronneuse
+    qui doit passer sur toutes les rues sans pouvoir repasser dessus une
+    seconde fois. Un théorème fondamental garantit qu'un graphe connexe est
+    eulérien si et seulement si chacun de ses sommets est associé à un nombre
+    pair d'arêtes.
 
     Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
@@ -127,7 +131,8 @@
   \subsection{Analyse mathématique}
     Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
     trouver un cycle(/chemin) passant par tout les sommets une et une seule
-    fois.
+    fois. Ce problème est donc celui de l'enfant qui souhaite visiter de
+    manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
     de même que de trouver un cycle ou chemin s'il y en a.
@@ -156,12 +161,17 @@
     d'éviter les culs de sac.
 
   \subsection{Algorithmes}
+  \subsection{Tests}
+    Nos algorithmes fonctionnent biens sur de petits graphes, mais ils sont
+    beaucoup trop lents pour être utilisés sur de grands graphes.
 
 \section{Problème du postier chinois}
   \subsection{Analyse mathématique}
     Le problème du postier chinois consiste à trouver le plus court chemin dans
     un graphe connexe passant au moins une fois par chaque arête, et revenant
-    à son point de départ.
+    à son point de départ; ce problème est donc celui du facteur qui souhaite
+    réaliser une tournée la plus rapide possible en passant par toutes les rues
+    et retournant à la poste. 
 
     Ce problème peut être réduit à la recherche d'un couplage parfait de coût
     minimum, il peut donc être résolu en temps polynomial dans le cas général.
@@ -195,7 +205,10 @@
 \section{Problème voyageur de commerce} \label{sec:tsp}
   \subsection{Analyse mathématique}
     On s'intéresse ici à passer par tout les points d'un ensemble une et une
-    seule fois en minimisant la distance totale du cycle.
+    seule fois en minimisant la distance totale du cycle. Ce problème est donc
+    celui de la fraiseuse qui doit percer des trous dans une plaque le plus
+    rapidement possible. Il pourrait aussi servir à résoudre le problème du car
+    de touristes.
 
     On peut modéliser ce problème par un graphe complet, dont les arêtes ont un
     coup qui correspond à la distance entre chaque point, on cherche alors le
