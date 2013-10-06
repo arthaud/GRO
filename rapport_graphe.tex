@@ -220,7 +220,7 @@ retourner la liste de retour
     Pour rechercher un chemin hamiltonien dans un graphe, nous avons écrit un
     algorithme qui recherche parmi tout les chemins possibles. Sa complexité
     dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
-    s'arrêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
+    s'arêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
     chemins possibles, la complexité moyenne sera inférieure.
 
     Nous avons écrit une version améliorée de cet algorithme qui essaye
@@ -254,10 +254,10 @@ ajouter node_from à nodes_dones
 si cardinal(node_from) == ordre(graph):
     retourner [node_from]
 
-pour chaque arrête dans le graphe:
-    autre = "le point opposé à node_from par rapport à cette arrête"
+pour chaque arête dans le graphe:
+    autre = "le point opposé à node_from par rapport à cette arête"
     si autre dans nodes_done:
-        passer à la prochaine arrête
+        passer à la prochaine arête
 
     appeler la fonction récursivement avec graphe, node_from et nodes_dones comme paramètre
     si la liste retournée est non-vide:
@@ -269,9 +269,9 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
   \subsection{Tests}
     Nos algorithmes fonctionnent biens sur de petits graphes, mais ils sont
     beaucoup trop lents pour être utilisés sur de grands graphes pour lesquels
-    il y a ``peu'' d'arêtes: jusqu'à 30 sommets et 46 arrêtes, l'algorithme
-    trouve une solution en moins d'une seconde. Pour 40 sommets et 63 arrêtes,
-    il faut déjà une minute. Pour 100 sommets et 150 arrêtes, l'algorithme
+    il y a ``peu'' d'arêtes: jusqu'à 30 sommets et 46 arêtes, l'algorithme
+    trouve une solution en moins d'une seconde. Pour 40 sommets et 63 arêtes,
+    il faut déjà une minute. Pour 100 sommets et 150 arêtes, l'algorithme
     prend tellement de temps que l'avons arrêté après quelques heures.
 
     Par contre, pour des graphes ayant beaucoup d'arêtes (graphes ``presque
@@ -313,7 +313,7 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
         de temps;
       \item pour chaque arête de cet ensemble, on double le chemin le plus court
         reliant les nœuds reliés par cette arête dans le graphe initial;
-      \item on obtient alors un graphe Eulérien sur lequel on applique
+      \item on obtient alors un graphe eulérien sur lequel on applique
         l'algorithme d'Euler.
     \end{itemize}
 
@@ -325,23 +325,22 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
       \begin{lstlisting}
 Entrée : (s1, s2) 2 sommets
 Précondition : il existe un chemin entre s1 et s2
-Sortie : (cout, chemin) avec chemin le plus court chemin entre s1 et s2, et cout
-le cout de ce chemin
+Sortie : (coût, chemin) avec chemin le plus court chemin entre s1 et s2, et coût
+le coût associé
 
-Pour chaque sommet dans le graphe
+pour chaque sommet dans le graphe:
     sommet.parcouru = infini
     sommet.précédent = 0
-Fin pour
 
 s1.parcouru = 0
 sommets_non_visites = ensemble des sommets du graphe
 
 tant que sommets_non_visites est non vide:
-    s = le sommet de sommets_non_visites avec s.parcouru le plus petit
+    s = le sommet de sommets_non_visites avec s.parcouru minimum
     supprimer s de sommets_non_visites
 
     pour chaque sommet s2 dans les fils de s:
-        si s2.parcouru > s.parcouru + poids de l'arc entre s et s2
+        si s2.parcouru > s.parcouru + poids de l'arc entre s et s2:
             s2.parcouru = s.parcouru + poids de l'arc entre s et s2
             s2.précédent = s
             ajouter s2 dans sommets_non_visites
@@ -381,21 +380,21 @@ pour chaque couple de sommet (s1, s2) dans graphe_partiel:
         créer l'arête reliant s1 et s2 dans graphe_partiel, de coût cout
 
 # Recherche du couplage parfait de coût minimum : méthode bruteforce
-fonction aux(aretes, sommets_visites, cout):
+fonction aux(arêtes, sommets_visites, cout):
     si sommets_visites contient tous les sommets de graphe_partiel:
-        retourner (aretes, cout)
+        retourner (arêtes, cout)
     sinon:
         meilleur_couplage = Vide
         meilleur_cout = 0
 
-        pour chaque arete de graphe_partiel:
+        pour chaque arête de graphe_partiel:
             si les 2 sommets de l'arête ne sont pas dans sommets_visites:
-                aretes_copie = copie de aretes
+                arêtes_copie = copie de arêtes
                 sommets_visites_copie = copie de sommets_visites
 
-                ajouter arete dans aretes_copie
-                ajouter les 2 sommets de arete dans sommets_visites_copie
-                couplage, cout = aux(aretes_copie, sommets_visites_copie, cout + cout de arete)
+                ajouter arête dans arêtes_copie
+                ajouter les 2 sommets de arête dans sommets_visites_copie
+                couplage, cout = aux(arêtes_copie, sommets_visites_copie, cout + cout de arête)
 
                 si meilleur_couplage = Vide ou meilleur_cout > cout:
                     meilleur_couplage = couplage
@@ -406,11 +405,11 @@ fonction aux(aretes, sommets_visites, cout):
 couplage, cout = aux(ensemble vide, ensemble vide, 0)
 
 # On double les arêtes dans couplage
-pour chaque arete dans couplage:
-    (s1, s2) = sommets reliés par arete dans g
+pour chaque arête dans couplage:
+    (s1, s2) = sommets reliés par arête dans g
     (cout, chemin) = dijkstra(s1, s2)
-    pour chaque arete dans chemin:
-        doubler arete dans g
+    pour chaque arête dans chemin:
+        doubler arête dans g
 
 retourner le cycle eulérien de g
       \end{lstlisting}
