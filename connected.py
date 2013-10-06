@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 def is_connected(graph):
+    """
+        Returns whether a graph is connected or not.
+    """
     def visit(node, visited):
         visited.add(node)
         for e in node.edges_out:

@@ -40,7 +40,6 @@ def eulerian_path_euler(graph):
         final_result = [node]
 
         while True:
-            edges = filter(lambda e: e not in visited_edges, node.edges_out)
             edges = [e for e in node.edges_out if e not in visited_edges]
             if not edges:
                 break
@@ -83,21 +82,21 @@ def eulerian_path_lat_mat(graph):
         result = []
         for i in list1:
             for j in list2:
-       	        path = i[:]
-	        path.extend(j[1:])
-	        edges = set()
-	        for n in range(len(path)-1):
-	            edge = (path[n], path[n+1])
-	    	    edge_rev = (path[n+1], path[n])
-	    	    if edge not in edges:
-	    	        edges.add(edge)
-	    	        edges.add(edge_rev)
-	    	    else:
-	    	        path = None
-	    	        break
-	    	if path is not None:
-	    	    result.append(path)
-	return result;
+                path = i[:]
+                path.extend(j[1:])
+                edges = set()
+                for n in range(len(path)-1):
+                    edge = (path[n], path[n+1])
+                    edge_rev = (path[n+1], path[n])
+                    if edge not in edges:
+                        edges.add(edge)
+                        edges.add(edge_rev)
+                    else:
+                        path = None
+                        break
+                if path is not None:
+                    result.append(path)
+        return result;
 
     def lat_mat_mul(a, b):
         nb_n = len(a)
@@ -111,7 +110,7 @@ def eulerian_path_lat_mat(graph):
                     cell_a = a[i][k]
                     cell_b = b[k][j]
                     if cell_a is not None and cell_b is not None:
-		      result[i][j].extend(path_list_mul(cell_a,cell_b))
+                      result[i][j].extend(path_list_mul(cell_a,cell_b))
                 if result[i][j] == []:
                     result[i][j] = None
         return result
