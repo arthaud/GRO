@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 
 class Edge:
+    """
+        Class that represents an edge as an origin vertice and a destination
+        vertice and a cost.
+    """
     def __init__(self, origin, dest, cost=1):
         self.origin = origin
         self.dest = dest
@@ -14,35 +18,53 @@ class Edge:
         return "Edge(%s, %s, %s)" % (self.origin.data, self.dest.data, self.cost)
 
 class Node:
+    """
+        Represents a vertex as a set of edges.
+    """
     def __init__(self, data):
-        self.edges_out = set() # liste des arêtes qui sortent du nœud pour pointer sur d'autres
-        self.data = data # must be unique
+        self.edges_out = set() # set of nodes that go out of that vertex
+        self.data = data # an unique identifient for that vertex
     
     def __hash__(self):
         return hash(self.data)
     
     def degree(self):
+        """
+            Returns the degree of that vertex, that is, the number of edges
+            that connect to it."
+        """
         return len(self.edges_out)
 
     def __repr__(self):
         return "Node(%s, [%s])" % (self.data, ', '.join(map(repr, self.edges_out)))
 
     def cost_to(self, other):
+        """
+            Returns the cost to go from that node to the node other.
+        """
         return self.edge_to(other).cost
 
     def edge_to(self, other):
+        """
+            Returns the edge from that vertex to the vertex other.
+            Throw a RuntimeError if there is no such edge.
+        """
         for edge in self.edges_out:
             if edge.other_side(self) == other:
                 return edge
         raise RuntimeError("Not complete graph")
 
 class Graph:
+    """
+        Represents a graph as a list of node.
+    """
     def __init__(self, path=None):
-        self.nodes = [] # liste des noeuds du graphe
+        self.nodes = [] # nodes of the graph
 
-        self.name = ""
         if path:
             self.name = path.split('/')[-1]
+        else:
+            self.name = ""
 
     def __repr__(self):
         return 'Graph(\n%s\n)' % ',\n'.join(map(repr, self.nodes))
@@ -50,29 +72,17 @@ class Graph:
     def order(self):
         return len(self.nodes)
 
-    def copy(self):
-        g = Graph()
-        g.oriented = self.oriented
-
-        for node in self.nodes:
-            g.nodes.append(Node(node.data))
-
-        g_nodes = set(g.nodes)
-        while g_nodes:
-            node_g = g_nodes.pop()
-            node = filter(lambda n: n.data == node_g.data, self.nodes)[0]
-            for edge in node.edges_out:
-                other_side_g = filter(lambda n: n.data == edge.other_side(node).data, g.nodes)[0]
-                if self.oriented:
-                    node_g.edges_out.add(Edge(node_g, other_side_g, edge.cost))
-                elif other_side_g in g_nodes:
-                    edge_g = Edge(node_g, other_side_g, edge.cost)
-                    node_g.edges_out.add(edge_g)
-                    other_side_g.edges_out.add(edge_g)
-
-        return g
-
 def read_gph(path):
+    """
+        Construct a Graph from a file of the form:
+            4 2 0
+            1
+            2
+            3
+            4
+            1 2
+            3 4
+    """
     nodes_added = dict()
     g = Graph(path)
 
@@ -87,7 +97,6 @@ def read_gph(path):
             nodes_added[data] = n
 
         for i in range(nb_e):
-            #(orig, dest, cost) = map(int, (f.readline()+" 1").split(' ')[:3])
             line = f.readline()
             try:
                 orig, dest, cost = map(int, line.split(' '))
