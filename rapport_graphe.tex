@@ -114,6 +114,10 @@
       trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
       chaque produit les chemins qui passent plusieurs fois par la même arête,
       on trouve l'ensemble des cycles eulériens.
+
+	  La complexité de cette algorithme est exponentielle, calculer la puissance
+	  de la matrice latine revient en fait à calculer chaque chemin possible dans
+	  le graphe, et tester s'il est un cycle eulérien ou non.
 	
     \subsubsection{Algorithme d'Euler}
       La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
@@ -125,7 +129,78 @@
       linéaire en le nombre d'arêtes du graphe. 
 
   \subsection{Algorithmes}
-	%TODO
+	\subsubsection{Méthode de la matrice latine}
+		% Cette ligne est particulièrement moche (normal, c'est DragonRok qui
+		% l'a écrite... si quelqu'un a mieux, je suis preneur.
+		\paragraph{Algorithme général \newline}\noindent
+			\begin{lstlisting}
+Entree : un graphe
+Sortie : la liste des cycles euleriens dans le cas d'un graphe eulerien
+		 la liste des chemins euleriens dans le cas d'un graphe semi-eulerien
+		 la liste vide sinon
+
+Construire la matrice latine du graphe :
+	constuire une matrice à n lignes et n colonnes
+	remplir la matrice de listes vides
+	pour chaque noeud du graphe
+		pour chaque arête sortant de ce noeud
+			ajouter la liste [noeud de départ, noeud d'arrivée] 
+			à la case de la matrice correspondante
+		fin pour
+	fin pour
+
+n recoit le nombre d'arêtes total du graphe
+
+calculer la matrice latine mise a la puissance n-1
+
+pour chaque coefficient de la matrice ainsi calculée
+	si le coefficient n'est pas nul
+		concatener ce coefficient à la variable de retour
+	fin si
+fin pour
+			\end{lstlisting}
+
+		\paragraph{Produit matriciel \newline}\noindent
+			\begin{lstlisting}
+Entree : A et B deux matrices latines
+Sortie : le produit de ces deux matrices
+
+construire la matrice de retour à n lignes et n colonnes
+initialiser chaque coefficient de cette matrice à la liste vide
+
+pour chaque coefficient de la matrice de retour
+	pour k allant de 1 jusqu'à n
+		calculer les chemins produits entre a(i,k) et b(k,j)
+		ajouter au coefficient de la matrice ces chemins
+	fin pour
+fin pour
+			\end{lstlisting}
+
+		\paragraph{Produit entre listes de chemins 
+		(coefficients de matrices latines) \newline}\noindent
+			\begin{lstlisting}
+Entree : liste_1 et liste_2 deux listes de chemins
+Sortie : une liste de chemins
+
+creer une liste de chemins vide (liste de retour)
+	pour i dans liste_1
+		pour j dans liste_2
+			constuire le chemin resultant de la concatenation de i et j
+			(en enlevant le noeud présent deux fois)
+			construire un ensemble de chemins vide
+			pour k allant de 1 à la longueur du chemin construit
+				constuire le chemin élémentaire menant du noeud k au noeud k+1
+				si ce chemin n'est pas dans l'ensemble
+					ajouter ce chemin dans l'ensemble
+				sinon
+					rendre le chemin nul
+					sortir du pour
+			si le chemin n'est pas nul
+				concatener le chemin trouvé à la liste de retour
+retourner la liste de retour
+			\end{lstlisting}
+
+
 
 \section{Graphes hamiltonien}
   \subsection{Analyse mathématique}
