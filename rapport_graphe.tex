@@ -39,6 +39,7 @@
           \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
 \date{7 octobre 2013}
 \maketitle
+\newpage
 \tableofcontents
 \newpage
 
@@ -129,74 +130,64 @@
       linéaire en le nombre d'arêtes du graphe. 
 
   \subsection{Algorithmes}
-	\subsubsection{Méthode de la matrice latine}
-		% Cette ligne est particulièrement moche (normal, c'est DragonRok qui
-		% l'a écrite... si quelqu'un a mieux, je suis preneur.
-		\paragraph{Algorithme général \newline}\noindent
-			\begin{lstlisting}
-Entree : un graphe
-Sortie : la liste des cycles euleriens dans le cas d'un graphe eulerien
-		 la liste des chemins euleriens dans le cas d'un graphe semi-eulerien
-		 la liste vide sinon
+    \subsubsection{Méthode de la matrice latine}
+      \begin{lstlisting}
+Entrée : un graphe
+Sortie : la liste des cycles eulériens dans le cas d'un graphe eulérien
+         la liste des chemins eulériens dans le cas d'un graphe semi-eulérien
+         la liste vide sinon
 
 Construire la matrice latine du graphe :
-	constuire une matrice à n lignes et n colonnes
-	remplir la matrice de listes vides
-	pour chaque noeud du graphe
-		pour chaque arête sortant de ce noeud
-			ajouter la liste [noeud de départ, noeud d'arrivée] 
-			à la case de la matrice correspondante
-		fin pour
-	fin pour
+    construire une matrice à n lignes et n colonnes
+    remplir la matrice de listes vides
+    pour chaque nœud du graphe:
+        pour chaque arête sortant de ce nœud:
+            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de la matrice correspondante
 
-n recoit le nombre d'arêtes total du graphe
+n = "le nombre d'arêtes total du graphe"
 
-calculer la matrice latine mise a la puissance n-1
+calculer la puissance (n-1)ième de la matrice
 
-pour chaque coefficient de la matrice ainsi calculée
-	si le coefficient n'est pas nul
-		concatener ce coefficient à la variable de retour
-	fin si
-fin pour
-			\end{lstlisting}
+pour chaque coefficient de la matrice ainsi calculée:
+    si le coefficient n'est pas nul:
+        concaténer ce coefficient à la variable de retour
+      \end{lstlisting}
 
-		\paragraph{Produit matriciel \newline}\noindent
-			\begin{lstlisting}
-Entree : A et B deux matrices latines
+    \subsubsection{Produit matriciel}
+      \begin{lstlisting}
+Entrée : A et B deux matrices latines
 Sortie : le produit de ces deux matrices
 
 construire la matrice de retour à n lignes et n colonnes
 initialiser chaque coefficient de cette matrice à la liste vide
 
-pour chaque coefficient de la matrice de retour
-	pour k allant de 1 jusqu'à n
-		calculer les chemins produits entre a(i,k) et b(k,j)
-		ajouter au coefficient de la matrice ces chemins
-	fin pour
-fin pour
-			\end{lstlisting}
+pour chaque coefficient de la matrice de retour:
+    pour k allant de 1 jusqu'à n:
+        calculer les chemins produits entre a(i,k) et b(k,j)
+        ajouter au coefficient de la matrice ces chemins
+      \end{lstlisting}
 
-		\paragraph{Produit entre listes de chemins 
-		(coefficients de matrices latines) \newline}\noindent
-			\begin{lstlisting}
-Entree : liste_1 et liste_2 deux listes de chemins
+    \subsubsection{Produit entre listes de chemins (coefficients de matrices
+    latines)}
+      \begin{lstlisting}
+Entrée : liste_1 et liste_2 deux listes de chemins
 Sortie : une liste de chemins
 
-creer une liste de chemins vide (liste de retour)
-	pour i dans liste_1
-		pour j dans liste_2
-			constuire le chemin resultant de la concatenation de i et j
-			(en enlevant le noeud présent deux fois)
-			construire un ensemble de chemins vide
-			pour k allant de 1 à la longueur du chemin construit
-				constuire le chemin élémentaire menant du noeud k au noeud k+1
-				si ce chemin n'est pas dans l'ensemble
-					ajouter ce chemin dans l'ensemble
-				sinon
-					rendre le chemin nul
-					sortir du pour
-			si le chemin n'est pas nul
-				concatener le chemin trouvé à la liste de retour
+créer une liste de chemins vide (liste de retour)
+pour i dans liste_1:
+    pour j dans liste_2:
+        construire le chemin résultant de la concaténation de i et j (en enlevant le nœud présent deux fois)
+        construire un ensemble de chemins vide
+        pour k allant de 1 à la longueur du chemin construit:
+            construire le chemin élémentaire menant du nœud k au nœud k+1
+            si ce chemin n'est pas dans l'ensemble:
+                ajouter ce chemin dans l'ensemble
+            sinon:
+                rendre le chemin nul
+                sortir de la boucle
+
+        si le chemin n'est pas nul:
+                concaténer le chemin trouvé à la liste de retour
 retourner la liste de retour
 			\end{lstlisting}
 
@@ -325,7 +316,7 @@ tant qu'il reste des points:
 
 # On ferme le cycle
 coût += "coût du dernier au premier point de cycle"
-cycle = chemin :: "premier point de chemin"
+cycle = cycle :: "premier point de chemin"
 
 retourner (coût, cycle)
       \end{lstlisting}
