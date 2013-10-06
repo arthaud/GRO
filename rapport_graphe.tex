@@ -417,6 +417,15 @@ pour chaque arête dans couplage:
 retourner le cycle eulérien de g
       \end{lstlisting}
 
+  \subsection{Tests}
+    Nous avons testé cet algorithme sur de petit graphe, il donne de bon
+    résultat. Par contre, sur des graphes plus gros, celui-ci est très lent
+    (plusieurs heures), à cause de la recherche du couplage parfait par
+    bruteforce.
+
+    Bien sur, dans le cas où le graphe est eulérien, l'algorithme fait appel
+    à l'algorithme d'Euler, et donc est rapide.
+
 \section{Problème voyageur de commerce} \label{sec:tsp}
   \subsection{Analyse mathématique}
     On s'intéresse ici à passer par tout les points d'un ensemble une et une
