@@ -54,19 +54,20 @@
 \section{Problème du sac à dos}
   \begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
 
-  Nous avons implémenté un algorithme de programmation dynamique, qui permet de
-  résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement si
-  les poids des objets sont des entiers.
+  \subsection{Résolution exacte}
+    Nous avons implémenté un algorithme de programmation dynamique, qui permet
+    de résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement
+    si les poids des objets sont des entiers.
 
-  Sa complexité en temps est en $O(nW)$ et celle en mémoire en $O(W)$, avec $n$
-  le nombre d'objets et $W$ le poids maximum du sac.
+    Sa complexité en temps est en $O(nW)$ et celle en mémoire en $O(W)$, avec
+    $n$ le nombre d'objets et $W$ le poids maximum du sac.
 
-  Nous l'avons testé sur plusieurs instances du problème (jusqu'à X objets et
-  un poids maximal de X), et l'algorithme s'exécute toujours en moins d'une
-  seconde. %todo: faire les tests :D
+    Nous l'avons testé sur plusieurs instances du problème (jusqu'à X objets et
+    un poids maximal de X), et l'algorithme s'exécute toujours en moins d'une
+    seconde. %todo: faire les tests :D
 
-  Nous aurions aussi pu faire un algorithme glouton, en triant les objets par
-  rapport prix/poids.
+  \subsection{Résolution approchée}
+    todo: parler du glouton, comparer les critères de tri
 
 \section{Annexe}
   \lstlistoflistings

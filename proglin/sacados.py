@@ -5,7 +5,6 @@ def sacados(objets, masse_max):
     """
     Résoud le problème du sac à dos avec de la programmation dynamique.
     Fonctionne seulement avec des valeurs entières.
-    On pourrait optimiser l'algorithme en ne retenant que la ligne pour (i-1), et pas toute les lignes.
 
     >>> objets = ((2,3),(3,4),(4,5),(5,6))
     >>> sacados(objets, 5)
@@ -27,6 +26,31 @@ def sacados(objets, masse_max):
         prev_line = current_line[:]
 
     return current_line[masse_max]
+
+def best_ratio(x): return x[1]/x[0]
+def less_mass(x):  return -x[0]
+def best_price(x): return x[1]
+
+def greedy(objects, max_mass, key):
+    """
+        Algorithme approché du glouton.
+        Nécessite de trier les objets selon un critère `key`.
+        Par exemple
+            greedy(obj, max_mass, less_mass)
+        choisit les objets en commençant par les moins lourds.
+    """
+    cost, mass = 0, 0
+    objects = sorted(objects, key=key, reverse=True)
+
+    for o in objects:
+        if o[0] + mass <= max_mass:
+            mass += o[0]
+            cost += o[1]
+
+            if mass == max_mass:
+                break
+
+    return cost
 
 def read_testfile(path):
     """
