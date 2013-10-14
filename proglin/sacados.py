@@ -11,9 +11,6 @@ def sacados(objets, masse_max):
     >>> objets = ((2,3),(3,4),(4,5),(5,6))
     >>> sacados(objets, 5)
     7
-    >>> objets = ((5,3),(1,1),(1,3),(4,4),(4,1),(3,5),(1,1),(5,2),(5,2),(1,3),(2,1),(2,4))
-    >>> sacados(objets, 6)
-    12
     """
     assert isinstance(masse_max, int) and all(lambda x: isinstance(x[0], int) for x in objets)
 
