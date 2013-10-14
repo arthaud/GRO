@@ -12,7 +12,7 @@ def sacados(objets, masse_max):
     >>> sacados(objets, 5)
     7
     """
-    assert isinstance(masse_max, int) and all(lambda x: isinstance(x[0], int) for x in objets)
+    assert isinstance(masse_max, int) and all(isinstance(x[0], int) for x in objets)
 
     matrice = numpy.zeros(shape=(len(objets)+1, masse_max+1), dtype='int64')
 
@@ -30,7 +30,7 @@ def read_testfile(path):
     """
         Lit un fichier généré par le générateur trouvé ici:
             http://www.diku.dk/~pisinger/codes.html
-        Retourne une liste de couple (masse, valeur) considérée comme bon
+        Retourne une liste de couples (masse, valeur) considérée comme bon
         exemple.
     """
     with open(path, 'r') as f:
