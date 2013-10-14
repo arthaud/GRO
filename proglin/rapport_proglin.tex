@@ -39,25 +39,37 @@
 \title{Rapport du projet de programmation linéaire}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
           \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
-\date{?}
+\date{21 octobre 2013}
 \maketitle
-\newpage
 \tableofcontents
 \newpage
 
+\section{Présentation de l'équipe}
+  Cette équipe a été menée par Maxence Ahlouche, assisté de son Responsable
+  Qualité Thomas Wagner. Les autres membres de l'équipe sont Martin Carton,
+  Thomas Forgione, Maxime Arthaud, et Korantin Auguste.
+
+  %todo: absences
+  
 \section{Problème du sac à dos}
+  \begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
 
-\begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
+  Nous avons implémenté un algorithme de programmation dynamique, qui permet de
+  résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement si
+  les poids des objets sont des entiers.
 
-Nous avons implémenté un algorithme de programmation dynamique, qui permet de résoudre le problème du sac à dos.
-Toutefois, il fonctionne uniquement si les poids des objets sont des entiers.
+  Sa complexité en temps et en mémoire est en $O(nW)$, avec $n$ le nombre
+  d'objets et $W$ le poids maximum du sac.
 
-Sa complexité en temps et en mémoire est en $O(nW)$, avec $n$ le nombre d'objets et $W$ le poids maximum du sac.
+  Nous l'avons testé sur plusieurs instances du problème (jusqu'à X objets et
+  un poids maximal de X), et l'algorithme s'exécute toujours en moins d'une
+  seconde. %todo: faire les tests :D
 
-Nous l'avons testé sur plusieurs instances du problème (jusqu'à X objets et un poids maximal de X), et l'algorithme s'exécute toujours en moins d'une seconde.
+  Nous aurions aussi pu faire un algorithme glouton, en triant les objets par
+  rapport prix/poids.
 
-\lstinputlisting{sacados.py}
-
-Nous aurions aussi pu faire un algorithme glouton, en triant les objets par rapport prix / poids.
+\section{Annexe}
+  \lstlistoflistings
+  \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{sacados.py}
 
 \end{document}
