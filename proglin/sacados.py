@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import numpy
 
 def sacados(objets, masse_max):
     """
@@ -14,17 +13,20 @@ def sacados(objets, masse_max):
     """
     assert isinstance(masse_max, int) and all(isinstance(x[0], int) for x in objets)
 
-    matrice = numpy.zeros(shape=(len(objets)+1, masse_max+1), dtype='int64')
+    current_line = [0 for i in range(masse_max+1)]
+    prev_line = current_line[:]
 
-    for i in range(1,len(objets)+1):
-        masse_objet, prix = objets[i-1]
+    for i in range(0,len(objets)):
+        masse_objet, prix = objets[i]
         for masse in range(masse_max + 1):
             if masse_objet <= masse:
-                matrice[i,masse] = max(matrice[i-1,masse], matrice[i-1,masse-masse_objet] + prix)
+                current_line[masse] = max(prev_line[masse], prev_line[masse-masse_objet] + prix)
             else:
-                matrice[i,masse] = matrice[i-1,masse]
+                current_line[masse] = prev_line[masse]
 
-    return matrice[len(objets)-1,masse_max]
+        prev_line = current_line[:]
+
+    return current_line[masse_max]
 
 def read_testfile(path):
     """
