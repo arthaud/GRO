@@ -29,6 +29,22 @@ def sacados(objets, masse_max):
 
     return matrice[len(objets)-1,masse_max]
 
+def read_testfile(path):
+    """
+        Lit un fichier généré par le générateur trouvé ici:
+            http://www.diku.dk/~pisinger/codes.html
+        Retourne une liste de couple (masse, valeur) considérée comme bon
+        exemple.
+    """
+    with open(path, 'r') as f:
+        objects = []
+        line = f.readline()
+        nb_objs = int(line)
+        for i in range(0, nb_objs):
+            line = f.readline()
+            dummy, a, b = map(int, line.split())
+            objects.append((b, a))
+        return objects
 
 if __name__ == '__main__':
     import doctest
