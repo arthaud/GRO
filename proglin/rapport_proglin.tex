@@ -67,7 +67,38 @@
     seconde. %todo: faire les tests :D
 
   \subsection{Résolution approchée}
-    todo: parler du glouton, comparer les critères de tri
+    Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste à
+    choisir les \og meilleurs \fg{} objets jusqu'à que la masse maximale soit
+    dépassée.  Le critère déterminant quels sont les meilleurs objets peuvent
+    être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
+
+    Cet algorithme est beaucoup plus rapide que le précédent, mais n'est qu'un
+    algorithme approché. La table~\ref{table:greedy} montre les résultats
+    obtenus.
+
+    %todo: ajouter des tests avec un ``range of coeficients'' plus élevé pour
+    %avoir des résultats plus intéressant avec le ratio prix/masse
+    \begin{table}[h]
+      \makebox[\textwidth]{%
+      \centering
+      \begin{tabular}{| c | c | c | c | c | c |}
+      \hline
+        \brokencell{Paramètres du générateur/\\masse maximale autorisée}
+      & \brokencell{Résultat\\optimum}
+      & \brokencell{Prix le\\plus élevé}
+      & \brokencell{Masse la\\plus faible}
+      & \brokencell{Meilleur ratio\\prix/masse}\\
+      \hline
+      500 25 1 1 1000/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $2016/0\%$ \\
+      5000 25 1 1 1000/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
+      50000 25 1 1 1000/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
+      50000 25 1 1 1000/5000& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
+      \hline  
+      \end{tabular}
+      }
+      \caption{Résultats de l'algorithme glouton}
+      \label{table:greedy}
+    \end{table}
 
 \section{Annexe}
   \lstlistoflistings
