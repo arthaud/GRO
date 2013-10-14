@@ -1,0 +1,46 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\lstset{frame=single, breaklines=true,
+          breakatwhitespace=true, basicstyle=\scriptsize,
+          showstringspaces=false, escapeinside={(*}{*)},
+          keywordstyle=\color{deepblue},
+          stringstyle=\color{deepred},
+          commentstyle=\color{deepgreen},
+          literate=
+                   {é}{{\'e}}1{É}{{\'E}}1
+                   {è}{{\`e}}1{È}{{\`E}}1
+                   {ê}{{\^e}}1{Ê}{{\^E}}1
+                   {à}{{\`a}}1{À}{{\`A}}1
+                   {ù}{{\`u}}1{Ù}{{\`U}}1
+                   {û}{{\^u}}1{Û}{{\^U}}1
+                   {ô}{{\^o}}1{Ô}{{\^O}}1
+                   {ó}{{\'o}}1{Ó}{{\'O}}1
+                   {ç}{{\c c}}1{Ç}{{\c C}}1
+                   {œ}{{\oe}}1{Œ}{{\OE}}1
+        }
+
+\begin{document}
+\title{Rapport du projet de programmation linéaire}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+          \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
+\date{?}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\end{document}
