@@ -1,60 +1,49 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
+from __future__ import division
+import numpy as np
 
-def simplexe(stock, costs, benefits):
-    '''
-    Retourne la liste [x1, x2, .., xn] tel que le benefice soit maximal.
+"""
+La matrice d'entrée doit avoir la forme suivante :
 
-    stock est une liste de ressources disponibles
-    costs est une matrice. costs[i][j] représente le cout en ressource j pour le produit i
-    benefits est la liste des benefices pour chaque produit
+À chaque colonne correspond un produit :
+[benef_du_produit, cout_ressource_1, cout_ressource_2, ...]
+(c'est les variables libres)
 
-    Attention: stock, costs et benefits seront modifiés.
-    '''
-    n = len(stock)
-    m = len(costs)
+Sur les dernières colonnes, on a les variables de base :
+[0, 0, ..., 0, 1, 0, ..., 0]
+sachant que le carré des variables de base forme une matrice identité.
 
-    # Ajout des variables « restes »
-    for i in range(n):
-        costs.append([int(i == j) for j in range(n)])
+Et sur la toute dernière colonne :
+[0, stock_ressource_1, stock_ressource_2, ...]
 
-    benefits += [0 for _ in range(n)]
-    solution = [0 for _ in range(m)] + stock
+"""
 
-    # TODO : vérifier que l'origine est un sommet de départ admissible
+def simplexe(matrice):
+    size_y, size_x = matrice.shape
 
-    while True:
-        # Recherche du produit le plus rentable
-        index_max_benef = max(range(m + n), key=lambda i: benefits[i])
-        max_benef = benefits[index_max_benef]
+    # indice de colonne (pour le x à virer de la base)
+    a_virer = np.argmin(matrice[0,])
+    if matrice[0,a_virer] >= 0:
+        return matrice[0,-1]
 
-        if max_benef <= 0:
-            return solution
+    # indice de ligne (pour le x à ajouter dans la base)
+    a_ajouter = None
+    meilleur_ratio = 0
+    for y in range(1, size_y): # la première ligne est pour z, osef
+        if matrice[y,a_virer] == 0:
+            continue
+        ratio = matrice[y,-1] / matrice[y,a_virer]
+        if a_ajouter is None or ratio < meilleur_ratio:
+            a_ajouter = y
+            meilleur_ratio = ratio
 
-        # Quantité maximale que l'on peut prendre
-        indexes_costs_not_zero = filter(lambda i: costs[index_max_benef][i] > 0, range(n))
-        index_limiting = min(indexes_costs_not_zero, key=lambda i: stock[i] / costs[index_max_benef][i])
-        taken_quantity = stock[index_limiting] / costs[index_max_benef][index_limiting]
+    # opérations sur les lignes
+    for y in range(size_y):
+        if y == a_ajouter:
+            matrice[y,] /= matrice[y,a_virer]
+        else:
+            ratio = matrice[y,a_virer] / matrice[a_ajouter, a_virer]
+            matrice[y,] -= ratio * matrice[a_ajouter,]
 
-        solution[index_max_benef] += taken_quantity
-
-if __name__ == '__main__':
-    print '------- Exemple du TP ---------------'
-    stock = [42, 17, 24]
-    costs = [
-        [2, 1, 1],
-        [4, 1, 2],
-        [5, 2, 3],
-        [7, 2, 3],
-    ]
-    benefits = [7, 9, 18, 17]
-    print simplexe(stock, costs, benefits)
-
-    print '------- Exemple qui fait planter -----------'
-    stock = [42, 26]
-    costs = [
-        [5, 4],
-        [2, 7],
-    ]
-    benefits = [5, 8]
-    print simplexe(stock, costs, benefits)
+    return simplexe(matrice)
