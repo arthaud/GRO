@@ -2,17 +2,37 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import sacados
+import sacados as sad
+
+def test_sad(obj, file_name, max_mass):
+    start = datetime.datetime.now()
+    best = sad.sacados(obj, max_mass)
+    exec_time = datetime.datetime.now() - start
+    print("Tested %s with max_mass=%s in %s" % (file_name, max_mass, exec_time))
+    print("    optimum:    %s" % best)
+    r = sad.greedy(obj, max_mass, sad.best_price)
+    print("    best price: %s / %.1f%%" % (r, 100.*(best-r)/best))
+    r = sad.greedy(obj, max_mass, sad.less_mass)
+    print("    less mass:  %s / %.1f%%" % (r, 100.*(best-r)/best))
+    r = sad.greedy(obj, max_mass, sad.best_ratio)
+    print("    best ratio: %s / %.1f%%" % (r, 100.*(best-r)/best))
 
 if __name__ == '__main__':
-    sad = ["tests/50.in", "tests/500.in", "tests/5000.in", "tests/50000.in"]
+    # some are commented just because they take a few seconds and I can't wait that long
+    sad_files = [
+            "tests/50,25,1,1,1000.in",
+            "tests/500,25,1,1,1000.in",
+            "tests/5000,25,1,1,1000.in",
+            "tests/5000,300,1,1,1000.in",
+            "tests/50000,25,1,1,1000.in",
+            "tests/50000,300,1,1,1000.in",
+            "tests/50000,1000,1,1,1000.in",
+            "tests/50000,5000,1,1,1000.in"
+    ]
 
-    for p in sad:
-        obj = sacados.read_testfile(p)
-        start = datetime.datetime.now()
-        print(sacados.sacados(obj, 10))
-        print(sacados.sacados(obj, 100))
-        print(sacados.sacados(obj, 500))
-        exec_time = (datetime.datetime.now() - start)/3
-        print("Tested %s in %s" % (p, exec_time))
-
+    for p in sad_files:
+        obj = sad.read_testfile(p)
+        test_sad(obj[:], p, 20)
+        test_sad(obj[:], p, 100)
+        test_sad(obj[:], p, 500)
+        print("")
