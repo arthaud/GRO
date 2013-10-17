@@ -4,20 +4,21 @@ from __future__ import division
 import numpy as np
 
 """
+Fonction utilisée par la fonction simplexe, elle ne devrait pas être appelée
+directement.
 La matrice d'entrée doit avoir la forme suivante :
+    Les premières colonnes correspondent aux produits :
+    [bénéfice du produit, cout en ressource 1, cout en ressource 2, ...]
+    (ce sont les variables libres)
 
-À chaque colonne correspond un produit :
-[benef_du_produit, cout_ressource_1, cout_ressource_2, ...]
-(c'est les variables libres)
+    Les dernières colonnes correspondent aux variables de base :
+    [0, ..., 0, 1, 0, ..., 0]
+    sachant que le carré des variables de base forme une matrice identité.
 
-Sur les dernières colonnes, on a les variables de base :
-[0, 0, ..., 0, 1, 0, ..., 0]
-sachant que le carré des variables de base forme une matrice identité.
+    Et sur la toute dernière colonne :
+    [0, stock en ressource 1, stock en ressource 2, ...]
 
-Et sur la toute dernière colonne :
-[0, stock_ressource_1, stock_ressource_2, ...]
-
-Attention: la matrice doit être une matrice flotante pour numpy !
+Attention: la matrice doit être une matrice flottante pour numpy !
 Càd déclarée avec np.array([...], dtype='f')
 
 Retourne un triplet de la forme (gain, [a_produire...], [restes...]) où :
@@ -25,46 +26,51 @@ Retourne un triplet de la forme (gain, [a_produire...], [restes...]) où :
     - restes[m]     est ce qu'il reste en ressource m.
 """
 
-def simplexe_aux(matrice, base=None):
+def simplexe_aux(matrice):
     size_y, size_x = matrice.shape
 
-    if base==None:
-      base = list(range(size_x-1-(size_y-1), size_x-1))
+    # variables de base
+    base = list(range(size_x-1-(size_y-1), size_x-1))
 
-    # indice de colonne (pour le x à virer de la base)
-    a_virer = np.argmax(matrice[0,])
-    if matrice[0,a_virer] <= 0:
-        a_produire_et_restes = [0]*(size_x-1)
-        for n in range(len(base)):
-            m=base[n]
-            a_produire_et_restes[m] = matrice[n+1,-1]
+    # indice de colonne (pour le x à ajouter de la base)
+    a_ajouter = np.argmax(matrice[0,])
+    while matrice[0,a_ajouter] > 0:
+        # indice de ligne (pour le x à retirer de la base)
+        a_retirer = None
+        meilleur_ratio = 0
 
-        return -matrice[0,-1],                         \
-               a_produire_et_restes[0:size_x-size_y],  \
-               a_produire_et_restes[size_x-size_y:-1]
+        # la première ligne est pour z, on n'y cherche pas le ratio
+        for y in range(1, size_y):
+            if matrice[y,a_ajouter] == 0: #todo: comp float ?
+                continue
+            ratio = matrice[y,-1] / matrice[y,a_ajouter]
+            if a_retirer is None or ratio < meilleur_ratio:
+                a_retirer = y
+                meilleur_ratio = ratio
 
-    # indice de ligne (pour le x à ajouter dans la base)
-    a_ajouter = None
-    meilleur_ratio = 0
-    for y in range(1, size_y): # la première ligne est pour z, osef
-        if matrice[y,a_virer] == 0: #todo: comp float ?
-            continue
-        ratio = matrice[y,-1] / matrice[y,a_virer]
-        if a_ajouter is None or ratio < meilleur_ratio:
-            a_ajouter = y
-            meilleur_ratio = ratio
+        base[a_retirer-1] = a_ajouter
 
-    base[a_ajouter-1] = a_virer
+        # opérations sur les lignes
+        for y in range(size_y):
+            if y == a_retirer:
+                matrice[y,] /= matrice[y,a_ajouter]
+            else:
+                ratio = matrice[y,a_ajouter] / matrice[a_retirer, a_ajouter]
+                matrice[y,] -= ratio * matrice[a_retirer,]
 
-    # opérations sur les lignes
-    for y in range(size_y):
-        if y == a_ajouter:
-            matrice[y,] /= matrice[y,a_virer]
-        else:
-            ratio = matrice[y,a_virer] / matrice[a_ajouter, a_virer]
-            matrice[y,] -= ratio * matrice[a_ajouter,]
+        a_ajouter = np.argmax(matrice[0,])
 
-    return simplexe_aux(matrice, base)
+    # recherche des quantités à produire (au début de la liste)
+    # et des restes (à la fin)
+    a_produire_et_restes = [0]*(size_x-1)
+    for n in range(len(base)):
+        m=base[n]
+        a_produire_et_restes[m] = matrice[n+1,-1]
+
+    return -matrice[0,-1],                         \
+           a_produire_et_restes[0:size_x-size_y],  \
+           a_produire_et_restes[size_x-size_y:-1]
+
 
 def simplexe(contraintes, profit):
     """
@@ -121,17 +127,18 @@ if __name__ == '__main__':
         [1, 1, 2, 2,   0, 1, 0, 17],
         [1, 2, 3, 3,   0, 0, 1, 24]
     ], dtype='f')
-    print(simplexe_aux(m))
+    direct = simplexe_aux(m)
+    print(direct)
+
+    contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
+    profit = [7,9,18,17]
+    assert(direct == simplexe(contraintes, profit))
 
     print("==============")
+
     m = np.array([
       [5, 8, 0, 0, 0],
       [5, 2, 1, 0, 42],
       [4, 7, 0, 1, 26]], dtype='f')
     print(simplexe_aux(m))
-
-    print("==============")
-    contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
-    profit = [7,9,18,17]
-    print(simplexe(contraintes, profit))
 
