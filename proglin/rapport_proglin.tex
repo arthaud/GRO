@@ -103,7 +103,6 @@
       \caption{Résultats de l'algorithme glouton}
       \label{table:greedy}
     \end{table}
-
     On remarque qu'en général, la résolution approchée en considérant le ratio
     \nobreak prix/masse donne de très bon résultats, voire le meilleur
     résultat. Le résultat que fournit cet algorithme est le moins bon quand la
@@ -120,14 +119,29 @@
 
     expliquer principes algo
 
-    % todo: parler de dégénérescence 
+    % todo:
     %       contraintes négatives
     %       cas non borné
     %       cas non entier
+
+\subsubsection{Dégénérescence}
+
+Un problème du simplexe est dit dégénéré si, plus de deux contraintes vont devoir êtres nulles en un sommet.
+Graphiquement (en 2D), cela veut dire que 3 (ou plus) droites vont se rencontrer en un sommet.
+
+Ceci va faire que l'algorithme du simplexe ne va pas progresser entre deux itérations, mais va simplement
+changer de base. Le problème étant que sur des cas particuliers, il pourra changer de base sans progresser,
+puis boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas la solution.
+
+Pour éviter cela, on peut utiliser des règles d'anti-cyclage, dont la règle de Bland, qui
+consiste à choisir judicieusement les variables qu'on fera entrer et sortir de la base,
+dans le cas ou il y aurait plusieurs possibilitées aussi intéressantes les unes que les autres.
+Elle consiste simplement à se baser sur l'indice des variables.
 
 \section{Annexe}
   \lstlistoflistings
   \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{sacados.py}
   \lstinputlisting[language=python, caption=Codes relatifs au simplexe]{simplexe.py}
+
 
 \end{document}
