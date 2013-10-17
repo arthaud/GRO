@@ -21,7 +21,7 @@ Attention: la matrice doit être une matrice flotante pour numpy !
 Càd déclarée avec np.array([...], dtype='f')
 """
 
-def simplexe(matrice, base=None):
+def simplexe_aux(matrice, base=None):
     #print(matrice)
     size_y, size_x = matrice.shape
 
@@ -45,13 +45,13 @@ def simplexe(matrice, base=None):
             a_ajouter = y
             meilleur_ratio = ratio
 
-    print(a_virer, a_ajouter)
+    #print(a_virer, a_ajouter)
     for i in range(len(base)):
         if base[i] == a_ajouter+1:
             base[i] = a_virer
             break
 
-    print(base)
+    #print(base)
     # opérations sur les lignes
     for y in range(size_y):
         if y == a_ajouter:
@@ -60,7 +60,54 @@ def simplexe(matrice, base=None):
             ratio = matrice[y,a_virer] / matrice[a_ajouter, a_virer]
             matrice[y,] -= ratio * matrice[a_ajouter,]
 
-    return simplexe(matrice, base)
+    return simplexe_aux(matrice, base)
+
+def simplexe(contraintes, profit):
+    """
+    Cette fonction prend en entrée la matrice contenant les
+    inéquations définissant le problème, telle que définie dans le
+    slide 3 des séances 2 et 3. Elle prend également la fonction
+    profit, les variables devant être dans le même ordre que dans
+    l'autre matrice.
+    Elle transforme cette matrice en une matrice utilisable par la
+    fonction simplexe_aux.
+    """
+
+    nb_mat, nb_pdt = contraintes.shape
+    nb_pdt -= 1 # Contraintes contient également les stocks
+
+    m = np.array([[0] * (nb_pdt + nb_mat + 1)] * (nb_mat + 1), dtype='f')
+
+    # Ajout du profit
+    m[0,] = profit + [0] * (nb_mat + 1)
+
+    for i in range(nb_mat):
+        # Ajout des contraintes sur les variables libres
+        m[i+1,:nb_pdt] = contraintes[i,:nb_pdt]
+        # Ajout des variables de base
+        m[i+1,nb_pdt+i] = 1
+
+    # Ajout des stocks
+    m[1:,-1] = contraintes[:,-1]
+
+    return simplexe_aux(m)
+
+def recherche_initial(matrice):
+    '''
+    Retourne un sommet initial, ou None s'il n'y a pas de solution
+    '''
+    size_y, size_x = matrice.shape
+    prob_artificiel = np.zeros((size_y, size_x + (size_y - 1)))
+    prob_artificiel[1:, 0:size_x-1] = matrice[1:, 0:size_x-1]
+    prob_artificiel[:, -1] = matrice[:, -1]
+    prob_artificiel[0, size_x-1:-1] = 1.0
+    prob_artificiel[1:, size_x-1:-1] = np.identity(size_y - 1)
+
+    solution, benef_max = simplexe(prob_artificiel)
+    if benef_max != 0:
+        return None
+    else:
+        return solution[:size_x-1]
 
 if __name__ == '__main__':
     np.set_printoptions(precision=2)
@@ -70,12 +117,16 @@ if __name__ == '__main__':
         [1, 1, 2, 2,   0, 1, 0, 17],
         [1, 2, 3, 3,   0, 0, 1, 24]
     ], dtype='f')
-    print(simplexe(m))
+    print(simplexe_aux(m))
 
     print("==============")
     m = np.array([
       [5, 8, 0, 0, 0],
       [5, 2, 1, 0, 42],
       [4, 7, 0, 1, 26]], dtype='f')
-    print(simplexe(m))
+    print(simplexe_aux(m))
 
+    print("==============")
+    contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
+    profit = [7,9,18,17]
+    print(simplexe(contraintes, profit))
