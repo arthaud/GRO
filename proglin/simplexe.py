@@ -19,20 +19,29 @@ Et sur la toute dernière colonne :
 
 Attention: la matrice doit être une matrice flotante pour numpy !
 Càd déclarée avec np.array([...], dtype='f')
+
+Retourne un triplet de la forme (gain, [a_produire...], [restes...]) où :
+    - a_produire[n] est la quantité de produit n à produire;
+    - restes[m]     est ce qu'il reste en ressource m.
 """
 
 def simplexe_aux(matrice, base=None):
-    #print(matrice)
     size_y, size_x = matrice.shape
 
     if base==None:
-      base = range(size_x-1-(size_y-1), size_x-1)
-      #print(base)
+      base = list(range(size_x-1-(size_y-1), size_x-1))
 
     # indice de colonne (pour le x à virer de la base)
     a_virer = np.argmax(matrice[0,])
     if matrice[0,a_virer] <= 0:
-        return -matrice[0,-1]
+        a_produire_et_restes = [0]*(size_x-1)
+        for n in range(len(base)):
+            m=base[n]
+            a_produire_et_restes[m] = matrice[n+1,-1]
+
+        return -matrice[0,-1],                         \
+               a_produire_et_restes[0:size_x-size_y],  \
+               a_produire_et_restes[size_x-size_y:-1]
 
     # indice de ligne (pour le x à ajouter dans la base)
     a_ajouter = None
@@ -45,13 +54,8 @@ def simplexe_aux(matrice, base=None):
             a_ajouter = y
             meilleur_ratio = ratio
 
-    #print(a_virer, a_ajouter)
-    for i in range(len(base)):
-        if base[i] == a_ajouter+1:
-            base[i] = a_virer
-            break
+    base[a_ajouter-1] = a_virer
 
-    #print(base)
     # opérations sur les lignes
     for y in range(size_y):
         if y == a_ajouter:
@@ -110,7 +114,7 @@ def recherche_initial(matrice):
         return solution[:size_x-1]
 
 if __name__ == '__main__':
-    np.set_printoptions(precision=2)
+    np.set_printoptions(precision=2, suppress=True)
     m = np.array([
         [7, 9, 18, 17, 0, 0, 0, 0],
         [2, 4, 5, 7,   1, 0, 0, 42],
@@ -130,3 +134,4 @@ if __name__ == '__main__':
     contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
     profit = [7,9,18,17]
     print(simplexe(contraintes, profit))
+
