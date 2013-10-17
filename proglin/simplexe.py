@@ -21,7 +21,7 @@ Attention: la matrice doit être une matrice flotante pour numpy !
 Càd déclarée avec np.array([...], dtype='f')
 """
 
-def simplexe(matrice):
+def simplexe_aux(matrice):
     size_y, size_x = matrice.shape
 
     # indice de colonne (pour le x à virer de la base)
@@ -48,7 +48,37 @@ def simplexe(matrice):
             ratio = matrice[y,a_virer] / matrice[a_ajouter, a_virer]
             matrice[y,] -= ratio * matrice[a_ajouter,]
 
-    return simplexe(matrice)
+    return simplexe_aux(matrice)
+
+def simplexe(contraintes, profit):
+    """
+    Cette fonction prend en entrée la matrice contenant les
+    inéquations définissant le problème, telle que définie dans le
+    slide 3 des séances 2 et 3. Elle prend également la fonction
+    profit, les variables devant être dans le même ordre que dans
+    l'autre matrice.
+    Elle transforme cette matrice en une matrice utilisable par la
+    fonction simplexe_aux.
+    """
+
+    nb_mat, nb_pdt = contraintes.shape
+    nb_pdt -= 1 # Contraintes contient également les stocks
+
+    m = np.array([[0] * (nb_pdt + nb_mat + 1)] * (nb_mat + 1), dtype='f')
+
+    # Ajout du profit
+    m[0,] = profit + [0] * (nb_mat + 1)
+
+    for i in range(nb_mat):
+        # Ajout des contraintes sur les variables libres
+        m[i+1,:nb_pdt] = contraintes[i,:nb_pdt]
+        # Ajout des variables de base
+        m[i+1,nb_pdt+i] = 1
+
+    # Ajout des stocks
+    m[1:,-1] = contraintes[:,-1]
+
+    return simplexe_aux(m)
 
 if __name__ == '__main__':
     m = np.array([
@@ -57,5 +87,6 @@ if __name__ == '__main__':
         [1, 1, 2, 2,   0, 1, 0, 17],
         [1, 2, 3, 3,   0, 0, 1, 24]
     ], dtype='f')
-    print(simplexe(m))
-
+    contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
+    profit = [7,9,18,17]
+    print(simplexe(contraintes, profit))
