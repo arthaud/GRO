@@ -21,8 +21,13 @@ Attention: la matrice doit être une matrice flotante pour numpy !
 Càd déclarée avec np.array([...], dtype='f')
 """
 
-def simplexe(matrice):
+def simplexe(matrice, base=None):
+    #print(matrice)
     size_y, size_x = matrice.shape
+
+    if base==None:
+      base = range(size_x-1-(size_y-1), size_x-1)
+      #print(base)
 
     # indice de colonne (pour le x à virer de la base)
     a_virer = np.argmax(matrice[0,])
@@ -40,6 +45,13 @@ def simplexe(matrice):
             a_ajouter = y
             meilleur_ratio = ratio
 
+    print(a_virer, a_ajouter)
+    for i in range(len(base)):
+        if base[i] == a_ajouter+1:
+            base[i] = a_virer
+            break
+
+    print(base)
     # opérations sur les lignes
     for y in range(size_y):
         if y == a_ajouter:
@@ -48,14 +60,22 @@ def simplexe(matrice):
             ratio = matrice[y,a_virer] / matrice[a_ajouter, a_virer]
             matrice[y,] -= ratio * matrice[a_ajouter,]
 
-    return simplexe(matrice)
+    return simplexe(matrice, base)
 
 if __name__ == '__main__':
+    np.set_printoptions(precision=2)
     m = np.array([
         [7, 9, 18, 17, 0, 0, 0, 0],
         [2, 4, 5, 7,   1, 0, 0, 42],
         [1, 1, 2, 2,   0, 1, 0, 17],
         [1, 2, 3, 3,   0, 0, 1, 24]
     ], dtype='f')
+    print(simplexe(m))
+
+    print("==============")
+    m = np.array([
+      [5, 8, 0, 0, 0],
+      [5, 2, 1, 0, 42],
+      [4, 7, 0, 1, 26]], dtype='f')
     print(simplexe(m))
 
