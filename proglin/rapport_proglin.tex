@@ -49,11 +49,31 @@
   Qualité Thomas Wagner. Les autres membres de l'équipe sont Martin Carton,
   Thomas Forgione, Maxime Arthaud, et Korantin Auguste.
 
-  %todo: absences
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{|c||c|c|c||c|c|c|}
+      \hline
+      & TD1 & TD2 & TD3 & TP1 & TP2 & TP3 \\
+      \hline\hline
+      Maxence Ahlouche (CPC) & & & & Abs. & & \\
+      \hline
+      Maxime Arthaud & & & & & Abs. & \\
+      \hline
+      Korantin Auguste & Retard & Retard & Retard & Retard & Retard & Retard \\
+      \hline
+      Carton Martin &&&&&&\\
+      \hline
+      Thomas Forgione &&&&&&\\
+      \hline
+      Thomas Wagner (RQ) &&&&&&\\
+      \hline
+    \end{tabular}
+  \end{table}
+
+  Il est à noter qu'en comptant tout ses retards Korantin a loupé au moins 1h45
+  de TD/TP :D
   
 \section{Problème du sac à dos}
-  \begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
-
   \subsection{Résolution exacte}
     Nous avons implémenté un algorithme de programmation dynamique, qui permet
     de résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement
@@ -78,8 +98,6 @@
     algorithme approché. La table~\ref{table:greedy} montre quelques-uns des
     résultats obtenus.
 
-    %todo: ajouter des tests avec un ``range of coeficients'' plus élevé pour
-    %avoir des résultats plus intéressant avec le ratio prix/masse
     \begin{table}[h]
       \makebox[\textwidth]{%
       \centering
@@ -140,7 +158,7 @@ Elle consiste simplement à se baser sur l'indice des variables.
 
 \section{Annexe}
   \lstlistoflistings
-  \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{sacados.py}
+  \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{knapsack.py}
   \lstinputlisting[language=python, caption=Codes relatifs au simplexe]{simplexe.py}
 
 
