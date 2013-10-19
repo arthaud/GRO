@@ -85,13 +85,13 @@
     Nous l'avons testé\footnote{En utilisant le générateur de problèmes trouvé
     à l'adresse suivante: \url{http://www.diku.dk/~pisinger/codes.html}.} sur
     plusieurs instances du problème (jusqu'à X objets et un poids maximal de
-    X), et l'algorithme s'exécute toujours en moins d'une seconde.
+    X), et l'algorithme est rapide.
     %todo: faire les tests :D
 
   \subsection{Résolution approchée}
     Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste à
     choisir les \og meilleurs \fg{} objets jusqu'à que la masse maximale soit
-    dépassée.  Le critère déterminant quels sont les meilleurs objets peuvent
+    dépassée.  Le critère déterminant quels sont les meilleurs objets peut
     être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
 
     Cet algorithme est beaucoup plus rapide que le précédent, mais n'est qu'un
@@ -121,11 +121,16 @@
       \caption{Résultats de l'algorithme glouton}
       \label{table:greedy}
     \end{table}
+
     On remarque qu'en général, la résolution approchée en considérant le ratio
     \nobreak prix/masse donne de très bon résultats, voire le meilleur
     résultat. Le résultat que fournit cet algorithme est le moins bon quand la
     masse maximale autorisée est faible comparée à l'amplitude des valeurs que
     peuvent prendre le prix et la masse des objets.
+    
+    Toutefois cet algorithme est beaucoup plus rapide, et a une complexité en
+    temps de $O(n \log n)$ (pour le tri des objets), et ne nécessite en mémoire
+    que la liste des objets.
 
 \section{Problème d'optimisation} % todo: titre?
   Le but est maximiser une fonction linéaire sous certaines contraintes
@@ -133,28 +138,59 @@
 
   \subsection{Simplexe}
     L'algorithme du simplexe a une complexité dans le pire des cas
-    exponentielles, mais en pratique, cet algorithme est efficace.
+    exponentielle, mais en pratique, cet algorithme est efficace.
 
-    expliquer principes algo
+    \subsubsection{Forme standard et tableau canonique}
+      Pour résoudre le problème, la première étape est le mettre sous forme
+      standard. Pour cela on ajoute à chaque inéquation $j$ de la forme
+      $\sum a_{j,i}x_i \leq 0$ une variable dite d'écart pour la transformer en
+      égalité: $\sum a_{j,i}x_i + s_j = 0$ où $s_j \geq 0$.
+      
+      Les inéquations de la forme $\sum a_ix_i \geq 0$ sont d'abord multipliées
+      par $-1$ avant cette étape.
+      %todo: et les égalités on en fait quoi ? J'ai essayé en les transformant
+      %en deux inégalités <= et >= mais ça marche pas.
 
+      On construit ensuite un tableau dit canonique représentant le problème
+      comme suit:
+      \begin{itemize}
+        \item la première ligne de la matrice est
+          $[m_0, m_1, \cdots, m_n, 0, \cdots, 0]$ où les $(m_i)$ sont les
+          coefficients du problème $\min \sum m_ix_i$ et auquel on ajoute
+          autant de $0$ qu'on a ajouté de variables d'écart.
+        \item les autres lignes de la matrice sont
+          $[a_{j,0}, \cdots, a_{j,n}, 0, \cdots, 0, 1,0, \cdots, 0]$ où les $1$
+          sont placés de manière à former une matrice identité (ils
+          correspondent aux variables d'écart ajoutées).
+      \end{itemize}
+
+    \subsubsection{Algorithme}
+    %todo
+
+    \subsubsection{Tests}
+    %todo
+      
     % todo:
     %       contraintes négatives
     %       cas non borné
     %       cas non entier
+    \subsubsection{Dégénérescence}
+      Un problème du simplexe est dit dégénéré si plus de deux contraintes vont
+      devoir être nulles en un sommet. Graphiquement (en 2D), cela veut dire
+      qu'au moins 3 droites vont se rencontrer en un sommet.
+      %todo : graphiquement ? Pas clair: on a jamais parlé de graphique avant
 
-\subsubsection{Dégénérescence}
+      Ceci va empêcher l'algorithme du simplexe de progresser entre deux
+      itérations: il va simplement changer de base. Le problème étant que sur
+      des cas particuliers, il pourra changer de base sans progresser, puis
+      boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas
+      la solution.
 
-Un problème du simplexe est dit dégénéré si, plus de deux contraintes vont devoir êtres nulles en un sommet.
-Graphiquement (en 2D), cela veut dire que 3 (ou plus) droites vont se rencontrer en un sommet.
-
-Ceci va faire que l'algorithme du simplexe ne va pas progresser entre deux itérations, mais va simplement
-changer de base. Le problème étant que sur des cas particuliers, il pourra changer de base sans progresser,
-puis boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas la solution.
-
-Pour éviter cela, on peut utiliser des règles d'anti-cyclage, dont la règle de Bland, qui
-consiste à choisir judicieusement les variables qu'on fera entrer et sortir de la base,
-dans le cas ou il y aurait plusieurs possibilitées aussi intéressantes les unes que les autres.
-Elle consiste simplement à se baser sur l'indice des variables.
+      Pour éviter cela, on peut utiliser des règles d'anti-cyclage, dont la
+      règle de Bland, qui consiste à choisir judicieusement les variables qu'on
+      fera entrer et sortir de la base, dans le cas où il y aurait plusieurs
+      possibilités autant intéressantes les unes que les autres. Elle consiste
+      simplement à se baser sur l'indice des variables. %todo: to be continued?
 
 \section{Annexe}
   \lstlistoflistings

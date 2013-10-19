@@ -120,8 +120,8 @@ def recherche_initial(matrice):
         return solution[:size_x-1]
 
 if __name__ == '__main__':
-    print("= Exemple du cours =")
     np.set_printoptions(precision=2, suppress=True)
+
     m = np.array([
         [7, 9, 18, 17, 0, 0, 0, 0],
         [2, 4, 5, 7,   1, 0, 0, 42],
@@ -134,16 +134,6 @@ if __name__ == '__main__':
     contraintes = np.array([[2,4,5,7,42],[1,1,2,2,17],[1,2,3,3,24]])
     profit = [7,9,18,17]
     assert(direct == simplexe(contraintes, profit))
-
-    print("= Exemple avec >= =")
-
-    m = np.array([
-        [7, 9, 18, 17, 0, 0, 0, 0],
-        [-2, -4, -5, -7, 1, 0, 0, -42],
-        [1, 1, 2, 2,   0, 1, 0, 17],
-        [1, 2, 3, 3,   0, 0, 1, 24]
-    ], dtype='f')
-    print(simplexe_aux(m))
 
     print("==============")
 
