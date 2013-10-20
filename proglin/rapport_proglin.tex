@@ -149,19 +149,19 @@
     \subsubsection{Existence de solutions}
       Pour un tel problème, trois possibilités s'offrent à nous :
       \begin{itemize}
-        \item les contraintes sont incompatibles
-        \item la fonction est non majorée sur $C$
-        \item le problème admet un maximum sur $C$
+        \item les contraintes sont incompatibles;
+        \item la fonction est non majorée sur $C$;
+        \item le problème admet un maximum sur $C$.
       \end{itemize}
       Nous savons de plus que $C$ est un polyèdre convexe. Un théorème garantit
-      alors que ce problèma à une solution, alors il a une solution en un de
+      alors que si ce problème à une solution, alors il a une solution en un de
       ses sommets. Nous allons donc chercher les solutions parmi les sommets de
       $C$.
 
   \subsection{Algorithme du simplexe}
     Le principe de cet algorithme est de considérer un des sommets du polyèdre,
-    puis de se déplacer en suivant les ar\^etes de ce polyèdre en augmentant à
-    chaque itération le gain. L'algorihtme se terminera lorsque nous nous 
+    puis de se déplacer en suivant les arêtes de ce polyèdre en augmentant à
+    chaque itération le gain. L'algorithme se terminera lorsque nous nous 
     trouverons sur un sommet, dont tous les sommets adjacents présentent un gain
     plus faible. La convexité du polyèdre nous garantit que le résultat est 
     optimal.
@@ -169,12 +169,11 @@
     L'algorithme du simplexe a une complexité dans le pire des cas
     exponentielle, mais en pratique, cet algorithme est efficace.
     
-    % probleme de parenthesage dans ce paragraphe : 3 ouvrantes et 2 fermantes
     Cet algorithme ne permet pas de maximiser une fonction pour des variables
-    entières (par exemple pour connaitre le nombre de produits (donc nombre
-    entier) à produire pour maximiser un gain (bien qu'on pourrait en pratique
-    l'utiliser en considérant que la solution optimale entière est suffisamment
-    proche de la solution optimale réelle).
+    entières (par exemple pour connaitre un nombre de produits à produire, donc
+    un nombre entier) à produire pour maximiser un gain (bien qu'on pourrait en
+    pratique l'utiliser en considérant que la solution optimale entière est
+    suffisamment proche de la solution optimale réelle).
 
     \subsubsection{Forme standard et tableau canonique}
       Pour résoudre le problème, la première étape est le mettre sous forme
