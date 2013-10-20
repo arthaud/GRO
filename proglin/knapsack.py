@@ -3,7 +3,7 @@
 
 def knapsack(objects, max_mass):
     """
-    Résoud le problème du sac à dos avec de la programmation dynamique.
+    Résout le problème du sac à dos avec de la programmation dynamique.
     Fonctionne seulement avec des valeurs entières.
 
     objects est une liste de couple (masse, prix) représentant les objets.
@@ -36,10 +36,10 @@ def best_price(x): return x[1]
 def greedy(objects, max_mass, key):
     """
         Algorithme approché du glouton.
-        Nécessite de trier les objects selon un critère `key`.
+        Nécessite de trier les objets selon un critère `key`.
         Par exemple
             greedy(obj, max_mass, less_mass)
-        choisit les objects en commençant par les moins lourds.
+        choisit les objets en commençant par les moins lourds.
     """
     cost, mass = 0, 0
     objects = sorted(objects, key=key, reverse=True)
