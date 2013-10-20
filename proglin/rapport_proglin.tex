@@ -136,9 +136,17 @@
   Le but est maximiser une fonction linéaire sous certaines contraintes
   (inéquations linéaires).
 
-  \subsection{Simplexe}
+  \subsection{Existence de solutions et autre blablas mathématiques}
+
+  \subsection{Algorithme du simplexe}
     L'algorithme du simplexe a une complexité dans le pire des cas
     exponentielle, mais en pratique, cet algorithme est efficace.
+    
+    Cet algorithme ne permet pas de maximiser une fonction pour des variables
+    entières (par exemple pour connaitre le nombre de produits (donc nombre
+    entier) à produire pour maximiser un gain (bien qu'on pourrait en pratique
+    l'utiliser en considérant que la solution optimale entière est suffisamment
+    proche de la solution optimale réelle).
 
     \subsubsection{Forme standard et tableau canonique}
       Pour résoudre le problème, la première étape est le mettre sous forme
@@ -165,7 +173,34 @@
       \end{itemize}
 
     \subsubsection{Algorithme}
-    %todo
+      \begin{lstlisting}
+Entrée : matrice (un tableau canonique)
+Sortie : le résultat optimum
+         les quantités de chaque produit à produire
+         les quantités de chaque ressources restantes
+
+base = indices des variables de base de la matrice
+
+tant qu'il reste des nombres strictement positifs sur la première ligne:
+    à_ajouter = indice de la colonne dont le premier élément est maximal
+    à_retirer = indice de la ligne (>1) telle que :
+                matrice[à_retirer, dernière colonne]/matrice[à_retirer, à_ajouter]
+                est minimum
+
+    remplacer le (à_retirer)ième élément de base par à_ajouter
+
+    diviser la ligne à_retirer de matrice par matrice[à_retirer, à_ajouter]
+    et soustraire aux autres lignes y le vecteur :
+        matrice[y,a_ajouter] * matrice[a_retirer,] / matrice[a_retirer, a_ajouter]
+
+pour chaque variable d'origine n (n dans [0, nombre de variables hors base[):
+  à_produire[base[n]] = matrice[n+1, dernière colonne]
+
+pour chaque variable d'écart n (n dans [nombre de variables hors base, nombre de varibles total[):
+  restes[base[n]] = matrice[n+1, dernière colonne]
+
+retourner (-matrice[0, dernière colonne], à_produire, restes)
+      \end{lstlisting}
 
     \subsubsection{Tests}
     %todo
@@ -173,7 +208,6 @@
     % todo:
     %       contraintes négatives
     %       cas non borné
-    %       cas non entier
     \subsubsection{Dégénérescence}
       Un problème du simplexe est dit dégénéré si plus de deux contraintes vont
       devoir être nulles en un sommet. Graphiquement (en 2D), cela veut dire
@@ -195,6 +229,7 @@
 \section{Annexe}
   \lstlistoflistings
   \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{knapsack.py}
+  \lstinputlisting[language=python, caption=Tests du sac à dos]{knapsack_test.py}
   \lstinputlisting[language=python, caption=Codes relatifs au simplexe]{simplexe.py}
 
 

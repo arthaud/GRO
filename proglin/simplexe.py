@@ -64,8 +64,7 @@ def simplexe_aux(matrice):
     # et des restes (à la fin)
     a_produire_et_restes = [0]*(size_x-1)
     for n in range(len(base)):
-        m=base[n]
-        a_produire_et_restes[m] = matrice[n+1,-1]
+        a_produire_et_restes[base[n]] = matrice[n+1,-1]
 
     return -matrice[0,-1],                         \
            a_produire_et_restes[0:size_x-size_y],  \
