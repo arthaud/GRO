@@ -12,8 +12,8 @@ def test_sad(obj, file_name, max_mass):
     print("    optimum:    %s" % best)
     r = sad.greedy(obj, max_mass, sad.best_price)
     print("    best price: %s / %.1f%%" % (r, 100.*(best-r)/best))
-    r = sad.greedy(obj, max_mass, sad.less_mass)
-    print("    less mass:  %s / %.1f%%" % (r, 100.*(best-r)/best))
+    r = sad.greedy(obj, max_mass, sad.worst_mass)
+    print("    worst mass:  %s / %.1f%%" % (r, 100.*(best-r)/best))
     r = sad.greedy(obj, max_mass, sad.best_ratio)
     print("    best ratio: %s / %.1f%%" % (r, 100.*(best-r)/best))
 

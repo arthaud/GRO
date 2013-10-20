@@ -101,23 +101,6 @@ def simplexe(contraintes, profit):
 
     return simplexe_aux(m)
 
-def recherche_initial(matrice):
-    '''
-    Retourne un sommet initial, ou None s'il n'y a pas de solution
-    '''
-    size_y, size_x = matrice.shape
-    prob_artificiel = np.zeros((size_y, size_x + (size_y - 1)))
-    prob_artificiel[1:, 0:size_x-1] = matrice[1:, 0:size_x-1]
-    prob_artificiel[:, -1] = matrice[:, -1]
-    prob_artificiel[0, size_x-1:-1] = 1.0
-    prob_artificiel[1:, size_x-1:-1] = np.identity(size_y - 1)
-
-    solution, benef_max = simplexe(prob_artificiel)
-    if benef_max != 0:
-        return None
-    else:
-        return solution[:size_x-1]
-
 if __name__ == '__main__':
     np.set_printoptions(precision=2, suppress=True)
 

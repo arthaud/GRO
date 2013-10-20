@@ -84,7 +84,8 @@
 
     Nous l'avons testé\footnote{En utilisant le générateur de problèmes trouvé
     à l'adresse suivante: \url{http://www.diku.dk/~pisinger/codes.html}.} sur
-    plusieurs instances du problème (cf table~\ref{table:greedy}), et l'algorithme est rapide.
+    plusieurs instances du problème (cf.\ table~\ref{table:greedy}), et
+    l'algorithme est rapide.
 
   \subsection{Résolution approchée}
     Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste à
@@ -101,18 +102,20 @@
       \centering
       \begin{tabular}{| c | c | c | c | c | c |}
       \hline
-        \brokencell{Paramètres du générateur/\\masse maximale autorisée}
+        \brokencell{Nombre d'objets/\\
+                    Amplitudes des prix et masses/\\
+                    Masse maximale autorisée}
       & \brokencell{Résultat\\optimum}
       & \brokencell{Prix le\\plus élevé}
       & \brokencell{Masse la\\plus faible}
       & \brokencell{Meilleur ratio\\prix/masse}\\
       \hline
-      50 25 1 1 1000/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
-      500 25 1 1 1000/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
-      5000 25 1 1 1000/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
-      50000 25 1 1 1000/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
-      50000 1000 1 1 1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
-      50000 5000 1 1 1000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
+      50/25/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
+      500/25/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
+      5000/25/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
+      50000/25/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
+      50000/1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
+      50000/5000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
       \hline  
       \end{tabular}
       }
@@ -121,26 +124,27 @@
     \end{table}
 
     On remarque qu'en général, la résolution approchée en considérant le ratio
-    \nobreak prix/masse donne de très bon résultats, voire le meilleur
-    résultat. Le résultat que fournit cet algorithme est le moins bon quand la
+    \nobreak prix/masse donne de très bon résultats, voire le résultat
+    optimum. Le résultat que fournit cet algorithme est le moins bon quand la
     masse maximale autorisée est faible comparée à l'amplitude des valeurs que
     peuvent prendre le prix et la masse des objets.
     
     Toutefois cet algorithme est beaucoup plus rapide, et a une complexité en
     temps de $O(n \log n)$ (pour le tri des objets), et ne nécessite en mémoire
-    que la liste des objets.
+    que la liste des objets, de plus il peut être utilisé quand les masses ne
+    sont pas entières.
 
 \section{Problème d'optimisation linéaire}
-  Le but est maximiser une fonction linéaire sous certaines contraintes
-  (inéquations linéaires).
+  Le but du problème est de maximiser une fonction linéaire sous certaines
+  contraintes linéaires elles aussi.
 
   \subsection{Point de vu mathématique} % todo: titre?
     \subsubsection{Formalisation du problème}
       Considérons le problème suivant :
       $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
-      Nous nous placerons dans le cas où $f$ est linéaire, $x \geqslant 0$, 
-      et où $C$ est décrit par des contraintes d'inégalités linéaires, 
-      c'est-à-dire qu'il existe une matrice $A$ et un vecteur $b$ tels 
+      Nous nous placerons dans le cas où $f$ est linéaire, où $x \geqslant 0$,
+      et où $C$ est décrit par des contraintes d'inégalités linéaires,
+      c'est-à-dire qu'il existe une matrice $A$ et un vecteur $b$ tels
       que $Ax\leqslant b$.
 
     \subsubsection{Existence de solutions}
@@ -189,7 +193,7 @@
         \item la première ligne de la matrice est
           $[m_0, m_1, \cdots, m_n, 0, \cdots, 0]$ où les $(m_i)$ sont les
           coefficients du problème $\min \sum m_ix_i$ et à laquelle on ajoute
-          autant de $0$ qu'on a ajouté de variables d'écart.
+          autant de $0$ qu'on a ajouté de variables d'écart;
         \item les autres lignes de la matrice sont
           $[a_{j,0}, \cdots, a_{j,n}, 0, \cdots, 0, 1,0, \cdots, 0]$ où les $1$
           sont placés de manière à former une matrice identité (ils
@@ -227,16 +231,19 @@ retourner (-matrice[0, dernière colonne], à_produire, restes)
       \end{lstlisting}
 
     \subsubsection{Tests}
-    %todo
+      %todo
+      Nous n'avons fait nos tests que sur de petits exemples, en effet, nous
+      avons essayé sur de plus grands exemples\footnote{Trouvés sur ce site:
+      \url{http://www.numerical.rl.ac.uk/cute/netlib.html}.} mais l'algorithme
+      ne trouve pas de maximum.
       
     % todo:
     %       contraintes négatives
     %       cas non borné
     \subsubsection{Dégénérescence}
       Un problème du simplexe est dit dégénéré si plus de deux contraintes vont
-      devoir être nulles en un sommet. Graphiquement (en 2D), cela veut dire
-      qu'au moins 3 droites vont se rencontrer en un sommet.
-      %todo : graphiquement ? Pas clair: on a jamais parlé de graphique avant
+      devoir être nulles en un sommet. Graphiquement, cela veut dire
+      qu'au moins 3 droites vont se rencontrer en un sommet du polyèdre.
 
       Ceci va empêcher l'algorithme du simplexe de progresser entre deux
       itérations: il va simplement changer de base. Le problème étant que sur
@@ -244,17 +251,15 @@ retourner (-matrice[0, dernière colonne], à_produire, restes)
       boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas
       la solution.
 
-      Pour éviter cela, on peut utiliser des règles d'anti-cyclage, dont la
+      Pour éviter cela, on pourrait utiliser des règles d'anti-cyclage, dont la
       règle de Bland, qui consiste à choisir judicieusement les variables qu'on
       fera entrer et sortir de la base, dans le cas où il y aurait plusieurs
-      possibilités aussi intéressantes les unes que les autres. Elle consiste
-      simplement à se baser sur l'indice des variables. %todo: to be continued?
+      possibilités aussi intéressantes les unes que les autres.
 
 \section{Annexe}
   \lstlistoflistings
   \lstinputlisting[language=python, caption=Code relatif au problème du sac à dos]{knapsack.py}
   \lstinputlisting[language=python, caption=Tests du sac à dos]{knapsack_test.py}
   \lstinputlisting[language=python, caption=Code relatif au simplexe]{simplexe.py}
-
 
 \end{document}
