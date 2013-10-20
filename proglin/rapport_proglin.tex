@@ -60,7 +60,7 @@
       \hline
       Maxime Arthaud & & & & & Abs. & \\
       \hline
-      Korantin Auguste & Retard & Retard & Retard & Retard & Retard & Retard \\
+      Korantin Auguste &&&&&& \\
       \hline
       Carton Martin &&&&&&\\
       \hline
@@ -70,14 +70,11 @@
       \hline
     \end{tabular}
   \end{table}
-
-  Il est à noter qu'en comptant tout ses retards Korantin a loupé au moins 1h45
-  de TD/TP :D
   
 \section{Problème du sac à dos}
   \subsection{Résolution exacte}
     Nous avons implémenté un algorithme de programmation dynamique, qui permet
-    de résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement
+    de résoudre le problème du sac à dos. Toutefois, il fonctionne uniquement
     si les poids des objets sont des entiers.
 
     Sa complexité en temps est en $O(nW)$ et celle en mémoire en $O(W)$, avec
@@ -92,7 +89,7 @@
   \subsection{Résolution approchée}
     Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste à
     choisir les \og meilleurs \fg{} objets jusqu'à que la masse maximale soit
-    dépassée.  Le critère déterminant quels sont les meilleurs objets peut
+    dépassée. Le critère déterminant quels sont les meilleurs objets peut
     être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
 
     Cet algorithme est beaucoup plus rapide que le précédent, mais n'est qu'un
