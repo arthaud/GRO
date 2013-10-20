@@ -1,6 +1,7 @@
 \documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
+\usepackage{amssymb}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -132,16 +133,43 @@
     temps de $O(n \log n)$ (pour le tri des objets), et ne nécessite en mémoire
     que la liste des objets.
 
-\section{Problème d'optimisation} % todo: titre?
+\section{Problème d'optimisation linéaire} % todo: titre?
   Le but est maximiser une fonction linéaire sous certaines contraintes
   (inéquations linéaires).
 
   \subsection{Existence de solutions et autre blablas mathématiques}
+    \subsubsection{Formalisation du problème}
+      Considérons le problème suivant :
+      $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
+      Nous nous placerons dans le cas où $f$ est linéaire, $x \geqslant 0$, 
+      et où $C$ est décrit par des contraintes d'inégalités linéaires, 
+      c'est-à-dire qu'il existe une matrice $A$ et un vecteur $b$ tels 
+      que $Ax\leqslant b$.
+
+    \subsubsection{Existence de solutions}
+      Pour un tel problème, trois possibilités s'offrent à nous :
+      \begin{itemize}
+        \item les contraintes sont incompatibles
+        \item la fonction est non majorée sur $C$
+        \item le problème admet un maximum sur $C$
+      \end{itemize}
+      Nous savons de plus que $C$ est un polyèdre convexe. Un théorème garantit
+      alors que ce problèma à une solution, alors il a une solution en un de
+      ses sommets. Nous allons donc chercher les solutions parmi les sommets de
+      $C$.
 
   \subsection{Algorithme du simplexe}
+    Le principe de cet algorithme est de considérer un des sommets du polyèdre,
+    puis de se déplacer en suivant les ar\^etes de ce polyèdre en augmentant à
+    chaque itération le gain. L'algorihtme se terminera lorsque nous nous 
+    trouverons sur un sommet, dont tous les sommets adjacents présentent un gain
+    plus faible. La convexité du polyèdre nous garantit que le résultat est 
+    optimal.
+
     L'algorithme du simplexe a une complexité dans le pire des cas
     exponentielle, mais en pratique, cet algorithme est efficace.
     
+    % probleme de parenthesage dans ce paragraphe : 3 ouvrantes et 2 fermantes
     Cet algorithme ne permet pas de maximiser une fonction pour des variables
     entières (par exemple pour connaitre le nombre de produits (donc nombre
     entier) à produire pour maximiser un gain (bien qu'on pourrait en pratique
