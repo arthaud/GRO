@@ -3,6 +3,7 @@
 from __future__ import division
 import collections
 import operator
+import random
 
 PAPIER, CAILLOU, CISEAU = range(3)
 
@@ -25,30 +26,31 @@ ANTAGONISTE = {
 
 
 class Strategie():
-    pass
+    def __repr__(self):
+        return self.__class__.__name__ + '()'
 
 
-class SRandom():
+class SRandom(Strategie):
     def resultat(self, resultat):
         pass
 
     def predire(self):
-        return {PAPIER: 1/3, CAILLOU: 1/3, CISEAU: 1/3}
+        return random.choice((PAPIER, CAILLOU, CISEAU))
 
 
 class SPapier(SRandom):
-    def predire(self, resultat):
-        return {PAPIER: 1}
+    def predire(self):
+        return PAPIER
 
 
 class SCaillou(SPapier):
-    def predire(self, resultat):
-        return {CAILLOU: 1}
+    def predire(self):
+        return CAILLOU
 
 
 class SCiseau(SPapier):
-    def predire(self, resultat):
-        return {CISEAU: 1}
+    def predire(self):
+        return CISEAU
 
 
 class SMarkov(Strategie):
@@ -62,29 +64,39 @@ class SMarkov(Strategie):
         self.previous.append(resultat)
 
     def predire(self):
-        count = sum(self.d[tuple(self.previous[-self.n:])].values())
-        if not count:
-            return {}
-        return {k: v / count for k, v in self.d[tuple(self.previous[-self.n:])].items()}
+        try:
+            return sorted(self.d[tuple(self.previous[-self.n:])].items(), key=operator.itemgetter(1), reverse=True)[0][0]
+        except IndexError:
+            return None
 
 
 class Joueur():
     def __init__(self):
         self.strategies = {
-            #SPapier(): 1,
-            #SCaillou(): 1,
-            #SCiseau(): 1,
-            SRandom(): 1e-10,
-            #SMarkov(): 1,
-            SMarkov(2): 1,
-            #SMarkov(3): 1,
+            SPapier(): 0,
+            SCaillou(): 0,
+            SCiseau(): 0,
+            #SRandom(): 1,
+            #SMarkov(): 0.6,
+            SMarkov(2): 0.2,
+            #SMarkov(3): 0,
+            #SMarkov(4): 0,
         }
+        self.tau = 50
+
+        self.last_prediction = {}
 
     def jouer(self):
         scores = collections.defaultdict(float)
         for s, coef in self.strategies.items():
-            for prediction, coef2 in s.predire().items():
-                scores[prediction] += coef * coef2
+            prediction = s.predire()
+
+            self.last_prediction[s] = prediction
+
+            if prediction is None:
+                continue
+
+            scores[prediction] += coef
 
         prediction = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)[0][0]
         
@@ -94,6 +106,11 @@ class Joueur():
         for s in self.strategies:
             s.resultat(resultat)
 
+            goal = 1 if self.last_prediction[s] == resultat else 0
+            self.strategies[s] = (self.strategies[s]*(self.tau-1) + goal) / self.tau
+        
+        #print(self.strategies)
+
 
 class JoueurHumain():
     def jouer(self):
@@ -101,7 +118,7 @@ class JoueurHumain():
         while i not in range(3):
             try:
                 i = int(input("0->Papier, 1->Caillou, 2->Ciseau : "))
-            except:
+            except ValueError:
                 pass
         return i
     
@@ -113,7 +130,7 @@ class Arbitre():
     def __init__(self, joueur1, joueur2):
         self.joueur1, self.joueur2 = joueur1, joueur2
 
-    def jouer(self, n=100):
+    def jouer(self, n=1000):
         s1 = 0
         s2 = 0
         for i in range(n):
