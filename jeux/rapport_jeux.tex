@@ -1,0 +1,120 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+
+
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\lstset{frame=single, breaklines=true,
+          breakatwhitespace=true, basicstyle=\scriptsize,
+          showstringspaces=false, escapeinside={(*}{*)},
+          keywordstyle=\color{deepblue},
+          stringstyle=\color{deepred},
+          commentstyle=\color{deepgreen},
+          literate=
+                   {é}{{\'e}}1{É}{{\'E}}1
+                   {è}{{\`e}}1{È}{{\`E}}1
+                   {ê}{{\^e}}1{Ê}{{\^E}}1
+                   {à}{{\`a}}1{À}{{\`A}}1
+                   {ù}{{\`u}}1{Ù}{{\`U}}1
+                   {û}{{\^u}}1{Û}{{\^U}}1
+                   {ô}{{\^o}}1{Ô}{{\^O}}1
+                   {ó}{{\'o}}1{Ó}{{\'O}}1
+                   {ç}{{\c c}}1{Ç}{{\c C}}1
+                   {œ}{{\oe}}1{Œ}{{\OE}}1
+        }
+
+\begin{document}
+\title{Rapport du projet de programmation linéaire}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+          \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
+\date{11 novembre 2013}
+\maketitle
+\tableofcontents
+\lstlistoflistings
+\newpage
+
+\section{Présentation de l'équipe}
+  Cette équipe a été menée par Maxence Ahlouche, assisté de son Responsable
+  Qualité Thomas Wagner. Les autres membres de l'équipe sont Martin Carton,
+  Thomas Forgione, Maxime Arthaud, et Korantin Auguste.
+
+  Todo si nécessaire, torm sinon:
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{|c||c|c|c||c|c|c|}
+      \hline
+      & TD1 & TD2 & TD3 & TP1 & TP2 & TP3 \\
+      \hline\hline
+      Maxence Ahlouche (CPC) & & & & & & \\
+      \hline
+      Maxime Arthaud & & & & & & \\
+      \hline
+      Korantin Auguste &&&&&& \\
+      \hline
+      Carton Martin &&&&&&\\
+      \hline
+      Thomas Forgione &&&&&&\\
+      \hline
+      Thomas Wagner (RQ) &&&&&&\\
+      \hline
+    \end{tabular}
+  \end{table}
+
+\section{Shifumi}
+\section{Morpion}
+\section{Compétition/Duopole}
+  blabla
+
+  \subsection{Stratégies}
+    \subsubsection{Coopératif}
+    Todo: pourquoi 0.75? Avec $\frac{7-\sqrt{13}}{4}$ on a les mêmes résultats.
+
+    \subsubsection{Non-coopératif}
+      Cette stratégie consiste à maximiser ses gains par rapport à ce que joue
+      (ou a joué au tour précédent) l'autre joueur.
+      Todo: blabla
+
+    \subsubsection{Stackelberg}
+      Todo: Pourquoi 2/3? Pourquoi 1.1*2/3 c'est mieux.
+
+      Une variante de cette stratégie (voir listing~\ref{lst:stackmean})
+      consiste à utiliser la production moyenne de l'«~adversaire~» plutôt que
+      seulement la dernière valeur. Elle permet d'obtenir des résultats
+      légèrement meilleurs.
+
+    \subsubsection{Cournot}
+      Todo: à comprendre + à faire en matlab
+
+    \subsubsection{Pénalise}
+      Le principe de cette stratégie (voir listing~\ref{lst:penalise}) est
+      d'être coopératif tant que l'adversaire l'est, et de devenir plus
+      agressif quand il ne l'est plus: à chaque fois que l'«~adversaire~» n'est
+      pas coopératif, on joue comme le ferait la stratégie Stackelberg.
+
+      Une variante de cette stratégie (voir listing~\ref{lst:penaliseviolent})
+      consiste à le pénaliser de plus en plus: la première fois on le pénalise
+      une fois, puis deux, puis trois, etc.
+
+      Ces deux stratégies sont efficaces à la fois quand l'autre joueur est
+      coopératif (on est alors coopératif) et contre un joueur non-coopératif
+      (on devient alors agressif).
+
+\section{Annexes}
+  \lstinputlisting[label=lst:stackmean, language=matlab, caption=Statégie stackelbergmean1.m]{duopole/stackelberg_mean1.m}
+  \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie penalise1.m]{duopole/penalise1.m}
+  \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie penalise\_violent1.m]{duopole/penalise_violent1.m}
+  
+\end{document}
