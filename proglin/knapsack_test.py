@@ -2,23 +2,22 @@
 # -*- coding: utf-8 -*-
 
 import datetime
-import sacados as sad
+import knapsack as sad
 
 def test_sad(obj, file_name, max_mass):
     start = datetime.datetime.now()
-    best = sad.sacados(obj, max_mass)
+    best = sad.knapsack(obj, max_mass)
     exec_time = datetime.datetime.now() - start
     print("Tested %s with max_mass=%s in %s" % (file_name, max_mass, exec_time))
     print("    optimum:    %s" % best)
     r = sad.greedy(obj, max_mass, sad.best_price)
     print("    best price: %s / %.1f%%" % (r, 100.*(best-r)/best))
-    r = sad.greedy(obj, max_mass, sad.less_mass)
-    print("    less mass:  %s / %.1f%%" % (r, 100.*(best-r)/best))
+    r = sad.greedy(obj, max_mass, sad.worst_mass)
+    print("    worst mass:  %s / %.1f%%" % (r, 100.*(best-r)/best))
     r = sad.greedy(obj, max_mass, sad.best_ratio)
     print("    best ratio: %s / %.1f%%" % (r, 100.*(best-r)/best))
 
 if __name__ == '__main__':
-    # some are commented just because they take a few seconds and I can't wait that long
     sad_files = [
             "tests/50,25,1,1,1000.in",
             "tests/500,25,1,1,1000.in",

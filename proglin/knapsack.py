@@ -1,42 +1,40 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-def sacados(objets, masse_max):
+def knapsack(objects, max_mass):
     """
-    Résoud le problème du sac à dos avec de la programmation dynamique.
+    Résout le problème du sac à dos avec de la programmation dynamique.
     Fonctionne seulement avec des valeurs entières.
 
-    >>> objets = ((2,3),(3,4),(4,5),(5,6))
-    >>> sacados(objets, 5)
-    7
+    objects est une liste de couples (masse, prix) représentant les objets.
     """
-    assert isinstance(masse_max, int) and all(isinstance(x[0], int) for x in objets)
+    assert isinstance(max_mass, int) and all(isinstance(x[0], int) for x in objects)
 
-    current_line = [0 for i in range(masse_max+1)]
+    current_line = [0 for i in range(max_mass+1)]
     prev_line = current_line[:]
 
-    for i in range(0,len(objets)):
-        masse_objet, prix = objets[i]
-        for masse in range(masse_max + 1):
-            if masse_objet <= masse:
-                current_line[masse] = max(prev_line[masse], prev_line[masse-masse_objet] + prix)
+    for i in range(0,len(objects)):
+        object_mass, price = objects[i]
+        for masse in range(max_mass + 1):
+            if object_mass <= masse:
+                current_line[masse] = max(prev_line[masse], prev_line[masse-object_mass] + price)
             else:
                 current_line[masse] = prev_line[masse]
 
         prev_line = current_line[:]
 
-    return current_line[masse_max]
+    return current_line[max_mass]
 
 def best_ratio(x): return x[1]/x[0]
-def less_mass(x):  return -x[0]
+def worst_mass(x):  return -x[0]
 def best_price(x): return x[1]
 
 def greedy(objects, max_mass, key):
     """
         Algorithme approché du glouton.
-        Nécessite de trier les objets selon un critère `key`.
+        Nécessite de trier les objets selon un critère `key'.
         Par exemple
-            greedy(obj, max_mass, less_mass)
+            greedy(obj, max_mass, worst_mass)
         choisit les objets en commençant par les moins lourds.
     """
     cost, mass = 0, 0
@@ -68,8 +66,4 @@ def read_testfile(path):
             dummy, a, b = map(int, line.split())
             objects.append((b, a))
         return objects
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
 

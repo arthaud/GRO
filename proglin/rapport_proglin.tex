@@ -1,6 +1,7 @@
 \documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
+\usepackage{amssymb}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -49,14 +50,33 @@
   Qualité Thomas Wagner. Les autres membres de l'équipe sont Martin Carton,
   Thomas Forgione, Maxime Arthaud, et Korantin Auguste.
 
-  %todo: absences
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{|c||c|c|c||c|c|c|}
+      \hline
+      & TD1 & TD2 & TD3 & TP1 & TP2 & TP3 \\
+      \hline\hline
+      Maxence Ahlouche (CPC) & & & & Abs. & & \\
+      \hline
+      Maxime Arthaud & & & & & Abs. & \\
+      \hline
+      Korantin Auguste &&&&&& \\
+      \hline
+      Carton Martin &&&&&&\\
+      \hline
+      Thomas Forgione &&&&&&\\
+      \hline
+      Thomas Wagner (RQ) &&&&&&\\
+      \hline
+    \end{tabular}
+  \end{table}
   
 \section{Problème du sac à dos}
   \begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
 
   \subsection{Résolution exacte}
     Nous avons implémenté un algorithme de programmation dynamique, qui permet
-    de résoudre le problème du sac à dos.  Toutefois, il fonctionne uniquement
+    de résoudre le problème du sac à dos. Toutefois, il fonctionne uniquement
     si les poids des objets sont des entiers.
 
     Sa complexité en temps est en $O(nW)$ et celle en mémoire en $O(W)$, avec
@@ -64,39 +84,38 @@
 
     Nous l'avons testé\footnote{En utilisant le générateur de problèmes trouvé
     à l'adresse suivante: \url{http://www.diku.dk/~pisinger/codes.html}.} sur
-    plusieurs instances du problème (jusqu'à X objets et un poids maximal de
-    X), et l'algorithme s'exécute toujours en moins d'une seconde.
-    %todo: faire les tests :D
+    plusieurs instances du problème (cf.\ table~\ref{table:greedy}), et
+    l'algorithme est rapide.
 
   \subsection{Résolution approchée}
     Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste à
     choisir les \og meilleurs \fg{} objets jusqu'à que la masse maximale soit
-    dépassée.  Le critère déterminant quels sont les meilleurs objets peuvent
+    dépassée. Le critère déterminant quels sont les meilleurs objets peut
     être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
 
     Cet algorithme est beaucoup plus rapide que le précédent, mais n'est qu'un
     algorithme approché. La table~\ref{table:greedy} montre quelques-uns des
     résultats obtenus.
 
-    %todo: ajouter des tests avec un ``range of coeficients'' plus élevé pour
-    %avoir des résultats plus intéressant avec le ratio prix/masse
     \begin{table}[h]
       \makebox[\textwidth]{%
       \centering
       \begin{tabular}{| c | c | c | c | c | c |}
       \hline
-        \brokencell{Paramètres du générateur/\\masse maximale autorisée}
+        \brokencell{Nombre d'objets/\\
+                    Amplitudes des prix et masses/\\
+                    Masse maximale autorisée}
       & \brokencell{Résultat\\optimum}
       & \brokencell{Prix le\\plus élevé}
       & \brokencell{Masse la\\plus faible}
       & \brokencell{Meilleur ratio\\prix/masse}\\
       \hline
-      50 25 1 1 1000/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
-      500 25 1 1 1000/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
-      5000 25 1 1 1000/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
-      50000 25 1 1 1000/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
-      50000 1000 1 1 1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
-      50000 5000 1 1 1000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
+      50/25/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
+      500/25/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
+      5000/25/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
+      50000/25/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
+      50000/1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
+      50000/5000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
       \hline  
       \end{tabular}
       }
@@ -105,29 +124,142 @@
     \end{table}
 
     On remarque qu'en général, la résolution approchée en considérant le ratio
-    \nobreak prix/masse donne de très bon résultats, voire le meilleur
-    résultat. Le résultat que fournit cet algorithme est le moins bon quand la
+    \nobreak prix/masse donne de très bon résultats, voire le résultat
+    optimum. Le résultat que fournit cet algorithme est le moins bon quand la
     masse maximale autorisée est faible comparée à l'amplitude des valeurs que
     peuvent prendre le prix et la masse des objets.
+    
+    Toutefois cet algorithme est beaucoup plus rapide, et a une complexité en
+    temps de $O(n \log n)$ (pour le tri des objets), et ne nécessite en mémoire
+    que la liste des objets, de plus il peut être utilisé quand les masses ne
+    sont pas entières.
 
-\section{Problème d'optimisation} % todo: titre?
-  Le but est maximiser une fonction linéaire sous certaines contraintes
-  (inéquations linéaires).
+\section{Problème d'optimisation linéaire}
+  Le but du problème est de maximiser une fonction linéaire sous certaines
+  contraintes linéaires elles aussi.
 
-  \subsection{Simplexe}
+  \subsection{Point de vu mathématique} % todo: titre?
+    \subsubsection{Formalisation du problème}
+      Considérons le problème suivant :
+      $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
+      Nous nous placerons dans le cas où $f$ est linéaire, où $x \geqslant 0$,
+      et où $C$ est décrit par des contraintes d'inégalités linéaires,
+      c'est-à-dire qu'il existe une matrice $A$ et un vecteur $b$ tels
+      que $Ax\leqslant b$.
+
+    \subsubsection{Existence de solutions}
+      Pour un tel problème, trois possibilités s'offrent à nous :
+      \begin{itemize}
+        \item les contraintes sont incompatibles;
+        \item la fonction est non majorée sur $C$;
+        \item le problème admet un maximum sur $C$.
+      \end{itemize}
+      Nous savons de plus que $C$ est un polyèdre convexe. Un théorème garantit
+      alors que si ce problème à une solution, alors il a une solution en un de
+      ses sommets. Nous allons donc chercher les solutions parmi les sommets de
+      $C$.
+
+  \subsection{Algorithme du simplexe}
+    Le principe de cet algorithme est de considérer un des sommets du polyèdre,
+    puis de se déplacer en suivant les arêtes de ce polyèdre en augmentant à
+    chaque itération le gain. L'algorithme se terminera lorsque nous nous 
+    trouverons sur un sommet, dont tous les sommets adjacents présentent un gain
+    plus faible. La convexité du polyèdre nous garantit que le résultat est 
+    optimal.
+
     L'algorithme du simplexe a une complexité dans le pire des cas
-    exponentielles, mais en pratique, cet algorithme est efficace.
+    exponentielle, mais en pratique, cet algorithme est efficace.
+    
+    Cet algorithme ne permet pas de maximiser une fonction pour des variables
+    entières (par exemple pour connaitre un nombre de produits à produire, donc
+    un nombre entier) à produire pour maximiser un gain (bien qu'on pourrait en
+    pratique l'utiliser en considérant que la solution optimale entière est
+    suffisamment proche de la solution optimale réelle).
 
-    expliquer principes algo
+    \subsubsection{Forme standard et tableau canonique}
+      Pour résoudre le problème, la première étape est le mettre sous forme
+      standard. Pour cela on ajoute à chaque inéquation $j$ de la forme
+      $\sum a_{j,i}x_i \leq 0$ une variable dite d'écart pour la transformer en
+      égalité: $\sum a_{j,i}x_i + s_j = 0$ où $s_j \geq 0$.
+      
+      Les inéquations de la forme $\sum a_ix_i \geq 0$ sont d'abord multipliées
+      par $-1$ avant cette étape.
+      %todo: et les égalités on en fait quoi ? J'ai essayé en les transformant
+      %en deux inégalités <= et >= mais ça marche pas.
 
-    % todo: parler de dégénérescence 
+      On construit ensuite un tableau dit canonique représentant le problème
+      comme suit:
+      \begin{itemize}
+        \item la première ligne de la matrice est
+          $[m_0, m_1, \cdots, m_n, 0, \cdots, 0]$ où les $(m_i)$ sont les
+          coefficients du problème $\min \sum m_ix_i$ et à laquelle on ajoute
+          autant de $0$ qu'on a ajouté de variables d'écart;
+        \item les autres lignes de la matrice sont
+          $[a_{j,0}, \cdots, a_{j,n}, 0, \cdots, 0, 1,0, \cdots, 0]$ où les $1$
+          sont placés de manière à former une matrice identité (ils
+          correspondent aux variables d'écart ajoutées).
+      \end{itemize}
+
+    \subsubsection{Algorithme}
+      \begin{lstlisting}
+Entrée : matrice (un tableau canonique)
+Sortie : le résultat optimum
+         les quantités de chaque produit à produire
+         les quantités de chaque ressource restante
+
+base = indices des variables de base de la matrice
+
+tant qu'il reste des nombres strictement positifs sur la première ligne:
+    à_ajouter = indice de la colonne dont le premier élément est maximal
+    à_retirer = indice de la ligne (>1) telle que :
+                matrice[à_retirer, dernière colonne]/matrice[à_retirer, à_ajouter]
+                est minimum
+
+    remplacer le (à_retirer)ième élément de base par à_ajouter
+
+    diviser la ligne à_retirer de matrice par matrice[à_retirer, à_ajouter]
+    et soustraire aux autres lignes y le vecteur :
+        matrice[y,à_ajouter] * matrice[à_retirer,] / matrice[à_retirer, à_ajouter]
+
+pour chaque variable d'origine n (n dans [0, nombre de variables hors base[):
+  à_produire[base[n]] = matrice[n+1, dernière colonne]
+
+pour chaque variable d'écart n (n dans [nombre de variables hors base, nombre de variables total[):
+  restes[base[n]] = matrice[n+1, dernière colonne]
+
+retourner (-matrice[0, dernière colonne], à_produire, restes)
+      \end{lstlisting}
+
+    \subsubsection{Tests}
+      %todo
+      Nous n'avons fait nos tests que sur de petits exemples, en effet, nous
+      avons essayé sur de plus grands exemples\footnote{Trouvés sur ce site:
+      \url{http://www.numerical.rl.ac.uk/cute/netlib.html}.} mais l'algorithme
+      ne trouve pas de maximum.
+      
+    % todo:
     %       contraintes négatives
     %       cas non borné
-    %       cas non entier
+    \subsubsection{Dégénérescence}
+      Un problème du simplexe est dit dégénéré si plus de deux contraintes vont
+      devoir être nulles en un sommet. Graphiquement, cela veut dire
+      qu'au moins 3 droites vont se rencontrer en un sommet du polyèdre.
+
+      Ceci va empêcher l'algorithme du simplexe de progresser entre deux
+      itérations: il va simplement changer de base. Le problème étant que sur
+      des cas particuliers, il pourra changer de base sans progresser, puis
+      boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas
+      la solution.
+
+      Pour éviter cela, on pourrait utiliser des règles d'anti-cyclage, dont la
+      règle de Bland, qui consiste à choisir judicieusement les variables qu'on
+      fera entrer et sortir de la base, dans le cas où il y aurait plusieurs
+      possibilités aussi intéressantes les unes que les autres.
 
 \section{Annexe}
   \lstlistoflistings
-  \lstinputlisting[language=python, caption=Codes relatifs au problème du sac à dos]{sacados.py}
-  \lstinputlisting[language=python, caption=Codes relatifs au simplexe]{simplexe.py}
+  \lstinputlisting[language=python, caption=Code relatif au problème du sac à dos]{knapsack.py}
+  \lstinputlisting[language=python, caption=Tests du sac à dos]{knapsack_test.py}
+  \lstinputlisting[language=python, caption=Code relatif au simplexe]{simplexe.py}
 
 \end{document}
