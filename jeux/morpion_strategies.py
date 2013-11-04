@@ -32,7 +32,7 @@ def evaluation(morpion, joueur):
 
     return score
 
-def minmax(morpion, noeud_joueur, profondeur_max, eval_fn):
+def minmax(morpion, joueur, profondeur_max, eval_fn, noeud_joueur=True):
     '''
     Retourne le couple (c, e) avec :
     * c le coup (x,y) optimal à jouer
@@ -42,9 +42,9 @@ def minmax(morpion, noeud_joueur, profondeur_max, eval_fn):
     eval_fn est la fonction d'évaluation
     '''
     if profondeur_max == 0:
-        return (None, eval_fn(morpion, noeud_joueur))
+        return (None, eval_fn(morpion, joueur))
 
-    evaluation = eval_fn(morpion, not noeud_joueur)
+    evaluation = eval_fn(morpion, joueur)
     if abs(evaluation) == INFINI:
         return (None, evaluation)
 
@@ -57,8 +57,8 @@ def minmax(morpion, noeud_joueur, profondeur_max, eval_fn):
         for y in range(n):
             if morpion[x][y] is None:
                 fils = deepcopy(morpion)
-                fils[x][y] = noeud_joueur
-                coup, evaluation = minmax(fils, not noeud_joueur, profondeur_max - 1, eval_fn)
+                fils[x][y] = joueur if noeud_joueur else not joueur
+                coup, evaluation = minmax(fils, joueur, profondeur_max - 1, eval_fn, not noeud_joueur)
 
                 if evaluation_optimale is None:
                     evaluation_optimale = evaluation
@@ -79,19 +79,19 @@ def coups_possibles(morpion):
     return coups_possibles
                 
 def strat_minmax_2(morpion, joueur):
-    return minmax(morpion, True, 2, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 2, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
 
 def strat_minmax_4(morpion, joueur):
-    return minmax(morpion, True, 4, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 4, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
 
 def strat_minmax_6(morpion, joueur):
-    return minmax(morpion, True, 6, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 6, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
 
 def strat_minmax_8(morpion, joueur):
-    return minmax(morpion, True, 8, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 8, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
 
 def strat_minmax_10(morpion, joueur):
-    return minmax(morpion, True, 10, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 10, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
 
 def strat_aleatoire(morpion, joueur):
     return choice(coups_possibles(morpion))
