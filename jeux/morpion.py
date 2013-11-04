@@ -1,69 +1,61 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-from copy import deepcopy 
 
-INFINI = 10**6
+import morpion_strategies
+import sys
 
-def evaluation(morpion, joueur):
-    '''
-    Retourne l'évaluation d'une position du point de vue du joueur
-    '''
-    adversaire = not joueur
-    n = len(morpion)
-    score = 0
-
-    lignes = morpion[:]
-    lignes += [[morpion[i][j] for i in range(n)] for j in range(n)]
-    lignes.append([morpion[i][i] for i in range(n)])
-    lignes.append([morpion[n-i-1][i] for i in range(n)])
+def gagnant(morpion):
+    taille = len(morpion)
+    
+    lignes = morpion[:] # lignes
+    lignes += [[morpion[i][j] for i in range(taille)] for j in range(taille)] # colonnes
+    lignes.append([morpion[i][i] for i in range(taille)]) # première diagonale
+    lignes.append([morpion[taille-i-1][i] for i in range(taille)]) # deuxième diagonale
 
     for ligne in lignes:
-        if ligne == [joueur] * n:
-            return INFINI
-        if ligne == [not joueur] * n:
-            return -INFINI
+        if ligne[0] is not None and ligne == [ligne[0]] * taille:
+            return ligne[0]
+    
+    return None
 
-        if adversaire not in ligne:
-            score += len(list(filter(lambda i:i == joueur, ligne)))
+def jeu_complet(morpion):
+    taille = len(morpion)
+    for i in range(taille):
+        for j in range(taille):
+            if morpion[i][j] is None:
+                return False
+    return True
 
-        if joueur not in ligne:
-            score -= len(list(filter(lambda i:i == adversaire, ligne)))
+if __name__ == "__main__":
+    try:
+        taille = int(sys.argv[1])
+        strategies = (getattr(morpion_strategies, "strat_" + sys.argv[2]),
+                      getattr(morpion_strategies, "strat_" + sys.argv[3])
+                      )
+    except(AttributeError, IndexError):
+        print """
+Arguments non reconnus
+Usage : ./morpion.py <taille> <strat1> <strat2>
+voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
+"""
+        exit(1)
 
-    return score
+    morpion = [[None] * taille for i in range(taille)]
+    joueur_courant = False
+    vainqueur = None
+    
+    while vainqueur is None and not jeu_complet(morpion):
+        x, y = strategies[joueur_courant](morpion, joueur_courant)
+        assert morpion[x][y] is None
+        morpion[x][y] = joueur_courant
+        joueur_courant = not joueur_courant
+        vainqueur = gagnant(morpion)
+        print morpion
 
-def minmax(morpion, noeud_joueur, profondeur_max, eval_fn):
-    '''
-    Retourne le couple (c, e) avec :
-    * c le coup (x,y) optimal à jouer
-    * e l'évaluation maximale atteignable par l'algorithme du min max, avec une profondeur maximale profondeur_max.
+    print "--------------------"
+    if vainqueur == None:
+        print "Pas de gagnant ! bande de noobs"
+    else:
+        print "Le gagnant est le joueur %s (joueur %s)." % (strategies[vainqueur].__name__[6:], int(vainqueur) + 1)
 
-    noeud_joueur vaut true si on doit prendre le max, sinon on doit prendre le min.
-    eval_fn est la fonction d'évaluation
-    '''
-    if profondeur_max == 0:
-        return (None, eval_fn(morpion, noeud_joueur))
-
-    evaluation = eval_fn(morpion, not noeud_joueur)
-    if abs(evaluation) == INFINI:
-        return (None, evaluation)
-
-    n = len(morpion)
-    evaluation_optimale = None
-    coup_optimal = None
-    comp = (lambda x,y: x>y) if noeud_joueur else (lambda x,y: x<y)
-
-    for x in range(n):
-        for y in range(n):
-            if morpion[x][y] is None:
-                fils = deepcopy(morpion)
-                fils[x][y] = noeud_joueur
-                coup, evaluation = minmax(fils, not noeud_joueur, profondeur_max - 1, eval_fn)
-
-                if evaluation_optimale is None:
-                    evaluation_optimale = evaluation
-                    coup_optimal = (x,y)
-                elif comp(evaluation, evaluation_optimale):
-                    evaluation_optimale = evaluation
-                    coup_optimal = (x, y)
-
-    return coup_optimal, evaluation_optimale
+    

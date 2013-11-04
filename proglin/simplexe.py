@@ -78,6 +78,7 @@ def simplexe(contraintes, profit):
     slide 3 des séances 2 et 3. Elle prend également la fonction
     profit, les variables devant être dans le même ordre que dans
     l'autre matrice.
+    Les contraintes sont sous la forme "ax1 + bx2 + ... <= stock"
     Elle transforme cette matrice en une matrice utilisable par la
     fonction simplexe_aux.
     """
