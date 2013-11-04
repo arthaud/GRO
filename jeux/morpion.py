@@ -46,7 +46,6 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
     
     while vainqueur is None and not jeu_complet(morpion):
         x, y = strategies[joueur_courant](morpion, joueur_courant)
-        print x,y
         assert morpion[x][y] is None
         morpion[x][y] = joueur_courant
         joueur_courant = not joueur_courant
