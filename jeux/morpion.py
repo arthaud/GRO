@@ -18,14 +18,6 @@ def gagnant(morpion):
     
     return None
 
-def jeu_complet(morpion):
-    taille = len(morpion)
-    for i in range(taille):
-        for j in range(taille):
-            if morpion[i][j] is None:
-                return False
-    return True
-
 def pprint(morpion):
     taille = len(morpion)
 
@@ -61,7 +53,7 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
     joueur_courant = False
     vainqueur = None
     
-    while vainqueur is None and not jeu_complet(morpion):
+    while vainqueur is None and not morpion_strategies.jeu_complet(morpion):
         x, y = strategies[joueur_courant](morpion, joueur_courant)
         assert morpion[x][y] is None, 'tricheur !'
         morpion[x][y] = joueur_courant

@@ -5,6 +5,14 @@ from random import choice
 
 INFINI = 10**6
 
+def jeu_complet(morpion):
+    taille = len(morpion)
+    for i in range(taille):
+        for j in range(taille):
+            if morpion[i][j] is None:
+                return False
+    return True
+
 def evaluation(morpion, joueur):
     '''
     Retourne l'évaluation d'une position du point de vue du joueur
@@ -41,7 +49,7 @@ def minmax(morpion, joueur, profondeur_max, eval_fn, noeud_joueur=True):
     noeud_joueur vaut true si on doit prendre le max, sinon on doit prendre le min.
     eval_fn est la fonction d'évaluation
     '''
-    if profondeur_max == 0:
+    if profondeur_max == 0 or jeu_complet(morpion):
         return (None, eval_fn(morpion, joueur))
 
     evaluation = eval_fn(morpion, joueur)
