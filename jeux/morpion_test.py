@@ -1,4 +1,9 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 
-import toto #TODO: script qui fait s'affronter chaque strat 1000fois contre chaque autre strat
+import morpion_strategies
+
+def get_strategies():
+    return filter(lambda f : f.startswith("strat") and f != 'strat_humain', dir(morpion_strategies))
+
+print get_strategies()
