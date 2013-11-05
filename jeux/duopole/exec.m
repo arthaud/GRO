@@ -1,9 +1,7 @@
 disp('Duopole de Cournot');
-disp('Stratégies possibles : cooperatif/noncooperatif/stackelberg');
+disp('Stratégies possibles : optimal/noncooperatif/stackelberg');
 NBJ=input('Nombre de parties: ');
-nomx=input('Stratégie du 1er joueur: ','s');
-strax=[nomx,'1'];
-nomy=input('Stratégie du second joueur: ','s');
-stray=[nomy,'2'];
+strax=input('Stratégie du 1er joueur: ','s');
+stray=input('Stratégie du second joueur: ','s');
 [tx, ty, gx, gy] = jeu(NBJ,strax,stray);
-fig = afficher(tx,ty,gx,gy,nomx,nomy);
+fig = afficher(tx,ty,gx,gy,strax,stray);
