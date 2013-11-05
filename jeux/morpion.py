@@ -67,11 +67,9 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
         exit(1)
 
     vainqueur = match(taille, strategies, display=True)
-
+    
     print "--------------------"
     if vainqueur == None:
         print "Pas de gagnant ! bande de noobs"
     else:
         print "Le gagnant est le joueur %s (joueur %s)." % (strategies[vainqueur].__name__[6:], int(vainqueur) + 1)
-
-    
