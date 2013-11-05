@@ -31,12 +31,9 @@ tx=zeros(1,NBJ);
 ty=zeros(1,NBJ);
 gx=zeros(1,NBJ);
 gy=zeros(1,NBJ);
-tx(1) = feval(strax,1,tx,ty,gx,gy) ;
-ty(1) = feval(stray,1,ty,tx,gy,gx) ;
-[gx(1),gy(1)] = gain(tx(1),ty(1)) ;
 %
 for i = 2:NBJ
-   tx(i) = feval(strax,i,tx,ty,gx,gy) ;
-	ty(i) = feval(stray,i,ty,tx,gy,gx) ;
-   [gx(i),gy(i)] = gain(tx(i),ty(i)) ;
+    tx(i) = feval(strax,i,tx,ty,gx,gy) ;
+    ty(i) = feval(stray,i,ty,tx,gy,gx) ;
+    [gx(i),gy(i)] = gain(tx(i),ty(i)) ;
 end ;
