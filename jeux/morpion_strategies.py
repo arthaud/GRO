@@ -98,3 +98,6 @@ def strat_aleatoire(morpion, joueur):
 
 def strat_premier_dispo(morpion, joueur):
     return coups_possibles(morpion)[0]
+
+def strat_humain(morpion, joueur):
+    return input()

@@ -26,6 +26,23 @@ def jeu_complet(morpion):
                 return False
     return True
 
+def pprint(morpion):
+    taille = len(morpion)
+
+    print '+' + ('-' * 3 + '+') * taille
+
+    def print_case(case):
+        if case is None:
+            return ' '
+        elif case:
+            return 'T'
+        else:
+            return 'F'
+
+    for line in morpion:
+        print '|' + '|'.join(map(lambda c: ' ' + print_case(c) + ' ', line)) + '|'
+        print '+' + ('-' * 3 + '+') * taille
+
 if __name__ == "__main__":
     try:
         taille = int(sys.argv[1])
@@ -46,11 +63,11 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
     
     while vainqueur is None and not jeu_complet(morpion):
         x, y = strategies[joueur_courant](morpion, joueur_courant)
-        assert morpion[x][y] is None
+        assert morpion[x][y] is None, 'tricheur !'
         morpion[x][y] = joueur_courant
         joueur_courant = not joueur_courant
         vainqueur = gagnant(morpion)
-        print morpion
+        pprint(morpion)
 
     print "--------------------"
     if vainqueur == None:
