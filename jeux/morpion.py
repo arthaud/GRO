@@ -68,6 +68,7 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
         joueur_courant = not joueur_courant
         vainqueur = gagnant(morpion)
         pprint(morpion)
+        print ''
 
     print "--------------------"
     if vainqueur == None:
