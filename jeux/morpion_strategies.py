@@ -40,14 +40,20 @@ def evaluation(morpion, joueur):
 
     return score
 
-def minmax(morpion, joueur, profondeur_max, eval_fn, noeud_joueur=True):
+def minmax(morpion, joueur, profondeur_max, eval_fn, elagage=True, noeud_joueur=True, alpha_beta=None):
     '''
     Retourne le couple (c, e) avec :
     * c le coup (x,y) optimal à jouer
     * e l'évaluation maximale atteignable par l'algorithme du min max, avec une profondeur maximale profondeur_max.
 
-    noeud_joueur vaut true si on doit prendre le max, sinon on doit prendre le min.
-    eval_fn est la fonction d'évaluation
+    morpion est l'état actuel du morpion ;
+    joueur indique notre joueur (True ou False) ;
+    eval_fn est la fonction d'évaluation ;
+    elagage indique s'il faut appliquer l'élagage alpha-beta.
+
+    noeud_joueur et alpha_beta sont des paramètres utiles uniquement lors des appels récursifs :
+    * noeud_joueur vaut true si on doit prendre le max, sinon on doit prendre le min.
+    * alpha_beta est soit alpha, soit beta, en fonction de noeud_joueur
     '''
     if profondeur_max == 0 or jeu_complet(morpion):
         return (None, eval_fn(morpion, joueur))
@@ -66,7 +72,7 @@ def minmax(morpion, joueur, profondeur_max, eval_fn, noeud_joueur=True):
             if morpion[x][y] is None:
                 fils = deepcopy(morpion)
                 fils[x][y] = joueur if noeud_joueur else not joueur
-                coup, evaluation = minmax(fils, joueur, profondeur_max - 1, eval_fn, not noeud_joueur)
+                coup, evaluation = minmax(fils, joueur, profondeur_max - 1, eval_fn, elagage, not noeud_joueur, evaluation_optimale)
 
                 if evaluation_optimale is None:
                     evaluation_optimale = evaluation
@@ -74,6 +80,12 @@ def minmax(morpion, joueur, profondeur_max, eval_fn, noeud_joueur=True):
                 elif comp(evaluation, evaluation_optimale):
                     evaluation_optimale = evaluation
                     coup_optimal = (x, y)
+
+                if elagage and alpha_beta is not None:
+                    if noeud_joueur and evaluation_optimale >= alpha_beta:
+                        return coup_optimal, evaluation_optimale
+                    elif not noeud_joueur and evaluation_optimale <= alpha_beta:
+                        return coup_optimal, evaluation_optimale
 
     return coup_optimal, evaluation_optimale
 
@@ -87,19 +99,34 @@ def coups_possibles(morpion):
     return coups_possibles
                 
 def strat_minmax_2(morpion, joueur):
-    return minmax(morpion, joueur, 2, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 2, evaluation, False)[0]
 
 def strat_minmax_4(morpion, joueur):
-    return minmax(morpion, joueur, 4, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 4, evaluation, False)[0]
 
 def strat_minmax_6(morpion, joueur):
-    return minmax(morpion, joueur, 6, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 6, evaluation, False)[0]
 
 def strat_minmax_8(morpion, joueur):
-    return minmax(morpion, joueur, 8, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 8, evaluation, False)[0]
 
 def strat_minmax_10(morpion, joueur):
-    return minmax(morpion, joueur, 10, evaluation)[0] # on récupère juste le coup optimal, pas son évaluation
+    return minmax(morpion, joueur, 10, evaluation, False)[0]
+
+def strat_minmax_elagage2(morpion, joueur):
+    return minmax(morpion, joueur, 2, evaluation, True)[0]
+
+def strat_minmax_elagage4(morpion, joueur):
+    return minmax(morpion, joueur, 4, evaluation, True)[0]
+
+def strat_minmax_elagage6(morpion, joueur):
+    return minmax(morpion, joueur, 6, evaluation, True)[0]
+
+def strat_minmax_elagage8(morpion, joueur):
+    return minmax(morpion, joueur, 8, evaluation, True)[0]
+
+def strat_minmax_elagage10(morpion, joueur):
+    return minmax(morpion, joueur, 10, evaluation, True)[0]
 
 def strat_aleatoire(morpion, joueur):
     return choice(coups_possibles(morpion))
