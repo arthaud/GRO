@@ -1,3 +1,4 @@
+% Stackelberg en moyenne, sauf si l'adversaire est coopératif.
 function x = strategie(numpart,tx,ty,gx,gy)
 if (numpart == 2)
 	x= 0.75;

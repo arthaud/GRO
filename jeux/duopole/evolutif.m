@@ -5,13 +5,15 @@ if (numpart == 1)
 elseif (numpart == 2)
         x = 0.85;
 else 
-        if ((gx(numpart-1)-gx(numpart-2)) > 0 && (tx(numpart-1)-gx(numpart-2)>0)) 
-                x = tx(numpart-1) + 0.1;
-        elseif (gx(numpart-1)-gx(numpart-2) < 0 && (tx(numpart-1)-gx(numpart-2)>0))
-                x = tx(numpart-1) - 0.1;
-        elseif  (gx(numpart-1)-gx(numpart-2) > 0 && (tx(numpart-1)-gx(numpart-2)<0))
-                x = tx(numpart-1) - 0.1;
+        step = 1.3;
+
+        if ((gx(numpart-1)>gx(numpart-2)) && (tx(numpart-1)>gx(numpart-2))) 
+                x = tx(numpart-1) * step;
+        elseif (gx(numpart-1)<gx(numpart-2) && (tx(numpart-1)>gx(numpart-2)))
+                x = tx(numpart-1) / step;
+        elseif  (gx(numpart-1)>gx(numpart-2) && (tx(numpart-1)<gx(numpart-2)))
+                x = tx(numpart-1) / step;
         else
-                x = tx(numpart-1) + 0.1;
+                x = tx(numpart-1) * step;
         end
 end

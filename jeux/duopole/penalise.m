@@ -1,3 +1,4 @@
+% Stratégie qui "pénalise" l'adversaire s'il n'est pas coopératif.
 function x = strategie(numpart,tx,ty,gx,gy)
 nbr_penal_y = 0;
 nbr_penal_x = 0;
