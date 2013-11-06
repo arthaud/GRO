@@ -12,8 +12,12 @@ for i = 1:numpart-1
 end;
 
 if (nbr_penal_x <= nbr_penal_y)
-  %x = 2*(3-ty(numpart-1))/3;
-  x = 1.5;
+  ty_mean = ty(2);
+  if numpart > 2
+    ty_mean = mean(ty(2:numpart-1));
+  end;
+
+  x = (3-ty_mean)/2;
 else
   x = 0.75;
 end;
