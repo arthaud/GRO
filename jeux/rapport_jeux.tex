@@ -37,7 +37,7 @@
         }
 
 \begin{document}
-\title{Rapport du projet de programmation linéaire}
+\title{Rapport du projet de théorie des jeux}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
           \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
 \date{11 novembre 2013}
@@ -94,15 +94,24 @@
     \subsubsection{Stackelberg}
       Todo: Pourquoi 2/3? Pourquoi 1.1*2/3 c'est mieux.
 
-      Une variante de cette stratégie (voir listing~\ref{lst:stackmean})
-      consiste à utiliser la production moyenne de l'«~adversaire~» plutôt que
-      seulement la dernière valeur. Elle permet d'obtenir des résultats
-      légèrement meilleurs.
+      Une variante de cette stratégie consiste à utiliser la production moyenne
+      de l'autre jour plutôt que seulement la dernière valeur. Elle permet
+      d'obtenir des résultats légèrement meilleurs.
 
-    \subsubsection{Pénalise}
+      De plus en coopérant avec l'autre joueur (voir listing~\ref{lst:mmmttk})
+      si celui-ci coopère, on obtient de meilleurs résultats.
+
+      Enfin, une variante de cette stratégie (voir listing~\ref{lst:mmmttkv2})
+      maximise le gain si l'autre joueur a joué une constante sur les derniers
+      tours. Cette variante donne des résultats moyens un peu moins bons, mais
+      est la meilleure dans le pire des cas: elle est donc adapté à une
+      entreprise qui veut minimiser ses risques. Elle est aussi meilleure dans
+      le meilleur des cas.
+
+    \subsubsection{Stratégie pénalisante}
       Le principe de cette stratégie (voir listing~\ref{lst:penalise}) est
       d'être coopératif tant que l'adversaire l'est, et de devenir plus
-      agressif quand il ne l'est plus: à chaque fois que l'«~adversaire~» n'est
+      agressif quand il ne l'est plus: à chaque fois que l'autre joueur n'est
       pas coopératif, on joue comme le ferait la stratégie Stackelberg.
 
       Une variante de cette stratégie (voir listing~\ref{lst:penaliseviolent})
@@ -113,12 +122,22 @@
       coopératif (on est alors coopératif) et contre un joueur non-coopératif
       (on devient alors agressif).
 
+    \subsubsection{Stratégie évolutive}
+      Une autre stratégie que nous avons développée consiste à augmenter la
+      production si la dernière augmentation a augmenter notre gain ou si la
+      dernière diminution l'a diminué et vice-versa.
+
+      Celle-ci est plutôt efficace, mais n'est pas la meilleure que nous ayons
+      développée: elle se met souvent à cycler inutilement.
+
   \subsection{Comparaison}
     La table~\ref{table:coop_results} montre les résultats obtenus par les
-    quelques stratégies que nous avions à notre disposition\footnote{Cette
-    table peut être générée par le script matlab \textit{comp\_tests.m} fourni
-    dans l'archive.}.
+    quelques stratégies que nous avions à notre disposition pour une durée de
+    $100$ tours\footnote{Cette table peut être générée par le script matlab
+    \textit{comp\_tests.m} fourni dans l'archive.}.
 
+    Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
+    les résultats pour un autre nombre de tours.
     \begin{table}[h]
       \centering
       \begin{tabular}{|c||c|c|c|}
@@ -134,8 +153,9 @@
     \end{table}
     
 \section{Annexes}
-  \lstinputlisting[label=lst:stackmean, language=matlab, caption=Statégie Stackelberg sur la moyenne]{duopole/old/stackelberg_mean1.m}
-  \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie pénalisante]{duopole/old/penalise1.m}
-  \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie pénalisante (variante)]{duopole/old/penalise_violent1.m}
+  \lstinputlisting[label=lst:mmmttk, language=matlab, caption=Statégie Stackelberg sur la moyenne]{duopole/mmmttk.m}
+  \lstinputlisting[label=lst:mmmttkv2, language=matlab, caption=Statégie Stackelberg sur la moyenne (variante)]{duopole/mmmttkv2.m}
+  \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie pénalisante]{duopole/penalise.m}
+  \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie pénalisante (variante)]{duopole/penalise_violent.m}
   
 \end{document}
