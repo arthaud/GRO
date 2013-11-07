@@ -1,5 +1,8 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
+import itertools
+import morpion_strategies
+import argparse
 
 def carre_magique(n):
     '''
@@ -130,3 +133,100 @@ def carre_magique_pairement_impair(n):
             break
 
     return matrice
+
+class Joueur:
+    '''
+    Représente un joueur au jeu de la somme magique
+    '''
+    def init(self, n):
+        self.taille = n
+
+    def jouer(self):
+        raise NotImplementedError()
+
+    def coup_autre_joueur(self, p):
+        pass
+
+class HumainJoueur(Joueur):
+    def jouer(self):
+        return input('coup : ')
+
+class StrategieJoueur(Joueur):
+    def __init__(self, strategie):
+        self.strategie = strategie
+
+    def init(self, n):
+        self.taille = n
+        self.carre_magique = carre_magique(n)
+        self.morpion = [[None] * n for _ in range(n)]
+
+    def coup_autre_joueur(self, p):
+        for x in range(self.taille):
+            for y in range(self.taille):
+                if self.carre_magique[x][y] == p:
+                    self.morpion[x][y] = False
+                    return
+
+    def jouer(self):
+        x, y = self.strategie(self.morpion, True)
+        self.morpion[x][y] = True
+        return self.carre_magique[x][y]
+
+def existe_somme(coups, n, m):
+    '''
+    Retourne True s'il existe une somme de n éléments valant m
+    '''
+    return any(sum(l) == m for l in itertools.combinations(coups, n))
+
+def jouer(n, joueur1, joueur2):
+    m = n * (n*n + 1) // 2
+
+    joueurs = joueur1, joueur2
+    coups = [], []
+    joueur_courant = 0
+    adversaire = lambda i: 0 if i==1 else 1
+
+    joueur1.init(n)
+    joueur2.init(n)
+
+    while not existe_somme(coups[adversaire(joueur_courant)], n, m) and len(coups[0]) + len(coups[1]) < n*n:
+        coup = joueurs[joueur_courant].jouer()
+        assert 1 <= coup <= n*n
+        assert coup not in coups[0]
+        assert coup not in coups[1]
+
+        print 'le joueur %s joue : %s' % (joueur_courant+1, coup)
+        coups[joueur_courant].append(coup)
+        joueurs[adversaire(joueur_courant)].coup_autre_joueur(coup)
+        joueur_courant = adversaire(joueur_courant)
+
+    print '--------------------------'
+    joueur_courant = adversaire(joueur_courant)
+    if existe_somme(coups[joueur_courant], n, m):
+        print 'victoire du joueur %s' % (joueur_courant+1)
+    else:
+        print 'match nul'
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Jouer au jeu de la somme magique')
+    parser.add_argument('n', type=int)
+    parser.add_argument('strategie1')
+    parser.add_argument('strategie2')
+
+    args = parser.parse_args()
+
+    try:
+        strat1 = getattr(morpion_strategies, 'strat_' + args.strategie1)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie1
+        exit(0)
+
+    try:
+        strat2 = getattr(morpion_strategies, 'strat_' + args.strategie2)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie2
+        exit(0)
+
+    jouer(args.n, StrategieJoueur(strat1), StrategieJoueur(strat2))

@@ -1,6 +1,6 @@
 NBJ=input('Nombre de parties: ');
 
-stra={'cooperatif', 'noncooperatif', 'killer', 'penalise', 'stackelberg', 'mmmttk', 'mmmttkv2', 'penalise_violent', 'evolutif', 'gklmjbse', 'poly'};
+stra={'cooperatif', 'noncooperatif', 'palkeo', 'killer', 'penalise', 'stackelberg', 'mmmttk', 'penalise_violent', 'gklmjbse'};
 [bla, N] = size(stra);
 results = zeros(N, N);
 
