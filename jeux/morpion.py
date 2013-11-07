@@ -3,6 +3,7 @@
 
 import morpion_strategies
 import sys
+import datetime
 
 def gagnant(morpion):
     taille = len(morpion)
@@ -22,10 +23,14 @@ def match(taille, strategies, display=False):
     morpion = [[None] * taille for i in range(taille)]
     joueur_courant = False
     vainqueur = None
+    temps = ([], []) # liste des temps mis pour jouer un coup
     
     while vainqueur is None and not morpion_strategies.jeu_complet(morpion):
+        debut = datetime.datetime.now()
         x, y = strategies[joueur_courant](morpion, joueur_courant)
-        assert morpion[x][y] is None, 'tricheur !'
+        fin = datetime.datetime.now() - debut
+        temps[joueur_courant].append(fin.seconds + fin.microseconds/float(1000000))
+        assert morpion[x][y] is None, 'Tricheur !'
         morpion[x][y] = joueur_courant
         joueur_courant = not joueur_courant
         vainqueur = gagnant(morpion)
@@ -33,7 +38,7 @@ def match(taille, strategies, display=False):
             pprint(morpion)
             print ''
         
-    return vainqueur
+    return vainqueur, temps
 
 def pprint(morpion):
     taille = len(morpion)
@@ -66,7 +71,7 @@ voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
 """
         exit(1)
 
-    vainqueur = match(taille, strategies, display=True)
+    vainqueur, _ = match(taille, strategies, display=True)
     
     print "--------------------"
     if vainqueur == None:
