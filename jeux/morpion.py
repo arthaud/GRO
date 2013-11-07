@@ -1,8 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
-
 import morpion_strategies
-import sys
+import argparse
 from datetime import datetime
 
 def gagnant(morpion):
@@ -65,23 +64,32 @@ def pprint(morpion):
         print '+' + ('-' * 3 + '+') * taille
 
 if __name__ == "__main__":
-    try:
-        taille = int(sys.argv[1])
-        strategies = (getattr(morpion_strategies, "strat_" + sys.argv[2]),
-                      getattr(morpion_strategies, "strat_" + sys.argv[3])
-                      )
-    except(AttributeError, IndexError):
-        print """
-Arguments non reconnus
-Usage : ./morpion.py <taille> <strat1> <strat2>
-voir le fichier morpion_strategies.py pour la liste des stratégies disponibles
-"""
-        exit(1)
+    parser = argparse.ArgumentParser(description='Jouer au jeu du morpion')
+    parser.add_argument('n', type=int)
+    parser.add_argument('strategie1')
+    parser.add_argument('strategie2')
 
-    vainqueur, _ = match(taille, strategies, display=True)
+    args = parser.parse_args()
+
+    try:
+        strat1 = getattr(morpion_strategies, 'strat_' + args.strategie1)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie1
+        exit(0)
+
+    try:
+        strat2 = getattr(morpion_strategies, 'strat_' + args.strategie2)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie2
+        exit(0)
+
+    strategies = strat1, strat2
+    vainqueur, _ = match(args.n, strategies, display=True)
     
     print "--------------------"
-    if vainqueur == None:
+    if vainqueur is None:
         print "Pas de gagnant ! bande de noobs"
     else:
         print "Le gagnant est le joueur %s (joueur %s)." % (strategies[vainqueur].__name__[6:], int(vainqueur) + 1)
