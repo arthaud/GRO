@@ -1,6 +1,8 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import itertools
+import morpion_strategies
+import argparse
 
 def carre_magique(n):
     '''
@@ -204,3 +206,27 @@ def jouer(n, joueur1, joueur2):
         print 'victoire du joueur %s' % (joueur_courant+1)
     else:
         print 'match nul'
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Jouer au jeu de la somme magique')
+    parser.add_argument('n', type=int)
+    parser.add_argument('strategie1')
+    parser.add_argument('strategie2')
+
+    args = parser.parse_args()
+
+    try:
+        strat1 = getattr(morpion_strategies, 'strat_' + args.strategie1)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie1
+        exit(0)
+
+    try:
+        strat2 = getattr(morpion_strategies, 'strat_' + args.strategie2)
+    except AttributeError:
+        parser.print_usage()
+        print "error: la stratégie \"%s\" n'existe pas" % args.strategie2
+        exit(0)
+
+    jouer(args.n, StrategieJoueur(strat1), StrategieJoueur(strat2))
