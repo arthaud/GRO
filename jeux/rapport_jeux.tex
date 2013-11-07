@@ -9,7 +9,6 @@
 \usepackage{listings}
 \usepackage{graphicx}
 
-
 \usepackage{color}
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{rgb}{0.6,0,0}
@@ -47,50 +46,35 @@
 \newpage
 
 \section{Présentation de l'équipe}
-  Cette équipe a été menée par Maxence Ahlouche, assisté de son Responsable
-  Qualité Thomas Wagner. Les autres membres de l'équipe sont Martin Carton,
-  Thomas Forgione, Maxime Arthaud, et Korantin Auguste.
+  Cette équipe a été menée par Thomas Forgione, assisté de son Responsable
+  Qualité Maxence Ahlouche. Les autres membres de l'équipe sont Martin Carton,
+  Thomas Wagner, Maxime Arthaud, et Korantin Auguste.
 
-  Todo si nécessaire, torm sinon:
-  \begin{table}[h]
-    \centering
-    \begin{tabular}{|c||c|c|c||c|c|c|}
-      \hline
-      & TD1 & TD2 & TD3 & TP1 & TP2 & TP3 \\
-      \hline\hline
-      Maxence Ahlouche (CPC) & & & & & & \\
-      \hline
-      Maxime Arthaud & & & & & & \\
-      \hline
-      Korantin Auguste &&&&&& \\
-      \hline
-      Carton Martin &&&&&&\\
-      \hline
-      Thomas Forgione &&&&&&\\
-      \hline
-      Thomas Wagner (RQ) &&&&&&\\
-      \hline
-    \end{tabular}
-  \end{table}
+  Tous les membres de l'équipe ont été présents à chacune des séances lors de
+  cette UA.
 
 \section{Shifumi}
 \section{Morpion}
 \section{Compétition/Duopole}
-  Le but de ce jeu est de maximiser le gain d'une entreprise en concurrence avec
-  une autre entreprise en fonction de la production.
+  Le but de ce jeu est de maximiser le gain d'une entreprise en concurrence
+  avec une autre entreprise en fonction de la production.
 
-  Notre gain étant égal à $g(x) = -x(x+y-3)$ avec $x$ et $y$ les productions
-  respectives des deux entreprises, pour le maximiser il suffirait de jouer
-  $x=\frac{3-y}{2}$. Cependant au moment de décider que produire nous ne
-  connaissons pas la production $y$ de l'entreprise concurrente.
+  \subsection{Analyse}
+    Notre gain étant égal à $g_x(x) = -x(x+y-3)$ avec $x$ et $y$ les
+    productions respectives des deux entreprises, pour le maximiser il
+    suffirait de jouer $x=\frac{3-y}{2}$.
+    
+    Cependant au moment de décider quel quantité produire nous ne connaissons
+    pas la production $y$ de l'entreprise concurrente. De plus si les deux
+    entreprises s'ignorent totalement en essayant de maximiser leur seul gain,
+    elles gagneront au final moins que deux entreprises qui coopèrent
+    totalement c'est à dire qui chercheraient à maximiser leur gain total
+    $g_x(x)+g_y(y)$ avec $g_x(x) = g_y(y)$ c'est à dire en jouant $x=y=0.75$.
 
-  Nous avons essayé plusieurs stratégies différentes.
+    Nous avons essayé plusieurs stratégies différentes.
 
   \subsection{Stratégies}
     todo: les stratégies des profs on les explique ou pas?
-    \subsubsection{Coopératif}
-    Todo: pourquoi 0.75? Avec $\frac{7-\sqrt{13}}{4}$ on a les mêmes résultats.
-
     \subsubsection{Stackelberg}
       Todo: Pourquoi 2/3? Pourquoi 1.1*2/3 c'est mieux.
 
@@ -128,12 +112,32 @@
       dernière diminution l'a diminué et vice-versa.
 
       Celle-ci est plutôt efficace, mais n'est pas la meilleure que nous ayons
-      développée: elle se met souvent à cycler inutilement.
+      développée: elle se met souvent à osciller inutilement.
+
+    \subsubsection{Stratégie polynomiale}
+      Enfin, une autre stratégie joue en fonction de la production au tour
+      précédent de l'autre joueur telle que:
+      \begin{itemize}
+        \item $f(0) = 1.125$: on joue beaucoup si l'autre joue peu, sans jouer
+          trop pour ne pas le fâcher;
+        \item $f(0.75) = 0.75$: elle coopère avec quelqu'un qui coopère;
+        \item $f(1.5) = 0.75$: elle coopère avec quelqu'un qui ne coopère pas,
+          pour essayer de faire coopérer celui-ci (c'est dans notre intérêt et
+          ça ne changerait pas son gain, il est donc possible qu'elle le
+          fasse).
+      \end{itemize}
+
+      On choisit alors la fonction $f$ pour être un polynôme qui interpole ces
+      valeurs.
+
+      Cette méthode s'avère très efficace en moyenne.
 
   \subsection{Comparaison}
     La table~\ref{table:coop_results} montre les résultats obtenus par les
     quelques stratégies que nous avions à notre disposition pour une durée de
-    $100$ tours\footnote{Cette table peut être générée par le script matlab
+    $100$ tours. Nous faisons s'opposer toutes les stratégies entre elles puis
+    notons pour chacune d'elles son gain minimal, moyen et
+    maximal\footnote{Cette table peut être générée par le script matlab
     \textit{comp\_tests.m} fourni dans l'archive.}.
 
     Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
@@ -148,14 +152,16 @@
         Stackelberg    & $54.42$      & $64.67$    & $72.75$      \\\hline
         Pénalise       & $0$          & $44.98687$ & $109.01$     \\\hline
       \end{tabular}
-      \caption{Résultats des différentes stratégies}
+      \caption{Résultats des différentes stratégies sur 100 tours}
       \label{table:coop_results}
     \end{table}
     
+\pagebreak[4] %todo: moué, quand le rapport sera fini on pourra peut être virer ça, dont le but est de ne pas mettre un début de listing en bas d'une page, la table de tests sur le haut de la page suivante puis la fin du listing commencé sur la page précédente.
 \section{Annexes}
   \lstinputlisting[label=lst:mmmttk, language=matlab, caption=Statégie Stackelberg sur la moyenne]{duopole/mmmttk.m}
   \lstinputlisting[label=lst:mmmttkv2, language=matlab, caption=Statégie Stackelberg sur la moyenne (variante)]{duopole/mmmttkv2.m}
   \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie pénalisante]{duopole/penalise.m}
   \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie pénalisante (variante)]{duopole/penalise_violent.m}
+  \lstinputlisting[label=lst:poly, language=matlab, caption=Stratégie polynomiale]{duopole/poly.m}
   
 \end{document}
