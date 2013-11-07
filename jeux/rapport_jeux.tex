@@ -37,7 +37,7 @@
         }
 
 \begin{document}
-\title{Rapport du projet de programmation linéaire}
+\title{Rapport du projet de théorie des jeux}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
           \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
 \date{11 novembre 2013}
@@ -76,32 +76,42 @@
 \section{Shifumi}
 \section{Morpion}
 \section{Compétition/Duopole}
-  blabla
+  Le but de ce jeu est de maximiser le gain d'une entreprise en concurrence avec
+  une autre entreprise en fonction de la production.
+
+  Notre gain étant égal à $g(x) = -x(x+y-3)$ avec $x$ et $y$ les productions
+  respectives des deux entreprises, pour le maximiser il suffirait de jouer
+  $x=\frac{3-y}{2}$. Cependant au moment de décider que produire nous ne
+  connaissons pas la production $y$ de l'entreprise concurrente.
+
+  Nous avons essayé plusieurs stratégies différentes.
 
   \subsection{Stratégies}
+    todo: les stratégies des profs on les explique ou pas?
     \subsubsection{Coopératif}
     Todo: pourquoi 0.75? Avec $\frac{7-\sqrt{13}}{4}$ on a les mêmes résultats.
-
-    \subsubsection{Non-coopératif}
-      Cette stratégie consiste à maximiser ses gains par rapport à ce que joue
-      (ou a joué au tour précédent) l'autre joueur.
-      Todo: blabla
 
     \subsubsection{Stackelberg}
       Todo: Pourquoi 2/3? Pourquoi 1.1*2/3 c'est mieux.
 
-      Une variante de cette stratégie (voir listing~\ref{lst:stackmean})
-      consiste à utiliser la production moyenne de l'«~adversaire~» plutôt que
-      seulement la dernière valeur. Elle permet d'obtenir des résultats
-      légèrement meilleurs.
+      Une variante de cette stratégie consiste à utiliser la production moyenne
+      de l'autre jour plutôt que seulement la dernière valeur. Elle permet
+      d'obtenir des résultats légèrement meilleurs.
 
-    \subsubsection{Cournot}
-      Todo: à comprendre + à faire en matlab
+      De plus en coopérant avec l'autre joueur (voir listing~\ref{lst:mmmttk})
+      si celui-ci coopère, on obtient de meilleurs résultats.
 
-    \subsubsection{Pénalise}
+      Enfin, une variante de cette stratégie (voir listing~\ref{lst:mmmttkv2})
+      maximise le gain si l'autre joueur a joué une constante sur les derniers
+      tours. Cette variante donne des résultats moyens un peu moins bons, mais
+      est la meilleure dans le pire des cas: elle est donc adapté à une
+      entreprise qui veut minimiser ses risques. Elle est aussi meilleure dans
+      le meilleur des cas.
+
+    \subsubsection{Stratégie pénalisante}
       Le principe de cette stratégie (voir listing~\ref{lst:penalise}) est
       d'être coopératif tant que l'adversaire l'est, et de devenir plus
-      agressif quand il ne l'est plus: à chaque fois que l'«~adversaire~» n'est
+      agressif quand il ne l'est plus: à chaque fois que l'autre joueur n'est
       pas coopératif, on joue comme le ferait la stratégie Stackelberg.
 
       Une variante de cette stratégie (voir listing~\ref{lst:penaliseviolent})
@@ -112,9 +122,40 @@
       coopératif (on est alors coopératif) et contre un joueur non-coopératif
       (on devient alors agressif).
 
+    \subsubsection{Stratégie évolutive}
+      Une autre stratégie que nous avons développée consiste à augmenter la
+      production si la dernière augmentation a augmenter notre gain ou si la
+      dernière diminution l'a diminué et vice-versa.
+
+      Celle-ci est plutôt efficace, mais n'est pas la meilleure que nous ayons
+      développée: elle se met souvent à cycler inutilement.
+
+  \subsection{Comparaison}
+    La table~\ref{table:coop_results} montre les résultats obtenus par les
+    quelques stratégies que nous avions à notre disposition pour une durée de
+    $100$ tours\footnote{Cette table peut être générée par le script matlab
+    \textit{comp\_tests.m} fourni dans l'archive.}.
+
+    Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
+    les résultats pour un autre nombre de tours.
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{|c||c|c|c|}
+        \hline
+        Stratégie      & Gain minimal & Gain moyen & Gain maximum \\\hline\hline
+        Coopératif     & $110.75$     & $114.02$   & $125.156$    \\\hline
+        Non coopératif & $83.25$      & $96.16$    & $109.13$     \\\hline
+        Stackelberg    & $54.42$      & $64.67$    & $72.75$      \\\hline
+        Pénalise       & $0$          & $44.98687$ & $109.01$     \\\hline
+      \end{tabular}
+      \caption{Résultats des différentes stratégies}
+      \label{table:coop_results}
+    \end{table}
+    
 \section{Annexes}
-  \lstinputlisting[label=lst:stackmean, language=matlab, caption=Statégie stackelbergmean1.m]{duopole/stackelberg_mean1.m}
-  \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie penalise1.m]{duopole/penalise1.m}
-  \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie penalise\_violent1.m]{duopole/penalise_violent1.m}
+  \lstinputlisting[label=lst:mmmttk, language=matlab, caption=Statégie Stackelberg sur la moyenne]{duopole/mmmttk.m}
+  \lstinputlisting[label=lst:mmmttkv2, language=matlab, caption=Statégie Stackelberg sur la moyenne (variante)]{duopole/mmmttkv2.m}
+  \lstinputlisting[label=lst:penalise, language=matlab, caption=Statégie pénalisante]{duopole/penalise.m}
+  \lstinputlisting[label=lst:penaliseviolent, language=matlab, caption=Statégie pénalisante (variante)]{duopole/penalise_violent.m}
   
 \end{document}
