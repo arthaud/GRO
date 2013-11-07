@@ -5,7 +5,10 @@ if (numpart == 2)
 	x= 0.75;
 else
     near = ty(max(2:numpart-15):max(2,numpart-1));
-    cst = near == mean(near);
+    cst = false;
+    if (near == mean(near))
+      cst = true;
+    end;
 
     if (cst && numpart > 5)
         x = (3-mean(near))/2;
