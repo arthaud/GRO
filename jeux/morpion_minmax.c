@@ -173,10 +173,13 @@ int evaluation(Morpion morpion, unsigned int n, Case joueur)
 /* Fonction minmax
  * 
  * joueur indique notre joueur (CROIX, ROND)
+ * elagage vaut 1 si on doit appliquer l'élagage alpha beta, sinon 0
  * coup contiendra le coup à jouer
  * noeud_joueur vaut 1 si on doit prendre le max, sinon on doit prendre le min (défaut: 1)
+ * first_call vaut 1 si c'est le premier appel récursif, sinon 0 (défaut: 1)
+ * alpha_beta vaut alpha ou beta, en fonction de noeud_joueur (défaut: 0)
  */
-int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur_max, Position* coup, int noeud_joueur)
+int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur_max, int elagage, Position* coup, int noeud_joueur, int first_call, int alpha_beta)
 {
     Morpion fils;
     int eval, eval_optimale, first_eval = 1;
@@ -199,7 +202,7 @@ int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur
                 else
                     fils[x + n*y] = adversaire(joueur);
 
-                eval = minmax(fils, n, joueur, profondeur_max-1, NULL, !noeud_joueur);
+                eval = minmax(fils, n, joueur, profondeur_max-1, elagage, NULL, !noeud_joueur, first_eval, eval_optimale);
                 free_morpion(fils);
 
                 if(first_eval
@@ -215,6 +218,13 @@ int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur
                         coup->y = y;
                     }
                 }
+
+                if(elagage && !first_call
+                    && ((noeud_joueur && eval_optimale >= alpha_beta)
+                        || (!noeud_joueur && eval_optimale <= alpha_beta)))
+                {
+                    return eval_optimale;
+                }
             }
         }
     } 
@@ -225,6 +235,8 @@ int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur
     return eval_optimale;
 }
 
+#define MINMAX(morpion, n, joueur, prof, elagage, coup) minmax((morpion), (n), (joueur), (prof), (elagage), (coup), 1, 1, 0)
+
 int main()
 {
     Morpion m;
@@ -234,10 +246,9 @@ int main()
     m = new_morpion(3);
 
     m[1 + 3*1] = CROIX;
-    m[0] = ROND;
-    m[1 + 3*2] = ROND;
+    m[0] = CROIX;
 
-    eval = minmax(m, 3, ROND, 4, &p, 1);
+    eval = MINMAX(m, 3, CROIX, 4, 1, &p);
 
     printf("eval = %d, coup = (%d, %d)\n", eval, p.x, p.y);
 
