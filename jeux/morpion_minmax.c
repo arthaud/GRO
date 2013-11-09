@@ -166,7 +166,7 @@ int evaluation(Morpion morpion, unsigned int n, Case joueur)
  * first_call vaut 1 si c'est le premier appel récursif, sinon 0 (défaut: 1)
  * alpha_beta vaut alpha ou beta, en fonction de noeud_joueur (défaut: 0)
  */
-int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur_max, int elagage, Position* coup, int noeud_joueur, int first_call, int alpha_beta)
+int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur_max, int elagage, Position *coup, int noeud_joueur, int first_call, int alpha_beta)
 {
     Morpion fils;
     int eval, eval_optimale, first_eval = 1;
@@ -222,21 +222,67 @@ int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur
     return eval_optimale;
 }
 
-int main()
+static PyObject * py_morpion_minmax(PyObject *self, PyObject *args)
 {
-    Morpion m;
-    Position p;
-    int eval;
+    PyObject *py_morpion, *py_line, *py_joueur, *py_elagage, *py_ret;
+    unsigned int i, j, n, profondeur_max;
+    Morpion morpion;
+    Case joueur;
+    int eval, elagage;
+    Position coup;
+    coup.x = coup.y = -1;
 
-    m = new_morpion(3);
+    /* Conversion des arguments en type C */
+    if(!PyArg_ParseTuple(args, "O!O!IO!",
+            &PyList_Type, &py_morpion,
+            &PyBool_Type, &py_joueur,
+            &profondeur_max,
+            &PyBool_Type, &py_elagage))
+    {
+        return NULL;
+    }
 
-    m[1 + 3*1] = CROIX;
-    m[0] = CROIX;
+    n = PyList_Size(py_morpion);
+    morpion = new_morpion(n);
 
-    eval = MINMAX(m, 3, CROIX, 4, 1, &p);
+    for(i=0; i<n; i++)
+    {
+        py_line = PyList_GetItem(py_morpion, i);
 
-    printf("eval = %d, coup = (%d, %d)\n", eval, p.x, p.y);
+        for(j=0; j<n; j++)
+        {
+            if(PyList_GetItem(py_line, j) == Py_None)
+                morpion[i + n*j] = VIDE;
+            else if(PyObject_IsTrue(PyList_GetItem(py_line, j)))
+                morpion[i + n*j] = CROIX;
+            else
+                morpion[i + n*j] = ROND;
+        }
+    }
 
-    free_morpion(m);
-    return 1;
+    if(PyObject_IsTrue(py_joueur))
+        joueur = CROIX;
+    else
+        joueur = ROND;
+
+    elagage = PyObject_IsTrue(py_elagage);
+
+    /* Calcul du coup et de l'évaluation optimale */
+    eval = MINMAX(morpion, n, joueur, profondeur_max, elagage, &coup);
+
+    free_morpion(morpion);
+
+    /* Retour de la fonction */
+    if(coup.x == -1 || coup.y == -1)
+        py_ret = Py_BuildValue("si", NULL, eval);
+    else
+        py_ret = Py_BuildValue("(ii)i", coup.x, coup.y, eval);
+
+    Py_INCREF(py_ret);
+    return py_ret;
+}
+
+PyMODINIT_FUNC initmorpion_minmax(void)
+{
+    Py_InitModule("morpion_minmax", MorpionMinmaxMethods);
 }
