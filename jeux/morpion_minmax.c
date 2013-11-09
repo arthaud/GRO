@@ -1,15 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-/* Définition des types */
-typedef enum {VIDE, CROIX, ROND} Case;
-typedef Case* Morpion;
-
-typedef struct {
-    unsigned int x;
-    unsigned int y;
-} Position;
+#include "morpion_minmax.h"
 
 /* Manipulation des Morpions */
 Morpion new_morpion(unsigned int n)
@@ -134,8 +123,6 @@ int parcours_morpion(unsigned int n, int i, int j)
     }
 }
 
-int Infini = 1000000;
-
 int evaluation(Morpion morpion, unsigned int n, Case joueur)
 {
     int score = 0;
@@ -234,8 +221,6 @@ int minmax(Morpion morpion, unsigned int n, Case joueur, unsigned int profondeur
 
     return eval_optimale;
 }
-
-#define MINMAX(morpion, n, joueur, prof, elagage, coup) minmax((morpion), (n), (joueur), (prof), (elagage), (coup), 1, 1, 0)
 
 int main()
 {
