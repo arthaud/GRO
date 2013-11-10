@@ -1,21 +1,22 @@
-NBJ=input('Nombre de parties: ');
+
+function nothing = comp_tests(round_nb, print_latex)
 
 stra={
     'cooperatif',
     'noncooperatif',
-    'palkeo',
-    'killer',
-    'penalise',
     'stackelberg',
+    'palkeo',
+    'penalise',
+    'penalise_violent',
     'mmmttk',
     'mmmttkv2',
-    'penalise_violent',
     'gklmjbse',
+    'poly',
+    'killer',
     'cooperatifmixte',
     'agressivemieux',
-    'poly',
     'best_strategie',
-%   'fourbe5',
+%   'fourbe5', % stratégie tellement mauvaise qu'elle fausse les résultats
 }';
 
 [bla, N] = size(stra);
@@ -23,14 +24,23 @@ results = zeros(N, N);
 
 for i=1:N
     for j=1:N
-        [tx, ty, gx, gy] = jeu(NBJ,stra{i},stra{j});
+        [tx, ty, gx, gy] = jeu(round_nb,stra{i},stra{j});
         results(j, i) = sum(gx);
     end;
 end;
 
 results = [min(results); mean(results); max(results)];
 disp('Min/Mean/Max');
-for i=1:N
-    fprintf('%5.2f  %5.2f  %5.2f %s\n', results(1,i), results(2,i), results(3,i), stra{i})
+
+if print_latex
+    for i=1:N
+        fprintf('%20s & $%6.2f$ & $%6.2f$ & $%6.2f$ \\\\\\hline\n', \
+                stra{i}, results(1,i), results(2,i), results(3,i))
+    end;
+else
+    for i=1:N
+        fprintf('6.2f  %6.2f  %6.2f %s\n', \
+                results(1,i), results(2,i), results(3,i), stra{i})
+    end;
 end;
 

@@ -3,3 +3,13 @@ morpion_minmax.so: morpion_minmax.h morpion_minmax.c
 
 clean:
 	rm -f morpion_minmax.so
+	rm -f rapport_jeux.aux
+	rm -f rapport_jeux.log
+	rm -f rapport_jeux.lol
+	rm -f rapport_jeux.out
+	rm -f rapport_jeux.pdf
+	rm -f rapport_jeux.toc
+
+rapport_jeux.pdf: pdf
+pdf:
+	pdflatex rapport_jeux.tex

@@ -92,8 +92,7 @@
       Enfin, une autre variante de cette stratégie (voir
       listing~\ref{lst:mmmttkv2}) maximise le gain si l'autre joueur a joué une
       constante sur les derniers tours. Cette variante donne des résultats
-      moyens un peu moins bons, mais est la meilleure dans le pire des cas:
-      elle est donc adaptée à une entreprise qui veut minimiser ses risques.
+      un peu moins bons en moyenne mais est meilleure dans le meilleur des cas.
 
     \subsubsection{Stratégie pénalisante}
       % Todo: ...  est d'être coopérati(f|ve) ? agressi(f|ve)
@@ -119,7 +118,7 @@
       Celle-ci est plutôt efficace, mais n'est pas la meilleure que nous ayons
       développée: elle se met souvent à osciller inutilement.
 
-    \subsubsection{Stratégie polynomiale}
+    \subsubsection{Stratégie polynomiale} \label{sec:poly}
       Enfin, une autre stratégie (voir listing~\ref{lst:poly}) joue en fonction
       de la production moyenne de l'autre joueur telle que:
       \begin{itemize}
@@ -138,32 +137,83 @@
       Cette méthode s'avère très efficace en moyenne.
 
   \subsection{Comparaison}
-    La table~\ref{table:coop_results} montre les résultats obtenus par les
-    quelques stratégies que nous avions à notre disposition\footnote{Les
-    stratégies fournies par les professeurs, les notres et des stratégies
-    «~prêtées~» par d'autres groupes pour les tests.} pour une durée de $100$
-    tours. Nous faisons s'opposer toutes les stratégies entre elles puis notons
-    pour chacune d'elles son gain minimal, moyen et maximal\footnote{Cette
-    table peut être générée par le script matlab \textit{comp\_tests.m} fourni
-    dans l'archive.}.
+    Les tables~\ref{table:coop_results} et~\ref{table:coop_results2} montrent
+    les résultats obtenus par les quelques stratégies que nous avions à notre
+    disposition\footnote{Les stratégies fournies par les professeurs
+    (marquées~*), les notre et des stratégies «~prêtées~» par d'autres
+    groupes pour les tests (marquées~**) que nous remercions.} pour une durée
+    de $99$ tours et $1000$ tours respectivement. Nous faisons s'opposer toutes
+    les stratégies entre elles puis notons pour chacune d'elles son gain
+    minimal, moyen et maximal\footnote{Cette table peut être générée par le
+    script matlab \textit{comp\_tests.m} fourni dans l'archive.}.
 
     Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
-    les résultats pour un autre nombre de tours.
-    \begin{table}[h]
+    les résultats pour un autre nombre de tours: il suffit d'appeler
+    \verb+comp_tests(100, true)+ d'ajouter les * et les $\backslash$\_ et
+    supprimer cette phrase quand on aura fini.
+    \begin{table}[f]
       \centering
       \begin{tabular}{|c||c|c|c|}
         \hline
         Stratégie      & Gain minimal & Gain moyen & Gain maximum \\\hline\hline
-        Coopératif     & $110.75$     & $114.02$   & $125.156$    \\\hline
-        Non coopératif & $83.25$      & $96.16$    & $109.13$     \\\hline
-        Stackelberg    & $54.42$      & $64.67$    & $72.75$      \\\hline
-        Pénalise       & $0$          & $44.98687$ & $109.01$     \\\hline
+           cooperatif* & $ 55.31$ & $ 97.84$ & $111.38$ \\\hline
+        noncooperatif* & $ 42.96$ & $ 87.74$ & $130.26$ \\\hline
+          stackelberg* & $ 48.00$ & $ 79.75$ & $114.69$ \\\hline
+                palkeo & $ 15.75$ & $ 92.49$ & $111.38$ \\\hline
+              penalise & $ 45.53$ & $ 86.45$ & $111.87$ \\\hline
+     penalise\_violent & $ 41.87$ & $ 89.08$ & $111.38$ \\\hline
+                mmmttk & $ 48.13$ & $ 91.19$ & $111.38$ \\\hline
+              mmmttkv2 & $ 48.92$ & $ 78.55$ & $123.19$ \\\hline
+              gklmjbse & $ 55.31$ & $ 83.89$ & $116.29$ \\\hline
+                  poly & $ 55.53$ & $100.21$ & $111.38$ \\\hline
+              killer** & $  0.00$ & $ 71.91$ & $114.64$ \\\hline
+     cooperatifmixte** & $ 61.43$ & $ 97.84$ & $111.38$ \\\hline
+      agressivemieux** & $  3.15$ & $ 74.76$ & $112.18$ \\\hline
+     best\_strategie** & $ 32.11$ & $ 86.15$ & $122.62$ \\\hline
       \end{tabular}
       \caption{Résultats des différentes stratégies sur 100 tours}
       \label{table:coop_results}
     \end{table}
+    \begin{table}[f]
+      \centering
+      \begin{tabular}{|c||c|c|c|}
+        \hline
+        Stratégie      & Gain minimal & Gain moyen & Gain maximum \\\hline\hline
+         cooperatif* & $561.56$ & $978.59$ & $1123.88$ \\\hline
+      noncooperatif* & $380.79$ & $877.10$ & $1317.08$ \\\hline
+        stackelberg* & $498.00$ & $797.42$ & $1132.44$ \\\hline
+              palkeo & $694.54$ & $986.94$ & $1123.88$ \\\hline
+            penalise & $419.12$ & $860.12$ & $1124.70$ \\\hline
+   penalise\_violent & $421.22$ & $896.10$ & $1123.88$ \\\hline
+              mmmttk & $492.11$ & $923.94$ & $1123.88$ \\\hline
+            mmmttkv2 & $531.85$ & $800.61$ & $1262.25$ \\\hline
+            gklmjbse & $561.56$ & $832.41$ & $1135.33$ \\\hline
+                poly & $561.82$ & $1011.24$ & $1123.88$ \\\hline
+            killer** & $  0.00$ & $773.86$ & $1133.09$ \\\hline
+   cooperatifmixte** & $698.67$ & $990.58$ & $1123.88$ \\\hline
+    agressivemieux** & $  3.15$ & $750.64$ & $1126.18$ \\\hline
+   best\_strategie** & $322.67$ & $881.00$ & $1262.81$ \\\hline
+      \end{tabular}
+      \caption{Résultats des différentes stratégies sur 1000 tours}
+      \label{table:coop_results2}
+    \end{table}
+
+    On remarque que notre meilleure stratégie en moyenne est la stratégie qui
+    utilise un polynôme (voir section~\ref{sec:poly}), cette stratégie est
+    aussi plutôt bonne dans le pire des cas (elle est donc adaptée à une
+    entreprise qui souhaiterait minimiser ses risques).
+
+    Todo: parler de palkeo qui est mauvaise à cours terme et devient bonne à
+    long terme dans le pire des cas.
+
+    On remarque aussi que nos stratégie gagneront toujours de l'argent,
+    contrairement à la stratégie nommée ``killer'' fournie par un autre groupe.
+
+    Enfin on remarque que la stratégie non-coopérative est plutôt bonne dans le
+    pire des cas et en moyenne et est la meilleure dans le meilleur des cas.
+    Elle est donc adaptée à une entreprise qui serait prête à prendre quelques
+    risques pour avoir une chance de gagner plus.
     
-\pagebreak[4] %todo: moué, quand le rapport sera fini on pourra peut être virer ça, dont le but est de ne pas mettre un début de listing en bas d'une page, la table de tests sur le haut de la page suivante puis la fin du listing commencé sur la page précédente.
 \section{Annexes}
   \lstinputlisting[label=lst:mmmttk, language=matlab, caption=Statégie Stackelberg sur la moyenne]{duopole/mmmttk.m}
   \lstinputlisting[label=lst:mmmttkv2, language=matlab, caption=Statégie Stackelberg sur la moyenne (variante)]{duopole/mmmttkv2.m}

@@ -4,14 +4,14 @@ function x = strategie(numpart,tx,ty,gx,gy)
 if (numpart == 2)
 	x= 0.75;
 else
-    near = ty(max(2:numpart-15):max(2,numpart-1));
+    far = ty(max(2:numpart-15):max(2,numpart-1));
     cst = false;
-    if (near == mean(near))
+    if (far == mean(far))
       cst = true;
     end;
 
     if (cst && numpart > 5)
-        x = (3-mean(near))/2;
+        x = (3-mean(far))/2;
     else
         ty_near_mean = mean(ty(max(numpart-5, 2):numpart-1));
 
