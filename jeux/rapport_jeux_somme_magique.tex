@@ -1,7 +1,7 @@
 \section{Jeu de la somme magique}
 
-\subsection{Représentation sous forme de Morpion}
-Ce jeu, comme expliqué dans les tranparents présentés en cours,
+\subsection{Représentation sous forme de morpion}
+Ce jeu, comme expliqué dans les transparents présentés en cours,
 consiste à choisir, à tour de rôle, $n$ nombres parmi $n^2$ afin que
 leur somme soit égale à $\frac{n(n^2+1)}{2}$.
 
@@ -10,27 +10,27 @@ joueurs doivent choisir, l'un après l'autre une case dans un carré
 magique, leur but étant de contrôler une ligne, une colonne ou une
 diagonale entière du carré magique; alors, les nombres qu'ils auront
 choisis totaliseront.  De même, ce problème correspond exactement au
-jeu du Morpion, étendu à des grilles $n \times n$.
+jeu du morpion, étendu à des grilles $n \times n$.
 
 Ainsi, une des stratégies possibles pour un joueur du jeu de la somme
 magique est de construire un carré magique, et de représenter les
 nombres choisis par l'adversaire par un rond dans la case
 correspondante. Afin de choisir un nombre, il suffit d'appliquer la
-stratégie de Morpion de son choix sur le carré magique, et de
+stratégie de morpion de son choix sur le carré magique, et de
 retourner le nombre correspondant.
 
 Le choix du carré magique n'importe pas. En effet, dans un carré
 magique sont présentes toutes les possibilités de combinaison de
 nombres pour obtenir la somme voulue. Par conséquent, peu importe le
 carré magique que l'on choisit, les représentations sous forme de
-Morpion seront toutes équivalentes.
+morpion seront toutes équivalentes.
 
 Le morpion étant un jeu où l'on essaie de minimiser la perte maximum,
 on peut s'intéresser à l'algorithme du minmax, pour déterminer une
 stratégie non-perdante.
 
-\subsection{Algorithme du minmax appliqué au jeu du Morpion}
-L'algorithme du Minmax consiste à évaluer toutes les positions de jeu
+\subsection{Algorithme du minmax appliqué au jeu du morpion}
+L'algorithme du minmax consiste à évaluer toutes les positions de jeu
 atteignables depuis la position courante, sur une certaine profondeur
 (autrement dit, un certain nombre de tours de jeu), et à jouer de
 manière à atteindre la position la plus avantageuse, en supposant que
@@ -45,12 +45,12 @@ commencer par déterminer une fonction d'évaluation.
 La fonction d'évaluation que nous avons choisie est très simple: une
 ligne, colonne ou diagonale (que nous appelleront désormais simplement
 ``ligne'') complétée avec notre symbole (ce qui signifie qu'on a
-gagné) vaut $\infty$; si, au contraire, l'adversaire a complété une
+gagné) vaut $+\infty$; si, au contraire, l'adversaire a complété une
 ligne, alors cette ligne vaut $-\infty$. Une ligne contenant
-uniquement notre symbole rapporte le nombre d'occurences de notre
+uniquement notre symbole rapporte le nombre d'occurrences de notre
 symbole dans cette ligne ; à l'inverse, une ligne contenant uniquement
 le symbole de l'adversaire rapportera négativement le nombre
-d'occurences de ce symbole dans cette ligne.
+d'occurrences de ce symbole dans cette ligne.
 Toutes les autres lignes ne rapportent aucun point.
 Ainsi, l'évaluation d'une position de jeu est la somme des points
 rapportés par chacune de ses lignes, colonnes et diagonales.
@@ -58,15 +58,16 @@ rapportés par chacune de ses lignes, colonnes et diagonales.
 \subsubsection{Minmax}
 L'algorithme du minmax va construire (implicitement) l'arbre des coups
 possibles à partir de la position courante.
-L'évaluation d'un n\oe ud de cet arbre sera:
+L'évaluation d'un nœud de cet arbre sera:
 \begin{itemize}
   \item Si c'est au tour du joueur courant de jouer, le maximum de
     l'évaluation de ses fils;
   \item Si c'est à l'adversaire de jouer, le minimum de l'évaluation
-    de ses fils (i.e. on suppose que l'adversaire joue le meilleur
+    de ses fils (i.e.\ on suppose que l'adversaire joue le meilleur
     coup à sa disposition, selon la fonction d'évaluation du joueur courant).
 \end{itemize}
-L'évaluation d'un feuille de l'arbre se fera par la fonction
+
+L'évaluation d'une feuille de l'arbre se fera par la fonction
 d'évaluation définie précédemment.
 
 Ainsi, l'algorithme se dirigera naturellement vers la position la plus
@@ -92,7 +93,7 @@ tailles de plateaux. Les stratégies que nous avons fait s'affronter
 Les résultats ne sont guère surprenants: toutes les stratégies
 parviennent au match nul, à l'exception des stratégies aléatoires et
 premier\_dispo, qui perdent systématiquement contre un minmax de
-profondeur $>= 2$.
+profondeur supérieure à 2.
 
 \subsubsection{Performances}
 Du point de vue du temps d'exécution, toutefois, l'algorithme avec
