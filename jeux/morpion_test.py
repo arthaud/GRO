@@ -15,8 +15,8 @@ def get_strategies():
 if __name__ == '__main__':
     strats = get_strategies()
     output = open(sys.argv[1], 'w')
-    tailles = [3, 4, 5, ]#10, 50]
-    temps = [[] for i in range(len(strats))] # temps des différentes stratégies pour jouer un coup
+    tailles = [3, 4]#, 5, ]#10, 50]
+    temps = [[[] for i in range(len(tailles))] for j in range(len(strats))] # temps des différentes stratégies pour jouer un coup
 
     for i, strat in enumerate(strats):
         for j, opponent in enumerate(strats[i:]):
@@ -24,12 +24,12 @@ if __name__ == '__main__':
             output.write('Opposing %s and %s...\n' % (strat.__name__,opponent.__name__))
             score = [0,0]
             matchs_nuls = 0
-            for taille in tailles:
+            for k, taille in enumerate(tailles):
                 print('    Taille %s' % taille)
                 output.write('    Size %s:\n' %taille)
                 gagnant, temps_match = morpion.match(taille, (strat, opponent), display=False)
-                temps[i] += temps_match[0]
-                temps[j] += temps_match[1]
+                temps[i][k] += temps_match[0]
+                temps[j][k] += temps_match[1]
                 if gagnant is None:
                     matchs_nuls += 1
                     output.write('        Match nul')
@@ -56,7 +56,10 @@ if __name__ == '__main__':
     output.write('\n')
     for i, strat in enumerate(strats):
         output.write('Stratégie %s:\n'% strat.__name__)
-        output.write('    Temps moyen pour un coup: %ss\n' % numpy.mean(temps[i]))
-        output.write('    Ecart-type: %s\n' % numpy.std(temps[i]))
+        for j, taille in enumerate(tailles):
+            output.write('    Taille %s:\n' % taille)
+            output.write('        Temps moyen pour un coup: %ss\n' % numpy.mean(temps[i][j]))
+            output.write('        Ecart-type: %s\n' % numpy.std(temps[i][j]))
+        output.write('\n')
     output.close()
 

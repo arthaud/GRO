@@ -12,3 +12,5 @@
 \#*
 \.#*
 octave-core
+*.gch
+*.so
