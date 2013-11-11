@@ -54,42 +54,45 @@
   cette UA.
 
 \section{Shifumi}
-
     Une stratégie simple et efficace à laquelle on pourrait penser pour gagner
     au Shifumi serait de jouer de manière aléatoire.
 
     Et en effet, il s'avère que si les deux joueurs jouent de manière équiprobable,
-    on a affaire à un équilibre de Nash : aucun changement de stratégie de la part
+    on a affaire à un équilibre de Nash: aucun changement de stratégie de la part
     d'un joueur ne pourra lui permettre d'augmenter ses chances de gagner.
 
-    De plus, si un adversaire ne joue pas de manière aléatoire (ou augmente les probabilités
-    de jouer un certain élément), alors on pourra trouver une stratégie efficace contre lui.
+    De plus, si un adversaire ne joue pas de manière aléatoire (ou augmente les
+    probabilités de jouer un certain élément), alors on pourra prévoir ce qu'il
+    va jouer et donc trouver une stratégie qui pourra le battre. Les humains
+    étant très mauvais pour jouer de manière aléatoire, il est assez facile
+    d'écrire une stratégie permettant de les battre.
 
-    \subsection{Stratégie développée}
-
+  \subsection{Stratégie développée}
     Afin de démontrer qu'un adversaire ne jouant pas aléatoirement est facile
     à battre, nous avons développé une stratégie qui se base sur des chaînes
-    de Markov : en se basant sur les N derniers éléments joués, elle regarde
+    de Markov: en se basant sur les derniers éléments joués, elle regarde
     dans l'historique pour voir l'élément qui était joué le plus souvent par
-    l'adversaire.
+    l'adversaire après les derniers coups joués.
 
     Cette stratégie s'avère vraiment efficace contre un joueur humain.
-
-    Toutefois, elle est prévisible : si on sait qu'on à affaire à une telle
+    Toutefois, elle est prévisible: si on sait qu'on a affaire à une telle
     stratégie, on peut jouer de manière à la battre.
 
     C'est pour cela qu'une stratégie aléatoire est la seule pouvant maximiser
     nos gains dans le pire des cas.
 
-    \subsection{Variantes}
-
-    Toutes les variantes du Shifumi qui consistent à rajouter des éléments pour
-    obtenir un nombre d'éléments pair va créer un déséquilibre, car un élément
-    sera moins efficace contre les autres. L'équilibre de Nash du jeu va alors
-    consister à ne jamais jouer cet élément.
+  \subsection{Variantes}
+    Toutes les variantes du Shifumi qui consistent à rajouter des éléments
+    pour obtenir un nombre d'éléments pair (par exemple
+    pierre/papier/ciseaux/puits) vont créer un déséquilibre, car un élément
+    sera moins efficace contre les autres. L'équilibre de Nash du jeu va
+    alors consister à ne jamais jouer cet élément.
 
     Si le nombre d'éléments est impair, alors le jeu pourra être équilibré,
     comme un Shifumi classique.
+
+  \subsection{Tests}
+    TODO
 
 \section{Morpion}
 \section{Compétition/Duopole}
