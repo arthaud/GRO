@@ -74,7 +74,27 @@ Ainsi, l'algorithme se dirigera naturellement vers la position la plus
 avantageuse pour lui.
 
 \subsection{Élagage alpha-beta}
-TODO
+L'élagage alpha-beta permet de réduire le nombre de noeuds à parcourir durant
+l'algorithme du minmax.
+
+Cette algorithme arrête le parcours des fils d'un noeud quand il se rend
+compte qu'il ne pourra pas faire mieux.
+
+Dans l'exemple suivant, où les noeuds en bleus sont ceux où l'on doit prendre
+le minimum, et ceux en gris le maximum :
+\begin{center}
+  \includegraphics[width=300px]{coupures_alpha-beta.png}
+\end{center}
+
+On se rend bien compte qu'on n'a pas besoin de parcourir les noeuds suivant,
+car on prend le maximum des minimums, ou l'inverse.
+
+Par exemple, pour la coupure alpha : si on trouve des fils de $V$ plus petit
+que $4$, on va prendre le maximum, donc c'est $4$ qui sera utilisé, et si on
+trouve plus grand ou égal à $5$, on devra prendre le minimum au niveau de $V$,
+donc on prendra $5$ dans tous les cas.
+
+Au final, cette amélioration permet de gagner un temps considérable.
 
 \subsection{Résultats}
 \subsubsection{Meilleure stratégie}
