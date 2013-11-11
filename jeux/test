@@ -1,541 +1,247 @@
 Opposing strat_aleatoire and strat_aleatoire...
     Size 3:
         Gagnant: strat_aleatoire
+    Size 4:
+        Gagnant: strat_aleatoire
     Total:
-        strat_aleatoire: 1/1 (100.0%)
-        strat_aleatoire: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_aleatoire and strat_c_minmax_10...
-    Size 3:
-strat_c_minmax_10    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_10: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_aleatoire: 2/2 (100.0%)
+        strat_aleatoire: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_aleatoire and strat_c_minmax_2...
     Size 3:
-strat_c_minmax_2    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_2: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+strat_c_minmax_2    Size 4:
+        Match nul    Total:
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_2: 1/2 (50.0%)
+        Matchs nuls: 1/2 (50.0%)
 Opposing strat_aleatoire and strat_c_minmax_4...
     Size 3:
-strat_c_minmax_4    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_4: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+strat_c_minmax_4    Size 4:
+        Match nul    Total:
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_4: 1/2 (50.0%)
+        Matchs nuls: 1/2 (50.0%)
 Opposing strat_aleatoire and strat_c_minmax_6...
     Size 3:
-        Match nul    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_aleatoire and strat_c_minmax_8...
-    Size 3:
-strat_c_minmax_8    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_8: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+strat_c_minmax_6    Size 4:
+strat_c_minmax_6    Total:
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_6: 2/2 (100.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_aleatoire and strat_c_minmax_elagage10...
     Size 3:
-strat_c_minmax_elagage10    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+strat_c_minmax_elagage10    Size 4:
+        Match nul    Total:
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_elagage10: 1/2 (50.0%)
+        Matchs nuls: 1/2 (50.0%)
 Opposing strat_aleatoire and strat_c_minmax_elagage2...
     Size 3:
+strat_c_minmax_elagage2    Size 4:
 strat_c_minmax_elagage2    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 2/2 (100.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_aleatoire and strat_c_minmax_elagage4...
     Size 3:
+strat_c_minmax_elagage4    Size 4:
 strat_c_minmax_elagage4    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 2/2 (100.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_aleatoire and strat_c_minmax_elagage6...
     Size 3:
-strat_c_minmax_elagage6    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+strat_c_minmax_elagage6    Size 4:
+        Match nul    Total:
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 1/2 (50.0%)
+        Matchs nuls: 1/2 (50.0%)
 Opposing strat_aleatoire and strat_c_minmax_elagage8...
     Size 3:
+strat_c_minmax_elagage8    Size 4:
 strat_c_minmax_elagage8    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_aleatoire: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 2/2 (100.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_aleatoire and strat_premier_dispo...
     Size 3:
+        Gagnant: strat_aleatoire
+    Size 4:
 strat_premier_dispo    Total:
-        strat_aleatoire: 0/1 (0.0%)
-        strat_premier_dispo: 1/1 (100.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_10...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_2...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_elagage10...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_elagage2...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_elagage4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_10: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_10 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_10
-    Total:
-        strat_c_minmax_10: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_aleatoire: 1/2 (50.0%)
+        strat_premier_dispo: 1/2 (50.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_2...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_4...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_2 and strat_c_minmax_8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_elagage10...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_elagage2...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_elagage4...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_elagage6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_c_minmax_elagage8...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_2: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_2: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_2 and strat_premier_dispo...
     Size 3:
         Gagnant: strat_c_minmax_2
+    Size 4:
+        Gagnant: strat_c_minmax_2
     Total:
-        strat_c_minmax_2: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_c_minmax_2: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_4...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_4 and strat_c_minmax_8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_elagage10...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_elagage2...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_elagage4...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_elagage6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_c_minmax_elagage8...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_4: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_4: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_4 and strat_premier_dispo...
     Size 3:
         Gagnant: strat_c_minmax_4
+    Size 4:
+        Gagnant: strat_c_minmax_4
     Total:
-        strat_c_minmax_4: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
+        strat_c_minmax_4: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_6 and strat_c_minmax_8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_elagage10...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_elagage2...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_elagage4...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_elagage6...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_c_minmax_elagage8...
     Size 3:
+        Match nul    Size 4:
         Match nul    Total:
-        strat_c_minmax_6: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
+        strat_c_minmax_6: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
 Opposing strat_c_minmax_6 and strat_premier_dispo...
     Size 3:
         Gagnant: strat_c_minmax_6
+    Size 4:
+        Gagnant: strat_c_minmax_6
     Total:
-        strat_c_minmax_6: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_elagage10...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_elagage2...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_elagage4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_8: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_8 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_8
-    Total:
-        strat_c_minmax_8: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage10...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage2...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage10: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage10 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_elagage10
-    Total:
-        strat_c_minmax_elagage10: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage2...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage2: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage2 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_elagage2
-    Total:
-        strat_c_minmax_elagage2: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage4...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage4: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage4 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_elagage4
-    Total:
-        strat_c_minmax_elagage4: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_elagage6 and strat_c_minmax_elagage6...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage6 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage6: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage6 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_elagage6
-    Total:
-        strat_c_minmax_elagage6: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_c_minmax_elagage8 and strat_c_minmax_elagage8...
-    Size 3:
-        Match nul    Total:
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        strat_c_minmax_elagage8: 0/1 (0.0%)
-        Matchs nuls: 1/1 (100.0%)
-Opposing strat_c_minmax_elagage8 and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_c_minmax_elagage8
-    Total:
-        strat_c_minmax_elagage8: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-Opposing strat_premier_dispo and strat_premier_dispo...
-    Size 3:
-        Gagnant: strat_premier_dispo
-    Total:
-        strat_premier_dispo: 1/1 (100.0%)
-        strat_premier_dispo: 0/1 (0.0%)
-        Matchs nuls: 0/1 (0.0%)
-
-Stratégie strat_aleatoire:
-    Taille 3:
-        Temps moyen pour un coup: 0.00209824719101s
-        Ecart-type: 0.0107056626928
-
-Stratégie strat_c_minmax_10:
-    Taille 3:
-        Temps moyen pour un coup: 0.0498888969072s
-        Ecart-type: 0.137835644342
-
-Stratégie strat_c_minmax_2:
-    Taille 3:
-        Temps moyen pour un coup: 0.00164312790698s
-        Ecart-type: 0.00946721857658
-
-Stratégie strat_c_minmax_4:
-    Taille 3:
-        Temps moyen pour un coup: 0.0023653974359s
-        Ecart-type: 0.00937208636753
-
-Stratégie strat_c_minmax_6:
-    Taille 3:
-        Temps moyen pour un coup: 0.0155755217391s
-        Ecart-type: 0.036776403896
-
-Stratégie strat_c_minmax_8:
-    Taille 3:
-        Temps moyen pour un coup: 0.0746762131148s
-        Ecart-type: 0.200571983238
-
-Stratégie strat_c_minmax_elagage10:
-    Taille 3:
-        Temps moyen pour un coup: 0.00549823076923s
-        Ecart-type: 0.0137500086428
-
-Stratégie strat_c_minmax_elagage2:
-    Taille 3:
-        Temps moyen pour un coup: 0.000265902439024s
-        Ecart-type: 0.000893946874748
-
-Stratégie strat_c_minmax_elagage4:
-    Taille 3:
-        Temps moyen pour un coup: 0.000424382352941s
-        Ecart-type: 0.00086473790707
-
-Stratégie strat_c_minmax_elagage6:
-    Taille 3:
-        Temps moyen pour un coup: 0.00134995652174s
-        Ecart-type: 0.00228014861221
-
-Stratégie strat_c_minmax_elagage8:
-    Taille 3:
-        Temps moyen pour un coup: 0.0051708s
-        Ecart-type: 0.0116611575023
-
-Stratégie strat_premier_dispo:
-    Taille 3:
-        Temps moyen pour un coup: 1.54285714286e-05s
-        Ecart-type: 4.95283880667e-06
-
+        strat_c_minmax_6: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls

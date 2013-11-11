@@ -59,6 +59,8 @@ if __name__ == '__main__':
         for j, taille in enumerate(tailles):
             output.write('    Taille %s:\n' % taille)
             output.write('        Temps moyen pour un coup: %ss\n' % numpy.mean(temps[i][j]))
+            output.write('        Temps min pour un coup: %ss\n' % numpy.min(temps[i][j]))
+            output.write('        Temps max pour un coup: %ss\n' % numpy.max(temps[i][j]))
             output.write('        Ecart-type: %s\n' % numpy.std(temps[i][j]))
         output.write('\n')
     output.close()

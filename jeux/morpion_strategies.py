@@ -138,11 +138,11 @@ def strat_c_minmax_4(morpion, joueur):
 def strat_c_minmax_6(morpion, joueur):
     return c_minmax(morpion, joueur, 6, False)[0]
 
-def strat_c_minmax_8(morpion, joueur):
-    return c_minmax(morpion, joueur, 8, False)[0]
+# def strat_c_minmax_8(morpion, joueur):
+#     return c_minmax(morpion, joueur, 8, False)[0]
 
-def strat_c_minmax_10(morpion, joueur):
-    return c_minmax(morpion, joueur, 10, False)[0]
+# def strat_c_minmax_10(morpion, joueur):
+#     return c_minmax(morpion, joueur, 10, False)[0]
 
 def strat_c_minmax_elagage2(morpion, joueur):
     return c_minmax(morpion, joueur, 2, True)[0]
