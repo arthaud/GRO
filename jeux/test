@@ -244,4 +244,284 @@ Opposing strat_c_minmax_6 and strat_premier_dispo...
     Total:
         strat_c_minmax_6: 2/2 (100.0%)
         strat_premier_dispo: 0/2 (0.0%)
-        Matchs nuls
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage10...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage2...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage4...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage6...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage10 and strat_c_minmax_elagage8...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage10: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage10 and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_c_minmax_elagage10
+    Size 4:
+        Gagnant: strat_c_minmax_elagage10
+    Total:
+        strat_c_minmax_elagage10: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage2...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage4...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage6...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage2 and strat_c_minmax_elagage8...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage2: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage2 and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_c_minmax_elagage2
+    Size 4:
+        Gagnant: strat_c_minmax_elagage2
+    Total:
+        strat_c_minmax_elagage2: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage4...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage6...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage4 and strat_c_minmax_elagage8...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage4: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage4 and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_c_minmax_elagage4
+    Size 4:
+        Gagnant: strat_c_minmax_elagage4
+    Total:
+        strat_c_minmax_elagage4: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_c_minmax_elagage6 and strat_c_minmax_elagage6...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage6 and strat_c_minmax_elagage8...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage6: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage6 and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_c_minmax_elagage6
+    Size 4:
+        Gagnant: strat_c_minmax_elagage6
+    Total:
+        strat_c_minmax_elagage6: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_c_minmax_elagage8 and strat_c_minmax_elagage8...
+    Size 3:
+        Match nul    Size 4:
+        Match nul    Total:
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        strat_c_minmax_elagage8: 0/2 (0.0%)
+        Matchs nuls: 2/2 (100.0%)
+Opposing strat_c_minmax_elagage8 and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_c_minmax_elagage8
+    Size 4:
+        Gagnant: strat_c_minmax_elagage8
+    Total:
+        strat_c_minmax_elagage8: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+Opposing strat_premier_dispo and strat_premier_dispo...
+    Size 3:
+        Gagnant: strat_premier_dispo
+    Size 4:
+        Gagnant: strat_premier_dispo
+    Total:
+        strat_premier_dispo: 2/2 (100.0%)
+        strat_premier_dispo: 0/2 (0.0%)
+        Matchs nuls: 0/2 (0.0%)
+
+Stratégie strat_aleatoire:
+    Taille 3:
+        Temps moyen pour un coup: 0.000376189189189s
+        Temps min pour un coup: 8e-06s
+        Temps max pour un coup: 0.016787s
+        Ecart-type: 0.00198365962422
+    Taille 4:
+        Temps moyen pour un coup: 0.541218932432s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 57.805896s
+        Ecart-type: 4.81214236354
+
+Stratégie strat_c_minmax_2:
+    Taille 3:
+        Temps moyen pour un coup: 0.000426220779221s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.019437s
+        Ecart-type: 0.00223503963545
+    Taille 4:
+        Temps moyen pour un coup: 0.51813594964s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 54.174806s
+        Ecart-type: 4.61457446857
+
+Stratégie strat_c_minmax_4:
+    Taille 3:
+        Temps moyen pour un coup: 0.000993797101449s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.020354s
+        Ecart-type: 0.00261149322369
+    Taille 4:
+        Temps moyen pour un coup: 0.604408033058s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 53.338148s
+        Ecart-type: 4.86640552305
+
+Stratégie strat_c_minmax_6:
+    Taille 3:
+        Temps moyen pour un coup: 0.00807270491803s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.077404s
+        Ecart-type: 0.0198334114418
+    Taille 4:
+        Temps moyen pour un coup: 1.67077775s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 53.655443s
+        Ecart-type: 5.73788959367
+
+Stratégie strat_c_minmax_elagage10:
+    Taille 3:
+        Temps moyen pour un coup: 0.00406211764706s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.043552s
+        Ecart-type: 0.01054584482
+    Taille 4:
+        Temps moyen pour un coup: 3.93803135165s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 40.759979s
+        Ecart-type: 10.402737255
+
+Stratégie strat_c_minmax_elagage2:
+    Taille 3:
+        Temps moyen pour un coup: 0.000146487804878s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.002536s
+        Ecart-type: 0.000449791503024
+    Taille 4:
+        Temps moyen pour un coup: 0.0923293472222s
+        Temps min pour un coup: 8e-06s
+        Temps max pour un coup: 4.387782s
+        Ecart-type: 0.551230559892
+
+Stratégie strat_c_minmax_elagage4:
+    Taille 3:
+        Temps moyen pour un coup: 0.000291393939394s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.003432s
+        Ecart-type: 0.000637052109538
+    Taille 4:
+        Temps moyen pour un coup: 0.142919309091s
+        Temps min pour un coup: 8e-06s
+        Temps max pour un coup: 4.423855s
+        Ecart-type: 0.679138756898
+
+Stratégie strat_c_minmax_elagage6:
+    Taille 3:
+        Temps moyen pour un coup: 0.000709583333333s
+        Temps min pour un coup: 6e-06s
+        Temps max pour un coup: 0.003205s
+        Ecart-type: 0.00114228440404
+    Taille 4:
+        Temps moyen pour un coup: 0.189265317073s
+        Temps min pour un coup: 8e-06s
+        Temps max pour un coup: 4.529534s
+        Ecart-type: 0.74042246611
+
+Stratégie strat_c_minmax_elagage8:
+    Taille 3:
+        Temps moyen pour un coup: 0.00261992857143s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 0.016232s
+        Ecart-type: 0.00559062444077
+    Taille 4:
+        Temps moyen pour un coup: 0.562815166667s
+        Temps min pour un coup: 1.1e-05s
+        Temps max pour un coup: 2.762981s
+        Ecart-type: 0.973564818829
+
+Stratégie strat_premier_dispo:
+    Taille 3:
+        Temps moyen pour un coup: 1.02857142857e-05s
+        Temps min pour un coup: 7e-06s
+        Temps max pour un coup: 2e-05s
+        Ecart-type: 4.23300925429e-06
+    Taille 4:
+        Temps moyen pour un coup: 1.1e-05s
+        Temps min pour un coup: 8e-06s
+        Temps max pour un coup: 2.4e-05s
+        Ecart-type: 3.63318042492e-06
+
