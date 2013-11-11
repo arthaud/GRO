@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from copy import deepcopy
 from random import choice
+from morpion_minmax import minmax as c_minmax # Pensez à faire un make !
 
 INFINI = 10**6
 
@@ -127,6 +128,36 @@ def strat_minmax_elagage8(morpion, joueur):
 
 def strat_minmax_elagage10(morpion, joueur):
     return minmax(morpion, joueur, 10, evaluation, True)[0]
+
+def strat_c_minmax_2(morpion, joueur):
+    return c_minmax(morpion, joueur, 2, False)[0]
+
+def strat_c_minmax_4(morpion, joueur):
+    return c_minmax(morpion, joueur, 4, False)[0]
+
+def strat_c_minmax_6(morpion, joueur):
+    return c_minmax(morpion, joueur, 6, False)[0]
+
+def strat_c_minmax_8(morpion, joueur):
+    return c_minmax(morpion, joueur, 8, False)[0]
+
+def strat_c_minmax_10(morpion, joueur):
+    return c_minmax(morpion, joueur, 10, False)[0]
+
+def strat_c_minmax_elagage2(morpion, joueur):
+    return c_minmax(morpion, joueur, 2, True)[0]
+
+def strat_c_minmax_elagage4(morpion, joueur):
+    return c_minmax(morpion, joueur, 4, True)[0]
+
+def strat_c_minmax_elagage6(morpion, joueur):
+    return c_minmax(morpion, joueur, 6, True)[0]
+
+def strat_c_minmax_elagage8(morpion, joueur):
+    return c_minmax(morpion, joueur, 8, True)[0]
+
+def strat_c_minmax_elagage10(morpion, joueur):
+    return c_minmax(morpion, joueur, 10, True)[0]
 
 def strat_aleatoire(morpion, joueur):
     return choice(coups_possibles(morpion))
