@@ -119,11 +119,9 @@
 
   \subsection{Stratégies}
     \subsubsection{Stackelberg}
-      Todo: Pourquoi 2/3? Pourquoi 1.1*2/3 c'est mieux.
-
-      Une variante de cette stratégie consiste à utiliser la production moyenne
-      de l'autre joueur plutôt que seulement la dernière valeur. Elle permet
-      d'obtenir des résultats légèrement meilleurs.
+      Une variante de la stratégie Stackelberg consiste à utiliser la
+      production moyenne de l'autre joueur plutôt que seulement la dernière
+      valeur. Elle permet d'obtenir des résultats légèrement meilleurs.
 
       De plus en coopérant avec l'autre joueur (voir listing~\ref{lst:mmmttk})
       si celui-ci coopère, on obtient de meilleurs résultats.
@@ -134,7 +132,6 @@
       un peu moins bons en moyenne mais est meilleure dans le meilleur des cas.
 
     \subsubsection{Stratégie pénalisante}
-      % Todo: ...  est d'être coopérati(f|ve) ? agressi(f|ve)
       Le principe de cette stratégie (voir listing~\ref{lst:penalise}) est
       d'être coopératif tant que l'adversaire l'est, et de devenir plus
       agressif quand il ne l'est plus: à chaque fois que l'autre joueur n'est
@@ -186,10 +183,10 @@
     minimal, moyen et maximal\footnote{Cette table peut être générée par le
     script matlab \textit{comp\_tests.m} fourni dans l'archive.}.
 
-    Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
-    les résultats pour un autre nombre de tours: il suffit d'appeler
-    \verb+comp_tests(100, true)+ d'ajouter les * et les $\backslash$\_ et
-    supprimer cette phrase quand on aura fini.
+    %Todo: mettre à jour avec les dernières valeurs quand on aura fini et mettre
+    %les résultats pour un autre nombre de tours: il suffit d'appeler
+    %\verb+comp_tests(100, true)+ d'ajouter les * et les $\backslash$\_ et
+    %supprimer cette phrase quand on aura fini.
     \begin{table}[f]
       \centering
       \begin{tabular}{|c||c|c|c|}
@@ -199,10 +196,10 @@
         noncooperatif* & $ 42.96$ & $ 87.74$ & $130.26$ \\\hline
           stackelberg* & $ 48.00$ & $ 79.75$ & $114.69$ \\\hline
                 palkeo & $ 15.75$ & $ 92.49$ & $111.38$ \\\hline
-              penalise & $ 45.53$ & $ 86.45$ & $111.87$ \\\hline
-     penalise\_violent & $ 41.87$ & $ 89.08$ & $111.38$ \\\hline
-                mmmttk & $ 48.13$ & $ 91.19$ & $111.38$ \\\hline
-              mmmttkv2 & $ 48.92$ & $ 78.55$ & $123.19$ \\\hline
+              Pénalise & $ 45.53$ & $ 86.45$ & $111.87$ \\\hline
+     Pénalise (variante)& $ 41.87$ & $ 89.08$ & $111.38$ \\\hline
+Stackelberg en moyenne & $ 48.13$ & $ 91.19$ & $111.38$ \\\hline
+Stackelberg en moyenne variante & $ 48.92$ & $ 78.55$ & $123.19$ \\\hline
               gklmjbse & $ 55.31$ & $ 83.89$ & $116.29$ \\\hline
                   poly & $ 55.53$ & $100.21$ & $111.38$ \\\hline
               killer** & $  0.00$ & $ 71.91$ & $114.64$ \\\hline
@@ -222,10 +219,10 @@
       noncooperatif* & $380.79$ & $877.10$ & $1317.08$ \\\hline
         stackelberg* & $498.00$ & $797.42$ & $1132.44$ \\\hline
               palkeo & $694.54$ & $986.94$ & $1123.88$ \\\hline
-            penalise & $419.12$ & $860.12$ & $1124.70$ \\\hline
-   penalise\_violent & $421.22$ & $896.10$ & $1123.88$ \\\hline
-              mmmttk & $492.11$ & $923.94$ & $1123.88$ \\\hline
-            mmmttkv2 & $531.85$ & $800.61$ & $1262.25$ \\\hline
+            Pénalise & $419.12$ & $860.12$ & $1124.70$ \\\hline
+   Pénalise variante & $421.22$ & $896.10$ & $1123.88$ \\\hline
+Stackelberg en moyenne & $492.11$ & $923.94$ & $1123.88$ \\\hline
+Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
             gklmjbse & $561.56$ & $832.41$ & $1135.33$ \\\hline
                 poly & $561.82$ & $1011.24$ & $1123.88$ \\\hline
             killer** & $  0.00$ & $773.86$ & $1133.09$ \\\hline
@@ -242,11 +239,12 @@
     aussi plutôt bonne dans le pire des cas (elle est donc adaptée à une
     entreprise qui souhaiterait minimiser ses risques).
 
-    Todo: parler de palkeo qui est mauvaise à cours terme et devient bonne à
-    long terme dans le pire des cas.
+    Certaines stratégies peuvent prendre beaucoup de temps avant de devenir
+    bonnes: c'est le cas par exemple de la stratégie «~palkeo~» qui est
+    mauvaise dans le pire des cas sur 100 tours puis très bonne sur 1000 tours.
 
     On remarque aussi que nos stratégie gagneront toujours de l'argent,
-    contrairement à la stratégie nommée ``killer'' fournie par un autre groupe.
+    contrairement à la stratégie nommée «~killer~» fournie par un autre groupe.
 
     Enfin on remarque que la stratégie non-coopérative est plutôt bonne dans le
     pire des cas et en moyenne et est la meilleure dans le meilleur des cas.
