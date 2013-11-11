@@ -98,36 +98,36 @@ def coups_possibles(morpion):
             if morpion[i][j] is None:
                 coups_possibles.append((i,j))
     return coups_possibles
-                
-def strat_minmax_2(morpion, joueur):
-    return minmax(morpion, joueur, 2, evaluation, False)[0]
 
-def strat_minmax_4(morpion, joueur):
-    return minmax(morpion, joueur, 4, evaluation, False)[0]
+# def strat_minmax_2(morpion, joueur): 
+#     return minmax(morpion, joueur, 2, evaluation, False)[0]
 
-def strat_minmax_6(morpion, joueur):
-    return minmax(morpion, joueur, 6, evaluation, False)[0]
+# def strat_minmax_4(morpion, joueur):
+#     return minmax(morpion, joueur, 4, evaluation, False)[0]
 
-def strat_minmax_8(morpion, joueur):
-    return minmax(morpion, joueur, 8, evaluation, False)[0]
+# def strat_minmax_6(morpion, joueur):
+#     return minmax(morpion, joueur, 6, evaluation, False)[0]
 
-def strat_minmax_10(morpion, joueur):
-    return minmax(morpion, joueur, 10, evaluation, False)[0]
+# def strat_minmax_8(morpion, joueur):
+#     return minmax(morpion, joueur, 8, evaluation, False)[0]
 
-def strat_minmax_elagage2(morpion, joueur):
-    return minmax(morpion, joueur, 2, evaluation, True)[0]
+# def strat_minmax_10(morpion, joueur):
+#     return minmax(morpion, joueur, 10, evaluation, False)[0]
 
-def strat_minmax_elagage4(morpion, joueur):
-    return minmax(morpion, joueur, 4, evaluation, True)[0]
+# def strat_minmax_elagage2(morpion, joueur):
+#     return minmax(morpion, joueur, 2, evaluation, True)[0]
 
-def strat_minmax_elagage6(morpion, joueur):
-    return minmax(morpion, joueur, 6, evaluation, True)[0]
+# def strat_minmax_elagage4(morpion, joueur):
+#     return minmax(morpion, joueur, 4, evaluation, True)[0]
 
-def strat_minmax_elagage8(morpion, joueur):
-    return minmax(morpion, joueur, 8, evaluation, True)[0]
+# def strat_minmax_elagage6(morpion, joueur):
+#     return minmax(morpion, joueur, 6, evaluation, True)[0]
 
-def strat_minmax_elagage10(morpion, joueur):
-    return minmax(morpion, joueur, 10, evaluation, True)[0]
+# def strat_minmax_elagage8(morpion, joueur):
+#     return minmax(morpion, joueur, 8, evaluation, True)[0]
+
+# def strat_minmax_elagage10(morpion, joueur):
+#     return minmax(morpion, joueur, 10, evaluation, True)[0]
 
 def strat_c_minmax_2(morpion, joueur):
     return c_minmax(morpion, joueur, 2, False)[0]

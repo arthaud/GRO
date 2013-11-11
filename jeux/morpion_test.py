@@ -17,7 +17,7 @@ if __name__ == '__main__':
     output = open(sys.argv[1], 'w')
     tailles = [3, 4, 5, ]#10, 50]
     temps = [[] for i in range(len(strats))] # temps des différentes stratégies pour jouer un coup
-    
+
     for i, strat in enumerate(strats):
         for j, opponent in enumerate(strats[i:]):
             print('Opposing %s and %s...' % (strat.__name__,opponent.__name__))
