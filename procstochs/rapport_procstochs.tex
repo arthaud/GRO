@@ -1,0 +1,73 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\lstset{frame=single, breaklines=true,
+          breakatwhitespace=true, basicstyle=\scriptsize,
+          showstringspaces=false, escapeinside={(*}{*)},
+          keywordstyle=\color{deepblue},
+          stringstyle=\color{deepred},
+          commentstyle=\color{deepgreen},
+          literate=
+                   {é}{{\'e}}1{É}{{\'E}}1
+                   {è}{{\`e}}1{È}{{\`E}}1
+                   {ê}{{\^e}}1{Ê}{{\^E}}1
+                   {à}{{\`a}}1{À}{{\`A}}1
+                   {ù}{{\`u}}1{Ù}{{\`U}}1
+                   {û}{{\^u}}1{Û}{{\^U}}1
+                   {ô}{{\^o}}1{Ô}{{\^O}}1
+                   {ó}{{\'o}}1{Ó}{{\'O}}1
+                   {ç}{{\c c}}1{Ç}{{\c C}}1
+                   {œ}{{\oe}}1{Œ}{{\OE}}1
+        }
+
+\begin{document}
+\title{Rapport du projet de théorie des cordes}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+          \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
+\date{11 novembre 2013}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Présentation de l'équipe}
+  Cette équipe a été menée par Thomas Wagner, assisté de son Responsable
+  Qualité Korantin Auguste. Les autres membres de l'équipe sont Martin Carton,
+  Maxence Ahlouche, Maxime Arthaud, et Thomas Forgione.
+
+  Tous les membres de l'équipe ont été présents à chacune des séances lors de
+  cette UA.
+
+\section{Colonie de scarabées}
+
+  Le problème consiste,  à partir d'un graphe dont les nœuds représentent des
+  positions et les arêtes contiennent la probabilité pour le scarabée de passer
+  d'une position à l'autre, à calculer les probabilités de présence de chaque scarabée
+  au bout de N itérations, selon sa position de départ.
+
+  Pour celà, on représente le graphe sous la forme de matrice d'adjacence, ou chaque
+  élément de la matrice représente la probabilité de passer d'un nœud à un autre.
+
+  Si on met cette matrice à la puissance N, elle contiendra les probabilités de passer
+  d'un nœud à un autre en exactement N itérations.
+
+  En multipliant cette matrice par un vecteur contenant uniquement des zéros, sauf au nœud
+  de départ (on mettra un 1), on peut obtenir la probabilité pour le scarabée de se trouver
+  à chaque point, au bout d'exactement N tours.
+  Si cette probabilité est nulle, il est impossible qu'il s'y trouve.
+
+\end{document}

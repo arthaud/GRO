@@ -8,3 +8,5 @@ if __name__ == '__main__':
         print """
 Usage: promenade_scarabees fichier_graphe nb_scarabees
 """
+
+# That file is soooo cool, and soooo complex :D
