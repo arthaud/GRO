@@ -59,7 +59,7 @@
   d'une position à l'autre, à calculer les probabilités de présence de chaque scarabée
   au bout de N itérations, selon sa position de départ.
 
-  Pour celà, on représente le graphe sous la forme de matrice d'adjacence, ou chaque
+  Pour cela, on représente le graphe sous la forme de matrice d'adjacence, ou chaque
   élément de la matrice représente la probabilité de passer d'un nœud à un autre.
 
   Si on met cette matrice à la puissance N, elle contiendra les probabilités de passer
@@ -75,8 +75,9 @@
   Pous savoir leur probabilité de se rencontrer en n'importe quel point, on peut tout simplement sommer
   les probabilité de rencontre sur chaque point.
 
-  De plus, si on calcule $\lim_{N \to \infty} A^N$ (on peut prouver qu'une telle limite existe dans un graphe
-  avec un nombre de nœuds fini), on obtiendra la probabilité...
-
+  De plus, si on calcule $\lim_{N \to \infty} A^N$ (une telle limite n'existera que si la chaîne est irréductible,
+  récurrente positive et apériodique, et ça ne sera pas toujours le cas !), le produit du vecteur avec la position
+  de départ par cette matrice nous donnera les probabilités pour le scarabé d'être en chaque position une fois qu'il
+  aura suffisamment voyagé et que sa position de départ n'aura plus d'importance.
 
 \end{document}
