@@ -80,4 +80,26 @@
   de départ par cette matrice nous donnera les probabilités pour le scarabé d'être en chaque position une fois qu'il
   aura suffisamment voyagé et que sa position de départ n'aura plus d'importance.
 
+\subsection{Temps moyen entre rencontre}
+
+\subsubsection{À partir d'un certain point}
+
+Considérons que les deux scarabées sont sur le même point.
+On peut donc calculer la probablité qu'après N tours, ils finissent encore sur la même case (en sommant le carré des probabilitées
+que chacun se retrouve sur une case).
+
+$U_k$ est la probabilité que les deux scarabées se retrouvent sur la même case après $k$ tours.
+$U_k = pA^k(pA^k)^\intercal$
+
+$V_k$ est la probabilité que les deux scarabées se retrouvent sur la même case après $k$ tours, sans s'être déjà rencontrés avant.
+
+$V_k = (1 - U_1) \times (1 - U_2) \times ... \times (1 - U_{k - 1}) \times U_k$
+
+$V_k$ peut donc se réecrire par récurrence :
+
+$V_1 = U_1$
+$V_{k + 1} = V_k \times \frac{1 - U_k}{U_k}U_{k + 1}$
+
+Pour avoir le temps moyen au bout duquel ils vont se rencontrer en partant de ce même point, il suffit de prendre l'espérance de cette suite $V_k$.
+
 \end{document}
