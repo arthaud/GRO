@@ -38,7 +38,7 @@
   Le problème consiste, à partir d'un graphe dont les nœuds
   représentent des positions et les arêtes contiennent la probabilité
   pour le scarabée de passer d'une position à l'autre, à calculer les
-  probabilités de présence de chaque scarabée au bout de N itérations,
+  probabilités de présence de chaque scarabée au bout de $N$ itérations,
   selon sa position de départ.
 
   Pour cela, on représente le graphe sous la forme de matrice
@@ -46,18 +46,18 @@
   probabilité de passer d'un nœud à un autre.
 
   Si on met cette matrice à la puissance N, elle contiendra les
-  probabilités de passer d'un nœud à un autre en exactement N
+  probabilités de passer d'un nœud à un autre en exactement $N$
   itérations.
 
   En multipliant cette matrice par un vecteur contenant uniquement des
   zéros, sauf au nœud de départ (on mettra un 1), on peut obtenir la
   probabilité pour le scarabée de se trouver à chaque point, au bout
-  d'exactement N tours.  Si cette probabilité est nulle, il est
+  d'exactement $N$ tours.  Si cette probabilité est nulle, il est
   impossible qu'il s'y trouve.
 
-  Pour savoir la probabilité que les deux scarabés se rencontrent en
+  Pour savoir la probabilité que les deux scarabées se rencontrent en
   un point au bout de N itérations, il suffit de multiplier les
-  probabilités de présence de chaque scarabé en ce point.  Pous savoir
+  probabilités de présence de chaque scarabée en ce point. Pour savoir
   leur probabilité de se rencontrer en n'importe quel point, on peut
   tout simplement sommer les probabilité de rencontre sur chaque
   point.
@@ -66,7 +66,7 @@
   n'existera que si la chaîne est irréductible, récurrente positive et
   apériodique, et ça ne sera pas toujours le cas !), le produit du
   vecteur avec la position de départ par cette matrice nous donnera
-  les probabilités pour le scarabé d'être en chaque position une fois
+  les probabilités pour le scarabée d'être en chaque position une fois
   qu'il aura suffisamment voyagé et que sa position de départ n'aura
   plus d'importance.
 
