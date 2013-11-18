@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import numpy
-import argparse
+import sys
 
 class Graphe:
     def __init__(self, fichier):
@@ -18,7 +18,11 @@ class Scarabee:
             self.probas.append([float(i) for i in ligne.split(' ')])
 
         assert len(self.probas) == len(graphe.sommets), 'La matrice de probabilité ne correspond pas au graphe !'
+        self.probas = numpy.array(self.probas)
         verifier_matrice(self.probas)
+
+    def __repr__(self):
+        return generer_dot(self.probas)
 
 def verifier_matrice(a):
     assert a.shape[0] == a.shape[1] # matrice carrée
