@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import numpy
-import sys
+import argparse
 from random import randrange
 
 class Graphe:
@@ -63,13 +63,14 @@ def position_proba(matrice_graphe, scarabee, tour):
     return pos_scarabee
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print """
-Usage: promenade_scarabees fichier_graphe fichier_proba fichier_proba...
-"""
-    fichier_graphe = sys.argv[1]
-    g = Graphe(fichier_graphe)
+    parser = argparse.ArgumentParser(description='Promenade des petits scarabées')
+    parser.add_argument('fichier_graphe')
+    parser.add_argument('fichier_proba', nargs='+')
+
+    args = parser.parse_args()
+
+    g = Graphe(args.fichier_graphe)
     scarabees = []
-    for scarabee in sys.argv[2:]:
+    for scarabee in args.fichier_proba:
         scarabees.append(Scarabee(g, scarabee))
     g.scarabees = scarabees
