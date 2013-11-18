@@ -22,6 +22,19 @@ def generer_dot(a):
     s += '}'
     return s
 
+def position_proba(matrice_graphe, scarabee, tour):
+    '''
+    scarabee : entier qui indique la position initiale du scarabée (A=0, B=1, ..)
+    Retourne une matrice ligne où chaque case contient la probabilité que le scarabée se retrouve à cette position après un certain nombre de tours.
+    '''
+    n = matrice_graphe.shape[0]
+    pos_scarabee = numpy.array([int(i == scarabee) for i in range(n)])
+
+    for _ in range(tour):
+        pos_scarabee = pos_scarabee.dot(matrice_graphe)
+
+    return pos_scarabee
+
 exemple = numpy.array([
     [0.0, 0.6, 0.2, 0.0, 0.2, 0.0],
     [0.6, 0.0, 0.4, 0.0, 0.0, 0.0],
