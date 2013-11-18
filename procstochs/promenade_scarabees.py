@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 import numpy
 import sys
+from random import randrange
 
 class Graphe:
     def __init__(self, fichier):
         self.sommets = []
+        self.scarabees = []
         for sommet in open(fichier, 'r').readlines():
             self.sommets.append([int(i) for i in sommet.split(' ')])
 
@@ -13,6 +15,7 @@ class Scarabee:
     def __init__(self, graphe, fichier_probas):
         self.graphe = graphe
         self.probas = []
+        self.position_initiale = randrange(len(graphe.sommets))
 
         for ligne in open(fichier_probas, 'r').readlines():
             self.probas.append([float(i) for i in ligne.split(' ')])
@@ -23,6 +26,9 @@ class Scarabee:
 
     def __repr__(self):
         return generer_dot(self.probas)
+
+def promenade(graphe, scarabees):
+    pass
 
 def verifier_matrice(a):
     assert a.shape[0] == a.shape[1] # matrice carrée
@@ -53,3 +59,4 @@ Usage: promenade_scarabees fichier_graphe fichier_proba fichier_proba...
     scarabees = []
     for scarabee in sys.argv[2:]:
         scarabees.append(Scarabee(g, scarabee))
+    g.scarabees = scarabees
