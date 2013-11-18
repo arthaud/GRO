@@ -1,7 +1,7 @@
 #!/usr/bin/python2
 # -*- coding: utf-8 -*-
 import numpy
-import sys
+import argparse
 
 def verifier_matrice(a):
     assert all(sum(line) == 1.0 for line in a)
@@ -14,10 +14,11 @@ exemple = numpy.array([
     [0.2, 0.0, 0.0, 0.4, 0.0, 0.4],
     [0.0, 0.0, 0.0, 0.2, 0.4, 0.4],
 ])
-if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print """
-Usage: promenade_scarabees fichier_graphe nb_scarabees
-"""
 
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Promenade des petits scarabées')
+    parser.add_argument('graphe_file')
+    parser.add_argument('nb_scarabees', type=int)
+
+    args = parser.parse_args()
     verifier_matrice(exemple)
