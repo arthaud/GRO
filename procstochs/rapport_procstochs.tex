@@ -124,9 +124,21 @@
       $V_k$.
 
 \section{Gare de péage}
-  Ce problème est une file d'attente de type $M/M/S$ où $S$ est le nombre de
-  files. On notera $\lambda$ le nombre moyen de voitures entrantes par unité de
-  temps\footnote{C'est le paramètre de la loi de Poisson régissant l'entrée.}
-  et $\frac 1 \mu$ la durée moyenne du service.
+  Le but de ce problème est de déterminer si une gare de péage constituée de
+  plusieurs couloir de payement est efficace. C'est à dire si le temps
+  d'attente ne sera pas trop élevé et si il n'y a aucun couloir ouvert mais
+  inutile. Le nombre de voitures qui arrivent par unité de temps et le temps
+  mis pour payer (sans compter l'attente) suivent des lois de Poisson.
 
+  Dans la suite, on notera $S$ le nombre de files, $\lambda$ le nombre moyen de
+  voitures entrantes par unité de temps\footnote{C'est le paramètre de la loi
+  de Poisson régissant l'entrée.} et $\frac 1 \mu$ la durée moyenne du service.
+
+  Ce problème donc est celui d'une file d'attente de type $M/M/S$ (où $M/M$
+  représente le fait que les lois d'entrés et sorties suivent des lois de
+  Poisson).
+
+  \subsection{Chaines de Markov}
+    
+  
 \end{document}
