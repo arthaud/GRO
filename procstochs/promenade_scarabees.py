@@ -62,6 +62,20 @@ def position_proba(matrice_graphe, scarabee, tour):
 
     return pos_scarabee
 
+def proba_rencontre(scarabees, tour):
+    '''
+    scarabees est une liste de couple (position, matrice) qui représente chaque scarabée
+    Retourne une matrice ligne où chaque case contient la probabilité que les scarabées se rencontrent à cette position
+    '''
+    assert len(scarabees) >= 2
+    n = scarabees[0][1].shape[0]
+    probas = numpy.array([1.0 for _ in range(n)])
+
+    for (pos, matrice) in scarabees:
+        probas *= position_proba(matrice, pos, tour)
+
+    return probas
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Promenade des petits scarabées')
     parser.add_argument('fichier_graphe')
