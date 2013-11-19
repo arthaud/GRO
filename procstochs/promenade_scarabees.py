@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 import numpy
 import argparse
-from random import randrange
+from random import random, randrange
+import sys
 
 class Graphe:
     def __init__(self, fichier):
@@ -11,11 +12,18 @@ class Graphe:
         for sommet in open(fichier, 'r').readlines():
             self.sommets.append([int(i) for i in sommet.split(' ')])
 
+    def __repr__(self):
+        print """
+TODO: Graphe.__repr__
+Cette fonction devra retourner la représentation du graphe au format dot, en colorant d'une couleur différente les points où un scarabée est stationné.
+"""
+        return null
+
 class Scarabee:
     def __init__(self, graphe, fichier_probas):
         self.graphe = graphe
         self.probas = []
-        self.position_initiale = randrange(len(graphe.sommets))
+        self.position = randrange(len(graphe.sommets))
 
         for ligne in open(fichier_probas, 'r').readlines():
             self.probas.append([float(i) for i in ligne.split(' ')])
@@ -27,8 +35,15 @@ class Scarabee:
     def __repr__(self):
         return generer_dot(self.probas)
 
-def promenade(graphe, scarabees):
-    pass
+def promenade(graphe, nb_iterations):
+    for _ in range(nb_iterations):
+        for s in graphe.scarabees:
+            probas = [sum(s.probas[s.position][:i+1]) for i in range(len(s.probas))]
+            destin = random()
+            for i, p in enumerate(probas):
+                if destin < p:
+                    s.position = i
+                    break
 
 def verifier_matrice(a):
     assert a.shape[0] == a.shape[1] # matrice carrée
@@ -74,3 +89,4 @@ if __name__ == '__main__':
     for scarabee in args.fichier_proba:
         scarabees.append(Scarabee(g, scarabee))
     g.scarabees = scarabees
+    promenade(g, 10)
