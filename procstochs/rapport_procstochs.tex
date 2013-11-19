@@ -36,10 +36,10 @@
         }
 
 \begin{document}
-\title{Rapport de l'UA4}
+\title{Rapport du projet de programmation stochastique}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
   \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
-\date{11 novembre 2013}
+\date{27 novembre 2013}
 \maketitle
 \tableofcontents
 \newpage
@@ -78,7 +78,7 @@
 
   De plus, si on calcule $\lim_{N \to \infty} A^N$ (une telle limite n'existera
   que si la chaîne est irréductible, récurrente positive et apériodique, et ça
-  ne sera pas toujours le cas !), le produit du vecteur avec la position de
+  ne sera pas toujours le cas!), le produit du vecteur avec la position de
   départ par cette matrice nous donnera les probabilités pour le scarabée
   d'être en chaque position une fois qu'il aura suffisamment voyagé et que sa
   position de départ n'aura plus d'importance.
@@ -132,13 +132,47 @@
 
   Dans la suite, on notera $S$ le nombre de files, $\lambda$ le nombre moyen de
   voitures entrantes par unité de temps\footnote{C'est le paramètre de la loi
-  de Poisson régissant l'entrée.} et $\frac 1 \mu$ la durée moyenne du service.
+  de Poisson régissant l'entrée.} et $\frac 1 \mu$ la durée moyenne du
+  service~\footnote{C'est à dire le temps moyen que prennent les gens pour
+  payer: le paramètre de la loi de Poisson régissant la sortie}.
 
   Ce problème donc est celui d'une file d'attente de type $M/M/S$ (où $M/M$
   représente le fait que les lois d'entrés et sorties suivent des lois de
   Poisson).
 
   \subsection{Chaines de Markov}
-    
-  
+    %todo: pas sûr que tout ça aille là
+    On peut montrer que le temps d'attente converge si et seulement si $\psi =
+    \frac \lambda {S\mu} < 1$. Il faudra donc ouvrir au moins $\frac \lambda
+    \mu$ files.
+
+    De plus, le temps d'attente moyen dans le système étant donné par $T_S =
+    \frac 1 \mu \frac 1 {1-\psi}$, pour le limiter à $T_{max}$ temps maximum
+    que l'on veut faire attendre les clients il faudra $\frac
+    {T_{max}\lambda}{\mu T_{max}-1} < S$.
+
+    Or $\frac 1 \mu < \frac{T_{max}}{\mu T_{max}-1}$, il faudra donc
+    ouvrir au moins $\frac{T_{max}\lambda}{\mu T_{max}-1}$ files.
+
+  \subsection{Simulation sisyphe}
+    \subsubsection{Cas d'une file}
+      Nous avons commencé par simuler un cas plus simple: celui où il n'y a
+      qu'une seule file d'attente.
+
+      \begin{figure}[htbp]
+        \centering
+        %\input{TODO}
+        \caption{TODO Modélisation d'une gare de péage avec une seule file}
+        \label{figure:syphilis_simple}
+      \end{figure}
+
+      Nous avons représenté une file à l'aide de 4 éléments (voir
+      figure~\ref{figure:syphilis_simple}):
+      \begin{itemize}
+        \item l'élément $N1$ représente la route d'entrée;
+        \item l'élément $N2$ représente la file d'attente;
+        \item l'élément $N4$ représente la route de sortie;
+        \item les éléments $N3$ et $N5$ sont des générateurs de nombres
+          aléatoires.
+      \end{itemize}
 \end{document}

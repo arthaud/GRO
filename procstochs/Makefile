@@ -1,3 +1,5 @@
+pdf: rapport
+
 rapport:
 	pdflatex rapport_procstochs.tex
 
