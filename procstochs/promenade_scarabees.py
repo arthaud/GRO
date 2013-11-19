@@ -76,6 +76,22 @@ def proba_rencontre(scarabees, tour):
 
     return probas
 
+def temps_moyen(scarabees_matrices, pos_initiale, max_tour=50):
+    '''
+    scarabees_matrices est la liste des matrices de probabilités pour chaque scarabée
+    max_tour correspond au maximum de tour generé (TODO: à supprimer)
+    '''
+    scarabees = [(pos_initiale, m) for m in scarabees_matrices]
+    proba = U_k = V_k = sum(proba_rencontre(scarabees, 1))
+
+    for k in range(2, max_tour+1):
+        tmp = sum(proba_rencontre(scarabees, k))
+        V_k *= (1.0 - U_k) / U_k * tmp
+        U_k = tmp
+        proba += k * V_k
+
+    return proba
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Promenade des petits scarabées')
     parser.add_argument('fichier_graphe')
