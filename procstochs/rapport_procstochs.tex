@@ -117,11 +117,28 @@
 
       $V_k$ peut donc se réécrire par récurrence :
 
-      $V_1 = U_1$ $V_{k + 1} = V_k \times \frac{1 - U_k}{U_k}U_{k + 1}$
+      $V_1 = U_1$ \\
+      $V_{k + 1} = V_k \times \frac{1 - U_k}{U_k}U_{k + 1}$
 
       Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
       partant de ce même point, il suffit de prendre l'espérance de cette suite
       $V_k$.
+
+    \subsubsection{À partir de deux points différents}
+      Dans le cas où les points de départs des scarabées sont différents, on peut
+      appliquer le même principe.
+
+      Par contre, on ne peut pas supposer $U_k \neq 0$.
+      On peut introduire une suite $W_k$ :
+      $W_0 = 1$ \\
+      $W_k = W_{k-1} \times (1 - U_k)$
+
+      On a donc :
+      $V1 = U1$ \\
+      $V_k = W_{k-1} \times U_k$
+
+      Pour avoir un temps moyen de rencontre global, on fait la moyenne du temps
+      de rencontre pour chaque position initiale possible.
 
 \section{Gare de péage}
   Le but de ce problème est de déterminer si une gare de péage constituée de

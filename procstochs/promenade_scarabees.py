@@ -98,7 +98,7 @@ def position_proba(matrice_graphe, scarabee, tour):
 
 def proba_rencontre(scarabees, tour):
     '''
-    scarabees est une liste de couple (position, matrice) qui représente chaque scarabée
+    scarabees est une liste de couple (position_initiale, matrice) qui représente chaque scarabée
     Retourne une matrice ligne où chaque case contient la probabilité que les scarabées se rencontrent à cette position
     '''
     assert len(scarabees) >= 2
@@ -124,6 +124,27 @@ def temps_moyen(scarabees_matrices, pos_initiale, epsilon=10e-6):
         tmp = sum(proba_rencontre(scarabees, k))
         V_k *= (1.0 - U_k) / U_k * tmp
         U_k = tmp
+
+        proba += k * V_k
+        if k * V_k < epsilon:
+            break
+
+    return proba
+
+def temps_moyen2(scarabees, epsilon=10e-6):
+    '''
+    scarabees est la liste des couples (position_initiale, matrice)
+    epsilon est la précision voulue sur la valeur de retour
+    '''
+    k = 1
+    proba = U_k = V_k = sum(proba_rencontre(scarabees, 1))
+    W_k = 1.0 - U_k
+
+    while True:
+        k = k + 1
+        U_k = sum(proba_rencontre(scarabees, k))
+        V_k = W_k * U_k
+        W_k *= (1.0 - U_k)
 
         proba += k * V_k
         if k * V_k < epsilon:
