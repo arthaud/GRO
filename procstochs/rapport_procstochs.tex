@@ -112,8 +112,8 @@
 
       $V_k$ est la probabilité que les deux scarabées se retrouvent sur la même
       case après $k$ tours, sans s'être déjà rencontrés avant. On a:
-        $$V_k = (1 - U_1) \times (1 - U_2) \times \cdots \times (1 - U_{k - 1})
-        \times U_k$$
+        \[V_k = (1 - U_1) \times (1 - U_2) \times \cdots \times (1 - U_{k - 1})
+        \times U_k\]
 
       $V_k$ peut donc se réécrire par récurrence:
         \begin{align*}
@@ -152,11 +152,12 @@
   inutile. Le nombre de voitures qui arrivent par unité de temps et le temps
   mis pour payer (sans compter l'attente) suivent des lois de Poisson.
 
-  Dans la suite, on notera $S$ le nombre de files, $\lambda$ le nombre moyen de
-  voitures entrantes par unité de temps\footnote{C'est le paramètre de la loi
-  de Poisson régissant l'entrée.} et $\frac 1 \mu$ la durée moyenne du
-  service~\footnote{C'est à dire le temps moyen que prennent les gens pour
-  payer: le paramètre de la loi de Poisson régissant la sortie}.
+  Dans la suite, on notera $S$ le nombre de files, $\lambda$ la fréquence à
+  laquelle les voitures entrent dans le système et $\mu$ la fréquence moyenne à
+  laquelle elles sortent\footnote{C'est à dire $\frac 1 \lambda$ et
+  $\frac 1 \mu$ sont respectivement les temps moyens entre deux arrivés et le
+  temps moyen que prennent les gens pour payer: $\lambda$ et $\mu$ sont les
+  paramètres des lois de Poisson régissant l'entreé et la sortie.}.
 
   Ce problème donc est celui d'une file d'attente de type $M/M/S$ (où $M/M$
   représente le fait que les lois d'entrés et sorties suivent des lois de
@@ -183,18 +184,42 @@
 
       \begin{figure}[htbp]
         \centering
-        %\input{TODO}
-        \caption{TODO Modélisation d'une gare de péage avec une seule file}
+        \includegraphics[height=5cm]{img/poisson_simple.png}
+        \caption{Modélisation d'une gare de péage avec une seule file}
         \label{figure:syphilis_simple}
       \end{figure}
 
       Nous avons représenté une file à l'aide de 4 éléments (voir
       figure~\ref{figure:syphilis_simple}):
       \begin{itemize}
-        \item l'élément $N1$ représente la route d'entrée;
+        \item l'élément $N1$ représente la route d'entrée: il permet de générer
+          un nombre aléatoire indiquant si une nouvelle voiture arrive dans le
+          système;
         \item l'élément $N2$ représente la file d'attente;
-        \item l'élément $N4$ représente la route de sortie;
-        \item les éléments $N3$ et $N5$ sont des générateurs de nombres
-          aléatoires.
+        \item l'élément $N3$ est un générateur de nombre aléatoire qui permet à
+          l'élément $N2$ de savoir si une voiture peut passer car elle a fini
+          de payer;
+        \item l'élément $N4$ représente la route de sortie: il ne sert qu'à
+          compter le nombre de voitures qui ont payé.
       \end{itemize}
+
+      On constate expérimentalement que le nombre de voitures dans la file
+      reste faible quand on a $\lambda < \mu$ ce qui est cohérent avec
+      l'analyse mathématique et logique: les voitures arrivent moins vite
+      qu'elles ne partent. Par contre si $\lambda > \mu$ le nombre de voiture
+      semble tendre vers l'infini.
+      %todo: mettre des chiffres/graphiques?
+
+    \subsubsection{Cas de plusieurs files}
+      Nous avons ensuite simulé le cas où il y a 3~files:
+      \begin{itemize}
+        \item la première permet de payer uniquement par carte bancaire;
+        \item la deuxième permet de payer uniquemetn en espèce;
+        \item la troisième permet de payer avec ces deux moyens de payement.
+      \end{itemize}
+
+      Les temps de service ($\frac 1 \mu$) de dépendent du moyen de payement,
+      on notera donc $\mu_{cb}$ et $\mu_{e}$.
+      todo
+
 \end{document}
