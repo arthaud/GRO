@@ -147,7 +147,7 @@
 
 \section{Gare de péage}
   Le but de ce problème est de déterminer si une gare de péage constituée de
-  plusieurs couloir de payement est efficace. C'est à dire si le temps
+  plusieurs couloirs de payement est efficace. C'est à dire si le temps
   d'attente ne sera pas trop élevé et si il n'y a aucun couloir ouvert mais
   inutile. Le nombre de voitures qui arrivent par unité de temps et le temps
   mis pour payer (sans compter l'attente) suivent des lois de Poisson.
@@ -157,7 +157,7 @@
   laquelle elles sortent\footnote{C'est à dire $\frac 1 \lambda$ et
   $\frac 1 \mu$ sont respectivement les temps moyens entre deux arrivés et le
   temps moyen que prennent les gens pour payer: $\lambda$ et $\mu$ sont les
-  paramètres des lois de Poisson régissant l'entreé et la sortie.}.
+  paramètres des lois de Poisson régissant l'entrée et la sortie.}.
 
   Ce problème donc est celui d'une file d'attente de type $M/M/S$ (où $M/M$
   représente le fait que les lois d'entrés et sorties suivent des lois de
@@ -174,8 +174,9 @@
     que l'on veut faire attendre les clients il faudra $\frac
     {T_{max}\lambda}{\mu T_{max}-1} < S$.
 
-    Or $\frac 1 \mu < \frac{T_{max}}{\mu T_{max}-1}$, il faudra donc
-    ouvrir au moins $\frac{T_{max}\lambda}{\mu T_{max}-1}$ files.
+    Or $\frac 1 \mu < \frac{T_{max}}{\mu T_{max}-1}$ (car évidement $T_{max} >
+    \frac 1 \mu$), il faudra donc ouvrir au moins $\frac{T_{max}\lambda}{\mu
+    T_{max}-1}$ files.
 
   \subsection{Simulation sisyphe}
     \subsubsection{Cas d'une file}
@@ -195,7 +196,8 @@
         \item l'élément $N1$ représente la route d'entrée: il permet de générer
           un nombre aléatoire indiquant si une nouvelle voiture arrive dans le
           système;
-        \item l'élément $N2$ représente la file d'attente;
+        \item l'élément $N2$ représente la file d'attente: il compte le nombre
+          de voitures qui attendent;
         \item l'élément $N3$ est un générateur de nombre aléatoire qui permet à
           l'élément $N2$ de savoir si une voiture peut passer car elle a fini
           de payer;
@@ -206,7 +208,7 @@
       On constate expérimentalement que le nombre de voitures dans la file
       reste faible quand on a $\lambda < \mu$ ce qui est cohérent avec
       l'analyse mathématique et logique: les voitures arrivent moins vite
-      qu'elles ne partent. Par contre si $\lambda > \mu$ le nombre de voiture
+      qu'elles ne partent. Par contre si $\lambda > \mu$ le nombre de voitures
       semble tendre vers l'infini.
       %todo: mettre des chiffres/graphiques?
 
@@ -218,8 +220,8 @@
         \item la troisième permet de payer avec ces deux moyens de payement.
       \end{itemize}
 
-      Les temps de service ($\frac 1 \mu$) de dépendent du moyen de payement,
-      on notera donc $\mu_{cb}$ et $\mu_{e}$.
+      Les fréquences de sorties $\mu$ dépendent du moyen de payement, on les
+      notera donc $\mu_{cb}$ et $\mu_{e}$.
       todo
 
 \end{document}
