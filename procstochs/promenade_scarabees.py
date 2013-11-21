@@ -15,7 +15,7 @@ class Graphe:
     def __repr__(self):
         print """
 TODO: Graphe.__repr__
-Cette fonction devra retourner la représentation du graphe au format dot, en colorant d'une couleur différente les points où un scarabée est stationné.
+Cette fonction devra retourner la représentation du graphe au format dot, en colorant d'une couleur différente les points où un scarabée est stationné, et d'une couleur plus visible les points où plusieurs scarabées sont présents.
 """
         return null
 
