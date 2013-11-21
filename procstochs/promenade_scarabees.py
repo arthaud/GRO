@@ -23,7 +23,7 @@ class Scarabee:
     def __init__(self, graphe, fichier_probas):
         self.graphe = graphe
         self.probas = []
-        self.position = randrange(len(graphe.sommets))
+        self.position = 0
 
         for ligne in open(fichier_probas, 'r').readlines():
             self.probas.append([float(i) for i in ligne.split(' ')])
@@ -35,15 +35,34 @@ class Scarabee:
     def __repr__(self):
         return generer_dot(self.probas)
 
+def rencontres(graphe):
+    nb_scarabees_par_sommet = [0] * len(graphe.sommets)
+    rencontres = []
+    for s in scarabees:
+        nb_scarabees_par_sommet[s.position] += 1
+    for i, s in enumerate(nb_scarabees_par_sommet):
+        if s > 1:
+            rencontres.append(i)
+    return rencontres
+
 def promenade(graphe, nb_iterations):
+    nb_rencontres = [0] * len(graphe.sommets)
+    nb_r = 0
     for _ in range(nb_iterations):
         for s in graphe.scarabees:
             probas = [sum(s.probas[s.position][:i+1]) for i in range(len(s.probas))]
-            destin = random()
+            destin = random() # entre 0 et 1
             for i, p in enumerate(probas):
-                if destin < p:
+                if destin <= p:
                     s.position = i
                     break
+        sommets_rencontres = rencontres(graphe)
+        if sommets_rencontres != []:
+            nb_r += 1
+        for s in sommets_rencontres:
+            nb_rencontres[s] += 1
+    temps_moyens_entre_rencontres = [(nb_iterations / float(nb_r)) if nb_r > 0 else None for nb_r in nb_rencontres]
+    return nb_iterations/float(nb_r), temps_moyens_entre_rencontres
 
 def verifier_matrice(a):
     assert a.shape[0] == a.shape[1] # matrice carrée
@@ -124,4 +143,6 @@ if __name__ == '__main__':
     for scarabee in args.fichier_proba:
         scarabees.append(Scarabee(g, scarabee))
     g.scarabees = scarabees
-    promenade(g, 10)
+    tmerg, temps_moyens_entre_rencontres = promenade(g, 10000)
+    print tmerg
+    print temps_moyens_entre_rencontres
