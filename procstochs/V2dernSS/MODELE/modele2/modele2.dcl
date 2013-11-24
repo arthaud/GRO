@@ -1,5 +1,5 @@
-yNode type and name : 
-int N
+tNode type and name : 
+
 end
 
 Types and Identifiers of node states : 
