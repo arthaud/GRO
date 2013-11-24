@@ -163,7 +163,7 @@
   représente le fait que les lois d'entrés et sorties suivent des lois de
   Poisson).
 
-  \subsection{Chaines de Markov}
+  %\subsection{Chaines de Markov}
     %todo: pas sûr que tout ça aille là
     On peut montrer que le temps d'attente converge si et seulement si $\psi =
     \frac \lambda {S\mu} < 1$. Il faudra donc ouvrir au moins $\frac \lambda
@@ -213,15 +213,44 @@
       %todo: mettre des chiffres/graphiques?
 
     \subsubsection{Cas de plusieurs files}
-      Nous avons ensuite simulé le cas où il y a 3~files:
+      Nous avons ensuite simulé le cas où il y a 3~files (voir
+      figure~\ref{figure:syphilis_3_2}):
       \begin{itemize}
         \item la première permet de payer uniquement par carte bancaire;
-        \item la deuxième permet de payer uniquemetn en espèce;
+        \item la deuxième permet de payer uniquement en espèce;
         \item la troisième permet de payer avec ces deux moyens de payement.
       \end{itemize}
 
-      Les fréquences de sorties $\mu$ dépendent du moyen de payement, on les
-      notera donc $\mu_{cb}$ et $\mu_{e}$.
-      todo
+      Une voiture se dirige vers la file qui a le moins de voiture pour son
+      moyen de payement.
 
+      Les fréquences de sorties $\mu$ dépendent du moyen de payement, on les
+      notera donc $\mu_{cb}$ et $\mu_e$. On notera aussi $p_{cb}$ la
+      probabilité qu'un client choisisse de payer par carte bancaire.
+
+      \begin{figure}[htbp]
+        \centering
+        \includegraphics[height=7cm]{img/3_files.png}
+        \caption{Modélisation d'une gare de péage avec trois files et deux
+          moyens de payement}
+        \label{figure:syphilis_3_2}
+      \end{figure}
+
+      Nous l'avons représenté comme suit:
+      \begin{itemize}
+        \item l'élément $N1$ représente toujours la route d'entrée;
+        \item l'élément $N11$ représente la sortie;
+        \item $N12$ permet de savoir quel moyen de payement va utiliser la
+          voiture qui arrive dans $N1$ (s'il y en a) et va donc permettre de
+          savoir vers quelle file la diriger;
+        \item les éléments $N2$, $N5$ et $N8$ sont les files d'attente;
+        \item les éléments $N3$, $N6$ et $N9$ sont les guichets de payement;
+        \item les éléments $N4$, $N7$ et $N10$ permettent de savoir si une
+          voiture dans la file a fini de payer: dans le cas de la file mixe
+          carte bancaire/monnaie on considère qu'elle a fini de payer après un
+          temps moyen $\frac 1 {\mu_{cb}} + \frac 1 {\mu_e}$.
+      \end{itemize}
+
+      Todo: jouer tous les paramètres pour trouver des conditions pour que ça
+      converge ou non.
 \end{document}
