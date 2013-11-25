@@ -55,7 +55,7 @@
 
 \section{Colonie de scarabées}
   Le problème consiste, à partir d'un graphe dont les nœuds représentent des
-  positions et les arêtes contiennent la probabilité pour le scarabée de passer
+  positions et les arêtes contiennent la probabilité pour un scarabée de passer
   d'une position à l'autre, à calculer les probabilités de présence de chaque
   scarabée au bout de $N$ itérations, selon sa position de départ.
 
@@ -63,8 +63,8 @@
   chaque élément de la matrice représente la probabilité de passer d'un nœud à
   un autre.
 
-  Si on met cette matrice à la puissance N, elle contiendra les probabilités de
-  passer d'un nœud à un autre en exactement $N$ itérations.
+  Si on met cette matrice à la puissance $N$, elle contiendra les probabilités
+  de passer d'un nœud à un autre en exactement $N$ itérations.
 
   En multipliant cette matrice par un vecteur contenant uniquement des zéros,
   sauf au nœud de départ (on mettra un 1), on peut obtenir la probabilité pour
@@ -72,10 +72,10 @@
   cette probabilité est nulle, il est impossible qu'il s'y trouve.
 
   Pour savoir la probabilité que les deux scarabées se rencontrent en un point
-  au bout de N itérations, il suffit de multiplier les probabilités de présence
-  de chaque scarabée en ce point. Pour savoir leur probabilité de se rencontrer
-  en n'importe quel point, on peut tout simplement sommer les probabilité de
-  rencontre sur chaque point.
+  au bout de $N$ itérations, il suffit de multiplier les probabilités de
+  présence de chaque scarabée en ce point. Pour connaitre leur probabilité de se
+  rencontrer en n'importe quel point, on peut tout simplement sommer les
+  probabilités de rencontre sur chaque point.
 
   De plus, si on calcule $\lim_{N \to \infty} A^N$ (une telle limite n'existera
   que si la chaîne est irréductible, récurrente positive et apériodique, et ça
@@ -83,11 +83,13 @@
   départ par cette matrice nous donnera les probabilités pour le scarabée
   d'être en chaque position une fois qu'il aura suffisamment voyagé et que sa
   position de départ n'aura plus d'importance.
+  %TODO: c'est quoi une chaine irréductible blabla apériodique?
 
   \subsection{Chaînes de Markov}
+    %TODO: d'après wikipédia? Sérieux?
     D'après Wikipédia, le problème des scarabées peut aisément être modélisé
     par des chaînes de Markov. En effet, nos coléoptères se promènent en temps
-    discret dans leur graphe de promenade ; de plus, l'état d'un scarabée
+    discret dans leur graphe de promenade; de plus, l'état d'un scarabée
     (autrement dit, sa position dans sa promenade) ne dépend pas du passé, mais
     uniquement de l'état présent.
 
@@ -96,6 +98,7 @@
     puissance $n$ représente la probabilité de passer d'un état à un autre par
     un chemin de longueur $n$.
 
+    %TODO: de manière si confuse? Sérieux?
     On constate qu'on se rapproche beaucoup de la matrice décrite précédemment,
     de manière si confuse: la matrice d'adjacence du graphe de promenade et la
     matrice de transition de notre chaîne de Markov sont équivalentes!
@@ -103,15 +106,15 @@
   \subsection{Temps moyen entre rencontre}
     \subsubsection{À partir d'un certain point}
       Considérons que les deux scarabées sont sur le même point.  On peut donc
-      calculer la probabilité qu'après N tours, ils finissent encore sur la
-      même case (en sommant le carré des probabilités que chacun se retrouve
+      calculer la probabilité qu'après $N$ tours, ils finissent à nouveau sur
+      la même case (en sommant le carré des probabilités que chacun se retrouve
       sur une case).
 
-      $U_k$ est la probabilité que les deux scarabées se retrouvent sur la même
-      case après $k$ tours. On a $U_k = pA^k(pA^k)^\intercal$.
+      Notons $U_k = pA^k(pA^k)^\intercal$ la probabilité que les deux scarabées
+      se retrouvent sur la même case après $k$ tours.
 
-      $V_k$ est la probabilité que les deux scarabées se retrouvent sur la même
-      case après $k$ tours, sans s'être déjà rencontrés avant. On a:
+      Notons $V_k$ la probabilité que les deux scarabées se retrouvent sur la
+      même case après $k$ tours, sans s'être déjà rencontrés avant. On a:
         \[V_k = (1 - U_1) \times (1 - U_2) \times \cdots \times (1 - U_{k - 1})
         \times U_k\]
 
@@ -123,7 +126,7 @@
 
       Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
       partant de ce même point, il suffit de prendre l'espérance de cette suite
-      $V_k$.
+      $V_k$. %TODO: qui est?
 
     \subsubsection{À partir de deux points différents}
       Dans le cas où les points de départs des scarabées sont différents, on peut
@@ -143,7 +146,7 @@
       \end{align*}
 
       Pour avoir un temps moyen de rencontre global, on fait la moyenne du temps
-      de rencontre pour chaque position initiale possible.
+      de rencontre pour chaque position initiale possible. %TODO: qui est?
 
 \section{Gare de péage}
   Le but de ce problème est de déterminer si une gare de péage constituée de
@@ -221,7 +224,7 @@
         \item la troisième permet de payer avec ces deux moyens de payement.
       \end{itemize}
 
-      Une voiture se dirige vers la file qui a le moins de voiture pour son
+      Une voiture se dirige vers la file qui a le moins de voitures pour son
       moyen de payement.
 
       Les fréquences de sorties $\mu$ dépendent du moyen de payement, on les
@@ -248,8 +251,8 @@
         \item les éléments $N4$, $N7$ et $N10$ permettent de savoir si une
           voiture dans la file a fini de payer: dans le cas de la file mixe
           carte bancaire/monnaie on considère qu'elle a fini de payer après un
-          temps moyen $\frac 1 {\mu_{cb}} + \frac 1 {\mu_e}$.
-      \end{itemize}
+          temps moyen $\frac 1 2 \left(\frac 1 {\mu_{cb}} + \frac 1
+          {\mu_e}\right)$.  \end{itemize}
 
       Todo: jouer tous les paramètres pour trouver des conditions pour que ça
       converge ou non.
