@@ -251,8 +251,9 @@
         \item les éléments $N4$, $N7$ et $N10$ permettent de savoir si une
           voiture dans la file a fini de payer: dans le cas de la file mixe
           carte bancaire/monnaie on considère qu'elle a fini de payer après un
-          temps moyen $\frac 1 2 \left(\frac 1 {\mu_{cb}} + \frac 1
-          {\mu_e}\right)$.  \end{itemize}
+          temps moyen $\frac 1 {\mu_m} = \frac{p_cb}{\mu_{cb}} +
+          \frac{1-p_{cb}}{\mu_e}$.
+      \end{itemize}
 
       Todo: jouer tous les paramètres pour trouver des conditions pour que ça
       converge ou non.
