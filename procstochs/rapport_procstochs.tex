@@ -166,20 +166,30 @@
   représente le fait que les lois d'entrés et sorties suivent des lois de
   Poisson).
 
-  %\subsection{Chaines de Markov}
-    %todo: pas sûr que tout ça aille là
+  \subsection{Analyse}
     On peut montrer que le temps d'attente converge si et seulement si $\psi =
     \frac \lambda {S\mu} < 1$. Il faudra donc ouvrir au moins $\frac \lambda
     \mu$ files.
 
-    De plus, le temps d'attente moyen dans le système étant donné par $T_S =
-    \frac 1 \mu \frac 1 {1-\psi}$, pour le limiter à $T_{max}$ temps maximum
-    que l'on veut faire attendre les clients il faudra $\frac
-    {T_{max}\lambda}{\mu T_{max}-1} < S$.
+    De plus, le temps d'attente moyen dans le système étant donné par
+      \[T_S = \frac 1 \mu \frac 1 {1-\psi}\]
+    pour le limiter à $T_{max}$ temps maximum que l'on veut faire attendre les
+    clients il faudra \[\frac {T_{max}\lambda}{\mu T_{max}-1} < S\]
 
     Or $\frac 1 \mu < \frac{T_{max}}{\mu T_{max}-1}$ (car évidement $T_{max} >
-    \frac 1 \mu$), il faudra donc ouvrir au moins $\frac{T_{max}\lambda}{\mu
-    T_{max}-1}$ files.
+    \frac 1 \mu$), il faudra donc ouvrir au moins
+      \[\frac{T_{max}\lambda}{\mu T_{max}-1}\]
+    files.
+
+    Si il y plusieurs moyens de payement possibles avec un moyen de payement
+    par file, le problème se découpe en plusieurs problèmes indépendants: un
+    par type de payement. Il suffit de remplacer ci-dessus $\lambda$ par
+    $p_i\lambda$ avec $p_i$ la probabilité qu'une voiture choisisse le moyen de
+    payement $i$ et remplacer $\mu$ par $\mu_i$ avec $\frac 1 {\mu_i}$ le temps
+    moyen de payement en utilisant le moyen de payement $i$.
+
+    Si il y a des files qui permettent d'utiliser plusieurs moyens de payement
+    cependant le problème est plus compliqué.
 
   \subsection{Simulation sisyphe}
     \subsubsection{Cas d'une file}
@@ -215,7 +225,8 @@
       semble tendre vers l'infini.
       %todo: mettre des chiffres/graphiques?
 
-    \subsubsection{Cas de plusieurs files}
+    \subsubsection{Cas de plusieurs files avec plusieurs moyens de payement}
+      \label{sec:peage_anal}
       Nous avons ensuite simulé le cas où il y a 3~files (voir
       figure~\ref{figure:syphilis_3_2}):
       \begin{itemize}
@@ -255,6 +266,22 @@
           \frac{1-p_{cb}}{\mu_e}$.
       \end{itemize}
 
-      Todo: jouer tous les paramètres pour trouver des conditions pour que ça
-      converge ou non.
+      \paragraph{Cas à deux files}
+        En fixant $p_{cb} = 1$ on peut utiliser ce modèle pour gérer le cas
+        $S=2$ files et un seul moyen de payement décrit dans la
+        section~\ref{sec:peage_anal}.
+
+        On remarque que l'analyse est conforme à l'expérience: un bouchon se
+        crée si et seulement si $\lambda > 2\mu$.
+
+      \paragraph{Critique du modèle}
+        On remarque que (c'est logique!) on peut créer un bouchon seulement
+        pour certains moyens de payement par exemple sur la file payement en
+        espèce et payement quelconque mais pas payement par carte bancaire.
+        Cependant notre modèle ne tient pas compte du type de payement qu'ont
+        choisi les voitures au moment de se diriger vers une file: en effet si
+        un tel bouchon se crée, toutes les voitures qui veulent payer par carte
+        éviteront naturellement la file mixte mais notre modèle considérera
+        toujours que $100 p_{cb}\%$ des voitures veulent payer par carte
+        bancaire dans cette file.
 \end{document}
