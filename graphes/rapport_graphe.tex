@@ -64,7 +64,7 @@
 \section{Graphes eulériens}
   \subsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
-    un chemin parcourant toutes les arêtes du graphe une et une seule fois, en
+    une chaine parcourant toutes les arêtes du graphe une et une seule fois, en
     revenant au sommet de départ; ce problème est donc celui de la goudronneuse
     qui doit passer sur toutes les rues sans pouvoir repasser dessus une
     seconde fois. Un théorème fondamental garantit qu'un graphe connexe est
@@ -74,7 +74,7 @@
     Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
     unique fois, mais ne retourne pas au point de départ. Le théorème précédent
-    se généralise alors aux graphes semi-eulériens: un graphe connexe et
+    se généralise alors aux graphes semi-eulériens: un graphe connexe est
     semi-eulérien si et seulement tous ses sommets sauf deux sont associés à un
     nombre pair d'arêtes. Dans ce cas, la chaîne eulérienne aura pour départ
     l'un des deux sommets associés à un nombre impair d'arêtes et pour point
@@ -87,47 +87,47 @@
 
     \subsubsection{Matrices latines}
       La première méthode est inspirée des matrices latines. Chaque coefficient
-      de la matrice sera un ensemble de chemins, un chemin étant lui-même une
+      de la matrice sera un ensemble de chaines, une chaine étant elle-même une
       liste de sommets. La matrice latine de notre graphe sera la matrice $M$
       dont chaque coefficient $m_{i,j}$ vaudra:
       \begin{itemize}
         \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
           le graphe;
-        \item un ensemble contenant pour unique élément le chemin $[N_i,N_j]$
+        \item un ensemble contenant pour unique élément la chaine  $[N_i,N_j]$
           si les nœuds $i$ et $j$ sont reliés (où $N_k$ représente le nœud
           $k$).
       \end{itemize}
 
       Nous définissions ensuite un produit sur les coefficients d'une telle
-      matrice. Le produit de deux chemins sera:
+      matrice. Le produit de deux chaines sera:
       \begin{itemize}
-        \item nul si le dernier nœud du premier chemin n'est pas le premier
+        \item nul si le dernier nœud de la première chaine n'est pas le premier
           nœud du deuxième;
-        \item la concaténation des deux chemins sinon.
+        \item la concaténation des deux chaines sinon.
       \end{itemize}
 
-      Le produit de deux ensembles de chemins sera l'ensemble contenant les
+      Le produit de deux ensembles de chaines sera l'ensemble contenant les
       produits de chaque couple de nœuds.
 
       Pour tout $k$ entier naturel, le coefficient $(i,j)$ de la matrice $M^k$
-      représentera l'ensemble des chemins de longueur $k$ reliant les nœuds $i$
+      représentera l'ensemble des chaines de longueur $k$ reliant les nœuds $i$
       et $j$.
       
-      Puisque un chemin eulérien passe une unique fois par chaque arête, il
+      Puisque une chaine eulérienne passe une unique fois par chaque arête, il
       suffira de calculer la matrice latine élevée à cette puissance pour
       trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
-      chaque produit les chemins qui passent plusieurs fois par la même arête,
+      chaque produit les chaines qui passent plusieurs fois par la même arête,
       on trouve l'ensemble des cycles eulériens.
 
       La complexité de cet algorithme est exponentielle, calculer la puissance
-      de la matrice latine revient en fait à calculer chaque chemin possible dans
-      le graphe, et tester s'il est un cycle eulérien ou non.
+      de la matrice latine revient en fait à calculer chaque chaine possible dans
+      le graphe, et tester si elle est un cycle eulérien ou non.
 	
     \subsubsection{Algorithme d'Euler}
       La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
       efficace. Une fonction récursive cherche un cycle eulérien d'un
       sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
-      chacun des sommets parcourus par ce chemin, dans le graphe où l'on a
+      chacun des sommets parcourus par cette chaine, dans le graphe où l'on a
       supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
       astucieusement, on parvient à trouver un cycle eulérien de complexité
       linéaire en le nombre d'arêtes du graphe. 
@@ -137,7 +137,7 @@
       \begin{lstlisting}
 Entrée : un graphe
 Sortie : la liste des cycles eulériens dans le cas d'un graphe eulérien
-         la liste des chemins eulériens dans le cas d'un graphe semi-eulérien
+         la liste des chaines eulériennes dans le cas d'un graphe semi-eulérien
          la liste vide sinon
 
 Construire la matrice latine du graphe :
@@ -166,31 +166,31 @@ initialiser chaque coefficient de cette matrice à la liste vide
 
 pour chaque coefficient de la matrice de retour:
     pour k allant de 1 jusqu'à n:
-        calculer les chemins produits entre a(i,k) et b(k,j)
-        ajouter au coefficient de la matrice ces chemins
+        calculer les chaines produits entre a(i,k) et b(k,j)
+        ajouter au coefficient de la matrice ces chaines 
       \end{lstlisting}
 
-    \subsubsection{Produit entre listes de chemins (coefficients de matrices
+    \subsubsection{Produit entre listes de chaines (coefficients de matrices
     latines)}
       \begin{lstlisting}
-Entrée : liste_1 et liste_2 deux listes de chemins
-Sortie : une liste de chemins
+Entrée : liste_1 et liste_2 deux listes de chaine 
+Sortie : une liste de chaines 
 
-créer une liste de chemins vide (liste de retour)
+créer une liste de chaine vide (liste de retour)
 pour i dans liste_1:
     pour j dans liste_2:
-        construire le chemin résultant de la concaténation de i et j (en enlevant le nœud présent deux fois)
-        construire un ensemble de chemins vide
-        pour k allant de 1 à la longueur du chemin construit:
-            construire le chemin élémentaire menant du nœud k au nœud k+1
-            si ce chemin n'est pas dans l'ensemble:
-                ajouter ce chemin dans l'ensemble
+        construire la chaine résultante de la concaténation de i et j (en enlevant le nœud présent deux fois)
+        construire un ensemble de chaine vide
+        pour k allant de 1 à la longueur de la chaine construit:
+            construire la chaine élémentaire menant du nœud k au nœud k+1
+            si cette chaine n'est pas dans l'ensemble:
+                ajouter cette chaine dans l'ensemble
             sinon:
-                rendre le chemin nul
+                rendre la chaine nulle
                 sortir de la boucle
 
-        si le chemin n'est pas nul:
-                concaténer le chemin trouvé à la liste de retour
+        si le chaine n'est pas nulle:
+                concaténer la chaine trouvée à la liste de retour
 retourner la liste de retour
 			\end{lstlisting}
 
@@ -208,12 +208,12 @@ retourner la liste de retour
 \section{Graphes hamiltoniens}
   \subsection{Analyse mathématique}
     Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
-    trouver un cycle(/chemin) passant par tout les sommets une et une seule
-    fois. Ce problème est donc celui de l'enfant qui souhaite visiter de
+    trouver un cycle (ou une chaine) passant par tout les sommets une et une
+    seule fois. Ce problème est donc celui de l'enfant qui souhaite visiter de
     manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
-    de même que de trouver un cycle ou chemin s'il y en a.
+    de même que de trouver un cycle ou une chaine s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien ou non.
@@ -226,14 +226,14 @@ retourner la liste de retour
     Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
     de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
     ne sont pas vérifiées, comme il n'y a aucun théorème qui permette
-    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on recherche un chemin
-    hamiltonien dans ce graphe.
+    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on recherche une chaine
+    hamiltonienne dans ce graphe.
 
-    Pour rechercher un chemin hamiltonien dans un graphe, nous avons écrit un
-    algorithme qui recherche parmi tout les chemins possibles. Sa complexité
+    Pour rechercher une chaine hamiltonienne dans un graphe, nous avons écrit un
+    algorithme qui recherche parmi toutes les chaines possibles. Sa complexité
     dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
-    s'arrêter dès qu'on a trouvé un chemin sans devoir tester tout les autres
-    chemins possibles, la complexité moyenne sera inférieure.
+    s'arrêter dès qu'on a trouvé une chaine sans devoir tester toutes les autres
+    chaines possibles, la complexité moyenne sera inférieure.
 
     Nous avons écrit une version améliorée de cet algorithme qui essaye
     d'éviter les culs de sac.
@@ -247,16 +247,16 @@ Sortie : un booléen indiquant si le graphe est semi-hamiltonien ou non
 si le graphe suit les conditions du théorème de Dirac ou du théorème de Pósa:
     retourner Vrai
 sinon:
-    chercher un chemin hamiltonien
+    chercher une chaine hamiltonienne
     retourner Vrai si on en a trouvé un, Faux sinon
       \end{lstlisting}
 
-    \subsubsection{Recherche de chemin hamiltonien}
+    \subsubsection{Recherche de chaine hamiltonienne}
       \begin{lstlisting}
 Entrée : un graphe graph
          un point de départ optionnel node_from
          un ensemble (éventuellement vide) de nœuds déjà parcouru nodes_done
-Sortie : un chemin hamiltonien sous la forme d'une liste ordonnée de points, ou None s'il n'en existe pas
+Sortie : une chaine hamiltonienne sous la forme d'une liste ordonnée de points, ou None s'il n'en existe pas
 
 Si la fonction a été appelée sans node_from:
     node_from = "un nœud de graph"
@@ -275,7 +275,7 @@ pour chaque arête dans le graphe:
     si la liste retournée est non-vide:
         y ajouter node_from au début et la retourner
 
-retourner None (si on arrive ici, aucun chemin n'est bon)
+retourner None (si on arrive ici, aucunne chaine n'est bonne)
       \end{lstlisting}
 
   \subsection{Tests}
@@ -294,18 +294,18 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
 
 \section{Problème du postier chinois}
   \subsection{Analyse mathématique}
-    Le problème du postier chinois consiste à trouver le plus court chemin dans
-    un graphe connexe passant au moins une fois par chaque arête, et revenant
-    à son point de départ; ce problème est donc celui du facteur qui souhaite
-    réaliser une tournée la plus rapide possible en passant par toutes les rues
-    et retournant à la poste. 
+    Le problème du postier chinois consiste à trouver la chaine la plus courte
+    dans un graphe connexe passant au moins une fois par chaque arête, et
+    revenant à son point de départ; ce problème est donc celui du facteur qui
+    souhaite réaliser une tournée la plus rapide possible en passant par toutes
+    les rues et retournant à la poste. 
 
     Ce problème peut être réduit à la recherche d'un couplage parfait de coût
     minimum, il peut donc être résolu en temps polynomial dans le cas général.
 
   \subsection{Méthode de résolution}
     Tout d'abord, si le graphe est eulérien, il suffit d'appliquer l'algorithme
-    d'Euler pour avoir le chemin voulu.
+    d'Euler pour avoir la chaine voulue.
 
     Sinon, la méthode de résolution consiste à transformer le graphe en graphe
     eulérien:
@@ -315,29 +315,28 @@ retourner None (si on arrive ici, aucun chemin n'est bon)
       \item on transforme ensuite ce graphe en clique: pour chaque couple de
         sommets non reliés entre eux, on crée une arête les rejoignant,
         de poids égal au coût le plus faible possible pour rejoindre ces
-        sommets dans le graphe inital (ceci se calcul facilement avec
+        sommets dans le graphe inital (ceci se calcule facilement avec
         l'algorithme de Dijkstra);
       \item on cherche le couplage parfait de coût minimum: c'est à dire
         l'ensemble d'arêtes disjointes couvrant tous les sommets du graphe,
-        dont la somme des poids doit est le plus faible possible.
+        dont la somme des poids est la plus faible possible.
         Pour cela, on peut utiliser des algorithmes comme celui d'Edmonds, mais
         dans notre implémentation, nous avons utilisé la bruteforce, par manque
         de temps;
-      \item pour chaque arête de cet ensemble, on double le chemin le plus court
-        reliant les nœuds reliés par cette arête dans le graphe initial;
+      \item pour chaque arête de cet ensemble, on double la chaine la plus
+        courte reliant les nœuds reliés par cette arête dans le graphe initial;
       \item on obtient alors un graphe eulérien sur lequel on applique
         l'algorithme d'Euler.
     \end{itemize}
 
   \subsection{Algorithmes}
     \subsubsection{Algorithme de Dijkstra}
-      On aura besoin de l'algorithme de Dijkstra, pour retrouver le chemin
-      le plus court entre 2 sommets :
-
+      On aura besoin de l'algorithme de Dijkstra, pour retrouver la chaine
+      la plus courte entre 2 sommets:
       \begin{lstlisting}
 Entrée : (s1, s2) 2 sommets
-Précondition : il existe un chemin entre s1 et s2
-Sortie : (coût, chemin) avec chemin le plus court chemin entre s1 et s2, et coût
+Précondition : il existe une chaine entre s1 et s2
+Sortie : (coût, chaine) avec chaine le plus court chaine entre s1 et s2, et coût
 le coût associé
 
 pour chaque sommet dans le graphe:
@@ -357,15 +356,15 @@ tant que sommets_non_visites est non vide:
             s2.précédent = s
             ajouter s2 dans sommets_non_visites
 
-chemin = vide
+chaine = vide
 s = s2
 
 tant que s != s1
-    chemin = s + chemin
+    chaine = s + chaine
     s = s.précédent
 
-chemin = s1 + chemin
-retourner (s2.parcouru, chemin)
+chaine = s1 + chaine
+retourner (s2.parcouru, chaine)
       \end{lstlisting}
 
     \subsubsection{Algorithme du postier chinois}
@@ -388,7 +387,7 @@ pour chaque arête de g:
 # Transformation en clique
 pour chaque couple de sommet (s1, s2) dans graphe_partiel:
     s'il n'y a pas d'arête reliant s1 et s2:
-        (cout, chemin) = dijkstra(s1, s2)
+        (cout, chaine) = dijkstra(s1, s2)
         créer l'arête reliant s1 et s2 dans graphe_partiel, de coût cout
 
 # Recherche du couplage parfait de coût minimum : méthode bruteforce
@@ -419,8 +418,8 @@ couplage, cout = aux(ensemble vide, ensemble vide, 0)
 # On double les arêtes dans couplage
 pour chaque arête dans couplage:
     (s1, s2) = sommets reliés par arête dans g
-    (cout, chemin) = dijkstra(s1, s2)
-    pour chaque arête dans chemin:
+    (cout, chaine) = dijkstra(s1, s2)
+    pour chaque arête dans chaine:
         doubler arête dans g
 
 retourner le cycle eulérien de g
@@ -456,7 +455,7 @@ retourner le cycle eulérien de g
     méthodes approchées de résolution.
 
     Un heuristique simple consiste à partir d'un sommet au hasard du graphe et
-    d'aller au sommet le plus proche sur lequel on est pas encore passer (puis
+    d'aller au sommet le plus proche sur lequel on est pas encore passé (puis
     à retourner au sommet de départ pour boucler le cycle). Cet algorithme est
     en $O(n)$ et donc rapide. Mais il n'offre cependant aucune garantie de
     résultat, il existe même des graphes pour lesquels il donne le pire cycle.
@@ -465,9 +464,9 @@ retourner le cycle eulérien de g
     que d'aller systématiquement vers le voisin le plus proche essaye les deux
     voisins les plus proches, la complexité de l'algorithme serait alors
     exponentielle, nous avons donc limité ce choix au début du cycle construit,
-    puis l'algorithme choisit toujours le voisin le plus proche. La longueur du
-    chemin à partir de laquelle on repart vers le voisin le plus proche, ou le
-    nombre de voisins proches à essayer peuvent être choisit.
+    puis l'algorithme choisit toujours le voisin le plus proche. La longueur de
+    la chaine à partir de laquelle on repart vers le voisin le plus proche, ou
+    le nombre de voisins proches à essayer peuvent être choisi.
 
     Il existe aussi des algorithmes non-constructifs comme le 2-opt, qui essaye
     d'améliorer un cycle donné en échangeant des sommets. Sa compléxité est en
@@ -491,12 +490,12 @@ tant qu'il reste des points:
 
 # On ferme le cycle
 coût += "coût du dernier au premier point de cycle"
-cycle = cycle :: "premier point de chemin"
+cycle = cycle :: "premier point de chaine"
 
 retourner (coût, cycle)
       \end{lstlisting}
 
-    \subsubsection{$2$-opt}
+    \subsubsection{2-opt}
       \begin{lstlisting}
 Entrée : un cycle hamiltonien (liste de sommets) et son coût
 Sortie : un cycle hamiltonien et son coût inférieur ou égal au coup d'entrée
@@ -522,7 +521,7 @@ retourner (coût, cycle)
     }, les résultats sont présentés dans la table~\ref{table:tsp}\footnote{N/A
     indique que l'algorithme est trop long ou cause une erreur à cause de la
     taille du graphe, pour chaque méthode de résolution sont données les
-    longueurs des chemins trouvés et l'erreur relative avec le résultat
+    longueurs des chaines trouvées et l'erreur relative avec le résultat
     optimum.}.
 
     \begin{table}[h]
@@ -560,7 +559,7 @@ retourner (coût, cycle)
     L'algorithme du 2-opt a été appliqué en boucle tant qu'il améliorait le
     résultat pour \verb+berlin52.tsp+ et \verb+bier127.tsp+, mais pour le
     fichier \verb+d657.tsp+, il était beaucoup trop long pour pouvoir faire ça,
-    cependant, après 50 itérations (4h de calcul), on obtient un chemin de coût
+    cependant, après 50 itérations (4h de calcul), on obtient une chaine de coût
     $58754$, soit une erreur relative de $20.1\%$. L'algorithme est d'autant
     plus long que le cycle est déjà bon.
 
