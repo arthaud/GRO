@@ -1,0 +1,23 @@
+#define LEFT_MOTOR OUT_B
+#define RIGHT_MOTOR OUT_A
+#define MOTOR_POWER 50
+
+#define LEFT_TOUCH S3
+#define RIGHT_TOUCH S2
+#define ULTRASONIC S1
+
+task main()
+{
+    SetSensorSound(ULTRASONIC);
+
+    while(1)
+    {
+        OnFwd(LEFT_MOTOR, MOTOR_POWER);
+        OnFwd(RIGHT_MOTOR, MOTOR_POWER);
+
+        if(Sensor(ULTRASONIC) > 50)
+        {
+            /* TODO */
+        }
+    }
+}
