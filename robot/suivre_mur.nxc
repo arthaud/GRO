@@ -1,23 +1,44 @@
 #define LEFT_MOTOR OUT_B
 #define RIGHT_MOTOR OUT_A
-#define MOTOR_POWER 50
+#define MOTOR_POWER 100
 
-#define LEFT_TOUCH S3
-#define RIGHT_TOUCH S2
-#define ULTRASONIC S1
+#define ULTRASONIC_FRONT IN_1
+#define FRONT_MIN_DISTANCE 20
+
+#define ULTRASONIC_LEFT IN_4
+#define LEFT_MAX_DISTANCE 13
+#define LEFT_MIN_DISTANCE 9
 
 task main()
 {
-    SetSensorSound(ULTRASONIC);
+    int d;
+    SetSensorLowspeed(ULTRASONIC_FRONT);
+    SetSensorLowspeed(ULTRASONIC_LEFT);
 
     while(1)
     {
-        OnFwd(LEFT_MOTOR, MOTOR_POWER);
-        OnFwd(RIGHT_MOTOR, MOTOR_POWER);
+        d = SensorUS(ULTRASONIC_LEFT);
 
-        if(Sensor(ULTRASONIC) > 50)
+        if(SensorUS(ULTRASONIC_FRONT) < FRONT_MIN_DISTANCE)
         {
-            /* TODO */
+            OnFwd(LEFT_MOTOR, MOTOR_POWER / 2);
+            OnFwd(RIGHT_MOTOR, - MOTOR_POWER / 2);
+            Wait(SEC_1);
+        }
+        else if(d < LEFT_MIN_DISTANCE)
+        {
+            OnFwd(LEFT_MOTOR, MOTOR_POWER);
+            OnFwd(RIGHT_MOTOR, MOTOR_POWER / 2);
+        }
+        else if(d > LEFT_MAX_DISTANCE)
+        {
+            OnFwd(LEFT_MOTOR, MOTOR_POWER / 2);
+            OnFwd(RIGHT_MOTOR, MOTOR_POWER);
+        }
+        else
+        {
+            OnFwd(LEFT_MOTOR, MOTOR_POWER);
+            OnFwd(RIGHT_MOTOR, MOTOR_POWER);
         }
     }
 }
