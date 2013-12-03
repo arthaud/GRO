@@ -1,17 +1,19 @@
 #define LEFT_MOTOR OUT_B
 #define RIGHT_MOTOR OUT_A
-#define MOTOR_POWER 100
+#define MOTOR_POWER 80
 
 #define ULTRASONIC_FRONT IN_1
 #define FRONT_MIN_DISTANCE 20
 
 #define ULTRASONIC_LEFT IN_4
-#define LEFT_MAX_DISTANCE 13
-#define LEFT_MIN_DISTANCE 9
+#define LEFT_OBJECTIF 12
+#define LEFT_C 3
+
+#define FRONT_WAIT 700
 
 task main()
 {
-    int d;
+    int c, d;
     SetSensorLowspeed(ULTRASONIC_FRONT);
     SetSensorLowspeed(ULTRASONIC_LEFT);
 
@@ -19,26 +21,23 @@ task main()
     {
         d = SensorUS(ULTRASONIC_LEFT);
 
+        if(d > 2 * LEFT_OBJECTIF)
+        {
+            d = 2 * LEFT_OBJECTIF;
+        }
+
         if(SensorUS(ULTRASONIC_FRONT) < FRONT_MIN_DISTANCE)
         {
             OnFwd(LEFT_MOTOR, MOTOR_POWER / 2);
             OnFwd(RIGHT_MOTOR, - MOTOR_POWER / 2);
-            Wait(SEC_1);
-        }
-        else if(d < LEFT_MIN_DISTANCE)
-        {
-            OnFwd(LEFT_MOTOR, MOTOR_POWER);
-            OnFwd(RIGHT_MOTOR, MOTOR_POWER / 2);
-        }
-        else if(d > LEFT_MAX_DISTANCE)
-        {
-            OnFwd(LEFT_MOTOR, MOTOR_POWER / 2);
-            OnFwd(RIGHT_MOTOR, MOTOR_POWER);
+            Wait(FRONT_WAIT);
         }
         else
         {
-            OnFwd(LEFT_MOTOR, MOTOR_POWER);
-            OnFwd(RIGHT_MOTOR, MOTOR_POWER);
+            c = (d - LEFT_OBJECTIF) * LEFT_C;
+
+            OnFwd(LEFT_MOTOR, MOTOR_POWER - c);
+            OnFwd(RIGHT_MOTOR, MOTOR_POWER + c);
         }
     }
 }
