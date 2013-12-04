@@ -1,6 +1,6 @@
 #define LEFT_MOTOR OUT_B
 #define RIGHT_MOTOR OUT_A
-#define MOTOR_POWER 80
+#define MOTOR_POWER 100
 
 #define ULTRASONIC_FRONT IN_1
 #define FRONT_MIN_DISTANCE 20
@@ -11,9 +11,11 @@
 
 #define FRONT_WAIT 700
 
+#define SPIRALE_K 50
+
 task main()
 {
-    int c, d;
+    int c, d, cmd_left, cmd_right, infinite_left = 0;
     SetSensorLowspeed(ULTRASONIC_FRONT);
     SetSensorLowspeed(ULTRASONIC_LEFT);
 
@@ -23,7 +25,13 @@ task main()
 
         if(d > 2 * LEFT_OBJECTIF)
         {
+
             d = 2 * LEFT_OBJECTIF;
+            infinite_left++;
+        }
+        else if(d < LEFT_OBJECTIF)
+        {
+            infinite_left = 0;
         }
 
         if(SensorUS(ULTRASONIC_FRONT) < FRONT_MIN_DISTANCE)
@@ -34,10 +42,23 @@ task main()
         }
         else
         {
-            c = (d - LEFT_OBJECTIF) * LEFT_C;
+            // FIXME: plutôt que de soustraire infinite_left / SPIRALE_K, il faudrait mieux diviser c par (1 + infinite_LEFT / SPIRALE_K)
+            c = (d - LEFT_OBJECTIF) * LEFT_C - infinite_left / SPIRALE_K;
 
-            OnFwd(LEFT_MOTOR, MOTOR_POWER - c);
-            OnFwd(RIGHT_MOTOR, MOTOR_POWER + c);
+            cmd_left = MOTOR_POWER - c;
+            if(cmd_left > 120)
+                cmd_left = 120;
+            if(cmd_left < 0)
+                cmd_left = 0;
+
+            cmd_right = MOTOR_POWER + c;
+            if(cmd_right > 120)
+                cmd_right = 120;
+            if(cmd_right < 0)
+                cmd_right = 0;
+
+            OnFwd(LEFT_MOTOR, cmd_left);
+            OnFwd(RIGHT_MOTOR, cmd_right);
         }
     }
 }
