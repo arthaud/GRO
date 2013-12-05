@@ -1,14 +1,18 @@
-\documentclass{report}
-
+\documentclass{scrartcl}
 \usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{hyperref}
 
-\author{Thomas Forgione \and Korantin Auguste \and Martin Carton \and
-Maxime Arthaud \and Thomas Wagner \and Maxence Ahlouche}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+  \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
 
-\title{Programmation d'un robot Lego}
+\title{Rapport du projet d'ingénierie robotique}
+\date{9 décembre 2013}
 
 \begin{document}
 \maketitle
+\tableofcontents
+\newpage
 
 \section{Méthodes de programmation du robot}
 \subsection{Programmation graphique}
@@ -48,37 +52,36 @@ simple et très propre. Un programme que nous avions mis plusieurs
 heures à implémenter via le logiciel graphique a été réalisé en moins
 d'une demi-heure via cette librairie.
 
-Elle présente toutefois un inconvénient majeur: elle ne permet pas (ou
-alors, nous n'avons pas trouvé comment faire) de télécharger le
-programme sur le robot; par conséquent, le robot devait rester branché
-au PC lors de l'exécution du programme, et nous devions le suivre avec
-le PC. Ce qui, vous en conviendrez, n'est pas le summum de la commodité.
+Elle présente toutefois un inconvénient majeur: elle ne permet pas (ou alors,
+nous n'avons pas trouvé comment faire) de télécharger le programme sur le
+robot; par conséquent, le robot devait rester branché à l'ordinateur lors de
+l'exécution du programme, et nous devions le suivre avec l'ordinateur. Ce qui
+n'est évidemment pas pratique.
 
-\subsection{NXC}
+\subsection{Langage NXC}
 
 Finalement, nous avons décidé de programmer le robot en utilisant le
 langage NXC (\emph{Not Exactly C}), développé spécifiquement pour
 les robots NXT.
 
-Bien qu'il ne soit pas trivial de trouver de la documentation à jour
-pour ce langage, nous avons finalement réussi à l'utiliser proprement.
+Bien qu'il ne soit pas facile de trouver de la documentation à jour pour ce
+langage, nous avons finalement réussi à l'utiliser proprement.
 
 Le compilateur que nous avons trouvé nous permet également de
 télécharger le programme sur le robot, donc nous avons résolu le
 problème posé par la librairie en Python, ainsi que ceux posés par le
 logiciel de programmation graphique.
 
-Ayant découvert ce langage tardivement dans les séances de GRO, nous
-n'avons réalisé qu'un seul programme l'utilisant: un programme qui
-longe les murs.
+Ayant découvert ce langage tardivement dans les séances de TP, nous n'avons
+réalisé qu'un seul programme l'utilisant: un programme qui longe les murs.
 
 \section{Longeage de murs}
 
 Comme dit précédemment, nous avons réalisé ce programme en utilisant
 NXC.
 
-Nous avons fait le choix, dans un but d'économie de capteurs, de ne
-longer que les murs à gauche du robot.
+Nous avons fait le choix, par manque de capteurs, de ne longer que les murs à
+gauche du robot.
 
 \subsection{Longeage d'un mur}
 
@@ -88,7 +91,7 @@ trop éloignés du mur, nous tournons légèrement à gauche.
 
 Cette méthode donnant des résultats peu probants si la direction
 initiale du robot n'est pas exactement parallèle au mur, nous avons
-décidé d'ajouter un capteur à ultrasons à l'avant du robot. Ainsi,
+décidé d'ajouter un autre capteur à ultrasons à l'avant du robot. Ainsi,
 nous tournons désormais à gauche, tout en avançant légèrement, dès
 qu'on détecte que le mur est trop loin; et si on se retrouve face à
 notre mur, alors on tourne vers la droite jusqu'à ne plus l'être.
@@ -98,7 +101,7 @@ Ainsi, nous pouvons suivre un mur droit de manière assez régulière.
 \subsection{Passage de l'extérieur d'un angle}
 
 Le passage de l'extérieur d'un angle (i.e.\ quand un mur tourne à
-gauche) se fait naturellement à partir du code de longeage d'un mur:
+gauche) se fait naturellement à partir du code pour longer d'un mur:
 il suffit de tourner à gauche (tout en avançant, afin d'éviter les
 collisions avec les murs) jusqu'à ce qu'on soit à nouveau à côté d'un
 mur. Naturellement, il a fallu adapter les coefficients de tournage,
@@ -110,21 +113,21 @@ retrouve finalement face au mur qu'il est censé longer.
 Pour le passage de l'intérieur d'un angle (i.e.\ quand un mur tourne à
 gauche), le code découle aussi du premier algorithme. En effet, quand
 on se retrouve face à un mur, il suffit de tourner à droite jusqu'à ne
-plus détecter de mur face à soir, puis d'avancer.
+plus détecter de mur face à soi, puis d'avancer.
 
 \subsection{Lissage du mouvement du robot}
 
 Afin d'éviter d'avoir un mouvement erratique lorsqu'on n'est pas
 exactement parallèle à la paroi que l'on doit longer (mouvements de
 ``rebondissement'' sur le mur, par exemple), nous avons décidé
-d'améliorer notre algo via une astuce très simple: le changement de
+d'améliorer notre algorithme via une astuce très simple: le changement de
 direction dépend de la distance du mur. Ainsi, si nous nous éloignons
 légèrement du mur (à cause d'une trajectoire non parallèle au mur, par
 exemple), alors nous tournerons très légèrement à gauche, sans
 ralentir. Ainsi, nous nous retrouverons presque parallèle au mur.
 
 Dans le cas d'un virage à gauche du mur, le capteur détecte un mur à
-l'infini; dans ce cas-là, nous tournons autant que possible, jusqu'à
+l'infini; dans ce cas là, nous tournons autant que possible, jusqu'à
 retrouver un mur. Dès que le capteur détecte un mur, on repasse dans
 le cas précédent; par conséquent, notre robot ne se retrouve quasiment
 jamais face au mur qu'il devait longer. De plus, ceci présente
