@@ -1,0 +1,57 @@
+\documentclass{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+\usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\usepackage{titling}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{\headrulewidth}
+
+\title{Rapport final}
+\author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
+  \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
+\date{17 décembre 2013}
+
+\begin{document}
+
+  \input{titlepage.tex}
+  \newpage
+  \tableofcontents
+
+  \newpage
+  \section{Introduction}
+    \input{intro}
+
+  \newpage
+  \section{UA: Graphes}
+    \input{graphes.tex}
+
+  \newpage
+  \section{UA: Programmation linéaire}
+    \input{proglin.tex}
+
+  \newpage
+  \section{UA: Jeux}
+    \input{jeux.tex}
+
+  \newpage
+  \section{UA: Processus stochastiques}
+    \input{procstochs.tex}
+
+  \newpage
+  \section{UA: Ingénierie robotique}
+    \input{robot.tex}
+
+  \newpage
+  \section{Bilan}
+    \input{bilan.tex}
+\end{document}
