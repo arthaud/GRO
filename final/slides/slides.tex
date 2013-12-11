@@ -25,4 +25,41 @@
   Blabla
 \end{frame}
 
+\subsubsection{Voyageur de commerce}
+
+\begin{frame}{Voyageur de commerce}
+\end{frame}
+
+\begin{frame}{Énoncé}
+    Chercher un chemin passant par tous les sommets, de longueur minimale.
+    \begin{itemize}
+        \item cycle hamiltonien de coût minimal
+        \item NP-difficile
+        \item méthodes approchées
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Résolution approchée}
+    \begin{block}{Heuristiques}
+        Aller sur le nœud le plus près
+    \end{block}
+
+    \begin{block}{Recherche locale}
+        \centering
+        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt1.png}
+        ~~~~ % j'ai honte, martin help !
+        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt2.png}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Métaheuristiques}
+    \begin{itemize}
+        \item Recherche locale itérée
+        \item Recherche tabou
+        \item Recuit simulé
+        \item Algorithmes génétiques
+        \item Colonies de fourmis
+    \end{itemize}
+\end{frame}
+
 \end{document}
