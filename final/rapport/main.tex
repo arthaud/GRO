@@ -16,6 +16,8 @@
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{\headrulewidth}
 
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
 \usepackage{listings}
 \lstset{frame=single, breaklines=true,
           breakatwhitespace=true, basicstyle=\scriptsize,
@@ -74,4 +76,10 @@
   \newpage
   \section{Bilan}
     \input{bilan}
+
+  \newpage
+  \section{Références}
+    \begin{thebibliography}{99}
+      \input{refs}
+    \end{thebibliography}
 \end{document}
