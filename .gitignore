@@ -9,6 +9,8 @@
 *.toc
 *.lol
 *.out
+*.nav
+*.snm
 \#*
 \.#*
 octave-core
