@@ -23,9 +23,9 @@
     cycle hamiltonien de coût minimal. On sait qu'un tel cycle existe car le
     graphe est complet.
 
-    %todo: expliquer NP-difficile au moins dans une petite footnote
-    Cependant trouver un tel cycle est un problème NP-difficile, et il n'existe
-    donc pas d'algorithme efficace pour trouver ce cycle.
+    Cependant trouver un tel cycle est un problème NP-complet~: il n'existe
+    donc pas d'algorithme efficace pour trouver ce cycle, à part une recherche
+    exhaustive.
     En effet, la seule méthode exacte consisterait à tester toutes les chaines
     hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaines
     hamiltonniennes croît exponentiellement en fonction du nombre de sommets
@@ -53,11 +53,10 @@
     Plus généralement, chercher parmi les $p$ sommets les plus proches s'avère
     être une solution relativement efficace, avec une complexité en $O(p^n)$
     (donc toujours exponentielle si $p \neq 1$).
-    %todo: définir p
 
-    Une méthode purement basée sur cet heuristique donnerait:
+    Une méthode purement basée sur cet heuristique consisterait donc à parcourir
+    tout le graphe, en allant sur le voisin le plus proche du sommet courant~:
 
-    %todo: expliquer ce que ça fait
     \begin{lstlisting}
 Entrée : g (Graphe complet)
 Sortie : (coût, cycle) où cycle est un cycle hamiltonien construit selon la méthode du plus proche voisin et coût son coût associé sous forme de liste de points
@@ -124,12 +123,11 @@ pour chaque couple de points (a, b) dans le cycle:
 retourner (coût, cycle)
       \end{lstlisting}
 
-    Il est donc en $O(n^2)$.
+    Il a donc une complexité quadratique du nombre de sommets du cycles.
 
     L'application du 2-opt sur le chemin obtenu via un heuristique simple peut
     donner des résultats plus proches de la solution optimale qu'on pourrait le
-    penser, et la combinaison des deux est donc une bonne méthode (voir la
-    section~\ref{sec:tsp:tests}).
+    penser, et la combinaison des deux est donc une bonne méthode.
 
   \subsubsection{Métaheuristiques}
 
@@ -150,7 +148,6 @@ retourner (coût, cycle)
     utiliser un heuristique puis appliquer de la recherche locale pour
     améliorer son résultat.  Ensuite, on perturbe légèrement ce résultat, on
     applique à nouveau une recherche locale et on recommence.
-    %todo: perturbe comment?
   \item[Recherche tabou] amélioration de la recherche locale itérée, qui va
     utiliser une «~liste taboue~» bannissant toute recherche autour des zones de
     l'espace déjà explorées.
@@ -170,11 +167,7 @@ retourner (coût, cycle)
     au fil du temps.
   \end{description}
 
-  \subsubsection{Tests}\label{sec:tsp:tests}
-    todo
-
   \subsubsection{Conclusion}
-    % cette conclusion ne parle que des métaheuristiques
     Il est intéressant de constater que les heuristiques, les méthodes de
     recherche locales et les métaheuristiques sont des choses extrêmement
     générales, utilisées pour résoudre énormément de problèmes demandant
