@@ -39,7 +39,7 @@
     Les heuristiques vont nous permettre de construire un chemin court (par
     rapport au plus court possible), de manière rapide, avec le moins de calcul
     possible.  Étant donné qu'on est confronté à énormément de possibilités
-    pendant la recherche, ils vont permettre d'orienter cette dernière, en
+    pendant la recherche, elles vont permettre d'orienter cette dernière, en
     faisant des choix les plus judicieux possibles sur les possibilités à
     explorer.
 
@@ -54,7 +54,7 @@
     être une solution relativement efficace, avec une complexité en $O(p^n)$
     (donc toujours exponentielle si $p \neq 1$).
 
-    Une méthode purement basée sur cet heuristique consisterait donc à parcourir
+    Une méthode purement basée sur cette heuristique consisterait donc à parcourir
     tout le graphe, en allant sur le voisin le plus proche du sommet courant~:
 
     \begin{lstlisting}
@@ -125,13 +125,13 @@ retourner (coût, cycle)
 
     Il a donc une complexité quadratique du nombre de sommets du cycles.
 
-    L'application du 2-opt sur le chemin obtenu via un heuristique simple peut
+    L'application du 2-opt sur le chemin obtenu via une heuristique simple peut
     donner des résultats plus proches de la solution optimale qu'on pourrait le
     penser, et la combinaison des deux est donc une bonne méthode.
 
   \subsubsection{Métaheuristiques}
 
-  Plutôt que d'utiliser un simple heuristique pour trouver une solution à priori plutôt
+  Plutôt que d'utiliser une simple heuristique pour trouver une solution à priori plutôt
   bonne, puis d'y appliquer une recherche locale pour tenter de l'améliorer encore,
   il est possible d'utiliser des «~métaheuristiques~».
   Ces algorithmes vont avoir besoin d'heuristiques et de recherche locale, mais vont
@@ -145,7 +145,7 @@ retourner (coût, cycle)
   Il existe énormément de métaheuristiques. En voici quelques uns:
   \begin{description}
   \item[Recherche locale itérée] métaheuristique très simple consistant à
-    utiliser un heuristique puis appliquer de la recherche locale pour
+    utiliser une heuristique puis appliquer de la recherche locale pour
     améliorer son résultat.  Ensuite, on perturbe légèrement ce résultat, on
     applique à nouveau une recherche locale et on recommence.
   \item[Recherche tabou] amélioration de la recherche locale itérée, qui va
@@ -157,12 +157,12 @@ retourner (coût, cycle)
     trouvées, puis relâche les contraintes et explore autour de ces dernières,
     quitte à trouver des solutions vraiment moins efficaces. Recommence à se
     contraindre aux plus efficaces, etc\dots
-  \item[Algorithmes génétiques] imitent de la sélection naturelle, avec une
+  \item[Algorithmes génétiques] imitent la sélection naturelle, avec une
     population de solutions qui évoluent en mutant et en s'échangeant leurs
     caractéristiques entre elles. On peut même faire évoluer des populations
     séparément avec les modèles en îles, pour avoir plusieurs populations très
     différentes.
-  \item[Colonies de fourmis] imitent la encore la nature en simulant des
+  \item[Colonies de fourmis] imitent là encore la nature en simulant des
     phéromones déposées par des fourmis virtuelles, qui orientent la recherche
     au fil du temps.
   \end{description}
