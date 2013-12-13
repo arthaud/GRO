@@ -46,44 +46,13 @@
     soit dépassée. Le critère déterminant quels sont les meilleurs objets peut
     être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
 
-    Cet algorithme est beaucoup plus rapide que le précédent, mais n'est qu'un
-    algorithme approché; les résultats obtenus sont cependant très
-    satisfaisant (voir section~\ref{sec:knapsack:tests}).
+    Cet algorithme est beaucoup plus rapide que le précédent (il a une
+    complexité en temps de $O(n \log n)$ (pour le tri des objets)) et ne
+    nécessite en mémoire que la liste des objets, mais ce n'est qu'un algorithme
+    approché. Les résultats obtenus sont cependant très satisfaisant, en effet
+    en considérant le ratio \nobreak prix/masse, on obtient des résultats très
+    proches de l'optimum (quelques pourcents d'erreur relative en moyenne, mais
+    aucune garantie n'est fournie).
 
-  \subsubsection{Tests comparatifs}\label{sec:knapsack:tests}
-    On remarque qu'en général, la résolution approchée en considérant le ratio
-    \nobreak prix/masse donne de très bon résultats, voire le résultat
-    optimum. Le résultat que fournit cet algorithme est le moins bon quand la
-    masse maximale autorisée est faible comparée à l'amplitude des valeurs que
-    peuvent prendre le prix et la masse des objets.
-    
-    Toutefois cet algorithme est beaucoup plus rapide, et a une complexité en
-    temps de $O(n \log n)$ (pour le tri des objets), et ne nécessite en mémoire
-    que la liste des objets, de plus il peut être utilisé quand les masses ne
-    sont pas entières.
-
-    \begin{table}[h]
-      \makebox[\textwidth]{%
-      \centering
-      \begin{tabular}{| c | c | c | c | c | c |}
-      \hline
-        \brokencell{Nombre d'objets/\\
-                    Amplitudes des prix et masses/\\
-                    Masse maximale autorisée}
-      & \brokencell{Résultat\\optimum}
-      & \brokencell{Prix le\\plus élevé}
-      & \brokencell{Masse la\\plus faible}
-      & \brokencell{Meilleur ratio\\prix/masse}\\
-      \hline
-      50/25/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
-      500/25/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
-      5000/25/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
-      50000/25/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
-      50000/1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
-      50000/5000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
-      \hline  
-      \end{tabular}
-      }
-      \caption{Résultats de l'algorithme glouton}
-    \end{table}
+    De plus il peut être utilisé quand les masses ne sont pas entières.
 
