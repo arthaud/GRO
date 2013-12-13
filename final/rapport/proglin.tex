@@ -31,9 +31,9 @@
 
   \subsubsection{Résolution exacte}
     Ce problème peut être résolu en utilisant la programmation dynamique. En
-    effet, on peut déterminer si un objet $i$ fait parti de l'ensemble $S$ en
-    considérant le problème sur l'ensemble $S\backslash \{i\}$ et la masse
-    maximale $W-m_i$.
+    effet, on peut déterminer si un objet $i$ fait parti de l'ensemble des
+    objets à choisir en considérant le problème sur l'ensemble
+    $S\backslash\{i\}$ et la masse maximale $W-m_i$.
     
     Toutefois, un tel algorithme fonctionne uniquement si les poids des objets
     sont des entiers. De plus sa complexité en temps est en $O(nW)$ et celle en
@@ -42,10 +42,8 @@
     du même facteur. De plus on peut réduire la compléxité en $O(nW')$ avec
     $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
 
-    Nous l'avons testé\footnote{En utilisant le générateur de problèmes trouvé
-    à l'adresse suivante: \url{http://www.diku.dk/~pisinger/codes.html}.} sur
-    plusieurs instances du problème, et l'algorithme est rapide.
-
+    \paragraph{}
+    L'algorithme est le suivant:
     \begin{lstlisting}
 Entrée : une liste d'objets
          une masse maximale autorisée

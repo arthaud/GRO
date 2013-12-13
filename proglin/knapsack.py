@@ -18,8 +18,6 @@ def knapsack(objects, max_mass):
         for masse in range(max_mass + 1):
             if object_mass <= masse:
                 current_line[masse] = max(prev_line[masse], prev_line[masse-object_mass] + price)
-            else:
-                current_line[masse] = prev_line[masse]
 
         prev_line = current_line[:]
 
