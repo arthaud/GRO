@@ -1,3 +1,234 @@
+\subsection{Graphes eulériens}
+  \subsubsection{Analyse mathématique}
+    Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
+    une chaîne parcourant toutes les arêtes du graphe une et une seule fois, en
+    revenant au sommet de départ; ce problème est donc celui de la goudronneuse
+    qui doit passer sur toutes les rues sans pouvoir repasser dessus une
+    seconde fois. Un théorème fondamental garantit qu'un graphe connexe est
+    eulérien si et seulement si chacun de ses sommets est associé à un nombre
+    pair d'arêtes.
+
+    Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
+    celle-ci passe également par toutes les arêtes du graphe une seule et
+    unique fois, mais ne retourne pas au point de départ. Le théorème précédent
+    se généralise alors aux graphes semi-eulériens: un graphe connexe est
+    semi-eulérien si et seulement tous ses sommets sauf deux sont associés à un
+    nombre pair d'arêtes. Dans ce cas, la chaîne eulérienne aura pour départ
+    l'un des deux sommets associés à un nombre impair d'arêtes et pour point
+    d'arrivée le deuxième.
+
+  \subsubsection{Méthode de résolution}
+    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons
+    étudié deux méthodes: une méthode qui teste toutes les possibilités,
+    et une autre plus intelligente et moins coûteuse.
+
+    \paragraph{Matrices latines}
+      La première méthode est inspirée des matrices latines. Chaque coefficient
+      de la matrice sera un ensemble de chaînes, une chaîne étant elle-même une
+      liste de sommets. La matrice latine de notre graphe sera la matrice $M$
+      dont chaque coefficient $m_{i,j}$ vaudra:
+      \begin{itemize}
+        \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
+          le graphe;
+        \item un ensemble contenant pour unique élément la chaîne  $[N_i,N_j]$
+          si les nœuds $i$ et $j$ sont reliés (où $N_k$ représente le nœud
+          $k$).
+      \end{itemize}
+
+      Nous définissions ensuite un produit sur les coefficients d'une telle
+      matrice. Le produit de deux chaînes sera:
+      \begin{itemize}
+        \item nul si le dernier nœud de la première chaîne n'est pas le premier
+          nœud du deuxième;
+        \item la concaténation des deux chaînes sinon.
+      \end{itemize}
+
+      Le produit de deux ensembles de chaînes sera l'ensemble contenant les
+      produits de chaque couple de nœuds.
+
+      Pour tout $k$ entier naturel, le coefficient $(i,j)$ de la matrice $M^k$
+      représentera l'ensemble des chaînes de longueur $k$ reliant les nœuds $i$
+      et $j$.
+      
+      Puisque une chaîne eulérienne passe une unique fois par chaque arête, il
+      suffira de calculer la matrice latine élevée à cette puissance pour
+      trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
+      chaque produit les chaînes qui passent plusieurs fois par la même arête,
+      on trouve l'ensemble des cycles eulériens.
+
+      La complexité de cet algorithme est exponentielle, calculer la puissance
+      de la matrice latine revient en fait à calculer chaque chaîne possible dans
+      le graphe, et tester si elle est un cycle eulérien ou non.
+	
+    \paragraph{Algorithme d'Euler}
+      La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
+      efficace. Une fonction récursive cherche un cycle eulérien d'un
+      sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
+      chacun des sommets parcourus par cette chaîne, dans le graphe où l'on a
+      supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
+      astucieusement, on parvient à trouver un cycle eulérien de complexité
+      linéaire en le nombre d'arêtes du graphe. 
+
+  \subsubsection{Algorithmes}
+    \paragraph{Méthode de la matrice latine}
+      \begin{lstlisting}
+Entrée : un graphe
+Sortie : la liste des cycles eulériens dans le cas d'un graphe eulérien
+         la liste des chaînes eulériennes dans le cas d'un graphe semi-eulérien
+         la liste vide sinon
+
+Construire la matrice latine du graphe :
+    construire une matrice à n lignes et n colonnes
+    remplir la matrice de listes vides
+    pour chaque nœud du graphe:
+        pour chaque arête sortant de ce nœud:
+            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de la matrice correspondante
+
+n = "le nombre d'arêtes total du graphe"
+
+calculer la puissance (n-1)ième de la matrice
+
+pour chaque coefficient de la matrice ainsi calculée:
+    si le coefficient n'est pas nul:
+        concaténer ce coefficient à la variable de retour
+      \end{lstlisting}
+
+    \paragraph{Produit matriciel}
+      \begin{lstlisting}
+Entrée : A et B deux matrices latines
+Sortie : le produit de ces deux matrices
+
+construire la matrice de retour à n lignes et n colonnes
+initialiser chaque coefficient de cette matrice à la liste vide
+
+pour chaque coefficient de la matrice de retour:
+    pour k allant de 1 jusqu'à n:
+        calculer les chaînes produits entre a(i,k) et b(k,j)
+        ajouter au coefficient de la matrice ces chaînes 
+      \end{lstlisting}
+
+    \paragraph{Produit entre listes de chaînes (coefficients de matrices
+    latines)}
+      \begin{lstlisting}
+Entrée : liste_1 et liste_2 deux listes de chaîne 
+Sortie : une liste de chaînes 
+
+créer une liste de chaîne vide (liste de retour)
+pour i dans liste_1:
+    pour j dans liste_2:
+        construire la chaîne résultante de la concaténation de i et j (en enlevant le nœud présent deux fois)
+        construire un ensemble de chaîne vide
+        pour k allant de 1 à la longueur de la chaîne construit:
+            construire la chaîne élémentaire menant du nœud k au nœud k+1
+            si cette chaîne n'est pas dans l'ensemble:
+                ajouter cette chaîne dans l'ensemble
+            sinon:
+                rendre la chaîne nulle
+                sortir de la boucle
+
+        si le chaîne n'est pas nulle:
+                concaténer la chaîne trouvée à la liste de retour
+retourner la liste de retour
+			\end{lstlisting}
+
+  \subsubsection{Tests}
+    La première solution étant très coûteuse en espace mémoire, elle lève une
+    erreur mémoire dès que la taille du graphe devient trop importante.
+    Afin de comparer nos deux algorithmes, nous avons lancé un test sur un
+    graphe complet à 6 nœuds. Le premier algorithme met 138 secondes avant de
+    donner son résultat, tandis que le deuxième met à peine plus d'un dixième
+    de seconde.
+
+    On voit donc que la première méthode est inexploitable même sur de toutes
+    petites matrices.
+
+\subsection{Graphes hamiltoniens}
+  \subsubsection{Analyse mathématique}
+    Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
+    trouver un cycle (ou une chaîne) passant par tout les sommets une et une
+    seule fois. Ce problème est donc celui de l'enfant qui souhaite visiter de
+    manière unique toutes les salles d'un musée.
+
+    Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
+    de même que de trouver un cycle ou une chaîne s'il y en a.
+
+    Il existe cependant des conditions suffisantes pour lesquelles on peut
+    affirmer qu'un graphe est hamiltonien ou non.
+
+    Par exemple un graphe complet est forcement hamiltonien (utile dans le cas
+    du voyageur de commerce, voir section~\ref{sec:tsp}), il existe aussi des
+    conditions sur les degrès des sommets (théorème de Dirac, d'Ore, etc.).
+
+  \subsubsection{Méthode de résolution}
+    Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
+    de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
+    ne sont pas vérifiées, comme il n'y a aucun théorème qui permette
+    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on recherche une chaîne
+    hamiltonienne dans ce graphe.
+
+    Pour rechercher une chaîne hamiltonienne dans un graphe, nous avons écrit un
+    algorithme qui recherche parmi toutes les chaînes possibles. Sa complexité
+    dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
+    s'arrêter dès qu'on a trouvé une chaîne sans devoir tester toutes les autres
+    chaînes possibles, la complexité moyenne sera inférieure.
+
+    Nous avons écrit une version améliorée de cet algorithme qui essaye
+    d'éviter les culs de sac.
+
+  \subsubsection{Algorithmes}
+    \paragraph{Tests de semi-hamiltoniannité}
+      \begin{lstlisting}
+Entrée : un graphe
+Sortie : un booléen indiquant si le graphe est semi-hamiltonien ou non
+
+si le graphe suit les conditions du théorème de Dirac ou du théorème de Pósa:
+    retourner Vrai
+sinon:
+    chercher une chaîne hamiltonienne
+    retourner Vrai si on en a trouvé un, Faux sinon
+      \end{lstlisting}
+
+    \paragraph{Recherche de chaîne hamiltonienne}
+      \begin{lstlisting}
+Entrée : un graphe graph
+         un point de départ optionnel node_from
+         un ensemble (éventuellement vide) de nœuds déjà parcouru nodes_done
+Sortie : une chaîne hamiltonienne sous la forme d'une liste ordonnée de points, ou None s'il n'en existe pas
+
+Si la fonction a été appelée sans node_from:
+    node_from = "un nœud de graph"
+
+ajouter node_from à nodes_dones
+
+si cardinal(node_from) == ordre(graph):
+    retourner [node_from]
+
+pour chaque arête dans le graphe:
+    autre = "le point opposé à node_from par rapport à cette arête"
+    si autre dans nodes_done:
+        passer à la prochaîne arête
+
+    appeler la fonction récursivement avec graphe, node_from et nodes_dones comme paramètre
+    si la liste retournée est non-vide:
+        y ajouter node_from au début et la retourner
+
+retourner None (si on arrive ici, aucunne chaîne n'est bonne)
+      \end{lstlisting}
+
+  \subsubsection{Tests}
+    Nos algorithmes fonctionnent biens sur de petits graphes, mais ils sont
+    beaucoup trop lents pour être utilisés sur de grands graphes pour lesquels
+    il y a ``peu'' d'arêtes: jusqu'à 30 sommets et 46 arêtes, l'algorithme
+    trouve une solution en moins d'une seconde. Pour 40 sommets et 63 arêtes,
+    il faut déjà une minute. Pour 100 sommets et 150 arêtes, l'algorithme
+    prend tellement de temps que l'avons arrêté après quelques heures.
+
+    Par contre, pour des graphes ayant beaucoup d'arêtes (graphes ``presque
+    complets''), l'algorithme reste rapide.
+
+    Nous avons pu constater que la deuxième version de notre algorithme ne sert
+    à rien: il n'y a aucune amélioration des performances.
+
 \subsection{Modélisation mathématique}
 
   Nous avons choisi de représenter nos graphes comme une liste de sommets,
@@ -26,8 +257,8 @@
     Cependant trouver un tel cycle est un problème NP-complet~: il n'existe
     donc pas d'algorithme efficace pour trouver ce cycle, à part une recherche
     exhaustive.
-    En effet, la seule méthode exacte consisterait à tester toutes les chaines
-    hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaines
+    En effet, la seule méthode exacte consisterait à tester toutes les chaînes
+    hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaînes
     hamiltonniennes croît exponentiellement en fonction du nombre de sommets
     dans le graphe.
 
@@ -72,7 +303,7 @@ tant qu'il reste des points:
 
 # On ferme le cycle
 coût += "coût du dernier au premier point de cycle"
-cycle = cycle :: "premier point de chaine"
+cycle = cycle :: "premier point de chaîne"
 
 retourner (coût, cycle)
     \end{lstlisting}
