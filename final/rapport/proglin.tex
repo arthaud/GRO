@@ -1,3 +1,6 @@
+\subsection{Introduction}
+  todo
+
 \subsection{Problème du sac à dos}
   \subsubsection{Présentation du problème}
     Ce problème paraît simple en apparence: nous avons un ensemble d'objets,
@@ -18,8 +21,8 @@
         \displaystyle\sum_{j \in S} m_j \leq W
       \end{array} \right.
     \]
-    où $S$ est l'ensemble des objets à choisir, $v_i$ la valeur de l'objet $i$,
-    $m_i$ sa masse et $W$ la masse maximale autorisée dans le sac.
+    où $S$ est un ensemble de $n$ objets à choisir, $v_i$ la valeur de l'objet
+    $i$, $m_i$ sa masse et $W$ la masse maximale autorisée dans le sac.
 
     \paragraph{}
     Cependant la résolution de ce problème n'est pas simple: déterminer s'il
@@ -27,18 +30,40 @@
     est un problème NP\nobreakdash-complet.
 
   \subsubsection{Résolution exacte}
-    Nous avons implémenté un algorithme de programmation dynamique, qui permet
-    de résoudre le problème du sac à dos. Toutefois, il fonctionne uniquement
-    si les poids des objets sont des entiers.
-
-    Sa complexité en temps est en $O(nW)$ et celle en mémoire en $O(W)$, avec
-    $n$ le nombre d'objets et $W$ le poids maximum du sac.
+    Ce problème peut être résolu en utilisant la programmation dynamique. En
+    effet, on peut déterminer si un objet $i$ fait parti de l'ensemble $S$ en
+    considérant le problème sur l'ensemble $S\backslash \{i\}$ et la masse
+    maximale $W-m_i$.
+    
+    Toutefois, un tel algorithme fonctionne uniquement si les poids des objets
+    sont des entiers. De plus sa complexité en temps est en $O(nW)$ et celle en
+    mémoire en $O(W)$\footnote{En pratique on pourrait l'utiliser sur des
+    masses non-entières en les multipliants, ce qui augmenterait la compléxité
+    du même facteur. De plus on peut réduire la compléxité en $O(nW')$ avec
+    $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
 
     Nous l'avons testé\footnote{En utilisant le générateur de problèmes trouvé
     à l'adresse suivante: \url{http://www.diku.dk/~pisinger/codes.html}.} sur
     plusieurs instances du problème, et l'algorithme est rapide.
 
-    %todo: expliquer l'algo
+    \begin{lstlisting}
+Entrée : une liste d'objets
+         une masse maximale autorisée
+Sortie : la valeur maximale qu'il est possible d'atteindre
+Précondition : toutes les masses doivent être entières.
+
+ligne_courante = liste composée de masse_max+1 0
+ligne_prec     = liste composée de masse_max+1 0
+
+pour chaque objet obj de la liste d'entrée:
+    pour m variant de 0 à masse_max:
+        if masse(obj) <= m:
+            ligne_courrante[m] = max(ligne_prec[m], ligne_prec_line[m-masse(obj)] + prix(obj))
+
+    ligne_prec = ligne_courante
+
+Retourner ligne_courante[max_mass]
+    \end{lstlisting}
 
   \subsubsection{Résolution approchée}
     Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste
