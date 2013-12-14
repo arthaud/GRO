@@ -1,5 +1,7 @@
 \subsection{Introduction}
-  \todo
+  La programmation linéaire, ou optimisation linéaire, consiste à maximiser
+  (resp.\ minimiser) une fonction linéaire sur un polyèdre convexe (dont un cas
+  particulier courrant est sous des contraintes linéaires).
 
 \subsection{Problème du sac à dos}
   \subsubsection{Présentation du problème}
@@ -30,10 +32,12 @@
     est un problème NP\nobreakdash-complet.
 
   \subsubsection{Résolution exacte}
-    Ce problème peut être résolu en utilisant la programmation dynamique. En
-    effet, on peut déterminer si un objet $i$ fait parti de l'ensemble des
-    objets à choisir en considérant le problème sur l'ensemble
-    $S\backslash\{i\}$ et la masse maximale $W-m_i$.
+    Ce problème peut être résolu en utilisant la programmation
+    dynamique\footnote{Qui consiste à résoudre un problème de taille $n$ à
+    partir de la résolution d'un problème de taille $n-1$}. En effet, on peut
+    déterminer si un objet $i$ fait parti de l'ensemble des objets à choisir en
+    considérant le problème sur l'ensemble $S\backslash\{i\}$ et la masse
+    maximale $W-m_i$.
     
     Toutefois, un tel algorithme fonctionne uniquement si les poids des objets
     sont des entiers. De plus sa complexité en temps est en $O(nW)$ et celle en
@@ -60,14 +64,15 @@ pour chaque objet obj de la liste d'entrée:
 
     ligne_prec = ligne_courante
 
-Retourner ligne_courante[max_mass]
+Retourner ligne_courante[masse_max]
     \end{lstlisting}
 
   \subsubsection{Résolution approchée}
-    Nous avons aussi implémenté l'algorithme glouton: celui-ci consiste
-    simplement à choisir les «~meilleurs~» objets jusqu'à que la masse maximale
-    soit dépassée. Le critère déterminant quels sont les meilleurs objets peut
-    être la masse faible, le prix élevé, ou le rapport prix/masse élevé.
+    Un autre algorithme pour résoudre ce problème, dit algorithme glouton,
+    consiste simplement à choisir les «~meilleurs~» objets jusqu'à que la masse
+    maximale soit dépassée. Le critère déterminant quels sont les meilleurs
+    objets pourrait être la masse faible, le prix élevé, ou le rapport
+    prix/masse élevé.
 
     Cet algorithme est beaucoup plus rapide que le précédent (il a une
     complexité en temps de $O(n \log n)$ (pour le tri des objets)) et ne
@@ -75,7 +80,7 @@ Retourner ligne_courante[max_mass]
     approché. Les résultats obtenus sont cependant très satisfaisant, en effet
     en considérant le ratio \nobreak prix/masse, on obtient des résultats très
     proches de l'optimum (quelques pourcents d'erreur relative en moyenne, mais
-    aucune garantie n'est fournie).
+    aucune garantie n'est fournie: il peut même fournir la pire solution).
 
     De plus il peut être utilisé quand les masses ne sont pas entières.
 

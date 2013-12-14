@@ -1,0 +1,72 @@
+\subsection{Introduction}
+  La programmation stochastique cherche à étudier la progression au cours du
+  temps de processus aléatoires.
+  %todo blabla?
+
+\subsection{Théorie des files d'attente}
+  Une file d'attente est un système ayant une entrée par laquelle arrivent des
+  tâches, ou client, qui attendent leur tour avant d'être traitée une pour en
+  sortir.
+
+  Elles sont utilisées pour l'étude de beaucoup de systèmes: attentes de
+  clients à des guichets, trafic routier, traitement des tâches par un
+  serveur, etc.
+
+  \paragraph{}
+  Les files sont étudiées en fonction de la loi qui gère l'entrée, la loi qui
+  gère la sortie et le nombre de ``serveurs'' qui traitent les clients.
+
+  La loi de Little est cependant un résultat général:
+    \[N = \lambda T_s\]
+  où $N$ est le nombre moyen de clients dans le système, $\lambda$ la fréquence
+  moyenne d'entrée et $T_s$ le temps moyen passé dans le système.
+
+  \subsubsection{Cas M/M/1}
+    On considère une file d'attente où la loi d'entrée suit une loi de Poisson
+    de paramètre $\lambda$ ($\lambda$ est dont le nombre de d'arrivées par
+    unité de temps) et que le temps de service suit une loi exponentielle de
+    paramètre $\mu$ ($\frac 1 \mu$ est donc le temps moyen de traitement, sans
+    compter l'attente dans la file).
+
+    On dit que ce genre de file d'attente est de type $M/M/1$ selon les
+    notations de Kendall.
+
+    Dans ce cas, le nombre moyen d'arrivées pendant le temps de service, appelé
+    trafic offert, est $\rho = \frac \lambda \mu$. Le système converge alors si
+    et seulement si $\rho < 1$.
+    
+    Sous cette condition, la file peut être représentée comme une chaîne de
+    Markov:
+    \begin{center}
+      \includegraphics[width=10cm]{procstochs/markovMM1.png}
+    \end{center}
+    où chaque état $i$ représente la probabilité qu'il y ait $i$ voitures dans
+    le système.
+
+    Ces états sont liés en régime permanent par les équations:
+      \[
+        \left\{\begin{aligned}
+          \lambda p_0 & = \mu p_1 \\
+          \lambda p_1 & = \mu p_2 \\
+          & \cdots \\
+          \lambda p_n & = \mu p_{n+1} \\
+          & \cdots 
+        \end{aligned}\right.
+      \]
+    et
+      \[
+        \sum_{i=0}^{+\infty} p_n = 1
+      \]
+
+    D'où $p_n = \left(\frac \lambda \mu\right)^n p_0 =
+     \left(\frac \lambda \mu\right)^n \left(1-\frac \lambda \mu\right) =
+     \rho^n (1-\rho)$ (d'où la condition $\rho < 1$).
+
+   Le nombre moyen de clients dans le système est donc:
+     \[ N = \sum_{i=0}^n np_n = \frac \rho {1-\rho} \]
+
+   D'après la loi de Little, le temps moyen passé dans le système est donc:
+     \[
+       T_s = \frac 1 \lambda \frac \rho {1-\rho}
+           = \rho \frac \lambda {\mu-\lambda}
+     \]
