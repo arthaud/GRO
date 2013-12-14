@@ -23,7 +23,7 @@
 
   \subsubsection{Cas M/M/1}
     On considère une file d'attente où la loi d'entrée suit une loi de Poisson
-    de paramètre $\lambda$ ($\lambda$ est dont le nombre de d'arrivées par
+    de paramètre $\lambda$ ($\lambda$ est dont le nombre moyen d'arrivées par
     unité de temps) et que le temps de service suit une loi exponentielle de
     paramètre $\mu$ ($\frac 1 \mu$ est donc le temps moyen de traitement, sans
     compter l'attente dans la file).
@@ -35,13 +35,35 @@
     trafic offert, est $\rho = \frac \lambda \mu$. Le système converge alors si
     et seulement si $\rho < 1$.
     
-    Sous cette condition, la file peut être représentée comme une chaîne de
-    Markov:
-    \begin{center}
-      \includegraphics[width=10cm]{procstochs/markovMM1.png}
-    \end{center}
-    où chaque état $i$ représente la probabilité qu'il y ait $i$ voitures dans
-    le système.
+    \paragraph{}
+    La file peut être représentée comme une chaîne de Markov où chaque état $i$
+    représente la probabilité qu'il y ait $i$ voitures dans le système (voir
+    figure~\ref{fig:markov1}).
+
+    \begin{figure}[h]
+      \centering
+      \begin{tikzpicture}[->,shorten >=1pt,auto,node distance=2cm,semithick]
+        \tikzstyle{every state}=[fill=white,draw=black,text=black,minimum size=1.1cm]
+
+        \node[state] (A) {0};
+        \node[state] (B) [right of=A] {$1$};
+        \node[state] (C) [right of=B] {$2$};
+        \node[state] (D) [right of=C] {$3$};
+        \node[minimum size=1cm] (E) [right of=D] {$\cdots$};
+
+        \path (A) edge [bend left] node {$\lambda$} (B);
+        \path (B) edge [bend left] node {$\mu$} (A);
+        \path (B) edge [bend left] node {$\lambda$} (C);
+        \path (C) edge [bend left] node {$\mu$} (B);
+        \path (C) edge [bend left] node {$\lambda$} (D);
+        \path (D) edge [bend left] node {$\mu$} (C);
+        \path (D) edge [bend left] node {$\lambda$} (E);
+        \path (E) edge [bend left] node {$\mu$} (D);
+      \end{tikzpicture}
+      \caption{Représentation d'une file M/M/1 comme une chaine de Markov
+        \cite{procstochs:cc}}
+      \label{fig:markov1}
+    \end{figure}
 
     Ces états sont liés en régime permanent par les équations:
       \[
@@ -70,3 +92,78 @@
        T_s = \frac 1 \lambda \frac \rho {1-\rho}
            = \rho \frac \lambda {\mu-\lambda}
      \]
+
+  \subsubsection{Cas M/M/S}
+    Une généralisation du cas précédent sont les files de type $M/M/S$, où $S$
+    dénote le nombre de serveurs. Les lois d'entrée et sortie restent les mêmes.
+
+    Ces files peuvent aussi être représentées avec les chaînes de Markov (voir
+    figure~\ref{fig:markov2}).
+
+    \begin{figure}[h]
+      \centering
+      \makebox[\textwidth]{\begin{tikzpicture}
+        [->,shorten >=1pt,auto,node distance=2cm,semithick]
+        \tikzstyle{every state}=[fill=white,draw=black,text=black,minimum size=1.1cm]
+
+        \node[state] (A) {0};
+        \node[state] (B) [right of=A] {$1$};
+        \node[state] (C) [right of=B] {$2$};
+        \node[state] (D) [right of=C] {$3$};
+        \node[minimum size=1cm] (E) [right of=D] {$\cdots$};
+        \node[state] (F) [right of=E] {$S-1$};
+        \node[state] (G) [right of=F] {$\phantom{+}S\phantom{+}$};
+        \node[state] (H) [right of=G] {$S+1$};
+        \node[minimum size=1cm] (I) [right of=H] {$\cdots$};
+
+        \path (A) edge [bend left] node {$\lambda$} (B);
+        \path (B) edge [bend left] node {$\mu$} (A);
+        \path (B) edge [bend left] node {$\lambda$} (C);
+        \path (C) edge [bend left] node {$2\mu$} (B);
+        \path (C) edge [bend left] node {$\lambda$} (D);
+        \path (D) edge [bend left] node {$3\mu$} (C);
+        \path (D) edge [bend left] node {$\lambda$} (E);
+        \path (E) edge [bend left] node {$4\mu$} (D);
+        \path (E) edge [bend left] node {$\lambda$} (F);
+        \path (F) edge [bend left] node {$(S-1)\mu$} (E);
+        \path (F) edge [bend left] node {$\lambda$} (G);
+        \path (G) edge [bend left] node {$S\mu$} (F);
+        \path (G) edge [bend left] node {$\lambda$} (H);
+        \path (H) edge [bend left] node {$S\mu$} (G);
+        \path (H) edge [bend left] node {$\lambda$} (I);
+        \path (I) edge [bend left] node {$S\mu$} (H);
+      \end{tikzpicture}}
+      \caption{Représentation d'une file M/M/S comme une chaine de Markov
+        \cite{procstochs:cc}}
+      \label{fig:markov2}
+    \end{figure}
+
+    L'étude de ces chaînes est plus compliquée car les états ne sont plus liés
+    par la même équation:
+      \[
+        \left\{\begin{aligned}
+          \lambda p_0 & = \phantom{2\times~}\mu p_1 \\
+          \lambda p_1 & = 2\times\mu p_2 \\
+          & \cdots \\
+          \lambda p_{S-2} & = (S-1)\times\mu p_{S-1} \\
+          \lambda p_{S-1} & = S\times\mu p_S \\
+          \lambda p_S & = S\times\mu p_{S+1} \\
+          \lambda p_{S+1} & = S\times\mu p_{S+2} \\
+          & \cdots 
+        \end{aligned}\right.
+      \]
+
+    On peut montrer que le système est en équilibre si et seulement si
+    $\rho = \frac \lambda {S\mu} < 1$. Le nombre moyen de clients et temps
+    moyen dans le système sont par contre beaucoup moins intuitifs:
+    \[
+      \begin{aligned}
+        N   &= \rho \left(1 + \frac{P_a}{S-\rho}\right) \\
+        T_s &= \frac{1}{\mu} \left(1 + \frac{P_a}{S-\rho}\right)
+      \end{aligned}
+    \]
+    où $\displaystyle P_a = P_0 \frac{\rho^S}{(S-1)!(S-\rho)}$ est la
+    probabilité d'attendre et $\displaystyle P_0 = \frac{1}{\sum_{k=0}^{S-1}
+    \frac{\rho^k}{k!} + \frac {\rho^S}{S!} \frac {1}{1-\rho/S} }$ est la
+    probabilité que le système soit vide.
+
