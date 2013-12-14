@@ -2,8 +2,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{lmodern}
+\usepackage{vwcol}
 
 \usetheme{Warsaw}
+
+%\setbeamertemplate{headline}{}
 
 \title[Rapport final de GRO]
       {Rapport final du projet de\\Graphes et Recherche opérationnelle}
@@ -58,10 +63,12 @@
     \end{block}
 
     \begin{block}{Recherche locale}
-        \centering
+      \centering
+      \begin{multicols}{2}
         \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt1.png}
-        ~~~~ % j'ai honte, martin help !
+
         \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt2.png}
+      \end{multicols}
     \end{block}
 \end{frame}
 
@@ -75,4 +82,23 @@
     \end{itemize}
 \end{frame}
 
+\section{Programmation stochastique}
+  \begin{frame}{Gare de péage}
+    \begin{vwcol}[widths={0.6,0.4}, sep=.0cm, rule=0pt] 
+      \includegraphics[width=6cm]{../../procstochs/img/3_files.png}
+
+      \tiny
+      \begin{itemize}
+        \item $x[12] = random() < p_{cb}$
+        \item $x[1] = random() < lambda$
+        \item $x[2] =(x[2]>0)*(x[2]-1+d_{32})+d_{12}$
+        \item $d_{12} = x[1]*d_{121}*(d_{21}<=d_{81})$
+        \item $d_{23} = (x[2]>0)$
+        \item $d_{32} = x[3]*(1-d_{43})$
+        \item $x[3] = d_{23} + x[3]*(1-d_{23})*(1-d_{43})$
+        \item $d_{311} = x[3]*d_{43}$
+        \item $x[10] = random() < \frac 1 {p_{cb}/\mu_{cb}+(1-p_{cb})/\mu_{ncb}}$
+      \end{itemize}
+    \end{vwcol}
+  \end{frame}
 \end{document}
