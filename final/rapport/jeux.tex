@@ -116,9 +116,38 @@ compte qu'il ne pourra pas faire mieux.
 
 Dans l'exemple suivant, où les nœuds en bleus sont ceux où l'on doit prendre
 le minimum, et ceux en gris le maximum:
-\begin{center}
-  \includegraphics[width=300px]{../../jeux/coupures_alpha-beta.png}
-\end{center}
+\begin{multicols}{2}\begin{center}
+  \begin{tikzpicture}[node distance=1.3cm,bend angle=45,auto]
+    \node[draw, rectangle, gray] (U) {U};
+    \node[draw, circle, blue] (5) [below left=of U] {5};
+    \node[draw, circle, blue] (V) [below right=of U] {V};
+    \node[draw, rectangle, gray] (4) [below left=of V] {4};
+    \node (dots) [below right=of V] {\ldots};
+
+    \path (U) edge node {} (5);
+    \path (U) edge node {} (V);
+    \path (V) edge node {} (4);
+    \path (V) edge node {} (dots);
+  \end{tikzpicture}
+
+  Coupure Alpha
+
+  \begin{tikzpicture}[node distance=1.3cm,bend angle=45,auto]
+    \node[draw, circle, blue] (U) {U};
+    \node[draw, rectangle, gray] (5) [below left=of U] {5};
+    \node[draw, rectangle, gray] (V) [below right=of U] {V};
+    \node[draw, circle, blue] (4) [below left=of V] {4};
+    \node (dots) [below right=of V] {\ldots};
+
+    \path (U) edge node {} (5);
+    \path (U) edge node {} (V);
+    \path (V) edge node {} (4);
+    \path (V) edge node {} (dots);
+  \end{tikzpicture}
+
+  Coupure Béta
+\end{center}\end{multicols}
+
 On se rend bien compte qu'on n'a pas besoin de parcourir les nœuds suivant,
 car on prend le maximum des minimums, ou l'inverse.
 
