@@ -1,16 +1,8 @@
 % Si vous vous demandez à quoi servent les empty \mbox après les paragraphes,
 % vous êtes des boulays, apprenez latex.
-\subsection{Modélisation mathématique}
-  TODO: expliquer ce qu'est un graphe, on s'en fou de nous.
-
-  Nous avons choisi de représenter nos graphes comme une liste de sommets,
-  chacun ayant une liste d'arêtes.
-
-  En mémoire, cette structure est donc constituée d'une liste de pointeurs
-  vers des sommets. Les sommets contenant une liste de pointeurs vers des
-  arêtes. Chaque arête ayant un pointeur vers chaque sommet extrémité.
-
-  Dans la suite nous noterons $n$ le nombre de sommets du graphe.
+\subsection{Définitions}
+  \paragraph{Graphe} Un graphe est constitué d'un ensemble de points, et d'un ensemble
+  d'arêtes (ou d'arcs, dans le cas orienté) qui relient ces points.
 
   \paragraph{Graphe connexe} Un graphe est dit connexe quand on peut aller de
   n'importe quel point vers n'importe quel autre point en suivant des arrêtes.
@@ -22,12 +14,36 @@
   \paragraph{Degré d'un sommet} Le degré d'un sommet est le nombre d'arêtes
   incidentes à ce sommet.
 
+\subsection{Modélisation mathématique}
+Il existe plusieurs moyens de représenter des graphes. Parmi ceux-ci,
+le plus simple est la matrice d'adjacence, où l'on stocke une matrice
+de taille $n\times n$ ($n$ étant le nombre de sommets), dont chaque
+colonne et chaque rangée représente un sommet. La case $i, j$ de la
+matrice contient un $1$ si les sommets $i$ et $j$ sont reliés par une
+arête (ou un arc dans le bon sens, dans le cas orienté). Évidemment,
+cette représentation est loin d'être efficace, la mémoire utilisée
+étant exponentielle quand le nombre de sommets du graphe
+augmente. Toutefois, elle peut servir pour certains
+algorithmes. Notamment, un algorithme de recherche de chemin peut
+multiplier la matrice d'adjacence par elle-même $m$ fois : alors, il
+existera un chemin de taille $m$ entre deux sommets si la case
+correspondante contient un $1$.
+
+  On peut également représenter les graphes par une liste de sommets,
+  chacun ayant une liste d'arêtes.
+  En mémoire, cette structure est donc constituée d'une liste de pointeurs
+  vers des sommets. Les sommets contenant une liste de pointeurs vers des
+  arêtes. Chaque arête dispose d'un pointeur vers chaque sommet extrémité.
+  Cette structure est évidemment plus efficace, car elle ne stocke que
+  les informations nécessaires.
+
+
 \subsection{Graphes eulériens}
   \subsubsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
     une chaîne parcourant toutes les arêtes du graphe une et une seule fois, en
     revenant au sommet de départ.
-    
+
     \paragraph{Théorème d'Euler} Un graphe connexe est eulérien si et seulement
     si chacun de ses sommets est de degré pair.
 
@@ -73,7 +89,7 @@
       Pour tout $k$ entier naturel, le coefficient $(i,j)$ de la matrice $M^k$
       représentera l'ensemble des chaînes de longueur $k$ reliant les nœuds $i$
       et $j$.
-      
+
       Puisque une chaîne eulérienne passe une unique fois par chaque arête, il
       suffira de calculer la matrice latine élevée à cette puissance pour
       trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
@@ -83,7 +99,7 @@
       La complexité de cet algorithme est exponentielle, calculer la puissance
       de la matrice latine revient en fait à calculer chaque chaîne possible dans
       le graphe, et tester si elle est un cycle eulérien ou non.
-	
+
     \paragraph{Algorithme d'Euler}
       La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
       efficace. Une fonction récursive cherche un cycle eulérien d'un
@@ -91,7 +107,7 @@
       chacun des sommets parcourus par cette chaîne, dans le graphe où l'on a
       supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
       astucieusement, on parvient à trouver un cycle eulérien de complexité
-      linéaire en le nombre d'arêtes du graphe. 
+      linéaire en le nombre d'arêtes du graphe.
 
   \subsubsection{Algorithmes}
     \paragraph{Méthode de la matrice latine} \mbox{}
@@ -128,14 +144,14 @@ initialiser chaque coefficient de cette matrice à la liste vide
 pour chaque coefficient de la matrice de retour:
     pour k allant de 1 jusqu'à n:
         calculer les chaînes produits entre a(i,k) et b(k,j)
-        ajouter au coefficient de la matrice ces chaînes 
+        ajouter au coefficient de la matrice ces chaînes
       \end{lstlisting}
 
     \paragraph{Produit entre listes de chaînes (coefficients de matrices
     latines)} \mbox{}
       \begin{lstlisting}
-Entrée : liste_1 et liste_2 deux listes de chaîne 
-Sortie : une liste de chaînes 
+Entrée : liste_1 et liste_2 deux listes de chaîne
+Sortie : une liste de chaînes
 
 créer une liste de chaîne vide (liste de retour)
 pour i dans liste_1:
