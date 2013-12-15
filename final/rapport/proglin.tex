@@ -39,33 +39,34 @@
     considérant le problème sur l'ensemble $S\backslash\{i\}$ et la masse
     maximale $W-m_i$.
     
-    Toutefois, un tel algorithme fonctionne uniquement si les poids des objets
+    Toutefois, un tel algorithme (voir algorithme~\ref{alg:sacados}) fonctionne
+    uniquement si les poids des objets
     sont des entiers. De plus sa complexité en temps est en $O(nW)$ et celle en
     mémoire en $O(W)$\footnote{En pratique on pourrait l'utiliser sur des
     masses non-entières en les multipliants, ce qui augmenterait la compléxité
     du même facteur. De plus on peut réduire la compléxité en $O(nW')$ avec
     $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
 
-    \paragraph{}
-    L'algorithme est le suivant:
-    \begin{lstlisting}
-Entrée : une liste d'objets
-         une masse maximale autorisée
-Sortie : la valeur maximale qu'il est possible d'atteindre
-Précondition : toutes les masses doivent être entières.
-
-ligne_courante = liste composée de masse_max+1 0
-ligne_prec     = liste composée de masse_max+1 0
-
-pour chaque objet obj de la liste d'entrée:
-    pour m variant de 0 à masse_max:
-        if masse(obj) <= m:
-            ligne_courrante[m] = max(ligne_prec[m], ligne_prec_line[m-masse(obj)] + prix(obj))
-
-    ligne_prec = ligne_courante
-
-Retourner ligne_courante[masse_max]
-    \end{lstlisting}
+    \begin{algorithm}
+      \KwIn{une liste d'objets}
+      \KwIn{une masse maximale autorisée}
+      \KwOut{la valeur maximale qu'il est possible d'atteindre}
+      \Begin{%
+        ligne\_courante = liste composée de (masse\_max+1) 0
+        ligne\_prec     = liste composée de (masse\_max+1) 0
+        \For{chaque objet obj de la liste d'entrée}{%
+          \For{m variant de 0 à masse\_max}{%
+            \If{masse(obj) $\leq$ m}{%
+              ligne\_courrante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
+            }
+          }
+          ligne\_prec $\leftarrow$ ligne\_courante
+        }
+        \Return{ligne\_courante[masse\_max]}
+      }
+      \caption{Algorithme de résolution exacte du problème du sac à dos}
+      \label{alg:sacados}
+    \end{algorithm}
 
   \subsubsection{Résolution approchée}
     Un autre algorithme pour résoudre ce problème, dit algorithme glouton,

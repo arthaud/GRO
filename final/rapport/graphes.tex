@@ -47,10 +47,11 @@
     une autre plus intelligente et moins coûteuse.
 
     \paragraph{Matrices latines}
-      La première méthode est inspirée des matrices latines. Chaque coefficient
-      de la matrice sera un ensemble de chaînes, une chaîne étant elle-même une
-      liste de sommets. La matrice latine de notre graphe sera la matrice $M$
-      dont chaque coefficient $m_{i,j}$ vaudra:
+      La première méthode (voir algorithme~\ref{alg:meth_mat_lat}) est inspirée
+      des matrices latines. Chaque coefficient de la matrice sera un ensemble
+      de chaînes, une chaîne étant elle-même une liste de sommets. La matrice
+      latine de notre graphe sera la matrice $M$ dont chaque coefficient
+      $m_{i,j}$ vaudra:
       \begin{itemize}
         \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
           le graphe;
@@ -60,7 +61,8 @@
       \end{itemize}
 
       Nous définissions ensuite un produit sur les coefficients d'une telle
-      matrice. Le produit de deux chaînes sera:
+      matrice (voir algorithmes~\ref{alg:prod_mat} et~\ref{alg:prod_chaine}). Le
+      produit de deux chaînes sera:
       \begin{itemize}
         \item nul si le dernier nœud de la première chaîne n'est pas le premier
           nœud du deuxième;
@@ -93,67 +95,84 @@
       astucieusement, on parvient à trouver un cycle eulérien de complexité
       linéaire en le nombre d'arêtes du graphe. 
 
-  \subsubsection{Algorithmes}
-    \paragraph{Méthode de la matrice latine} \mbox{}
-      \begin{lstlisting}
-Entrée : un graphe
-Sortie : la liste des cycles eulériens dans le cas d'un graphe eulérien
-         la liste des chaînes eulériennes dans le cas d'un graphe semi-eulérien
-         la liste vide sinon
+    \begin{algorithm}
+      \KwIn{un graphe}
+      \KwOut{%
+        la liste des cycles ou chaines eulériens si le graphe est eulérien
+        semi-eulérien ou la liste vide sinon
+      }
+      \Begin{%
+        \tcc{Construction de la matrice latine du graphe}
+        construire une matrice à n lignes et n colonnes\;
+        remplir la matrice de listes vides\;
+        \For{chaque nœud du graphe}{%
+          \For{chaque arête sortant de ce nœud}{%
+            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de
+            la matrice correspondante\;
+          }
+        }
+        
+        n $\leftarrow$ le nombre d'arêtes total du graphe\;
+        calculer la puissance $(n-1)$ième de la matrice
 
-Construire la matrice latine du graphe :
-    construire une matrice à n lignes et n colonnes
-    remplir la matrice de listes vides
-    pour chaque nœud du graphe:
-        pour chaque arête sortant de ce nœud:
-            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de la matrice correspondante
+        \For{chaque coefficient de la matrice ainsi calculée}{%
+          \If{le coefficient n'est pas nul}{%
+            concaténer ce coefficient à la variable de retour\;
+          }
+        }
+      }
+      \caption{Méthode de la matrice latine}
+      \label{alg:meth_mat_lat}
+    \end{algorithm}
 
-n = "le nombre d'arêtes total du graphe"
+    \begin{algorithm}
+      \KwIn{$A$ et $B$ deux matrices latines}
+      \KwOut{le produit de ces deux matrices}
+      \Begin{%
+        construire la matrice de retour à n lignes et n colonnes\;
+        initialiser chaque coefficient de cette matrice à la liste vide\;
 
-calculer la puissance (n-1)ième de la matrice
+        \For{chaque coefficient de la matrice de retour}{%
+          \For{$k$ allant de $1$ jusqu'à $n$}{%
+            calculer les chaînes produits entre a(i,k) et b(k,j)\;
+            ajouter au coefficient de la matrice ces chaînes\;
+          }
+        }
+      }
+      \caption{Produit matriciel}
+      \label{alg:prod_mat}
+    \end{algorithm}
 
-pour chaque coefficient de la matrice ainsi calculée:
-    si le coefficient n'est pas nul:
-        concaténer ce coefficient à la variable de retour
-      \end{lstlisting}
-
-    \paragraph{Produit matriciel} \mbox{}
-      \begin{lstlisting}
-Entrée : A et B deux matrices latines
-Sortie : le produit de ces deux matrices
-
-construire la matrice de retour à n lignes et n colonnes
-initialiser chaque coefficient de cette matrice à la liste vide
-
-pour chaque coefficient de la matrice de retour:
-    pour k allant de 1 jusqu'à n:
-        calculer les chaînes produits entre a(i,k) et b(k,j)
-        ajouter au coefficient de la matrice ces chaînes 
-      \end{lstlisting}
-
-    \paragraph{Produit entre listes de chaînes (coefficients de matrices
-    latines)} \mbox{}
-      \begin{lstlisting}
-Entrée : liste_1 et liste_2 deux listes de chaîne 
-Sortie : une liste de chaînes 
-
-créer une liste de chaîne vide (liste de retour)
-pour i dans liste_1:
-    pour j dans liste_2:
-        construire la chaîne résultante de la concaténation de i et j (en enlevant le nœud présent deux fois)
-        construire un ensemble de chaîne vide
-        pour k allant de 1 à la longueur de la chaîne construit:
-            construire la chaîne élémentaire menant du nœud k au nœud k+1
-            si cette chaîne n'est pas dans l'ensemble:
-                ajouter cette chaîne dans l'ensemble
-            sinon:
-                rendre la chaîne nulle
-                sortir de la boucle
-
-        si le chaîne n'est pas nulle:
-                concaténer la chaîne trouvée à la liste de retour
-retourner la liste de retour
-			\end{lstlisting}
+    \begin{algorithm}
+      \KwIn{liste\_1 et liste\_2 deux listes de chaîne}
+      \KwOut{une liste de chaînes}
+      \Begin{%
+        créer une liste de chaîne vide (liste de retour)\;
+        \For{$i$ dans liste\_1}{%
+          \For{$j$ dans liste\_2}{%
+            construire la chaîne résultante de la concaténation de $i$ et $j$
+            (en enlevant le nœud présent deux fois)\;
+            construire un ensemble de chaîne vide\;
+            \For{$k$ allant de $1$ à la longueur de la chaîne construit}{%
+              construire la chaîne élémentaire menant du nœud $k$ au nœud $k+1$\;
+              \If{cette chaîne n'est pas dans l'ensemble}{%
+                ajouter cette chaîne dans l'ensemble\;
+              }
+              \Else{%
+                rendre la chaîne nulle\;
+                sortir de la boucle\;
+              }
+            }
+          }
+          \Si{le chaîne n'est pas nulle}{%
+            concaténer la chaîne trouvée à la liste de retour
+          }
+        }
+      }
+      \caption{Produit entre listes de chaînes (coefficients de matrices
+      latines)}
+      \label{alg:prod_chaine}
+    \end{algorithm}
 
 \subsection{Graphes hamiltoniens}
   \subsubsection{Analyse mathématique}
@@ -204,49 +223,45 @@ retourner la liste de retour
 
     Pour rechercher une chaîne hamiltonienne dans un graphe, on pourrait
     chercher parmi toutes les chaînes possibles. La complexité d'un tel
-    algorithme dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on
-    peut s'arrêter dès qu'on a trouvé une chaîne sans devoir tester toutes les
-    autres chaînes possibles, la complexité moyenne sera inférieure.
+    algorithme (voir algoritme~\ref{alg:hamil}) dans le pire des cas est donc
+    très mauvaise: $O(n!)$. Comme on peut s'arrêter dès qu'on a trouvé une
+    chaîne sans devoir tester toutes les autres chaînes possibles, la
+    complexité moyenne sera inférieure.
 
-  \subsubsection{Algorithmes}
-    \paragraph{Tests de semi-hamiltoniannité} \mbox{}
-      \begin{lstlisting}
-Entrée : un graphe
-Sortie : un booléen indiquant si le graphe est semi-hamiltonien ou non
+    \begin{algorithm}
+      \KwIn{un graphe graph}
+      \KwIn{un point de départ optionnel node\_from}
+      \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
+      nodes\_done}
+      \KwOut{une chaîne hamiltonienne sous la forme d'une liste ordonnée de
+      points, ou None s'il n'en existe pas}
 
-si le graphe suit les conditions du théorème de Dirac ou du théorème de Pósa:
-    retourner Vrai
-sinon:
-    chercher une chaîne hamiltonienne
-    retourner Vrai si on en a trouvé un, Faux sinon
-      \end{lstlisting}
+      \Begin{%
+        \If{node\_from n'a pas été fourni}{%
+          node\_from $\leftarrow$ un nœud de graph\;
+        }
+        ajouter node\_from à nodes\_dones\;
 
-    \paragraph{Recherche de chaîne hamiltonienne} \mbox{}
-      \begin{lstlisting}
-Entrée : un graphe graph
-         un point de départ optionnel node_from
-         un ensemble (éventuellement vide) de nœuds déjà parcouru nodes_done
-Sortie : une chaîne hamiltonienne sous la forme d'une liste ordonnée de points, ou None s'il n'en existe pas
+        \If{cardinal(node\_from) == ordre(graph)}{%
+          \Return{[node\_from]}
+        }
 
-Si la fonction a été appelée sans node_from:
-    node_from = "un nœud de graph"
-
-ajouter node_from à nodes_dones
-
-si cardinal(node_from) == ordre(graph):
-    retourner [node_from]
-
-pour chaque arête dans le graphe:
-    autre = "le point opposé à node_from par rapport à cette arête"
-    si autre dans nodes_done:
-        passer à la prochaîne arête
-
-    appeler la fonction récursivement avec graphe, node_from et nodes_dones comme paramètre
-    si la liste retournée est non-vide:
-        y ajouter node_from au début et la retourner
-
-retourner None (si on arrive ici, aucunne chaîne n'est bonne)
-      \end{lstlisting}
+        \For{chaque arête dans le graphe}{%
+          autre $\leftarrow$ le point opposé à node\_from par rapport à cette
+          arête\;
+          \If{autre dans nodes\_done}{%
+            passer à la prochaîne arête
+          }
+          appeler la fonction récursivement avec graphe, node\_from et
+          nodes\_dones comme paramètre\;
+          \If{la liste retournée est non-vide}{%
+              y ajouter node\_from au début et la retourner\;
+          }
+        }
+      }
+      \caption{Recherche de chaîne hamiltonienne}
+      \label{alg:hamil}
+    \end{algorithm}
 
 \subsection{Problème du voyageur de commerce}\label{sec:tsp}
   \subsubsection{Analyse mathématique}
@@ -317,7 +332,6 @@ retourner (coût, cycle)
     \end{lstlisting}
 
   \subsubsection{Recherche locale}
-
     Les heuristiques nous donnant des solutions acceptables, choisies avec un
     minimum de «~bon sens~», il est ensuite possible de tenter d'améliorer
     ces solutions, via de la recherche locale.
@@ -326,7 +340,7 @@ retourner (coût, cycle)
     encore meilleures parmi leur voisinage.
 
     \paragraph{Exemple} Un algorithme de recherche locale adapté au problème
-    du voyageur de commerce est le 2-opt.
+    du voyageur de commerce est le 2-opt (voir algorithme~\ref{alg:2opt}).
     Le principe du 2-opt consiste à tenter d'éliminer les «~boucles~» qui
     pourraient survenir dans le chemin, afin de le rendre plus court.
 
@@ -343,24 +357,33 @@ retourner (coût, cycle)
     \includegraphics[width=0.3\textwidth]{graphes/2opt2.png}
     \end{center}
 
-    L'algorithme pour le 2-opt est le suivant:
-      \begin{lstlisting}
-Entrée : un cycle hamiltonien (liste de sommets) et son coût
-Sortie : un cycle hamiltonien et son coût inférieur ou égal au coup d'entrée
+    \begin{algorithm}
+      \KwIn{un cycle hamiltonien (liste de sommets) et son coût}
+      \KwOut{un cycle hamiltonien et son coût inférieur ou égal au coup
+      d'entrée}
 
-pour chaque couple de points (a, b) dans le cycle:
-    nouveau_coût = coût
-                     - "coût de a à son successeur dans le cycle"
-                     - "coût de b à son successeur dans le cycle"
-                     + "coût de a à b"
-                     + "coût du successeur de a et au successeur de b dans le cycle"
+      \Begin{%
+        \For{chaque couple de points (a, b) dans le cycle}{%
+           $\begin{aligned}
+             \text{nouveau\_coût} & \leftarrow
+            \text{coût}\\
+            &- \text{coût de a à son successeur dans le cycle}\\
+            &- \text{coût de b à son successeur dans le cycle}\\
+            &+ \text{coût de a à b}\\
+            &+ \text{coût du successeur de a au successeur de b dans le
+            cycle}\\
+          \end{aligned}$\;
 
-    si nouveau_coût < coût:
-        coût = nouveau_coût
-        cycle = cycle crée en échangeant a et b dans cycle
-
-retourner (coût, cycle)
-      \end{lstlisting}
+          \If{nouveau\_coût < coût}{%
+            coût = nouveau\_coût
+            cycle = cycle crée en échangeant a et b dans cycle\;
+          }
+        }
+        \Return{(coût, cycle)}
+      }
+      \caption{2-opt}
+      \label{alg:2opt}
+    \end{algorithm}
 
     Il a donc une complexité quadratique du nombre de sommets du cycles.
 
