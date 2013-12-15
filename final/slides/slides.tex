@@ -43,6 +43,52 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Duopole: principe}
+  \begin{vwcol}[widths={0.6,0.4}, sep=.0cm, rule=0pt]
+    \includegraphics[width=0.55\textwidth]{jeux/duopole_principe}
+
+    Nos stratégies:
+    \begin{itemize}
+      \item Stackelberg en moyenne \\
+      $x=\frac{3-y}{2}$
+      \item Stratégie pénalisante
+      \item Stratégie évolutive
+      \item Stratégie polynomiale \\
+      $f(0) = 1.125$ \\
+      $f(0.75) = 0.75$ \\
+      $f(1.5) = 0.75$ \\
+    \end{itemize}
+  \end{vwcol}
+\end{frame}
+
+\begin{frame}{Duopole: résultats}
+  \tiny{%
+    \begin{table}[f]
+      \centering
+      \begin{tabular}{|c||c|c|c|}
+        \hline
+        Stratégie      & Gain minimal & Gain moyen & Gain maximum \\\hline\hline
+         cooperatif* & $561.56$ & $978.59$ & $1123.88$ \\\hline
+      noncooperatif* & $380.79$ & $877.10$ & $1317.08$ \\\hline
+        stackelberg* & $498.00$ & $797.42$ & $1132.44$ \\\hline
+              palkeo & $694.54$ & $986.94$ & $1123.88$ \\\hline
+            Pénalise & $419.12$ & $860.12$ & $1124.70$ \\\hline
+   Pénalise variante & $421.22$ & $896.10$ & $1123.88$ \\\hline
+Stackelberg en moyenne & $492.11$ & $923.94$ & $1123.88$ \\\hline
+Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
+            gklmjbse & $561.56$ & $832.41$ & $1135.33$ \\\hline
+                poly & $561.82$ & $1011.24$ & $1123.88$ \\\hline
+            killer** & $  0.00$ & $773.86$ & $1133.09$ \\\hline
+   cooperatifmixte** & $698.67$ & $990.58$ & $1123.88$ \\\hline
+    agressivemieux** & $  3.15$ & $750.64$ & $1126.18$ \\\hline
+   best\_strategie** & $322.67$ & $881.00$ & $1262.81$ \\\hline
+      \end{tabular}
+      \caption{Résultats des différentes stratégies sur 1000 tours}
+      \label{table:coop_results2}
+    \end{table}
+  }
+\end{frame}
+
 \section{Graphes}
 
 \begin{frame}{Voyageur de commerce}
