@@ -148,6 +148,58 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
     \end{vwcol}
   \end{frame}
 
+\section{Programmation linéaire}
+  \begin{frame}{Simplexe - Présentation du problème}
+    $$\left\{\max_{x \in \mathbb{R}^n \atop Ax \leqslant b} f(x) \right.$$ 
+    \begin{exampleblock}{Exemple}
+      \begin{center}
+        \begin{tabular}{|c|cccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 &  \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Simplexe - Simplification du problème}
+    Transformation des contraintes d'inégalité en égalité 
+
+    \begin{exampleblock}{Exemple}
+      \begin{center}
+        \begin{tabular}{|c|ccccccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 1 & 0 & 0 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 0 & 1 & 0 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 0 & 0 & 1 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 & 0 & 0 & 0 & \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Simplexe - Algorithme}
+    \begin{block}{Algorithme}
+      Tant qu'il y a un élément strictement positif sur la première ligne\\
+      \quad à\_ajouter = indice de la colonne dont le gain est maximal \\
+      \quad à\_retirer = $\underset{i}{\text{argmin}} \frac{
+                      matrice[i, stock]}{matrice[i, \text{à\_ajouter]}}$ \\
+      \quad mettre à\_ajouter dans la base et retirer à\_retirer de la base \\
+      \quad mettre à jour le reste de la matrice \\
+      Fin Tant que
+    \end{block}
+
+    \begin{block}{Cas difficiles}
+      \begin{itemize}
+        \item Cas où l'ensemble de départ vide
+        \item Cas où $(0,0) \notin C$
+        \item Cas de dégénérescence
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
 \section{Robots}
   \begin{frame}{UA 5 Robots}
       \begin{itemize}
