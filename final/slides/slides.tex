@@ -147,4 +147,33 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
       \end{itemize}
     \end{vwcol}
   \end{frame}
+
+\section{Robots}
+  \begin{frame}{UA 5 Robots}
+      \begin{itemize}
+          \item Suivi de mur
+          \item Algorithme de Dijkstra
+          \item Algorithme A*
+      \end{itemize}
+  \end{frame}
+  \begin{frame}{Suivi de mur}
+    Un capteur ultrasonique à gauche \\
+    Un capteur ultrasonique frontale \\[1 cm]
+    \begin{itemize}
+      \item Si distance frontale < minima: on pivote à droite.
+      \item Sinon:
+      \begin{itemize}
+        \item Si distance latérale > distance voulue + marge: coupe le moteur
+        de de gauche \\Sinon il est actif \item Si distance latérale < distance
+          voulue - marge: coupe le moteur de droite \\Sinon il est actif
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Algorithme de Dijkstra}
+    \begin{center}
+      \includegraphics[width=0.55\textwidth]{jeux/GRO_graph1} \\
+    \end{center}
+    Si le robot connaît le plan du labyrinthe l'algorithme de dijkstra suffit. 
+  \end{frame}
 \end{document}
