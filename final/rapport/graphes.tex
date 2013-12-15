@@ -1,15 +1,37 @@
 % Si vous vous demandez à quoi servent les empty \mbox après les paragraphes,
-% vous êtes des  boulays, apprenez latex.
+% vous êtes des boulays, apprenez latex.
+\subsection{Modélisation mathématique}
+  TODO: expliquer ce qu'est un graphe, on s'en fou de nous.
+
+  Nous avons choisi de représenter nos graphes comme une liste de sommets,
+  chacun ayant une liste d'arêtes.
+
+  En mémoire, cette structure est donc constituée d'une liste de pointeurs
+  vers des sommets. Les sommets contenant une liste de pointeurs vers des
+  arêtes. Chaque arête ayant un pointeur vers chaque sommet extrémité.
+
+  Dans la suite nous noterons $n$ le nombre de sommets du graphe.
+
+  \paragraph{Graphe connexe} Un graphe est dit connexe quand on peut aller de
+  n'importe quel point vers n'importe quel autre point en suivant des arrêtes.
+
+  \paragraph{Graphe complet} Un graphe est dit complet quand tout
+  ses sommets sont reliés deux à deux par une arrête. Le nombre de d'arêtes
+  d'un tel graphe est alors $\frac {n(n-1)} 2$.
+
+  \paragraph{Degré d'un sommet} Le degré d'un sommet est le nombre d'arêtes
+  incidentes à ce sommet.
+
 \subsection{Graphes eulériens}
   \subsubsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
     une chaîne parcourant toutes les arêtes du graphe une et une seule fois, en
-    revenant au sommet de départ; ce problème est donc celui de la goudronneuse
-    qui doit passer sur toutes les rues sans pouvoir repasser dessus une
-    seconde fois. Un théorème fondamental garantit qu'un graphe connexe est
-    eulérien si et seulement si chacun de ses sommets est associé à un nombre
-    pair d'arêtes.
+    revenant au sommet de départ.
+    
+    \paragraph{Théorème d'Euler} Un graphe connexe est eulérien si et seulement
+    si chacun de ses sommets est de degré pair.
 
+    \paragraph{}
     Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
     unique fois, mais ne retourne pas au point de départ. Le théorème précédent
@@ -20,9 +42,9 @@
     d'arrivée le deuxième.
 
   \subsubsection{Méthode de résolution}
-    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, nous avons
-    étudié deux méthodes: une méthode qui teste toutes les possibilités,
-    et une autre plus intelligente et moins coûteuse.
+    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, on peut
+    utiliser deux méthodes: une méthode qui teste toutes les possibilités, et
+    une autre plus intelligente et moins coûteuse.
 
     \paragraph{Matrices latines}
       La première méthode est inspirée des matrices latines. Chaque coefficient
@@ -137,34 +159,54 @@ retourner la liste de retour
   \subsubsection{Analyse mathématique}
     Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
     trouver un cycle (ou une chaîne) passant par tout les sommets une et une
-    seule fois. Ce problème est donc celui de l'enfant qui souhaite visiter de
-    manière unique toutes les salles d'un musée.
+    seule fois. Ce problème est donc celui d'un enfant qui souhaiterait visiter
+    de manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
     de même que de trouver un cycle ou une chaîne s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
-    affirmer qu'un graphe est hamiltonien ou non.
+    affirmer qu'un graphe est hamiltonien.
 
-    Par exemple un graphe complet est forcement hamiltonien (utile dans le cas
-    du voyageur de commerce, voir section~\ref{sec:tsp}), il existe aussi des
-    conditions sur les degrès des sommets (théorème de Dirac, d'Ore, etc.).
+    \paragraph{Théorème} Un graphe complet est hamiltonien. C'est une
+    conséquence du théorème de Dirac.
+
+    \paragraph{Théorème de Dirac} Un graphe simple à $n$ sommets ($n \ge 3$)
+    dont chaque sommet est au moins de degré $\frac{n}{2}$ est hamiltonien.
+
+    \paragraph{Théorème de Ore} Un graphe simple à $n$ sommets ($n \ge 3$) tel
+    que la somme des degrés de toute paire de sommets non adjacents vaut au
+    moins $n$ est hamiltonien.
+
+    \paragraph{Théorème de Pósa} Un graphe simple à $n$ sommets ($n \ge 3$) est
+    hamiltonien si:
+    \begin{itemize}
+      \item pour tout entier $k$ tel que $1 \le k < \frac{n-1}{2}$ le nombre de
+        sommets de degré inférieur ou égal à $k$ est inférieur à $k$;
+      \item le nombre de sommets de degré inférieur ou égal à $\frac{n-1}{2}$
+        est inférieur ou égal à $\frac{n-1}{2}$.
+    \end{itemize}
+
+    \paragraph{Fermeture d'un graphe} La fermeture d'un graphe est
+    le graphe construit à partir de celui en rajoutant des arrêtes entre chaque
+    sommets $a$ et $b$ tel que $\deg(a)+\deg(b) > n$ tant qu'il en existe.
+
+    \paragraph{Théorème de Bondy et Chvátal} Un graphe est hamiltonien si et
+    seulement si sa fermeture est hamiltonienne.
+
+    Ce théorème n'est utile que si l'on peut utiliser l'un des théorèmes
+    précédents sur la fermeture.
 
   \subsubsection{Méthode de résolution}
-    Pour tester si un graphe est hamiltonien, nous avons utilisé les théorèmes
-    de Dirac et Pósa qui donnent des conditions nécessaires, si ces conditions
-    ne sont pas vérifiées, comme il n'y a aucun théorème qui permette
-    d'affirmer qu'un graphe n'est pas semi-hamiltonien, on recherche une chaîne
-    hamiltonienne dans ce graphe.
+    Pour tester si un graphe est hamiltonien on peut utiliser les théorèmes
+    précédents. Si le graphe ne respecte les conditions d'aucun de ces
+    théorèmes, on recherche une chaîne hamiltonienne dans ce graphe.
 
-    Pour rechercher une chaîne hamiltonienne dans un graphe, nous avons écrit un
-    algorithme qui recherche parmi toutes les chaînes possibles. Sa complexité
-    dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on peut
-    s'arrêter dès qu'on a trouvé une chaîne sans devoir tester toutes les autres
-    chaînes possibles, la complexité moyenne sera inférieure.
-
-    Nous avons écrit une version améliorée de cet algorithme qui essaye
-    d'éviter les culs de sac.
+    Pour rechercher une chaîne hamiltonienne dans un graphe, on pourrait
+    chercher parmi toutes les chaînes possibles. La complexité d'un tel
+    algorithme dans le pire des cas est donc très mauvaise: $O(n!)$. Comme on
+    peut s'arrêter dès qu'on a trouvé une chaîne sans devoir tester toutes les
+    autres chaînes possibles, la complexité moyenne sera inférieure.
 
   \subsubsection{Algorithmes}
     \paragraph{Tests de semi-hamiltoniannité} \mbox{}
@@ -205,17 +247,6 @@ pour chaque arête dans le graphe:
 
 retourner None (si on arrive ici, aucunne chaîne n'est bonne)
       \end{lstlisting}
-
-\subsection{Modélisation mathématique}
-
-  Nous avons choisi de représenter nos graphes comme une liste de sommets,
-  chacun ayant une liste d'arêtes.
-
-  En mémoire, cette structure est donc constituée d'une liste de pointeurs
-  vers des sommets. Les sommets contenant une liste de pointeurs vers des
-  arêtes. Chaque arête ayant un pointeur vers chaque sommet extrémité.
-
-  Dans la suite nous noterons $n$ le nombre de sommets du graphe.
 
 \subsection{Problème du voyageur de commerce}\label{sec:tsp}
   \subsubsection{Analyse mathématique}
