@@ -20,6 +20,8 @@
     \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
 \date{17 décembre 2013}
 
+\newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
 \begin{document}
 
 \begin{frame}
@@ -27,8 +29,146 @@
 \end{frame}
 
 \begin{frame}{Introduction}
-  Blabla
+  todo?
 \end{frame}
+
+\section{Graphes}
+
+\begin{frame}{Voyageur de commerce -- Énoncé}
+    Chercher un chemin passant par tous les sommets, de longueur minimale.
+    \begin{itemize}
+        \item cycle hamiltonien de coût minimal
+        \item NP-complet
+        \item méthodes approchées
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Voyageur de commerce -- Résolution approchée}
+    \begin{block}{Heuristiques}
+        Aller sur le nœud le plus près
+    \end{block}
+
+    \begin{block}{Recherche locale}
+      \centering
+      \begin{multicols}{2}
+        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt1.png}
+
+        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt2.png}
+      \end{multicols}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Voyageur de commerce -- Métaheuristiques}
+    \begin{itemize}
+        \item Recherche locale itérée
+        \item Recherche tabou
+        \item Recuit simulé
+        \item Algorithmes génétiques
+        \item Colonies de fourmis
+    \end{itemize}
+\end{frame}
+
+\section{Programmation linéaire}
+  \begin{frame}{Sac à dos -- Énoncé}
+    Remplir un sac pour maximiser la valeur des objets, sans dépasser une
+    certaine masse.
+  \end{frame}
+
+  \begin{frame}{Sac à dos -- Résolution}
+    \begin{itemize}
+      \item Résolution exacte:
+      \begin{itemize}
+        \item Programmation dynamique.
+        \item Masses entières uniquement.
+        \item $O(nW)$
+      \end{itemize}
+
+      \item Résolution dynamique:
+      \begin{itemize}
+        \item Algorithme glouton.
+        \item Masses quelconques.
+        \item $O(n \log n)$
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Sac à dos -- Résultats}
+    \tiny
+    \begin{table}[h]
+      \makebox[\textwidth]{%
+      \centering
+      \begin{tabular}{| c | c | c | c | c | c |}
+      \hline
+        \brokencell{Nombre d'objets/\\
+                    Amplitudes des prix et masses/\\
+                    Masse maximale autorisée}
+      & \brokencell{Résultat\\optimum}
+      & \brokencell{Prix le\\plus élevé}
+      & \brokencell{Masse la\\plus faible}
+      & \brokencell{Meilleur ratio\\prix/masse}\\
+      \hline
+      50/25/20& $85$ & $49/42.4\%$ & $67/21.2\%$ & $81/4.7\%$ \\
+      500/25/500& $2016$ & $1125/44.2\%$ & $1725/14.4\%$ & $1983/1.6\%$ \\
+      5000/25/500& $5540$ & $1175/79\%$ & $4577/17.4\%$ & $5540/0\%$ \\
+      50000/25/500& $11195$ & $1175/90\%$ & $6684/40.3\%$ & $11195/0\%$ \\
+      50000/1000/500& $118260$ & $5959/95\%$ & $101857/13.9\%$ & $118147/0.1\%$ \\
+      50000/5000/100& $100847$ & $14931/85.2\%$ & $93532/7.3\%$ & $100282/0.6\%$ \\
+      \hline  
+      \end{tabular}
+      }
+    \end{table}
+  \end{frame}
+
+  \begin{frame}{Simplexe -- Présentation du problème}
+    \[\max_{x \in \mathbb{R}^n \atop Ax \leqslant b} f(x)\]
+    \begin{exampleblock}{Exemple}
+      \begin{center}
+        \begin{tabular}{|c|cccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 &  \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Simplexe -- Simplification du problème}
+    Transformation des contraintes d'inégalité en égalité.
+
+    \begin{exampleblock}{Exemple}
+      \begin{center}
+        \begin{tabular}{|c|ccccccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 1 & 0 & 0 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 0 & 1 & 0 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 0 & 0 & 1 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 & 0 & 0 & 0 & \\ \hline
+        \end{tabular}
+      \end{center}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Simplexe -- Algorithme}
+    \begin{block}{Algorithme}
+      Tant qu'il y a un élément strictement positif sur la première ligne\\
+      \quad à\_ajouter = indice de la colonne dont le gain est maximal \\
+      \quad à\_retirer = $\underset{i}{\text{argmin}} \frac{
+                      matrice[i, stock]}{matrice[i, \text{à\_ajouter]}}$ \\
+      \quad mettre à\_ajouter dans la base et retirer à\_retirer de la base \\
+      \quad mettre à jour le reste de la matrice \\
+      Fin Tant que
+    \end{block}
+
+    \begin{block}{Cas difficiles}
+      \begin{itemize}
+        \item Cas où l'ensemble de départ vide
+        \item Cas où $(0,0) \notin C$
+        \item Cas de dégénérescence
+      \end{itemize}
+    \end{block}
+  \end{frame}
 
 \section{Jeux}
 
@@ -43,7 +183,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Duopole: principe}
+\begin{frame}{Duopole -- principe}
   \begin{vwcol}[widths={0.6,0.4}, sep=.0cm, rule=0pt]
     \includegraphics[width=0.55\textwidth]{jeux/duopole_principe}
 
@@ -61,7 +201,7 @@
   \end{vwcol}
 \end{frame}
 
-\begin{frame}{Duopole: résultats}
+\begin{frame}{Duopole -- résultats}
   \tiny{%
     \begin{table}[f]
       \centering
@@ -89,45 +229,6 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
   }
 \end{frame}
 
-\section{Graphes}
-
-\begin{frame}{Voyageur de commerce}
-\end{frame}
-
-\begin{frame}{Énoncé}
-    Chercher un chemin passant par tous les sommets, de longueur minimale.
-    \begin{itemize}
-        \item cycle hamiltonien de coût minimal
-        \item NP-complet
-        \item méthodes approchées
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Résolution approchée}
-    \begin{block}{Heuristiques}
-        Aller sur le nœud le plus près
-    \end{block}
-
-    \begin{block}{Recherche locale}
-      \centering
-      \begin{multicols}{2}
-        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt1.png}
-
-        \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt2.png}
-      \end{multicols}
-    \end{block}
-\end{frame}
-
-\begin{frame}{Métaheuristiques}
-    \begin{itemize}
-        \item Recherche locale itérée
-        \item Recherche tabou
-        \item Recuit simulé
-        \item Algorithmes génétiques
-        \item Colonies de fourmis
-    \end{itemize}
-\end{frame}
-
 \section{Programmation stochastique}
   \begin{frame}{Gare de péage}
     \begin{vwcol}[widths={0.6,0.4}, sep=.0cm, rule=0pt] 
@@ -148,58 +249,6 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
     \end{vwcol}
   \end{frame}
 
-\section{Programmation linéaire}
-  \begin{frame}{Simplexe - Présentation du problème}
-    $$\left\{\max_{x \in \mathbb{R}^n \atop Ax \leqslant b} f(x) \right.$$ 
-    \begin{exampleblock}{Exemple}
-      \begin{center}
-        \begin{tabular}{|c|cccc|c|}\hline
-          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & stock \\ \hline
-          $R_A$ & 2 & 4 & 5 & 7 & 72 \\
-          $R_B$ & 1 & 1 & 2 & 2 & 17 \\
-          $R_C$ & 1 & 2 & 3 & 3 & 24 \\ \hline
-          bénéfice & 7 & 9 & 18 & 17 &  \\ \hline
-        \end{tabular}
-      \end{center}
-    \end{exampleblock}
-  \end{frame}
-
-  \begin{frame}{Simplexe - Simplification du problème}
-    Transformation des contraintes d'inégalité en égalité 
-
-    \begin{exampleblock}{Exemple}
-      \begin{center}
-        \begin{tabular}{|c|ccccccc|c|}\hline
-          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
-          $R_A$ & 2 & 4 & 5 & 7 & 1 & 0 & 0 & 72 \\
-          $R_B$ & 1 & 1 & 2 & 2 & 0 & 1 & 0 & 17 \\
-          $R_C$ & 1 & 2 & 3 & 3 & 0 & 0 & 1 & 24 \\ \hline
-          bénéfice & 7 & 9 & 18 & 17 & 0 & 0 & 0 & \\ \hline
-        \end{tabular}
-      \end{center}
-    \end{exampleblock}
-  \end{frame}
-
-  \begin{frame}{Simplexe - Algorithme}
-    \begin{block}{Algorithme}
-      Tant qu'il y a un élément strictement positif sur la première ligne\\
-      \quad à\_ajouter = indice de la colonne dont le gain est maximal \\
-      \quad à\_retirer = $\underset{i}{\text{argmin}} \frac{
-                      matrice[i, stock]}{matrice[i, \text{à\_ajouter]}}$ \\
-      \quad mettre à\_ajouter dans la base et retirer à\_retirer de la base \\
-      \quad mettre à jour le reste de la matrice \\
-      Fin Tant que
-    \end{block}
-
-    \begin{block}{Cas difficiles}
-      \begin{itemize}
-        \item Cas où l'ensemble de départ vide
-        \item Cas où $(0,0) \notin C$
-        \item Cas de dégénérescence
-      \end{itemize}
-    \end{block}
-  \end{frame}
-
 \section{Robots}
   \begin{frame}{UA 5 Robots}
       \begin{itemize}
@@ -209,8 +258,10 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
       \end{itemize}
   \end{frame}
   \begin{frame}{Suivi de mur}
-    Un capteur ultrasonique à gauche \\
-    Un capteur ultrasonique frontale \\[1 cm]
+    Un capteur ultrasonique à gauche.
+
+    Un capteur ultrasonique frontale.
+
     \begin{itemize}
       \item Si distance frontale < minima: on pivote à droite.
       \item Sinon:
