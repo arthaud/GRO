@@ -111,67 +111,7 @@ correspondante contient un $1$.
       astucieusement, on parvient à trouver un cycle eulérien de complexité
       linéaire en le nombre d'arêtes du graphe.
 
-  \subsubsection{Algorithmes}
-    \paragraph{Méthode de la matrice latine} \mbox{}
-      \begin{lstlisting}
-Entrée : un graphe
-Sortie : la liste des cycles eulériens dans le cas d'un graphe eulérien
-         la liste des chaînes eulériennes dans le cas d'un graphe semi-eulérien
-         la liste vide sinon
-
-Construire la matrice latine du graphe :
-    construire une matrice à n lignes et n colonnes
-    remplir la matrice de listes vides
-    pour chaque nœud du graphe:
-        pour chaque arête sortant de ce nœud:
-            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de la matrice correspondante
-
-n = "le nombre d'arêtes total du graphe"
-
-calculer la puissance (n-1)ième de la matrice
-
-pour chaque coefficient de la matrice ainsi calculée:
-    si le coefficient n'est pas nul:
-        concaténer ce coefficient à la variable de retour
-      \end{lstlisting}
-
-    \paragraph{Produit matriciel} \mbox{}
-      \begin{lstlisting}
-Entrée : A et B deux matrices latines
-Sortie : le produit de ces deux matrices
-
-construire la matrice de retour à n lignes et n colonnes
-initialiser chaque coefficient de cette matrice à la liste vide
-
-pour chaque coefficient de la matrice de retour:
-    pour k allant de 1 jusqu'à n:
-        calculer les chaînes produits entre a(i,k) et b(k,j)
-        ajouter au coefficient de la matrice ces chaînes
-      \end{lstlisting}
-
-    \paragraph{Produit entre listes de chaînes (coefficients de matrices
-    latines)} \mbox{}
-      \begin{lstlisting}
-Entrée : liste_1 et liste_2 deux listes de chaîne
-Sortie : une liste de chaînes
-
-créer une liste de chaîne vide (liste de retour)
-pour i dans liste_1:
-    pour j dans liste_2:
-        construire la chaîne résultante de la concaténation de i et j (en enlevant le nœud présent deux fois)
-        construire un ensemble de chaîne vide
-        pour k allant de 1 à la longueur de la chaîne construit:
-            construire la chaîne élémentaire menant du nœud k au nœud k+1
-            si cette chaîne n'est pas dans l'ensemble:
-                ajouter cette chaîne dans l'ensemble
-            sinon:
-                rendre la chaîne nulle
-                sortir de la boucle
-
-        si le chaîne n'est pas nulle:
-                concaténer la chaîne trouvée à la liste de retour
-retourner la liste de retour
-			\end{lstlisting}
+>>>>>>> 608777f... Algorithmisation des algorithmes
     \begin{algorithm}
       \KwIn{un graphe}
       \KwOut{%
@@ -188,7 +128,6 @@ retourner la liste de retour
             la matrice correspondante\;
           }
         }
-
         n $\leftarrow$ le nombre d'arêtes total du graphe\;
         calculer la puissance $(n-1)$ième de la matrice
 
