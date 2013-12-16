@@ -36,7 +36,7 @@
     et seulement si $\rho < 1$.
     
     \paragraph{}
-    La file peut être représentée comme une chaîne de Markov où chaque état $i$
+    La file peut être représentée comme une chaine de Markov où chaque état $i$
     représente la probabilité qu'il y ait $i$ voitures dans le système (voir
     figure~\ref{fig:markov1}).
 
@@ -97,7 +97,7 @@
     Une généralisation du cas précédent sont les files de type $M/M/S$, où $S$
     dénote le nombre de serveurs. Les lois d'entrée et sortie restent les mêmes.
 
-    Ces files peuvent aussi être représentées avec les chaînes de Markov (voir
+    Ces files peuvent aussi être représentées avec les chaines de Markov (voir
     figure~\ref{fig:markov2}).
 
     \begin{figure}[h]
@@ -138,7 +138,7 @@
       \label{fig:markov2}
     \end{figure}
 
-    L'étude de ces chaînes est plus compliquée car les états ne sont plus liés
+    L'étude de ces chaines est plus compliquée car les états ne sont plus liés
     par la même équation:
       \[
         \left\{\begin{aligned}
@@ -166,4 +166,7 @@
     probabilité d'attendre et $\displaystyle P_0 = \frac{1}{\sum_{k=0}^{S-1}
     \frac{\rho^k}{k!} + \frac {\rho^S}{S!} \frac {1}{1-\rho/S} }$ est la
     probabilité que le système soit vide.
+
+    On remarque qu'on retrouve bien les mêmes résultats que précédement pour
+    $S=1$.
 
