@@ -363,6 +363,24 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
 \end{frame}
 
 \section{Programmation stochastique}
+\subsection{Colonie de scarabées}
+  \begin{frame}{Colonie de scarabées -- Énoncé}
+    Calcul des probabilités de présence de chaque scarabées après $k$ itérations,
+    en se basant sur la matrice de transition (matrice stochastique).
+  \end{frame}
+
+  \begin{frame}{Colonie de scarabées -- Chaînes de Markov}
+    Modélisation possible par les chaînes de Markov.
+
+    \begin{itemize}
+        \item $pA^k$ nous donne un vecteur colonne contenant les probabilités que le scarabée
+            se retrouve sur chaque case après $k$ tour.
+        \item $U_k = pA^k(pA^k)^\intercal$ donne la probabilité que les deux scarabées se retrouvent
+            sur la même case après $k$ tours.
+        \item l'espérance de la suite $V_k = (1 - U_1) \times (1 - U_2) \times \cdots \times (1 - U_{k - 1}) \times U_k$ donne le temps moyen entre chaque rencontre.
+    \end{itemize}
+  \end{frame}
+
 \subsection{Gare de péage}
   \begin{frame}{Gare de péage}
     \begin{vwcol}[widths={0.6,0.4}, sep=.0cm, rule=0pt] 
