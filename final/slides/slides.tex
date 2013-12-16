@@ -37,13 +37,36 @@
 \subsection{Graphes eulériens}
 \begin{frame}{Graphes eulériens}
   \begin{itemize}
-    \item Graphe dont on peut parcourir toutes les arêtes une et une seule fois
+    \item Cycle eulérien: cycle parcourant toutes les arêtes du graphe une et une seule fois
+    \item Chaîne eulérienne: idem, mais ne retourne pas au sommet de départ
+    \item Graphe eulérien: graphe contenant un cycle eulérien (degré des sommets toujours pair)
+    \item Graphe semi-eulérien: graphe contenant une chaîne eulérienne (degré des sommets toujours pair, sauf pour les extrémités de la chaîne eulérienne)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Graphes eulériens}
+  Matrices latines
+  \begin{itemize}
+  \item Teste toutes les possibilités
+  \item Très peu efficace
+  \end{itemize}
+  Algorithme d'Euler
+  \begin{itemize}
+  \item Cherche des cycles eulériens dans des sous-graphes, récursivement
+  \item Beaucoup plus efficace
   \end{itemize}
 \end{frame}
 
 \subsection{Graphes hamiltoniens}
 \begin{frame}{Graphes hamiltoniens}
-  todo
+  \begin{itemize}
+    \item Cycle hamiltonien: cycle parcourant tous les sommets du graphe une et une seule fois
+    \item Chaîne hamiltonienne: idem, mais ne retourne pas au sommet de départ
+    \item Graphe hamiltonien: graphe contenant un cycle hamiltonien
+    \item Graphe semi-hamiltonien: graphe contenant une chaîne hamiltonienne 
+    \item Pas de propriété générale pour déterminer si un graphe est hamiltonien ou non 
+    \item NP-complet: pas d'algorithme efficace
+  \end{itemize}
 \end{frame}
 
 \subsection{Voyageur de commerce}
