@@ -159,20 +159,18 @@ rechercher le mur le plus proche.
 
 \section{Labyrinthe}
   Pour résoudre le problème du labyrinthe, nous avons simplement utilisé le
-  suivi de mur gauche. En effet cela permet de sortir d'un labyrinthe sans
+  suivi de mur gauche. En effet, cela permet de sortir d'un labyrinthe sans
   ilots, même si ce n'est pas forcement efficace.
 
   Nous avons aussi réfléchi à deux algorithmes plus efficaces: Dijkstra (que
   nous avions déjà implémenté dans l'UA1) et A*.  Nous n'avons pas implémenté
-  ces algorithmes sur le robot, cas nous ne savions pas comment avec un robot
-  Lego nous aurions pu réaliser le parcours du labyrinthe en enregistrant une
-  carte de celui-ci. Or ces algorithmes nécessitent que le labyrinthe soit
-  connu.
+  ces algorithmes sur le robot, car nous ne savions pas comment parcourir le
+  labyrinthe en enregistrant une carte de celui-ci.
 
   Le problème du positionnement du robot est aussi très délicat : En se basant
   uniquement sur les ordres qu'on envoie aux moteurs et sur la position initiale,
   on ne peut pas connaître avec précision notre position, car les roues dérapent
-  souvent sur le sol, et plus on se déplacent plus les imprécisions vont s'accumuler,
+  souvent sur le sol, et plus on se déplace plus les imprécisions vont s'accumuler,
   ce qui donne une mesure de plus en plus erronée.
 
 \section{Annexes}
