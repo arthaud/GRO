@@ -130,6 +130,24 @@
     \end{itemize}
 \end{frame}
 
+\subsection{Postier chinois}
+\begin{frame}{Postier chinois -- Énoncé}
+  Trouver la chaîne la plus courte dans un graphe connexe passant au moins 
+  une fois par chaque arête, et revenant à son point de départ.
+\end{frame}
+
+\begin{frame}{Postier chinois -- Méthode de résolution}
+  \begin{enumerate}
+    \item On crée d'abord le graphe partiel contenant uniquement les sommets
+      de degré impair;
+    \item On transforme ensuite ce graphe en clique;
+    \item On cherche le couplage parfait de coût minimum;
+    \item Pour chaque arête de cet ensemble, on double la chaîne la plus
+      courte reliant les sommets reliés par cette arête dans le graphe initial;
+    \item On applique l'algorithme d'Euler sur le graphe final.
+  \end{enumerate}
+\end{frame}
+
 \section{Programmation linéaire}
 \subsection{Sac à dos}
   \begin{frame}{Sac à dos -- Énoncé}
