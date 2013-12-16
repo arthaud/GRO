@@ -313,7 +313,7 @@ correspondante contient un $1$.
     complexité moyenne sera inférieure.
 
     \begin{algorithm}
-      \KwIn{un graphe graph}
+      \KwIn{un graphe}
       \KwIn{un sommet de départ optionnel node\_from}
       \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
       nodes\_done}
@@ -322,11 +322,11 @@ correspondante contient un $1$.
 
       \Begin{%
         \If{node\_from n'a pas été fourni}{%
-          node\_from $\leftarrow$ un nœud de graph\;
+          node\_from $\leftarrow$ un nœud du graphe\;
         }
         ajouter node\_from à nodes\_dones\;
 
-        \If{cardinal(node\_from) == ordre(graph)}{%
+        \If{cardinal(node\_from) == ordre(graphe)}{%
           \Return{[node\_from]}
         }
 
@@ -336,8 +336,8 @@ correspondante contient un $1$.
           \If{autre dans nodes\_done}{%
             passer à la prochaine arête
           }
-          appeler la fonction récursivement avec graphe, node\_from et
-          nodes\_dones comme paramètre\;
+          appeler la fonction récursivement avec le graphe, node\_from et
+          nodes\_dones comme paramètres\;
           \If{la liste retournée est non-vide}{%
               y ajouter node\_from au début et la retourner\;
           }

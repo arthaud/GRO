@@ -1,7 +1,7 @@
 \subsection{Introduction}
-  La programmation linéaire, ou optimisation linéaire, consiste à maximiser
-  (resp.\ minimiser) une fonction linéaire sur un polyèdre convexe (dont un cas
-  particulier courrant est sous des contraintes linéaires).
+  La programmation linéaire, ou optimisation linéaire, consiste à maximiser (ou
+  de manière équivalente minimiser) une fonction linéaire sur un polyèdre
+  convexe (dont un cas particulier courant est sous des contraintes linéaires).
 
 \subsection{Problème du sac à dos}
   \subsubsection{Présentation du problème}
@@ -17,22 +17,24 @@
     \paragraph{}
     Ce problème est un problème d'optimisation linéaire, en effet, cela revient
     à résoudre le problème:
-    \[ \left\{ \begin{array}{l}
-        \max v_i \\
-        i \in S \\
-        \displaystyle\sum_{j \in S} m_j \leq W
-      \end{array} \right.
+    \[ \begin{array}{r|l}
+        \displaystyle\max_{i \in S' \subset S} v_i &
+        \displaystyle\sum_{i \in S'} m_i \leq W
+      \end{array}
     \]
-    où $S$ est un ensemble de $n$ objets à choisir, $v_i$ la valeur de l'objet
-    $i$, $m_i$ sa masse et $W$ la masse maximale autorisée dans le sac.
+    où $S$ est l'ensemble des objets, $S'$ est un ensemble de $n$ objets
+    choisis, $v_i$ la valeur de l'objet $i \in S$, $m_i$ sa masse et $W$ la
+    masse maximale autorisée dans le sac.
 
-    \paragraph{}
     Cependant la résolution de ce problème n'est pas simple: déterminer s'il
     est possible de dépasser une valeur minimale sans dépasser le poids maximal
     est un problème NP\nobreakdash-complet.
 
   \subsubsection{Résolution exacte}
-    Ce problème peut être résolu en utilisant la programmation
+    Une exploration exhaustive de l'ensemble des parties de $S$ n'est pas très
+    réaliste, car celui-ci est de cardinal $2^{\mathrm{card} S}$.
+
+    Mais, ce problème peut être résolu en utilisant la programmation
     dynamique\footnote{Qui consiste à résoudre un problème de taille $n$ à
     partir de la résolution d'un problème de taille $n-1$}. En effet, on peut
     déterminer si un objet $i$ fait parti de l'ensemble des objets à choisir en
@@ -43,21 +45,21 @@
     uniquement si les poids des objets
     sont des entiers. De plus sa complexité en temps est en $O(nW)$ et celle en
     mémoire en $O(W)$\footnote{En pratique on pourrait l'utiliser sur des
-    masses non-entières en les multipliants, ce qui augmenterait la compléxité
-    du même facteur. De plus on peut réduire la compléxité en $O(nW')$ avec
-    $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
+    masses non-entières en les multipliant, ce qui augmenterait la complexité
+    du même facteur. De plus on peut réduire la complexité temporelle en
+    $O(nW')$ avec $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
 
     \begin{algorithm}
       \KwIn{une liste d'objets}
       \KwIn{une masse maximale autorisée}
       \KwOut{la valeur maximale qu'il est possible d'atteindre}
       \Begin{%
-        ligne\_courante = liste composée de (masse\_max+1) 0
-        ligne\_prec     = liste composée de (masse\_max+1) 0
+        ligne\_courante = liste composée de (masse\_max+1) zéros\;
+        ligne\_prec     = liste composée de (masse\_max+1) zéros\;
         \For{chaque objet obj de la liste d'entrée}{%
           \For{m variant de 0 à masse\_max}{%
             \If{masse(obj) $\leq$ m}{%
-              ligne\_courrante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
+              ligne\_courante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
             }
           }
           ligne\_prec $\leftarrow$ ligne\_courante
@@ -85,3 +87,15 @@
 
     De plus il peut être utilisé quand les masses ne sont pas entières.
 
+    \paragraph{}
+    Un autre algorithme pour résoudre ce problème est inspiré du comportement
+    des fourmis: une ``fourmi'' se promène plus ou moins au hasard dans
+    l'ensemble des possibilités en marquant les objets choisis comme
+    intéressants (comme les fourmis le font avec les phéromones). Ces fourmis
+    vont essayer de choisir de plus en plus souvent les objets ayant souvent
+    été marqués intéressants. On s'arrête après un certain nombre de tours ou
+    quand les nouvelles itérations ne sont plus considérés suffisamment
+    intéressantes.
+
+\subsection{Problème du simplexe}
+  \todo
