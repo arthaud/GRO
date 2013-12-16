@@ -34,9 +34,9 @@
 \begin{frame}{Graphes eulériens}
   \begin{itemize}
     \item Cycle eulérien: cycle parcourant toutes les arêtes du graphe une et une seule fois
-    \item Chaîne eulérienne: idem, mais ne retourne pas au sommet de départ
+    \item Chaine eulérienne: idem, mais ne retourne pas au sommet de départ
     \item Graphe eulérien: graphe contenant un cycle eulérien (degré des sommets toujours pair)
-    \item Graphe semi-eulérien: graphe contenant une chaîne eulérienne (degré des sommets toujours pair, sauf pour les extrémités de la chaîne eulérienne)
+    \item Graphe semi-eulérien: graphe contenant une chaine eulérienne (degré des sommets toujours pair, sauf pour les extrémités de la chaine eulérienne)
   \end{itemize}
 \end{frame}
 
@@ -57,9 +57,9 @@
 \begin{frame}{Graphes hamiltoniens}
   \begin{itemize}
     \item Cycle hamiltonien: cycle parcourant tous les sommets du graphe une et une seule fois
-    \item Chaîne hamiltonienne: idem, mais ne retourne pas au sommet de départ
+    \item Chaine hamiltonienne: idem, mais ne retourne pas au sommet de départ
     \item Graphe hamiltonien: graphe contenant un cycle hamiltonien
-    \item Graphe semi-hamiltonien: graphe contenant une chaîne hamiltonienne 
+    \item Graphe semi-hamiltonien: graphe contenant une chaine hamiltonienne 
     \item Pas de propriété générale pour déterminer si un graphe est hamiltonien ou non 
     \item NP-complet: pas d'algorithme efficace
   \end{itemize}
@@ -69,7 +69,7 @@
 \begin{frame}{Voyageur de commerce -- Énoncé}
     Chercher un chemin passant par tous les sommets, de longueur minimale.
     \begin{itemize}
-        \item cycle hamiltonien de coût minimal
+        \item cycle hamiltonien de cout minimal
         \item NP-complet
         \item méthodes approchées
     \end{itemize}
@@ -131,7 +131,7 @@
 
 \subsection{Postier chinois}
 \begin{frame}{Postier chinois -- Énoncé}
-  Trouver la chaîne la plus courte dans un graphe connexe passant au moins 
+  Trouver la chaine la plus courte dans un graphe connexe passant au moins 
   une fois par chaque arête, et revenant à son point de départ.
 \end{frame}
 
@@ -140,8 +140,8 @@
     \item On crée d'abord le graphe partiel contenant uniquement les sommets
       de degré impair;
     \item On transforme ensuite ce graphe en clique;
-    \item On cherche le couplage parfait de coût minimum;
-    \item Pour chaque arête de cet ensemble, on double la chaîne la plus
+    \item On cherche le couplage parfait de cout minimum;
+    \item Pour chaque arête de cet ensemble, on double la chaine la plus
       courte reliant les sommets reliés par cette arête dans le graphe initial;
     \item On applique l'algorithme d'Euler sur le graphe final.
   \end{enumerate}
