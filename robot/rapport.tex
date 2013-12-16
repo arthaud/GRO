@@ -52,7 +52,7 @@ Maxence Ahlouche, Korantin Auguste et Thomas Wagner.
 Au début du projet, nous avons commencé à programmer le robot comme
 indiqué dans le sujet, c'est à dire en utilisant le logiciel de programmation
 graphique disponible sur Windows. Seulement, ce logiciel, bien
-qu'accessible à tout le monde, nous a semblé très peu pratique % pas à tout le monde, mais à ceux qui paye une licence pour un mauvais OS
+qu'accessible à tout le monde, nous a semblé très peu pratique % pas à tout le monde, mais à ceux qui payent une licence pour un mauvais OS
 à utiliser, si bien que nous n'avons pas été très productif lors des
 premières séances.
 
@@ -63,7 +63,7 @@ passions beaucoup trop de temps à essayer de comprendre comment fonctionnait
 l'interface, et à nous battre avec le programme, qui plantait souvent.
 
 De plus, nous avons rencontré un problème que nous n'avons pas réussi
-à résoudre~: notre robot avançait de manière saccadée. Bien que nous ayons
+à résoudre: notre robot avançait de manière saccadée. Bien que nous ayons
 quelques hypothèses sur l'origine de ce problème (bug ou documentation non à
 jour), nous n'avons pas réussi à le résoudre avec le logiciel fourni.
 
@@ -72,7 +72,7 @@ d'autres méthodes pour programmer le robot.
 
 \subsection{Librairie Python}
 
-Un des membres de notre équipe a trouvé sur Internet une librairie en
+Un des membres de notre équipe a déniché sur Internet une librairie en
 Python, qui permet de contrôler un robot branché en USB. Cette
 librairie (qui s'appelle \texttt{nxt-python}) nous a permis de régler
 notre problème d'avancement saccadé.
@@ -81,7 +81,7 @@ Elle nous a également permis de programmer notre robot de manière très
 simple, et de gagner beaucoup de temps par rapport au logiciel de
 programmation graphique.
 
-Elle présente toutefois un inconvénient majeur~: elle ne permet pas de télécharger
+Elle présente toutefois un inconvénient majeur: elle ne permet pas de télécharger
 le programme sur le robot (le python étant interprété sur l'ordinateur);
 par conséquent, le robot devait rester branché à l'ordinateur lors de
 l'exécution du programme, et nous devions le suivre avec l'ordinateur. Ce qui
@@ -110,10 +110,9 @@ côté gauche de notre robot. Lorsque nous détectons que nous sommes
 trop éloignés du mur, nous tournons légèrement à gauche.
 
 Cette méthode est plutôt efficace, mais pose un problème majeur:
-lorsqu'il y a un angle droit, le robot ne peut pas savoir qu'il y a un mur
+lorsqu'il y a un angle droit vers la droite, le robot ne peut pas savoir qu'il y a un mur
 devant droit lui, et le percute.
-Nous avons donc
-décidé d'ajouter un autre capteur à ultrasons à l'avant du robot. Ainsi,
+Nous avons donc décidé d'ajouter un autre capteur à ultrasons à l'avant du robot. Ainsi,
 notre robot ne fonce plus dans les murs, et tourne à droite quand le
 capteur de devant détecte quelque chose.
 
@@ -125,10 +124,10 @@ Pour avoir un déplacement plus fluide de notre robot, avec moins
 d'à-coups, nous avons utilisé la technique de \emph{régulateur PID},
 avec seulement l'action proportionnelle (P).
 
-Le PID est une technique de correction d'erreur utilisé couramment en
-robotique. Il s'agit d'un algorithme calculant la correction a effectuer
+Le PID est une technique de correction d'erreur utilisée couramment en
+robotique. Il s'agit d'un algorithme calculant la correction à effectuer
 en fonction des mesures. Connaissant la mesure et la valeur voulue,
-on en déduit l'erreur. La correction de cette erreur se fait par 3
+on en déduit l'erreur. La correction de cette erreur se fait par trois
 actions :
 
 \begin{itemize}
@@ -137,7 +136,7 @@ actions :
     \item une action \textit{D} : on dérive l'erreur, et on la multiplie par une constante
 \end{itemize}
 
-Finalement, on somme les 3 actions pour obtenir la variation à appliquer à notre
+Finalement, on somme les trois actions pour obtenir la variation à appliquer à notre
 commande.
 
 Concrètement, dans notre cas, il nous a suffit de faire la différence entre
@@ -146,9 +145,9 @@ de multiplier ceci par une constante. On ajoute cette valeur à la puissance ini
 des moteurs pour avoir un déplacement proportionnel à la distance au mur.
 Avec cette méthode, nous avons un robot se déplaçant de manière très fluide.
 
-Pour de vrai robot, les constantes multiplicatives dans le PID demandent des réglages
+Pour de vrais robots, les constantes multiplicatives dans le PID demandent des réglages
 fins, car ils influent sur l'efficacité de l'algorithme. Dans notre cas, il nous
-a suffit de tester avec moins d'une dizaine de valeur pour trouver quelque chose
+a suffi de tester avec moins d'une dizaine de valeurs pour trouver quelque chose
 de satisfaisant.
 
 \subsection{Recherche d'un mur}
@@ -159,19 +158,22 @@ rechercher le mur le plus proche.
 
 \section{Labyrinthe}
   Pour résoudre le problème du labyrinthe, nous avons simplement utilisé le
-  suivi de mur gauche. En effet, cela permet de sortir d'un labyrinthe sans
-  ilots, même si ce n'est pas forcement efficace.
+  suivi de mur gauche. En effet cela permet de sortir d'un labyrinthe sans
+  îlots, même si ce n'est pas forcément efficace.
 
   Nous avons aussi réfléchi à deux algorithmes plus efficaces: Dijkstra (que
   nous avions déjà implémenté dans l'UA1) et A*.  Nous n'avons pas implémenté
-  ces algorithmes sur le robot, car nous ne savions pas comment parcourir le
-  labyrinthe en enregistrant une carte de celui-ci.
+  ces algorithmes sur le robot, cas nous ne savions pas comment, avec un robot
+  Lego, nous aurions pu réaliser le parcours du labyrinthe en enregistrant une
+  carte de celui-ci.
 
-  Le problème du positionnement du robot est aussi très délicat : En se basant
+  Le problème du positionnement du robot est aussi très délicat: en se basant
   uniquement sur les ordres qu'on envoie aux moteurs et sur la position initiale,
   on ne peut pas connaître avec précision notre position, car les roues dérapent
   souvent sur le sol, et plus on se déplace plus les imprécisions vont s'accumuler,
   ce qui donne une mesure de plus en plus erronée.
+  souvent sur le sol, et plus on se déplace plus les imprécisions vont
+  s'accumuler, ce qui donne une mesure de plus en plus erronée.
 
 \section{Annexes}
 \lstlistoflistings
