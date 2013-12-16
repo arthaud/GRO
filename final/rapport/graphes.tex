@@ -131,7 +131,7 @@ correspondante contient un $1$.
   \subsubsection{Méthode de résolution}
     Afin de trouver une chaine ou un cycle eulérien dans un graphe, on peut
     utiliser deux méthodes: une méthode qui teste toutes les possibilités, et
-    une autre plus intelligente et moins coûteuse.
+    une autre plus intelligente et moins couteuse.
 
     \paragraph{Matrices latines}
       La première méthode (voir algorithme~\ref{alg:meth_mat_lat}) est inspirée
@@ -350,108 +350,122 @@ correspondante contient un $1$.
 \subsection{Problème du postier chinois}
   \subsubsection{Analyse mathématique}
     Le problème du postier chinois consiste à trouver la chaîne la plus courte
-    dans un graphe connexe non orienté passant au moins une fois par chaque
+    dans un graphe connexe non-orienté passant au moins une fois par chaque
     arête, et revenant à son point de départ.
 
     Ce problème est donc celui du facteur qui souhaite réaliser une tournée
     la plus rapidement possible en passant par toutes les rues et retournant
     à la poste.
 
-    Ce problème peut être réduit à la recherche d'un couplage parfait de coût
+    Ce problème peut être réduit à la recherche d'un couplage parfait de cout
     minimum, que peut être résolu en temps polynomial dans le cas général.
 
-    \paragraph{Couplage} Un couplage d'un graphe est un ensemble d'arêtes de
-    ce graphe qui n'ont pas de sommets en commun.
-
-    \paragraph{Couplage Parfait} Un couplage parfait est un couplage tel que
-    tout sommet du graphe est présent une fois et une seule dans le couplage.
-
-    \paragraph{Clique} Une clique est un ensemble de sommets deux à deux
-    adjacents.
+    \begin{description}
+      \item[Couplage] Un couplage d'un graphe est un ensemble d'arêtes de ce
+        graphe qui n'ont pas de sommets en commun.
+      \item[Couplage Parfait] Un couplage parfait est un couplage tel que tout
+        sommet du graphe est présent une fois et une seule dans le couplage.
+      \item[Clique] Une clique est un ensemble de sommets deux à deux
+        adjacents.
+    \end{description}
 
   \subsubsection{Méthode de résolution}
     On remarque que dans le cas d'un graphe eulérien, il suffit d'appliquer
-    l'algorithme d'Euler pour avoir la chaîne voulue.
+    l'algorithme d'Euler (voir algorithmes~\ref{alg:euler}
+    et~\ref{alg:couplage} pour avoir la chaîne voulue.
 
     Dans les autres cas, la méthode de résolution consiste à transformer le
     graphe en graphe eulérien, en ajoutant des arêtes. Une méthode possible
-    est la suivante~:
-
+    est la suivante:
     \begin{enumerate}
-      \item On crée d'abord le graphe partiel contenant uniquement les sommets
+      \item on crée d'abord le graphe partiel contenant uniquement les sommets
         de degré impair;
-      \item On transforme ensuite ce graphe en clique: pour chaque couple de
+      \item on transforme ensuite ce graphe en clique: pour chaque couple de
         sommets non reliés entre eux, on crée une arête les rejoignant,
-        de poids égal au coût le plus faible possible pour rejoindre ces
+        de poids égal au cout le plus faible possible pour rejoindre ces
         sommets dans le graphe initial (ceci se calcule facilement avec
         l'algorithme de Dijkstra);
-      \item On cherche le couplage parfait de coût minimum en utilisant des
+      \item on cherche le couplage parfait de cout minimum en utilisant des
         algorithmes comme celui d'Edmonds. On peut aussi tester simplement
         toutes les possibilités;
-      \item Pour chaque arête de cet ensemble, on double la chaîne la plus
+      \item pour chaque arête de cet ensemble, on double la chaîne la plus
         courte reliant les sommets reliés par cette arête dans le graphe initial;
-      \item On obtient alors un graphe Eulérien, sur lequel on applique
+      \item on obtient alors un graphe eulérien, sur lequel on applique
         l'algorithme d'Euler.
     \end{enumerate}
 
-    \subsubsection{Algorithme du postier chinois}
-      % TODO : Passer à \begin{algorithm}
-      \begin{lstlisting}
-Entrée: g (Graphe)
-Précondition: g non orienté et connexe
-Sortie: le cycle le plus court permettant de visiter toutes les arêtes de g
+    \begin{algorithm}
+      \KwIn{Un graphe non-orienté et connexe g}
+      \KwOut{le cycle le plus court permettant de visiter toutes les arêtes de
+      g}
 
-# Création du graphe partiel
-graphe_partiel = graphe vide
+      \Begin{%
+        \tcc{Création du graphe partiel}
+        \For{chaque sommet de g}{%
+          \If{le sommet est de degré impair}{%
+            créer le sommet dans graphe\_partiel\;
+          }
+        }
+        \For{chaque arête de g}{%
+          \If{ses 2 sommets sont dans graphe\_partiel}{%
+            créer la même arête dans graphe\_partiel\;
+          }
+        }
 
-pour chaque sommet de g:
-    si le sommet est de degré impair:
-        créer le sommet dans graphe_partiel
+        \tcc{Transformation en clique}
+        \For{chaque couple de sommet (s1, s2) dans graphe\_partiel}{%
+          \If{il n'y a pas d'arête reliant s1 et s2}{%
+            $(cout, chaine) = dijkstra(s1, s2)$\;
+            créer l'arête reliant s1 et s2 dans graphe\_partiel, de cout cout\;
+          }
+        }
 
-pour chaque arête de g:
-    si ses 2 sommets sont dans graphe_partiel:
-        créer la même arête dans graphe_partiel
+        $couplage, cout = aux(ensemble vide, ensemble vide, 0)$\;
 
-# Transformation en clique
-pour chaque couple de sommet (s1, s2) dans graphe_partiel:
-    s'il n'y a pas d'arête reliant s1 et s2:
-        (cout, chaine) = dijkstra(s1, s2)
-        créer l'arête reliant s1 et s2 dans graphe_partiel, de coût cout
+        \For{chaque arête dans couplage}{%
+          $(s1, s2) =$ sommets reliés par arête dans g\;
+          $(cout, chaine) = dijkstra(s1, s2)$\;
+          \For{chaque arête dans chaine}{%
+            doubler cette arête dans g\;
+          }
+        }
 
-# Recherche du couplage parfait de coût minimum : méthode bruteforce
-fonction aux(arêtes, sommets_visites, cout):
-    si sommets_visites contient tous les sommets de graphe_partiel:
-        retourner (arêtes, cout)
-    sinon:
-        meilleur_couplage = Vide
-        meilleur_cout = 0
+        \Return{le cycle eulérien de g}
+      }
+      \label{alg:euler}
+      \caption{TODO: trouver un titre}
+    \end{algorithm}
 
-        pour chaque arête de graphe_partiel:
-            si les 2 sommets de l'arête ne sont pas dans sommets_visites:
-                arêtes_copie = copie de arêtes
-                sommets_visites_copie = copie de sommets_visites
+    \begin{algorithm}
+      \KwIn{arêtes, sommets\_visités, cout}
+      \Begin{%
+        \If{sommets\_visites contient tous les sommets de graphe\_partiel}{%
+          \Return{(arêtes, cout)}
+        }
+        \Else{%
+          $meilleur\_couplage = Vide$\;
+          $meilleur\_cout = 0$\;
+          \For{chaque arête de graphe\_partiel}{%
+            \If{les 2 sommets de l'arête ne sont pas dans sommets\_visites}{%
+              arêtes\_copie = copie de arêtes\;
+              sommets\_visites\_copie = copie de sommets\_visites\;
 
-                ajouter arête dans arêtes_copie
-                ajouter les 2 sommets de arête dans sommets_visites_copie
-                couplage, cout = aux(arêtes_copie, sommets_visites_copie, cout + cout de arête)
+              ajouter arête dans arêtes\_copie\;
+              couplage, cout = aux(arêtes\_copie, sommets\_visites\_copie, cout +
+              cout de arête)\;
 
-                si meilleur_couplage = Vide ou meilleur_cout > cout:
-                    meilleur_couplage = couplage
-                    meilleur_cout = cout
-
-        retourner (meilleur_couplage, meilleur_cout)
-
-couplage, cout = aux(ensemble vide, ensemble vide, 0)
-
-# On double les arêtes dans couplage
-pour chaque arête dans couplage:
-    (s1, s2) = sommets reliés par arête dans g
-    (cout, chaine) = dijkstra(s1, s2)
-    pour chaque arête dans chaine:
-        doubler arête dans g
-
-retourner le cycle eulérien de g
-      \end{lstlisting}
+              \If{meilleur\_couplage = Vide ou meilleur\_cout > cout}{%
+                meilleur\_couplage = couplage\;
+                meilleur\_cout = cout\;
+              }
+            }
+          }
+          \Return{(meilleur\_couplage, meilleur\_cout)}
+        }
+      }
+      \label{alg:couplage}
+      \caption{Recherche du couplage parfait de cout minimum par bruteforce}
+    \end{algorithm}
 
 \subsection{Problème du voyageur de commerce}\label{sec:tsp}
   \subsubsection{Analyse mathématique}
@@ -463,8 +477,8 @@ retourner le cycle eulérien de g
     trouver l'itinéraire le plus rapide pour visiter un certain nombre de lieux.
 
     On peut modéliser ce problème par un graphe complet, dont les arêtes ont un
-    coût qui correspond à la distance entre chaque sommet, on cherche alors le
-    cycle hamiltonien de coût minimal. On sait qu'un tel cycle existe car le
+    cout qui correspond à la distance entre chaque sommet, on cherche alors le
+    cycle hamiltonien de cout minimal. On sait qu'un tel cycle existe car le
     graphe est complet.
 
     Cependant trouver un tel cycle est un problème NP-complet~: il n'existe
@@ -501,25 +515,33 @@ retourner le cycle eulérien de g
     Une méthode purement basée sur cette heuristique consisterait donc à parcourir
     tout le graphe, en allant sur le voisin le plus proche du sommet courant~:
 
-    \begin{lstlisting}
-Entrée : g (Graphe complet)
-Sortie : (coût, cycle) où cycle est un cycle hamiltonien construit selon la méthode du plus proche voisin et coût son coût associé sous forme de liste de sommets
-coût = 0
-cycle = ["un sommet de g au hasard"]
+    \begin{algorithm}
+      \KwIn{un graphe complet g}
+      \KwOut{(cout, cycle) où cycle est un cycle hamiltonien construit selon la
+      méthode du plus proche voisin et cout son cout associé sous forme de
+      liste de sommets}
+      \Begin{%
+        cout = 0\;
+        cycle = une liste composée d'un sommet de g au hasard\;
 
-tant qu'il reste des sommets:
-    # On ajoute au cycle le sommet suivant
-    plus_proche = "sommet de g sur lequel on est pas encore passé le plus proche du dernier sommet du cycle"
+        \While{il reste des sommets}{%
+          \tcc{On ajoute au cycle le sommet suivant}
+          plus\_proche = sommet de g sur lequel on est pas encore passé le
+          plus proche du dernier sommet du cycle\;
 
-    coût += "coût de plus_proche au dernier sommet du cycle"
-    cycle = cycle :: plus_proche
+          cout += cout de plus\_proche au dernier sommet du cycle construit\;
+          ajouter plus\_proche au cycle\;
+        }
 
-# On ferme le cycle
-coût += "coût du dernier au premier sommet de cycle"
-cycle = cycle :: "premier sommet de chaine"
+        \tcc{On ferme le cycle}
+        cout += cout du dernier au premier sommet de cycle\;
+        ajouter le premier sommet de la chaine à cycle\;
 
-retourner (coût, cycle)
-    \end{lstlisting}
+        \Return{(cout, cycle)}
+      }
+      \label{alg:voisin}
+      \caption{Plus proche voisin}
+    \end{algorithm}
 
   \subsubsection{Recherche locale}
     Les heuristiques nous donnant des solutions acceptables, choisies avec un
@@ -548,28 +570,28 @@ retourner (coût, cycle)
     \end{center}
 
     \begin{algorithm}
-      \KwIn{un cycle hamiltonien (liste de sommets) et son coût}
-      \KwOut{un cycle hamiltonien et son coût inférieur ou égal au coup
+      \KwIn{un cycle hamiltonien (liste de sommets) et son cout}
+      \KwOut{un cycle hamiltonien et son cout inférieur ou égal au coup
       d'entrée}
 
       \Begin{%
         \For{chaque couple de sommets (a, b) dans le cycle}{%
            $\begin{aligned}
-             \text{nouveau\_coût} & \leftarrow
-            \text{coût}\\
-            &- \text{coût de a à son successeur dans le cycle}\\
-            &- \text{coût de b à son successeur dans le cycle}\\
-            &+ \text{coût de a à b}\\
-            &+ \text{coût du successeur de a au successeur de b dans le
+             \text{nouveau\_cout} & \leftarrow
+            \text{cout}\\
+            &- \text{cout de a à son successeur dans le cycle}\\
+            &- \text{cout de b à son successeur dans le cycle}\\
+            &+ \text{cout de a à b}\\
+            &+ \text{cout du successeur de a au successeur de b dans le
             cycle}\\
           \end{aligned}$\;
 
-          \If{nouveau\_coût < coût}{%
-            coût = nouveau\_coût
+          \If{nouveau\_cout < cout}{%
+            cout = nouveau\_cout
             cycle = cycle crée en échangeant a et b dans cycle\;
           }
         }
-        \Return{(coût, cycle)}
+        \Return{(cout, cycle)}
       }
       \caption{2-opt}
       \label{alg:2opt}
