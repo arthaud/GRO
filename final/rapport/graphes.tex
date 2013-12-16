@@ -1,11 +1,12 @@
 % Si vous vous demandez à quoi servent les empty \mbox après les paragraphes,
 % vous êtes des boulays, apprenez latex.
 \subsection{Définitions}
-  \paragraph{Graphe} Un graphe est constitué d'un ensemble de points, et d'un ensemble
-  d'arêtes (ou d'arcs, dans le cas orienté) qui relient ces points.
+  \paragraph{Graphe} Un graphe est constitué d'un ensemble de sommet, et d'un
+  ensemble d'arêtes (ou d'arcs, dans le cas orienté) qui relient ces sommets.
 
   \paragraph{Graphe connexe} Un graphe est dit connexe quand on peut aller de
-  n'importe quel point vers n'importe quel autre point en suivant des arrêtes.
+  n'importe quel sommet vers n'importe quel autre sommet en suivant des
+  arrêtes.
 
   \paragraph{Graphe complet} Un graphe est dit complet quand tout
   ses sommets sont reliés deux à deux par une arrête. Le nombre de d'arêtes
@@ -41,72 +42,72 @@ correspondante contient un $1$.
 \subsection{Graphes eulériens}
   \subsubsection{Analyse mathématique}
     Un graphe eulérien est un graphe contenant un cycle eulérien, c'est-à-dire
-    une chaîne parcourant toutes les arêtes du graphe une et une seule fois, en
+    une chaine parcourant toutes les arêtes du graphe une et une seule fois, en
     revenant au sommet de départ.
 
     \paragraph{Théorème d'Euler} Un graphe connexe est eulérien si et seulement
     si chacun de ses sommets est de degré pair.
 
     \paragraph{}
-    Un graphe semi-eulérien, quant à lui, contient une chaîne eulérienne:
+    Un graphe semi-eulérien, quant à lui, contient une chaine eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
-    unique fois, mais ne retourne pas au point de départ. Le théorème précédent
+    unique fois, mais ne retourne pas au sommet de départ. Le théorème précédent
     se généralise alors aux graphes semi-eulériens: un graphe connexe est
     semi-eulérien si et seulement tous ses sommets sauf deux sont associés à un
-    nombre pair d'arêtes. Dans ce cas, la chaîne eulérienne aura pour départ
-    l'un des deux sommets associés à un nombre impair d'arêtes et pour point
+    nombre pair d'arêtes. Dans ce cas, la chaine eulérienne aura pour départ
+    l'un des deux sommets associés à un nombre impair d'arêtes et pour sommet
     d'arrivée le deuxième.
 
   \subsubsection{Méthode de résolution}
-    Afin de trouver une chaîne ou un cycle eulérien dans un graphe, on peut
+    Afin de trouver une chaine ou un cycle eulérien dans un graphe, on peut
     utiliser deux méthodes: une méthode qui teste toutes les possibilités, et
     une autre plus intelligente et moins coûteuse.
 
     \paragraph{Matrices latines}
       La première méthode (voir algorithme~\ref{alg:meth_mat_lat}) est inspirée
       des matrices latines. Chaque coefficient de la matrice sera un ensemble
-      de chaînes, une chaîne étant elle-même une liste de sommets. La matrice
+      de chaines, une chaine étant elle-même une liste de sommets. La matrice
       latine de notre graphe sera la matrice $M$ dont chaque coefficient
       $m_{i,j}$ vaudra:
       \begin{itemize}
         \item l'ensemble vide si le nœud $i$ n'est pas relié au nœud $j$ dans
           le graphe;
-        \item un ensemble contenant pour unique élément la chaîne  $[N_i,N_j]$
+        \item un ensemble contenant pour unique élément la chaine  $[N_i,N_j]$
           si les nœuds $i$ et $j$ sont reliés (où $N_k$ représente le nœud
           $k$).
       \end{itemize}
 
       Nous définissions ensuite un produit sur les coefficients d'une telle
       matrice (voir algorithmes~\ref{alg:prod_mat} et~\ref{alg:prod_chaine}). Le
-      produit de deux chaînes sera:
+      produit de deux chaines sera:
       \begin{itemize}
-        \item nul si le dernier nœud de la première chaîne n'est pas le premier
+        \item nul si le dernier nœud de la première chaine n'est pas le premier
           nœud du deuxième;
-        \item la concaténation des deux chaînes sinon.
+        \item la concaténation des deux chaines sinon.
       \end{itemize}
 
-      Le produit de deux ensembles de chaînes sera l'ensemble contenant les
+      Le produit de deux ensembles de chaines sera l'ensemble contenant les
       produits de chaque couple de nœuds.
 
       Pour tout $k$ entier naturel, le coefficient $(i,j)$ de la matrice $M^k$
-      représentera l'ensemble des chaînes de longueur $k$ reliant les nœuds $i$
+      représentera l'ensemble des chaines de longueur $k$ reliant les nœuds $i$
       et $j$.
 
-      Puisque une chaîne eulérienne passe une unique fois par chaque arête, il
+      Puisque une chaine eulérienne passe une unique fois par chaque arête, il
       suffira de calculer la matrice latine élevée à cette puissance pour
       trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
-      chaque produit les chaînes qui passent plusieurs fois par la même arête,
+      chaque produit les chaines qui passent plusieurs fois par la même arête,
       on trouve l'ensemble des cycles eulériens.
 
       La complexité de cet algorithme est exponentielle, calculer la puissance
-      de la matrice latine revient en fait à calculer chaque chaîne possible dans
+      de la matrice latine revient en fait à calculer chaque chaine possible dans
       le graphe, et tester si elle est un cycle eulérien ou non.
 
     \paragraph{Algorithme d'Euler}
       La deuxième méthode, basée sur l'algorithme d'Euler est nettement plus
       efficace. Une fonction récursive cherche un cycle eulérien d'un
       sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
-      chacun des sommets parcourus par cette chaîne, dans le graphe où l'on a
+      chacun des sommets parcourus par cette chaine, dans le graphe où l'on a
       supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
       astucieusement, on parvient à trouver un cycle eulérien de complexité
       linéaire en le nombre d'arêtes du graphe.
@@ -149,8 +150,8 @@ correspondante contient un $1$.
 
         \For{chaque coefficient de la matrice de retour}{%
           \For{$k$ allant de $1$ jusqu'à $n$}{%
-            calculer les chaînes produits entre a(i,k) et b(k,j)\;
-            ajouter au coefficient de la matrice ces chaînes\;
+            calculer les chaines produits entre a(i,k) et b(k,j)\;
+            ajouter au coefficient de la matrice ces chaines\;
           }
         }
       }
@@ -159,32 +160,32 @@ correspondante contient un $1$.
     \end{algorithm}
 
     \begin{algorithm}
-      \KwIn{liste\_1 et liste\_2 deux listes de chaîne}
-      \KwOut{une liste de chaînes}
+      \KwIn{liste\_1 et liste\_2 deux listes de chaine}
+      \KwOut{une liste de chaines}
       \Begin{%
-        créer une liste de chaîne vide (liste de retour)\;
+        créer une liste de chaine vide (liste de retour)\;
         \For{$i$ dans liste\_1}{%
           \For{$j$ dans liste\_2}{%
-            construire la chaîne résultante de la concaténation de $i$ et $j$
+            construire la chaine résultante de la concaténation de $i$ et $j$
             (en enlevant le nœud présent deux fois)\;
-            construire un ensemble de chaîne vide\;
-            \For{$k$ allant de $1$ à la longueur de la chaîne construit}{%
-              construire la chaîne élémentaire menant du nœud $k$ au nœud $k+1$\;
-              \If{cette chaîne n'est pas dans l'ensemble}{%
-                ajouter cette chaîne dans l'ensemble\;
+            construire un ensemble de chaine vide\;
+            \For{$k$ allant de $1$ à la longueur de la chaine construit}{%
+              construire la chaine élémentaire menant du nœud $k$ au nœud $k+1$\;
+              \If{cette chaine n'est pas dans l'ensemble}{%
+                ajouter cette chaine dans l'ensemble\;
               }
               \Else{%
-                rendre la chaîne nulle\;
+                rendre la chaine nulle\;
                 sortir de la boucle\;
               }
             }
           }
-          \Si{le chaîne n'est pas nulle}{%
-            concaténer la chaîne trouvée à la liste de retour
+          \Si{le chaine n'est pas nulle}{%
+            concaténer la chaine trouvée à la liste de retour
           }
         }
       }
-      \caption{Produit entre listes de chaînes (coefficients de matrices
+      \caption{Produit entre listes de chaines (coefficients de matrices
       latines)}
       \label{alg:prod_chaine}
     \end{algorithm}
@@ -192,12 +193,12 @@ correspondante contient un $1$.
 \subsection{Graphes hamiltoniens}
   \subsubsection{Analyse mathématique}
     Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
-    trouver un cycle (ou une chaîne) passant par tout les sommets une et une
+    trouver un cycle (ou une chaine) passant par tout les sommets une et une
     seule fois. Ce problème est donc celui d'un enfant qui souhaiterait visiter
     de manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
-    de même que de trouver un cycle ou une chaîne s'il y en a.
+    de même que de trouver un cycle ou une chaine s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien.
@@ -234,22 +235,22 @@ correspondante contient un $1$.
   \subsubsection{Méthode de résolution}
     Pour tester si un graphe est hamiltonien on peut utiliser les théorèmes
     précédents. Si le graphe ne respecte les conditions d'aucun de ces
-    théorèmes, on recherche une chaîne hamiltonienne dans ce graphe.
+    théorèmes, on recherche une chaine hamiltonienne dans ce graphe.
 
-    Pour rechercher une chaîne hamiltonienne dans un graphe, on pourrait
-    chercher parmi toutes les chaînes possibles. La complexité d'un tel
+    Pour rechercher une chaine hamiltonienne dans un graphe, on pourrait
+    chercher parmi toutes les chaines possibles. La complexité d'un tel
     algorithme (voir algoritme~\ref{alg:hamil}) dans le pire des cas est donc
     très mauvaise: $O(n!)$. Comme on peut s'arrêter dès qu'on a trouvé une
-    chaîne sans devoir tester toutes les autres chaînes possibles, la
+    chaine sans devoir tester toutes les autres chaines possibles, la
     complexité moyenne sera inférieure.
 
     \begin{algorithm}
       \KwIn{un graphe graph}
-      \KwIn{un point de départ optionnel node\_from}
+      \KwIn{un sommet de départ optionnel node\_from}
       \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
       nodes\_done}
-      \KwOut{une chaîne hamiltonienne sous la forme d'une liste ordonnée de
-      points, ou None s'il n'en existe pas}
+      \KwOut{une chaine hamiltonienne sous la forme d'une liste ordonnée de
+      sommets, ou None s'il n'en existe pas}
 
       \Begin{%
         \If{node\_from n'a pas été fourni}{%
@@ -262,10 +263,10 @@ correspondante contient un $1$.
         }
 
         \For{chaque arête dans le graphe}{%
-          autre $\leftarrow$ le point opposé à node\_from par rapport à cette
+          autre $\leftarrow$ le sommet opposé à node\_from par rapport à cette
           arête\;
           \If{autre dans nodes\_done}{%
-            passer à la prochaîne arête
+            passer à la prochaine arête
           }
           appeler la fonction récursivement avec graphe, node\_from et
           nodes\_dones comme paramètre\;
@@ -274,7 +275,7 @@ correspondante contient un $1$.
           }
         }
       }
-      \caption{Recherche de chaîne hamiltonienne}
+      \caption{Recherche de chaine hamiltonienne}
       \label{alg:hamil}
     \end{algorithm}
 
@@ -288,15 +289,15 @@ correspondante contient un $1$.
     trouver l'itinéraire le plus rapide pour visiter un certain nombre de lieux.
 
     On peut modéliser ce problème par un graphe complet, dont les arêtes ont un
-    coût qui correspond à la distance entre chaque point, on cherche alors le
+    coût qui correspond à la distance entre chaque sommet, on cherche alors le
     cycle hamiltonien de coût minimal. On sait qu'un tel cycle existe car le
     graphe est complet.
 
     Cependant trouver un tel cycle est un problème NP-complet~: il n'existe
     donc pas d'algorithme efficace pour trouver ce cycle, à part une recherche
     exhaustive.
-    En effet, la seule méthode exacte consisterait à tester toutes les chaînes
-    hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaînes
+    En effet, la seule méthode exacte consisterait à tester toutes les chaines
+    hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaines
     hamiltonniennes croît exponentiellement en fonction du nombre de sommets
     dans le graphe.
 
@@ -328,20 +329,20 @@ correspondante contient un $1$.
 
     \begin{lstlisting}
 Entrée : g (Graphe complet)
-Sortie : (coût, cycle) où cycle est un cycle hamiltonien construit selon la méthode du plus proche voisin et coût son coût associé sous forme de liste de points
+Sortie : (coût, cycle) où cycle est un cycle hamiltonien construit selon la méthode du plus proche voisin et coût son coût associé sous forme de liste de sommets
 coût = 0
-cycle = ["un point de g au hasard"]
+cycle = ["un sommet de g au hasard"]
 
-tant qu'il reste des points:
-    # On ajoute au cycle le point suivant
-    plus_proche = "point de g sur lequel on est pas encore passé le plus proche du dernier point du cycle"
+tant qu'il reste des sommets:
+    # On ajoute au cycle le sommet suivant
+    plus_proche = "sommet de g sur lequel on est pas encore passé le plus proche du dernier sommet du cycle"
 
-    coût += "coût de plus_proche au dernier point du cycle"
+    coût += "coût de plus_proche au dernier sommet du cycle"
     cycle = cycle :: plus_proche
 
 # On ferme le cycle
-coût += "coût du dernier au premier point de cycle"
-cycle = cycle :: "premier point de chaîne"
+coût += "coût du dernier au premier sommet de cycle"
+cycle = cycle :: "premier sommet de chaine"
 
 retourner (coût, cycle)
     \end{lstlisting}
@@ -378,7 +379,7 @@ retourner (coût, cycle)
       d'entrée}
 
       \Begin{%
-        \For{chaque couple de points (a, b) dans le cycle}{%
+        \For{chaque couple de sommets (a, b) dans le cycle}{%
            $\begin{aligned}
              \text{nouveau\_coût} & \leftarrow
             \text{coût}\\
