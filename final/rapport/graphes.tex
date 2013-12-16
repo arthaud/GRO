@@ -279,6 +279,112 @@ correspondante contient un $1$.
       \label{alg:hamil}
     \end{algorithm}
 
+\subsection{Problème du postier chinois}
+  \subsubsection{Analyse mathématique}
+    Le problème du postier chinois consiste à trouver la chaîne la plus courte
+    dans un graphe connexe non orienté passant au moins une fois par chaque
+    arête, et revenant à son point de départ.
+
+    Ce problème est donc celui du facteur qui souhaite réaliser une tournée
+    la plus rapidement possible en passant par toutes les rues et retournant
+    à la poste.
+
+    Ce problème peut être réduit à la recherche d'un couplage parfait de coût
+    minimum, que peut être résolu en temps polynomial dans le cas général.
+
+    \paragraph{Couplage} Un couplage d'un graphe est un ensemble d'arêtes de
+    ce graphe qui n'ont pas de sommets en commun.
+
+    \paragraph{Couplage Parfait} Un couplage parfait est un couplage tel que
+    tout sommet du graphe est présent une fois et une seule dans le couplage.
+
+    \paragraph{Clique} Une clique est un ensemble de sommets deux à deux
+    adjacents.
+
+  \subsubsection{Méthode de résolution}
+    On remarque que dans le cas d'un graphe eulérien, il suffit d'appliquer
+    l'algorithme d'Euler pour avoir la chaîne voulue.
+
+    Dans les autres cas, la méthode de résolution consiste à transformer le
+    graphe en graphe eulérien, en ajoutant des arêtes. Une méthode possible
+    est la suivante~:
+
+    \begin{enumerate}
+      \item On crée d'abord le graphe partiel contenant uniquement les sommets
+        de degré impair;
+      \item On transforme ensuite ce graphe en clique: pour chaque couple de
+        sommets non reliés entre eux, on crée une arête les rejoignant,
+        de poids égal au coût le plus faible possible pour rejoindre ces
+        sommets dans le graphe initial (ceci se calcule facilement avec
+        l'algorithme de Dijkstra);
+      \item On cherche le couplage parfait de coût minimum en utilisant des
+        algorithmes comme celui d'Edmonds. On peut aussi tester simplement
+        toutes les possibilités;
+      \item Pour chaque arête de cet ensemble, on double la chaîne la plus
+        courte reliant les sommets reliés par cette arête dans le graphe initial;
+      \item On obtient alors un graphe Eulérien, sur lequel on applique
+        l'algorithme d'Euler.
+    \end{enumerate}
+
+    \subsubsection{Algorithme du postier chinois}
+      % TODO : Passer à \begin{algorithm}
+      \begin{lstlisting}
+Entrée: g (Graphe)
+Précondition: g non orienté et connexe
+Sortie: le cycle le plus court permettant de visiter toutes les arêtes de g
+
+# Création du graphe partiel
+graphe_partiel = graphe vide
+
+pour chaque sommet de g:
+    si le sommet est de degré impair:
+        créer le sommet dans graphe_partiel
+
+pour chaque arête de g:
+    si ses 2 sommets sont dans graphe_partiel:
+        créer la même arête dans graphe_partiel
+
+# Transformation en clique
+pour chaque couple de sommet (s1, s2) dans graphe_partiel:
+    s'il n'y a pas d'arête reliant s1 et s2:
+        (cout, chaine) = dijkstra(s1, s2)
+        créer l'arête reliant s1 et s2 dans graphe_partiel, de coût cout
+
+# Recherche du couplage parfait de coût minimum : méthode bruteforce
+fonction aux(arêtes, sommets_visites, cout):
+    si sommets_visites contient tous les sommets de graphe_partiel:
+        retourner (arêtes, cout)
+    sinon:
+        meilleur_couplage = Vide
+        meilleur_cout = 0
+
+        pour chaque arête de graphe_partiel:
+            si les 2 sommets de l'arête ne sont pas dans sommets_visites:
+                arêtes_copie = copie de arêtes
+                sommets_visites_copie = copie de sommets_visites
+
+                ajouter arête dans arêtes_copie
+                ajouter les 2 sommets de arête dans sommets_visites_copie
+                couplage, cout = aux(arêtes_copie, sommets_visites_copie, cout + cout de arête)
+
+                si meilleur_couplage = Vide ou meilleur_cout > cout:
+                    meilleur_couplage = couplage
+                    meilleur_cout = cout
+
+        retourner (meilleur_couplage, meilleur_cout)
+
+couplage, cout = aux(ensemble vide, ensemble vide, 0)
+
+# On double les arêtes dans couplage
+pour chaque arête dans couplage:
+    (s1, s2) = sommets reliés par arête dans g
+    (cout, chaine) = dijkstra(s1, s2)
+    pour chaque arête dans chaine:
+        doubler arête dans g
+
+retourner le cycle eulérien de g
+      \end{lstlisting}
+
 \subsection{Problème du voyageur de commerce}\label{sec:tsp}
   \subsubsection{Analyse mathématique}
     Le problème du voyageur de commerce consiste à chercher un chemin passant
