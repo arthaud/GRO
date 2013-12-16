@@ -2,6 +2,33 @@
 \usepackage[utf8]{inputenc}
 \usepackage[frenchb]{babel}
 \usepackage{hyperref}
+\usepackage{listings}
+
+\usepackage{color}
+\definecolor{blue}{rgb}{0,0,0.4}
+\definecolor{red}{rgb}{0.6,0,0}
+\definecolor{green}{rgb}{0,0.5,0}
+\definecolor{yellow}{rgb}{0.69,0.69,0}
+
+\lstset{frame=single, breaklines=true,
+          breakatwhitespace=true, basicstyle=\scriptsize,
+          showstringspaces=false, escapeinside={(*}{*)},
+          keywordstyle=\color{yellow},
+          stringstyle=\color{red},
+          commentstyle=\color{green},
+          identifierstyle=\color{blue},
+          literate=
+                   {é}{{\'e}}1{É}{{\'E}}1
+                   {è}{{\`e}}1{È}{{\`E}}1
+                   {ê}{{\^e}}1{Ê}{{\^E}}1
+                   {à}{{\`a}}1{À}{{\`A}}1
+                   {ù}{{\`u}}1{Ù}{{\`U}}1
+                   {û}{{\^u}}1{Û}{{\^U}}1
+                   {ô}{{\^o}}1{Ô}{{\^O}}1
+                   {ó}{{\'o}}1{Ó}{{\'O}}1
+                   {ç}{{\c c}}1{Ç}{{\c C}}1
+                   {œ}{{\oe}}1{Œ}{{\OE}}1
+        }
 
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
   \and Martin Carton \and Thomas Forgione \and Thomas Wagner}
@@ -95,28 +122,44 @@ Ainsi, nous pouvons suivre un mur droit de manière assez régulière.
 
 \subsection{Lissage du mouvement du robot}
 
-Afin d'éviter d'avoir un mouvement erratique lorsqu'on n'est pas
-exactement parallèle à la paroi que l'on doit longer (mouvements de
-``rebondissement'' sur le mur, par exemple), nous avons décidé
-d'améliorer notre algorithme via une astuce très simple: le changement de
-direction dépend de la distance du mur. Ainsi, si nous nous éloignons
-légèrement du mur (à cause d'une trajectoire non parallèle au mur, par
-exemple), alors nous tournerons très légèrement à gauche, sans
-ralentir. Ainsi, nous nous retrouverons presque parallèle au mur.
+Pour avoir un déplacement plus fluide de notre robot, avec moins
+d'à-coups, nous avons utilisé la technique de \emph{régulateur PID},
+avec seulement l'action proportionnelle (P).
 
-Dans le cas d'un virage à gauche du mur, le capteur détecte un mur à
-l'infini; dans ce cas là, nous tournons autant que possible, jusqu'à
-retrouver un mur. Dès que le capteur détecte un mur, on repasse dans
-le cas précédent; par conséquent, notre robot ne se retrouve quasiment
-jamais face au mur qu'il devait longer. De plus, ceci présente
-l'avantage que notre robot est désormais capable de faire demi-tour
-autour d'un mur qui s'arrête d'un coup, sans virages (comme dans le
-cas des planches fournies par notre professeur pour tester le robot).
+Le PID est une technique de correction d'erreur utilisé couramment en
+robotique. Il s'agit d'un algorithme calculant le signal à émettre
+en fonction des mesures. Connaissant la mesure et la valeur voulue,
+on en déduit l'erreur. La correction de cette erreur se fait par 3
+actions :
 
-Dans le cas d'un virage à droite du mur, notre algorithme ne change
-pas.
+\begin{itemize}
+    \item une action proportionnelle \textit{P} : on multiplie l'erreur par une constante
+    \item une action intégrale \textit{I} : on intègre l'erreur, et on la divise par une constante
+    \item une action \textit{D} : on dérive l'erreur, et on la multiplie par une constante
+\end{itemize}
 
-Ainsi, nous avons un robot capable de longer les murs de manière très
-fiable, peu importe l'angle des murs.
+Finalement, on somme les 3 actions pour obtenir la variation à appliquer à notre
+commande.
+
+Concrètement, dans notre cas, il nous à suffit de faire la différence entre
+la distance mesurée par le capteur de gauche et la distance voulue, puis
+de multiplier ceci par une constante. On ajoute cette valeur à la puissance initiale
+des moteurs pour avoir un déplacement proportionnelle à la distance au mur.
+Avec cette méthode, nous avons un robot se déplaçant de manière très fluide.
+
+Pour de vrai robot, les constantes multiplicatives dans le PID demandent des réglages
+fins, car ils influent sur l'efficacité de l'algorithme. Dans notre cas, il nous
+a suffit de tester avec moins d'une dizaine de valeur pour trouver quelque chose
+de satisfaisant.
+
+\subsection{Recherche d'un mur}
+
+Dans le cas où le robot est placé loin d'un mur, il va se mettre à tourner sur lui même.
+Nous avons donc eu l'idée de faire en sorte qu'il fasse plutôt une spirale pour
+rechercher le mur le plus proche.
+
+\section{Annexes}
+\lstlistoflistings
+\lstinputlisting[language=c, caption=Robot suiveur de murs]{suivre_mur.nxc}
 
 \end{document}
