@@ -49,26 +49,26 @@
     nœuds déjà explorés.
 
     \begin{itemize}
-      \item On crée un nœud en lui attribuant un coût heuristique qui
-        correspond au coût du nœud plus une estimation de la distance de ce
+      \item On crée un nœud en lui attribuant un cout heuristique qui
+        correspond au cout du nœud plus une estimation de la distance de ce
         nœud à l'arrivée.
 
-        Remarque: l'utilisation de ce coût heuristique est une différence
+        Remarque: l'utilisation de ce cout heuristique est une différence
         notable avec l'algorithme de Dijkstra, elle permet de s'assurer que
         l'on va toujours plus ou moins dans la bonne direction.
 
         Par exemple dans un graphe en étoile avec des branches de même taille
         et plusieurs nœuds par branches ou l'on part du centre pour rejoindre
         l'extrémité d'une branche l'algorithme de Djkstra explore toutes les
-        branches simultanément alors qu'avec l'utilisation du coût heuristique
+        branches simultanément alors qu'avec l'utilisation du cout heuristique
         on explore directement et uniquement la bonne branche.
       \item On ajoute ce nœud à la liste ouverte.
-      \item On prend le nœud qui a le meilleur coût heuristique dans la liste
+      \item On prend le nœud qui a le meilleur cout heuristique dans la liste
         ouverte et on l'ajoute à la liste fermée.
       \item On crée les nœuds adjacents et pour chacun d'eux:
         \begin{itemize}
-          \item Leur coût est égal à la somme des coûts de leurs prédécesseurs
-            et du coût entre les deux.
+          \item Leur cout est égal à la somme des couts de leurs prédécesseurs
+            et du cout entre les deux.
           \item Si l'un d'eux est présent dans la liste ouverte on vérifie si
             ce nouveau chemin trouvé est plus rapide. Si c'est le cas on
             remplace celui qui est dans la liste ouverte par le nouveau sinon
