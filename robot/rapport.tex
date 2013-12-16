@@ -60,10 +60,10 @@ En effet, dès que nous souhaitions faire autre
 chose que des instructions de base (par exemple, faire tourner le
 moteur à une vitesse dépendant de la valeur d'un capteur), nous
 passions beaucoup trop de temps à essayer de comprendre comment fonctionnait
-l'interface.
+l'interface, et à nous battre avec le programme, qui plantait souvent.
 
 De plus, nous avons rencontré un problème que nous n'avons pas réussi
-à résoudre: notre robot, avançait de manière saccadée. Bien que nous ayons
+à résoudre~: notre robot avançait de manière saccadée. Bien que nous ayons
 quelques hypothèses sur l'origine de ce problème (bug ou documentation non à
 jour), nous n'avons pas réussi à le résoudre avec le logiciel fourni.
 
@@ -81,7 +81,7 @@ Elle nous a également permis de programmer notre robot de manière très
 simple, et de gagner beaucoup de temps par rapport au logiciel de
 programmation graphique.
 
-Elle présente toutefois un inconvénient majeur: elle ne permet pas de télécharger
+Elle présente toutefois un inconvénient majeur~: elle ne permet pas de télécharger
 le programme sur le robot (le python étant interprété sur l'ordinateur);
 par conséquent, le robot devait rester branché à l'ordinateur lors de
 l'exécution du programme, et nous devions le suivre avec l'ordinateur. Ce qui
@@ -98,13 +98,10 @@ télécharger le programme sur le robot, donc nous avons résolu le
 problème posé par la librairie en Python, ainsi que ceux posés par le
 logiciel de programmation graphique.
 
-\section{Suivie de murs}
+\section{Suivi de murs}
 
 Nous avons réalisé un programme qui permet au robot de longer un mur, grâce
 à NXC.
-
-Nous avons fait le choix, par manque de capteurs, de ne longer que les murs à
-gauche du robot.
 
 \subsection{Suivi d'un mur}
 
@@ -112,13 +109,15 @@ Afin de longer un mur, nous avons posé un capteur à ultrasons sur le
 côté gauche de notre robot. Lorsque nous détectons que nous sommes
 trop éloignés du mur, nous tournons légèrement à gauche.
 
-Cette méthode donnant des résultats peu probants si la direction
-initiale du robot n'est pas exactement parallèle au mur, nous avons
+Cette méthode est plutôt efficace, mais pose un problème majeur:
+lorsqu'il y a un angle droit, le robot ne peut pas savoir qu'il y a un mur
+devant droit lui, et le percute.
+Nous avons donc
 décidé d'ajouter un autre capteur à ultrasons à l'avant du robot. Ainsi,
 notre robot ne fonce plus dans les murs, et tourne à droite quand le
 capteur de devant détecte quelque chose.
 
-Ainsi, nous pouvons suivre un mur droit de manière assez régulière.
+Ainsi, nous pouvons suivre un mur de manière efficace.
 
 \subsection{Lissage du mouvement du robot}
 
@@ -127,7 +126,7 @@ d'à-coups, nous avons utilisé la technique de \emph{régulateur PID},
 avec seulement l'action proportionnelle (P).
 
 Le PID est une technique de correction d'erreur utilisé couramment en
-robotique. Il s'agit d'un algorithme calculant le signal à émettre
+robotique. Il s'agit d'un algorithme calculant la correction a effectuer
 en fonction des mesures. Connaissant la mesure et la valeur voulue,
 on en déduit l'erreur. La correction de cette erreur se fait par 3
 actions :
@@ -141,10 +140,10 @@ actions :
 Finalement, on somme les 3 actions pour obtenir la variation à appliquer à notre
 commande.
 
-Concrètement, dans notre cas, il nous à suffit de faire la différence entre
+Concrètement, dans notre cas, il nous a suffit de faire la différence entre
 la distance mesurée par le capteur de gauche et la distance voulue, puis
 de multiplier ceci par une constante. On ajoute cette valeur à la puissance initiale
-des moteurs pour avoir un déplacement proportionnelle à la distance au mur.
+des moteurs pour avoir un déplacement proportionnel à la distance au mur.
 Avec cette méthode, nous avons un robot se déplaçant de manière très fluide.
 
 Pour de vrai robot, les constantes multiplicatives dans le PID demandent des réglages
@@ -166,9 +165,15 @@ rechercher le mur le plus proche.
   Nous avons aussi réfléchi à deux algorithmes plus efficaces: Dijkstra (que
   nous avions déjà implémenté dans l'UA1) et A*.  Nous n'avons pas implémenté
   ces algorithmes sur le robot, cas nous ne savions pas comment avec un robot
-  Lego nous aurions pu réaliser le parcourt du labyrinthe en enregistrant une
+  Lego nous aurions pu réaliser le parcours du labyrinthe en enregistrant une
   carte de celui-ci. Or ces algorithmes nécessitent que le labyrinthe soit
   connu.
+
+  Le problème du positionnement du robot est aussi très délicat : En se basant
+  uniquement sur les ordres qu'on envoie aux moteurs et sur la position initiale,
+  on ne peut pas connaître avec précision notre position, car les roues dérapent
+  souvent sur le sol, et plus on se déplacent plus les imprécisions vont s'accumuler,
+  ce qui donne une mesure de plus en plus erronée.
 
 \section{Annexes}
 \lstlistoflistings
