@@ -1,19 +1,88 @@
 % Si vous vous demandez à quoi servent les empty \mbox après les paragraphes,
 % vous êtes des boulays, apprenez latex.
+\subsection{Introduction}
+  La théorie des graphes est un domaine entre les mathématiques et
+  l'informatique très utilisé dans la résolution de nombreux problèmes.
+  
+  Nous verrons dans cette section quelques applications des graphes. Une
+  dernière application sera vu dans la section~\ref{sec:laby}.
+
 \subsection{Définitions}
-  \paragraph{Graphe} Un graphe est constitué d'un ensemble de sommet, et d'un
-  ensemble d'arêtes (ou d'arcs, dans le cas orienté) qui relient ces sommets.
+  \begin{description}
+    \item[Graphe] Un graphe est constitué d'un ensemble de sommets, et d'un
+      ensemble d'arêtes (c'est-à-dire des couples de sommets) qui relient ces
+      sommets.
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
 
-  \paragraph{Graphe connexe} Un graphe est dit connexe quand on peut aller de
-  n'importe quel sommet vers n'importe quel autre sommet en suivant des
-  arrêtes.
+          \path (2) edge node {} (1);
+          \path (4) edge node {} (2);
+          \path (4) edge node {} (3);
+          \path (1) edge node {} (4);
+          \path (4) edge node {} (5);
+        \end{tikzpicture}
+      \end{center}
+    \item[Graphe connexe] Un graphe est dit connexe quand on peut aller de
+      n'importe quel sommet vers n'importe quel autre sommet en suivant des
+      arrêtes.
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
 
-  \paragraph{Graphe complet} Un graphe est dit complet quand tout
-  ses sommets sont reliés deux à deux par une arrête. Le nombre de d'arêtes
-  d'un tel graphe est alors $\frac {n(n-1)} 2$.
+          \path (2) edge node {} (1);
+          \path (4) edge node {} (2);
+          \path (4) edge node {} (3);
+          \path (1) edge node {} (4);
+          \path (4) edge node {} (5);
+          \path (4) edge node {} (6);
+        \end{tikzpicture}
+      \end{center}
+    \item[Graphe orienté] Un graphe orienté n'est pas constitué d'arêtes mais
+      d'arcs (des paires de sommets).
+      \begin{center}
+        \begin{tikzpicture}[->, >=stealth', shorten >=1pt, node
+          distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
 
-  \paragraph{Degré d'un sommet} Le degré d'un sommet est le nombre d'arêtes
-  incidentes à ce sommet.
+          \draw[arrows={-triangle 90}] (2) --++ (1);
+          \draw[arrows={-triangle 90}] (4) --++ (2);
+          \draw[arrows={-triangle 90}] (4) --++ (3);
+          \draw[arrows={-triangle 90}] (1) --++ (4);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (5);
+        \end{tikzpicture}
+      \end{center}
+    \item[Graphe complet] Un graphe est dit complet quand tout ses sommets sont
+      reliés deux à deux par une arrête. Le nombre de d'arêtes d'un tel graphe
+      est alors $\frac {n(n-1)} 2$.
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \foreach \x in {0, 72, ..., 359}
+            \node[draw, circle] (\x) at (\x:2) {};
+
+          \foreach \x in {0, 72, ..., 359}
+            \foreach \y in {0, 72, ..., 359}
+              \path (\x) edge node {} (\y);
+        \end{tikzpicture}
+      \end{center}
+    \item[Degré d'un sommet] Le degré d'un sommet est le nombre d'arêtes
+      incidentes à ce sommet.
+  \end{description}
 
 \subsection{Modélisation mathématique}
 Il existe plusieurs moyens de représenter des graphes. Parmi ceux-ci,
@@ -45,10 +114,11 @@ correspondante contient un $1$.
     une chaine parcourant toutes les arêtes du graphe une et une seule fois, en
     revenant au sommet de départ.
 
-    \paragraph{Théorème d'Euler} Un graphe connexe est eulérien si et seulement
-    si chacun de ses sommets est de degré pair.
+    \begin{description}
+      \item[Théorème d'Euler] Un graphe connexe est eulérien si et seulement si
+        chacun de ses sommets est de degré pair.
+    \end{description}
 
-    \paragraph{}
     Un graphe semi-eulérien, quant à lui, contient une chaine eulérienne:
     celle-ci passe également par toutes les arêtes du graphe une seule et
     unique fois, mais ne retourne pas au sommet de départ. Le théorème précédent
@@ -192,10 +262,10 @@ correspondante contient un $1$.
 
 \subsection{Graphes hamiltoniens}
   \subsubsection{Analyse mathématique}
-    Un graphe (semi-)hamiltonien est un graphe sur lequel on peut
-    trouver un cycle (ou une chaine) passant par tout les sommets une et une
-    seule fois. Ce problème est donc celui d'un enfant qui souhaiterait visiter
-    de manière unique toutes les salles d'un musée.
+    Un graphe hamiltonien (resp.\ semi-hamiltonien) est un graphe sur lequel on
+    peut trouver un cycle (resp.\ une chaine) passant par tout les sommets une
+    et une seule fois. Ce problème est donc celui d'un enfant qui souhaiterait
+    visiter de manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
     de même que de trouver un cycle ou une chaine s'il y en a.
@@ -203,34 +273,32 @@ correspondante contient un $1$.
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien.
 
-    \paragraph{Théorème} Un graphe complet est hamiltonien. C'est une
-    conséquence du théorème de Dirac.
+    \begin{description}
+      \item[Théorème] Un graphe complet est hamiltonien. C'est une conséquence
+        du théorème de Dirac.
+      \item[Théorème de Dirac] Un graphe simple à $n$ sommets ($n \ge 3$) dont
+        chaque sommet est au moins de degré $\frac{n}{2}$ est hamiltonien.
+      \item[Théorème de Ore] Un graphe simple à $n$ sommets ($n \ge 3$) tel que
+        la somme des degrés de toute paire de sommets non adjacents vaut au
+        moins $n$ est hamiltonien.
+      \item[Théorème de Pósa] Un graphe simple à $n$ sommets ($n \ge 3$) est
+        hamiltonien si:
+        \begin{itemize}
+          \item pour tout entier $k$ tel que $1 \le k < \frac{n-1}{2}$ le
+            nombre de sommets de degré inférieur ou égal à $k$ est inférieur à
+            $k$;
+          \item le nombre de sommets de degré inférieur ou égal à
+            $\frac{n-1}{2}$ est inférieur ou égal à $\frac{n-1}{2}$.
+        \end{itemize}
+      \item[Fermeture d'un graphe] La fermeture d'un graphe est le graphe
+        construit à partir de celui en rajoutant des arrêtes entre chaque
+        sommets $a$ et $b$ tel que $\deg(a)+\deg(b) > n$ tant qu'il en existe.
+      \item[Théorème de Bondy et Chvátal] Un graphe est hamiltonien si et
+        seulement si sa fermeture est hamiltonienne.
 
-    \paragraph{Théorème de Dirac} Un graphe simple à $n$ sommets ($n \ge 3$)
-    dont chaque sommet est au moins de degré $\frac{n}{2}$ est hamiltonien.
-
-    \paragraph{Théorème de Ore} Un graphe simple à $n$ sommets ($n \ge 3$) tel
-    que la somme des degrés de toute paire de sommets non adjacents vaut au
-    moins $n$ est hamiltonien.
-
-    \paragraph{Théorème de Pósa} Un graphe simple à $n$ sommets ($n \ge 3$) est
-    hamiltonien si:
-    \begin{itemize}
-      \item pour tout entier $k$ tel que $1 \le k < \frac{n-1}{2}$ le nombre de
-        sommets de degré inférieur ou égal à $k$ est inférieur à $k$;
-      \item le nombre de sommets de degré inférieur ou égal à $\frac{n-1}{2}$
-        est inférieur ou égal à $\frac{n-1}{2}$.
-    \end{itemize}
-
-    \paragraph{Fermeture d'un graphe} La fermeture d'un graphe est
-    le graphe construit à partir de celui en rajoutant des arrêtes entre chaque
-    sommets $a$ et $b$ tel que $\deg(a)+\deg(b) > n$ tant qu'il en existe.
-
-    \paragraph{Théorème de Bondy et Chvátal} Un graphe est hamiltonien si et
-    seulement si sa fermeture est hamiltonienne.
-
-    Ce théorème n'est utile que si l'on peut utiliser l'un des théorèmes
-    précédents sur la fermeture.
+        Ce théorème n'est utile que si l'on peut utiliser l'un des théorèmes
+        précédents sur la fermeture.
+    \end{description}
 
   \subsubsection{Méthode de résolution}
     Pour tester si un graphe est hamiltonien on peut utiliser les théorèmes
