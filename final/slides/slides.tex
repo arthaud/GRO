@@ -48,7 +48,7 @@
         Aller sur le nœud le plus près
     \end{block}
 
-    \begin{block}{Recherche locale}
+    \begin{block}{Recherche locale~: 2-opt}
       \centering
       \begin{multicols}{2}
         \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt1.png}
@@ -56,6 +56,32 @@
         \includegraphics[width=0.3\textwidth]{../rapport/graphes/2opt2.png}
       \end{multicols}
     \end{block}
+\end{frame}
+
+\begin{frame}{Voyageur de commerce -- Tests}
+    \begin{table}[h]
+      \makebox[\textwidth]{%
+      \centering
+      \begin{tabular}{| c | c | c | c | c | c |}
+      \hline
+        \brokencell{Fichier de\\test}
+      & \brokencell{Résultat\\optimum}
+      & \brokencell{Plus proche\\voisin}
+      & \brokencell{Plus proche\\voisin + 2-opt}
+      & \brokencell{Plus proche\\voisin amélioré}
+      & \brokencell{Plus proche\\voisin amélioré\\+ 2-opt}\\
+      \hline
+      berlin52.tsp & $7542$  & $8981/19.1\%$ & $8060/6.7\%$ & $7972/5.7\%$ & $7810/3.6\%$ \\
+      bier127.tsp & $118282$  & $137297/16.7\%$ & $125669/6.2\%$ & $127857/8.1\%$ & $122072/3.2\%$ \\
+      d657.tsp & $48912$  & $62176/27.1\%$ & N/A & N/A & N/A \\
+      u724.tsp     & $41910$ & $55344,32.1\%$ & N/A & N/A & N/A \\
+      fl1577.tsp & $22249$  & N/A & N/A & N/A & N/A \\
+      \hline  
+      \end{tabular}
+      }
+      \caption{Résultats pour TSP}
+      \label{table:tsp}
+    \end{table}
 \end{frame}
 
 \begin{frame}{Voyageur de commerce -- Métaheuristiques}
