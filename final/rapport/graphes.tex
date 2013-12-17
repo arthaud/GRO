@@ -347,6 +347,7 @@ correspondante contient un $1$.
       \label{alg:hamil}
     \end{algorithm}
 
+    
 \subsection{Problème du postier chinois}
   \subsubsection{Analyse mathématique}
     Le problème du postier chinois consiste à trouver la chaine la plus courte
@@ -371,12 +372,13 @@ correspondante contient un $1$.
 
   \subsubsection{Méthode de résolution}
     On remarque que dans le cas d'un graphe eulérien, il suffit d'appliquer
-    l'algorithme d'Euler (voir algorithmes~\ref{alg:euler}
-    et~\ref{alg:couplage} pour avoir la chaine voulue.
+    l'algorithme d'Euler (voir algorithme~\ref{alg:euler}) pour avoir la
+    chaine voulue.
 
     Dans les autres cas, la méthode de résolution consiste à transformer le
-    graphe en graphe eulérien, en ajoutant des arêtes. Une méthode possible
+    graphe en graphe Eulérien, en ajoutant des arêtes. Une méthode possible
     est la suivante:
+
     \begin{enumerate}
       \item on crée d'abord le graphe partiel contenant uniquement les sommets
         de degré impair;
@@ -652,3 +654,5 @@ correspondante contient un $1$.
     comment, dans ce cas précis, on pouvait obtenir des résultats corrects en
     se passant de métaheuristiques. On pourrait donc améliorer ces résultats en
     en utilisant.
+
+% vim: shiftwidth=2 softtabstop=2 tabstop=2
