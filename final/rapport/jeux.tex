@@ -165,34 +165,36 @@ Au final, cette amélioration permet de gagner un temps considérable pour
 obtenir le même résultat.
 
 \subsection{Duopôles}
+  Les jeux précédents sont des jeux non coopératifs à somme nulle (on peut soit
+  gagner, soit perdre).
 
-Les jeux précédents sont des jeux non coopératifs à somme nulle (on peut soit gagner,
-soit perdre).
+  Il peut aussi être intéressant de voir les jeux à somme non nulle, c'est à
+  dire qu'il n'y a pas forcément un gagnant ($1$ point) et un perdant ($-1$
+  point), mais il est possible de faire des situations plus ou moins
+  gagnant-gagnant, voire même perdant-perdant.
 
-Il peut aussi être intéressant de voir les jeux à somme non nulle, c'est à dire qu'il
-n'y a pas forcément un gagnant (1 point) et un perdant (-1 point), mais il est possible
-de faire des situations plus ou moins gagnant-gagnant, voire même perdant-perdant.
+  Le duopôle de Cournot est un bon exemple de ce genre de jeu: il met en jeu
+  deux entreprises qui produisent des biens sur le même marché. Elles se font
+  donc concurrence, mais plus le marché est inondé de produits, plus leur marge
+  est faible (elles peuvent même faire des pertes!).
 
-Le duopôle de Cournot est un bon exemple de ce genre de jeu~: il met en jeu deux entreprises
-qui produisent des biens sur le même marché.
-Elle se font donc concurrence, mais plus le marché est inondé de produits, plus leur marge
-est faible (elle peuvent même faire des pertes !).
+  On modélise le cout de production par une fonction affine:
+  \[\begin{array}{l}
+    c_E(x) = sigma + gamma*x \\
+    c_F(y) = sigma + gamma*y
+  \end{array}\]
 
-On modélise le coût de production par une fonction affine~:
-$c_E(x) = sigma + gamma*x$
-$c_F(y) = sigma + gamma*y$
+  Ainsi, il y a un cout fixe qui modélise l'acquisition de matériel, et un cout
+  directement proportionnel à la quantité de produits fabriqués.
 
-Ainsi, il y a un coût fixe qui modélise l'acquisition de matériel, et un coût
-directement proportionnel à la quantité de produits fabriqués.
+  Et le prix de vente est une fonction affine décroissante:
+    $p(z) = \alpha - \beta*(x + y)$.
+  Il est bien évidemment commun aux deux entreprises.
 
-Et le prix de vente est une fonction affine décroissante~:
-$p(z) = albha - beta*(x + y)$
-
-Le prix est bien évidemment commun aux deux entreprises.
-
-\subsubsection{Stratégies possibles}
+  \subsubsection{Stratégies possibles}
     % pas sûr qu'il faille parler de NOS stratégies, mais plutôt des
     % stratégies les plus connues.
+    % +1
 
     \paragraph{Coopération} Il est possible de coopérer complètement avec
       l'adversaire, en partant du principe que s'il produit autant que nous,
@@ -201,23 +203,20 @@ Le prix est bien évidemment commun aux deux entreprises.
       coopère, mais elle se fera souvent écraser par des stratégies qui vont
       «~profiter d'elle~».
 
-
     \paragraph{Stackelberg}
       % on profite de l'autre, toussa
       TODO
 
     \paragraph{Œil pour œil, dent pour dent}
-      Le principe de cette stratégie est
-      d'être coopératif tant que l'adversaire l'est, et de devenir plus
-      agressif quand il ne l'est plus: à chaque fois que l'autre joueur n'est
-      pas coopératif, on joue comme le ferait la stratégie Stackelberg.
+      Le principe de cette stratégie est d'être coopérative tant que
+      l'adversaire l'est, et de devenir plus agressive quand il ne l'est plus:
+      à chaque fois que l'autre joueur n'est pas coopératif, on joue comme le
+      ferait la stratégie Stackelberg.
 
-      Une variante de cette stratégie
-      consiste à le pénaliser de plus en plus: la première fois on le pénalise
-      une fois, puis deux, puis trois, etc.
+      Une variante de cette stratégie consiste à le pénaliser de plus en plus:
+      la première fois on le pénalise une fois, puis deux, puis trois, etc.
 
       Ces deux stratégies sont efficaces à la fois quand l'autre joueur est
       coopératif (on est alors coopératif) et contre un joueur non-coopératif
       (on devient alors agressif).
-
 
