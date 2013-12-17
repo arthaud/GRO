@@ -355,8 +355,8 @@
    Pénalise variante & $421.22$ & $896.10$ & $1123.88$ \\\hline
 Stackelberg en moyenne & $492.11$ & $923.94$ & $1123.88$ \\\hline
 Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
-            gklmjbse & $561.56$ & $832.41$ & $1135.33$ \\\hline
                 poly & $561.82$ & $1011.24$ & $1123.88$ \\\hline
+          gklmjbse** & $561.56$ & $832.41$ & $1135.33$ \\\hline
             killer** & $  0.00$ & $773.86$ & $1133.09$ \\\hline
    cooperatifmixte** & $698.67$ & $990.58$ & $1123.88$ \\\hline
     agressivemieux** & $  3.15$ & $750.64$ & $1126.18$ \\\hline
@@ -418,7 +418,7 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
   \begin{frame}{Suivi de mur}
     Un capteur ultrasonique à gauche.
 
-    Un capteur ultrasonique frontale.
+    Un capteur ultrasonique frontal.
 
     \begin{itemize}
       \item Si distance frontale < minima: on pivote à droite.
@@ -436,5 +436,33 @@ Stackelberg en moyenne (variante) & $531.85$ & $800.61$ & $1262.25$ \\\hline
       \includegraphics[width=0.55\textwidth]{jeux/GRO_graph1} \\
     \end{center}
     Si le robot connait le plan du labyrinthe l'algorithme de Dijkstra suffit. 
+  \end{frame}
+
+  \begin{frame}{Algorithme A*}
+      \hfill liste ouverte, liste fermée \\
+      \begin{itemize}
+        \item Création d'un nœud
+        \begin{itemize}
+          \item calcule du coup heuristique = coût + estimation
+           \item ajout du nœud à la liste ouverte
+         \end{itemize}
+        \item On prend le meilleur nœud de la liste ouverte et on le met dans
+          la liste fermée.| LaTeX
+        \item Creation des noeuds adjacent
+          \begin{itemize}
+            \item cout <- cout + cout du prédecesseur
+            \item si dans liste ouverte:
+            \begin{itemize}
+              \item si meilleur: on modifie
+              \item sinon: rien
+            \end{itemize}
+            \item si dans fermée: rien
+            \item sinon: on ajoute a la liste ouverte
+          \end{itemize}
+    \end{itemize}
+    
+    À la fin, en remontant tout les prédécesseurs on remonte le chemin le plus
+    court.
+      
   \end{frame}
 \end{document}
