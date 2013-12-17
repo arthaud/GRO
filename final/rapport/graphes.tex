@@ -2,7 +2,8 @@
 % vous êtes des boulays, apprenez latex.
 \subsection{Introduction}
   La théorie des graphes est un domaine entre les mathématiques et
-  l'informatique très utilisé dans la résolution de nombreux problèmes.
+  l'informatique très utilisé dans la résolution de nombreux problèmes~: cela
+  peut aller du routage sur internet au calcul d'itinéraire par des GPS\dots
   
   Nous verrons dans cette section quelques applications des graphes. Une
   dernière application sera vu dans la section~\ref{sec:laby}.
@@ -95,9 +96,12 @@ cette représentation est loin d'être efficace, la mémoire utilisée
 étant exponentielle quand le nombre de sommets du graphe
 augmente. Toutefois, elle peut servir pour certains
 algorithmes. Notamment, un algorithme de recherche de chemin peut
-multiplier la matrice d'adjacence par elle-même $m$ fois : alors, il
+multiplier la matrice d'adjacence par elle-même $m$ fois~: alors, il
 existera un chemin de taille $m$ entre deux sommets si la case
 correspondante contient un $1$.
+  On notera toutefois que les matrices d'adjacences étant souvent creuses
+  (remplies de 0), il existe des moyens de les représenter autrement que
+  par un tableau.
 
   On peut également représenter les graphes par une liste de sommets,
   chacun ayant une liste d'arêtes.
@@ -147,7 +151,7 @@ correspondante contient un $1$.
           $k$).
       \end{itemize}
 
-      Nous définissions ensuite un produit sur les coefficients d'une telle
+      Nous définissons ensuite un produit sur les coefficients d'une telle
       matrice (voir algorithmes~\ref{alg:prod_mat} et~\ref{alg:prod_chaine}). Le
       produit de deux chaines sera:
       \begin{itemize}
@@ -169,7 +173,7 @@ correspondante contient un $1$.
       chaque produit les chaines qui passent plusieurs fois par la même arête,
       on trouve l'ensemble des cycles eulériens.
 
-      La complexité de cet algorithme est exponentielle, calculer la puissance
+      La complexité de cet algorithme est exponentielle: calculer la puissance
       de la matrice latine revient en fait à calculer chaque chaine possible dans
       le graphe, et tester si elle est un cycle eulérien ou non.
 
@@ -347,7 +351,6 @@ correspondante contient un $1$.
       \label{alg:hamil}
     \end{algorithm}
 
-    
 \subsection{Problème du postier chinois}
   \subsubsection{Analyse mathématique}
     Le problème du postier chinois consiste à trouver la chaine la plus courte
@@ -372,13 +375,12 @@ correspondante contient un $1$.
 
   \subsubsection{Méthode de résolution}
     On remarque que dans le cas d'un graphe eulérien, il suffit d'appliquer
-    l'algorithme d'Euler (voir algorithme~\ref{alg:euler}) pour avoir la
-    chaine voulue.
+    l'algorithme d'Euler (voir algorithmes~\ref{alg:euler}
+    et~\ref{alg:couplage} pour avoir la chaine voulue.
 
     Dans les autres cas, la méthode de résolution consiste à transformer le
-    graphe en graphe Eulérien, en ajoutant des arêtes. Une méthode possible
+    graphe en graphe eulérien, en ajoutant des arêtes. Une méthode possible
     est la suivante:
-
     \begin{enumerate}
       \item on crée d'abord le graphe partiel contenant uniquement les sommets
         de degré impair;
@@ -745,5 +747,3 @@ correspondante contient un $1$.
     comment, dans ce cas précis, on pouvait obtenir des résultats corrects en
     se passant de métaheuristiques. On pourrait donc améliorer ces résultats en
     en utilisant.
-
-% vim: shiftwidth=2 softtabstop=2 tabstop=2

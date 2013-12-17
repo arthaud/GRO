@@ -39,7 +39,7 @@
     Mais, ce problème peut être résolu en utilisant la programmation
     dynamique\footnote{Qui consiste à résoudre un problème de taille $n$ à
     partir de la résolution d'un problème de taille $n-1$}. En effet, on peut
-    déterminer si un objet $i$ fait parti de l'ensemble des objets à choisir en
+    déterminer si un objet $i$ fait partie de l'ensemble des objets à choisir en
     considérant le problème sur l'ensemble $S\backslash\{i\}$ et la masse
     maximale $W-m_i$.
     
@@ -79,6 +79,7 @@
     objets pourrait être la masse faible, le prix élevé, ou le rapport
     prix/masse élevé.
 
+    % FIXME: Osef des tests ? Ça explique pas en détail, mais c'est trop expérimental je trouve
     Cet algorithme est beaucoup plus rapide que le précédent (il a une
     complexité en temps de $O(n \log n)$ (pour le tri des objets)) et ne
     nécessite en mémoire que la liste des objets, mais ce n'est qu'un algorithme
@@ -99,11 +100,30 @@
     quand les nouvelles itérations ne sont plus considérés suffisamment
     intéressantes.
 
+  \subsubsection{Relation avec le voyageur de commerce}
+    Il est intéressant ici de faire le lien avec le problème du voyageur
+    du commerce: les solutions utilisées ici sont \emph{les mêmes}.
+
+    En effet, on a vu que ce problème (avec des poids non entiers, donc impossible
+    à résoudre par programmation dynamique) se résout seulement par une recherche
+    exhaustive.
+    
+    On a aussi vu comment le résoudre de manière approchée via une heuristique
+    simple, et l'algorithme des fourmis est une métaheuristique qu'on a mentionnée
+    précédemment.
+
+
+    Plus intéressant encore, on peut même construire une «~bijection~» entre un
+    problème du sac à dos
+    et un problème du voyageur de commerce sur un graphe! \cite{knapsack_to_tsp}
+    Ceci démontre que ces deux algorithmes sont équivalents, et appartiennent donc à la même
+    classe d'algorithmes. % c'est bôoooo les maths :D
+
 \subsection{Problème d'optimisation linéaire}
   Le but du problème est de maximiser une fonction linéaire sous certaines
-  contraintes linéaires elles aussi.
+  contraintes, linéaires elles aussi.
 
-  \subsubsection{Point de vu mathématique} % todo: titre?
+  \subsubsection{Point de vu mathématique}
       Considérons le problème suivant :
       $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
       Nous nous placerons dans le cas où $f$ est linéaire, où $x \geqslant 0$,
