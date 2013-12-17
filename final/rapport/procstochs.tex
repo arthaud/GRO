@@ -120,23 +120,23 @@
 
     La matrice d'adjacence de ce graphe est:
       \[A = \left(\begin{array}{ccc}
-        0 & \frac 1 3 & \frac 1 2 \\
-        \frac 1 4 & \frac 1 6 & \frac 1 2 \\
-        \frac 3 4 & \frac 1 2 & 0
+        0 & \frac 1 4 & \frac 3 4 \\
+        \frac 1 3 & \frac 1 6 & \frac 1 2 \\
+        \frac 1 2 & \frac 1 2 & 0
       \end{array}\right)\]
 
     Si on veut connaitre la probabilité qu'un scarabée se trouve au sommet 2 en
     partant du sommet 1 sur 10 tours, on calcule:
       \[
-        \left(\begin{array}{ccc}
-          0 & \frac 1 3 & \frac 1 2 \\
-          \frac 1 4 & \frac 1 6 & \frac 1 2 \\
-          \frac 3 4 & \frac 1 2 & 0
-        \end{array}\right)^{10}
-        \times
         \left(\begin{array}{c}
           1 \\ 0 \\ 0
         \end{array}\right)
+        \times
+        \left(\begin{array}{ccc}
+          0 & \frac 1 4 & \frac 3 4 \\
+          \frac 1 3 & \frac 1 6 & \frac 1 2 \\
+          \frac 1 2 & \frac 1 2 & 0
+        \end{array}\right)^{10}
         \approx
         \left(\begin{array}{c}
           0.30188 \\ 0.32244 \\ 0.37568
@@ -149,9 +149,9 @@
     De plus, on remarque que $A^n$ converge vers
       \[
         \left(\begin{array}{ccc}
-          0.29787 & 0.29787 & 0.29787 \\
-          0.31915 & 0.31915 & 0.31915 \\
-          0.38298 & 0.38298 & 0.38298
+          0.29787 & 0.31915 & 0.38298 \\
+          0.29787 & 0.31915 & 0.38298 \\
+          0.29787 & 0.31915 & 0.38298
         \end{array}\right)
       \]
     lorsque $n \to +\infty$, donc quelque soit la position de départ du
