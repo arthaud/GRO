@@ -549,16 +549,16 @@ correspondante contient un $1$.
         \node[draw, circle] (5) at (5,-1) {$E$};
         \node[draw, circle] (6) at (-2,-1) {$F$};
 
-        \draw[arrows={-triangle 90}] (1) -- node {1} (2);
-        \draw[arrows={-triangle 90}] (2) -- node {1} (1);
-        \draw[arrows={-triangle 90}] (3) -- node {1} (4);
-        \draw[arrows={-triangle 90}] (4) -- node {1} (3);
-        \draw[arrows={-triangle 90}] (2) -- node {5} (3); % 5
-        \draw[arrows={-triangle 90}] (3) -- node {1} (5);
-        \draw[arrows={-triangle 90}] (5) -- node {1} (2);
-        \draw[arrows={-triangle 90}] (4) -- node {1} (1);
-        \draw[arrows={-triangle 90}] (1) -- node {1} (6);
-        \draw[arrows={-triangle 90}] (6) -- node {1} (4);
+        \path (1) edge [bend left=10, -triangle 90] node {1} (2);
+        \path (2) edge [bend left=10, -triangle 90] node {1} (1);
+        \path (3) edge [bend left=10, -triangle 90] node {1} (4);
+        \path (4) edge [bend left=10, -triangle 90] node {1} (3);
+        \path (2) edge [-triangle 90] node {5} (3); % 5
+        \path (3) edge [-triangle 90] node {1} (5);
+        \path (5) edge [-triangle 90] node {1} (2);
+        \path (4) edge [-triangle 90] node {1} (1);
+        \path (1) edge [-triangle 90] node {1} (6);
+        \path (6) edge [-triangle 90] node {1} (4);
       \end{tikzpicture}
     \end{center}
 
