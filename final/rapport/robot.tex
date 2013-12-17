@@ -16,14 +16,15 @@
 
   Ainsi, on peut suivre un mur droit de manière assez régulière.
 
-  \subsubsection{Passage de l'extérieur d'un angle}
-    Le passage de l'extérieur d'un angle (i.e.\ quand un mur tourne à gauche)
-    se fait naturellement à partir du code pour longer d'un mur: il suffit de
-    tourner à gauche (tout en avançant, afin d'éviter les collisions avec les
-    murs) jusqu'à ce qu'on soit à nouveau à côté d'un mur. Naturellement, il
-    faux adapter les coefficients de tournage, afin d'éviter que le robot ne
-    prenne un angle trop large, et se retrouve finalement face au mur qu'il est
-    censé longer.
+% le truc avant en parle un peu, et en l'état c'est pas français, pas clair...  
+%  \subsubsection{Passage de l'extérieur d'un angle}
+%    Le passage de l'extérieur d'un angle (i.e.\ quand un mur tourne à gauche)
+%    se fait naturellement à partir du code pour longer d'un mur: il suffit de
+%    tourner à gauche (tout en avançant, afin d'éviter les collisions avec les
+%    murs) jusqu'à ce qu'on soit à nouveau à côté d'un mur. Naturellement, il
+%    faut adapter les coefficients de tournage, afin d'éviter que le robot ne
+%    prenne un angle trop large, et se retrouve finalement face au mur qu'il est
+%    censé longer.
 
 \subsection{Labyrinthe}\label{sec:laby}
   \subsubsection{Suivi de mur}
@@ -33,7 +34,7 @@
     premier) sont utilisés pour trouver le chemin le plus court.
 
   \subsubsection{Algorithme de Dijkstra}
-    En obtenant un graph a partir du plan du labyrinthe.
+    Il est appliquable une fois qu'on a obtenu un graphe a partir du plan du labyrinthe.
 
     \begin{center}
       \includegraphics[width=0.55\textwidth]{../slides/jeux/GRO_graph1.png}
@@ -44,6 +45,12 @@
     première partie "Graphes" à ce graphe et trouver le chemin le plus court.
 
   \subsubsection{Algorithme A*}
+  % TODO: On met vraiment A* ? J'aurais un peu envie de dire OSEF...
+    L'algorithme A* est une amélioration de Dijkstra, qui utilise un heuristique
+    pour orienter la recherche.
+    Si l'heuristique est bien choisi, il est même possible de s'assurer qu'A*
+    donnera bien le résultat optimal (mais plus rapidement que Dijkstra).
+
     Cet algorithme utilise deux listes de nœuds: une liste, dite ouverte, qui
     contient les nœuds explorables et une liste, dite fermée, qui contient les
     nœuds déjà explorés.
