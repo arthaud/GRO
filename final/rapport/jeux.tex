@@ -1,6 +1,6 @@
 \subsection{Shifumi}
 
-    \begin{center}\includegraphics[width=0.5\textwidth]{shifumi.png}\end{center}
+    \begin{center}\includegraphics[width=6cm]{shifumi.png}\end{center}
 
     Une stratégie simple et efficace à laquelle on pourrait penser pour gagner
     au Shifumi serait de jouer de manière aléatoire.
@@ -67,11 +67,11 @@ carré magique d'ordre $n$ que l'on choisit, les représentations sous forme de
 morpion seront toutes équivalentes.
 
 Le morpion étant un jeu où l'on essaie de minimiser la perte maximum,
-on peut s'intéresser à l'algorithme du minmax, pour déterminer une
+on peut s'intéresser à l'algorithme du minimax, pour déterminer une
 stratégie non perdante.
 
-\subsubsection{Algorithme du minmax appliqué au jeu du morpion}
-L'algorithme du minmax consiste à évaluer toutes les positions de jeu
+\subsubsection{Algorithme du minimax appliqué au jeu du morpion}
+L'algorithme du minimax consiste à évaluer toutes les positions de jeu
 atteignables depuis la position courante, sur une certaine profondeur
 (autrement dit, un certain nombre de tours de jeu), et à jouer de
 manière à atteindre la position la plus avantageuse, en supposant que
@@ -79,7 +79,7 @@ l'adversaire joue toujours le meilleur coup pour lui-même (ce coup
 étant évalué avec notre propre fonction d'évaluation, qui n'est pas
 forcément la même que celle de l'adversaire).
 
-Par conséquent, afin d'implémenter l'algorithme du minmax, il faut
+Par conséquent, afin d'implémenter l'algorithme du minimax, il faut
 commencer par déterminer une fonction d'évaluation.
 
 \paragraph{Fonction d'évaluation}
@@ -95,8 +95,8 @@ Toutes les autres lignes ne rapportent aucun point.
 Ainsi, l'évaluation d'une position de jeu est la somme des points
 rapportés par chacune de ses lignes, colonnes et diagonales.
 
-\paragraph{Minmax}
-L'algorithme du minmax va construire (implicitement) l'arbre des coups
+\paragraph{Minimax}
+L'algorithme du minimax va construire (implicitement) l'arbre des coups
 possibles à partir de la position courante.
 L'évaluation d'un nœud de cet arbre sera:
 \begin{itemize}
@@ -114,7 +114,7 @@ avantageuse pour lui.
 
 \subsubsection{Élagage alpha-bêta}
 L'élagage alpha-bêta permet de réduire le nombre de nœuds à parcourir durant
-l'algorithme du minmax.
+l'algorithme du minimax.
 
 Cet algorithme arrête le parcours des fils d'un nœud quand il se rend
 compte qu'il ne pourra pas faire mieux.
