@@ -99,5 +99,117 @@
     quand les nouvelles itérations ne sont plus considérés suffisamment
     intéressantes.
 
-\subsection{Problème du simplexe}
-  \todo
+\subsection{Problème d'optimisation linéaire}
+  Le but du problème est de maximiser une fonction linéaire sous certaines
+  contraintes linéaires elles aussi.
+
+  \subsubsection{Point de vu mathématique} % todo: titre?
+      Considérons le problème suivant :
+      $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
+      Nous nous placerons dans le cas où $f$ est linéaire, où $x \geqslant 0$,
+      et où $C$ est décrit par des contraintes d'inégalités linéaires,
+      c'est-à-dire qu'il existe une matrice $A$ et un vecteur $b$ tels
+      que $Ax\leqslant b$.
+
+    \paragraph{Existence de solutions}
+      Pour un tel problème, trois possibilités s'offrent à nous:
+      \begin{itemize}
+        \item les contraintes sont incompatibles;
+        \item la fonction est non majorée sur $C$;
+        \item le problème admet un maximum sur $C$.
+      \end{itemize}
+      Nous savons de plus que $C$ est un polyèdre convexe. Un théorème garantit
+      alors que si ce problème à une solution, alors il a une solution en un de
+      ses sommets. Nous allons donc chercher les solutions parmi les sommets de
+      $C$.
+
+  \subsubsection{Algorithme du simplexe}
+    Le principe de cet algorithme est de considérer un des sommets du polyèdre,
+    puis de se déplacer en suivant les arêtes de ce polyèdre en augmentant à
+    chaque itération le gain. L'algorithme se terminera lorsque nous nous 
+    trouverons sur un sommet, dont tous les sommets adjacents présentent un gain
+    plus faible. La convexité du polyèdre nous garantit que le résultat est 
+    optimal.
+
+    L'algorithme du simplexe a une complexité dans le pire des cas
+    exponentielle, mais en pratique, cet algorithme est efficace.
+    
+    Cet algorithme ne permet pas de maximiser une fonction pour des variables
+    entières (par exemple pour connaitre un nombre de produits à produire, donc
+    un nombre entier) à produire pour maximiser un gain (bien qu'on pourrait en
+    pratique l'utiliser en considérant que la solution optimale entière est
+    suffisamment proche de la solution optimale réelle).
+
+    \paragraph{Forme standard et tableau canonique}
+      Pour résoudre le problème, la première étape est le mettre sous forme
+      standard. Pour cela on ajoute à chaque inéquation $j$ de la forme
+      $\sum a_{j,i}x_i \leq 0$ une variable dite d'écart pour la transformer en
+      égalité: $\sum a_{j,i}x_i + s_j = 0$ où $s_j \geq 0$.
+      
+      Les inéquations de la forme $\sum a_ix_i \geq 0$ sont d'abord multipliées
+      par $-1$ avant cette étape.
+      %todo: et les égalités on en fait quoi ? J'ai essayé en les transformant
+      %en deux inégalités <= et >= mais ça marche pas.
+
+      On construit ensuite un tableau dit canonique représentant le problème
+      comme suit:
+      \begin{itemize}
+        \item la première ligne de la matrice est
+          $[m_0, m_1, \cdots, m_n, 0, \cdots, 0]$ où les $(m_i)$ sont les
+          coefficients du problème $\min \sum m_ix_i$ et à laquelle on ajoute
+          autant de $0$ qu'on a ajouté de variables d'écart;
+        \item les autres lignes de la matrice sont
+          $[a_{j,0}, \cdots, a_{j,n}, 0, \cdots, 0, 1,0, \cdots, 0]$ où les $1$
+          sont placés de manière à former une matrice identité (ils
+          correspondent aux variables d'écart ajoutées).
+      \end{itemize}
+
+      %todo: algorithmiser
+      \begin{lstlisting}
+Entrée : matrice (un tableau canonique)
+Sortie : le résultat optimum
+         les quantités de chaque produit à produire
+         les quantités de chaque ressource restante
+
+base = indices des variables de base de la matrice
+
+tant qu'il reste des nombres strictement positifs sur la première ligne:
+    à_ajouter = indice de la colonne dont le premier élément est maximal
+    à_retirer = indice de la ligne (>1) telle que :
+                matrice[à_retirer, dernière colonne]/matrice[à_retirer, à_ajouter]
+                est minimum
+
+    remplacer le (à_retirer)ième élément de base par à_ajouter
+
+    diviser la ligne à_retirer de matrice par matrice[à_retirer, à_ajouter]
+    et soustraire aux autres lignes y le vecteur :
+        matrice[y,à_ajouter] * matrice[à_retirer,] / matrice[à_retirer, à_ajouter]
+
+pour chaque variable d'origine n (n dans [0, nombre de variables hors base[):
+  à_produire[base[n]] = matrice[n+1, dernière colonne]
+
+pour chaque variable d'écart n (n dans [nombre de variables hors base, nombre de variables total[):
+  restes[base[n]] = matrice[n+1, dernière colonne]
+
+retourner (-matrice[0, dernière colonne], à_produire, restes)
+      \end{lstlisting}
+
+    % todo:
+    %       contraintes négatives
+    %       cas non borné
+    \paragraph{Dégénérescence}
+      Un problème du simplexe est dit dégénéré si plus de deux contraintes vont
+      devoir être nulles en un sommet. Graphiquement, cela veut dire
+      qu'au moins 3 droites vont se rencontrer en un sommet du polyèdre.
+
+      Ceci va empêcher l'algorithme du simplexe de progresser entre deux
+      itérations: il va simplement changer de base. Le problème étant que sur
+      des cas particuliers, il pourra changer de base sans progresser, puis
+      boucler à l'infini en faisant un cycle sur des bases qui n'améliorent pas
+      la solution.
+
+      Pour éviter cela, on pourrait utiliser des règles d'anti-cyclage, dont la
+      règle de Bland, qui consiste à choisir judicieusement les variables qu'on
+      fera entrer et sortir de la base, dans le cas où il y aurait plusieurs
+      possibilités aussi intéressantes les unes que les autres.
+
