@@ -51,17 +51,17 @@
           sommet.precedent $\leftarrow 0$\;
         }
         s1.parcouru $\leftarrow 0$\;
-        non\_visites $\leftarrow$ ensemble des sommets du graphe\;
+        non\_visités $\leftarrow$ ensemble des sommets du graphe\;
 
-        \While{non\_visites est non vide}{%
-          s $\leftarrow$ le sommet de non\_visites avec parcouru minimum\;
-          supprimer s de non\_visites\;
+        \While{non\_visités est non vide}{%
+          s $\leftarrow$ le sommet de non\_visités avec parcouru minimum\;
+          supprimer s de non\_visités\;
 
           \For{chaque sommet f fils de s}{%
             \If{f.parcouru > s.parcouru + poids de l'arc entre s et f}{%
               f.parcouru $\leftarrow$ s.parcouru + poids de l'arc entre s et f\;
               f.precedent $\leftarrow$ s\;
-              ajouter f dans non\_visites\;
+              ajouter f dans non\_visités\;
             }
           }
         }
@@ -93,7 +93,7 @@
 
   \subsubsection{Algorithme A*}
   % TODO: On met vraiment A* ? J'aurais un peu envie de dire OSEF...
-    L'algorithme A* est une amélioration de Dijkstra, qui utilise un heuristique
+    L'algorithme A* est une amélioration de Dijkstra, qui utilise une heuristique
     pour orienter la recherche.
     Si l'heuristique est bien choisi, il est même possible de s'assurer qu'A*
     donnera bien le résultat optimal (mais plus rapidement que Dijkstra).
