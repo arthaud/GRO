@@ -359,7 +359,7 @@ correspondante contient un $1$.
     à la poste.
 
     Ce problème peut être réduit à la recherche d'un couplage parfait de cout
-    minimum, que peut être résolu en temps polynomial dans le cas général.
+    minimum, qui peut être résolu en temps polynomial dans le cas général.
 
     \begin{description}
       \item[Couplage] Un couplage d'un graphe est un ensemble d'arêtes de ce
@@ -434,26 +434,26 @@ correspondante contient un $1$.
 
         \Return{le cycle eulérien de g}
       }
-      \label{alg:euler}
-      \caption{TODO: trouver un titre}
+      \label{alg:postier_chinois}
+      \caption{Algorithme du postier chinois}
     \end{algorithm}
 
     \begin{algorithm}
       \KwIn{arêtes, sommets\_visités, cout}
       \Begin{%
-        \If{sommets\_visites contient tous les sommets de graphe\_partiel}{%
+        \If{sommets\_visités contient tous les sommets de graphe\_partiel}{%
           \Return{(arêtes, cout)}
         }
         \Else{%
           $meilleur\_couplage = Vide$\;
           $meilleur\_cout = 0$\;
           \For{chaque arête de graphe\_partiel}{%
-            \If{les 2 sommets de l'arête ne sont pas dans sommets\_visites}{%
+            \If{les 2 sommets de l'arête ne sont pas dans sommets\_visités}{%
               arêtes\_copie = copie de arêtes\;
-              sommets\_visites\_copie = copie de sommets\_visites\;
+              sommets\_visités\_copie = copie de sommets\_visités\;
 
               ajouter arête dans arêtes\_copie\;
-              couplage, cout = aux(arêtes\_copie, sommets\_visites\_copie, cout +
+              couplage, cout = aux(arêtes\_copie, sommets\_visités\_copie, cout +
               cout de arête)\;
 
               \If{meilleur\_couplage = Vide ou meilleur\_cout > cout}{%
@@ -468,6 +468,97 @@ correspondante contient un $1$.
       \label{alg:couplage}
       \caption{Recherche du couplage parfait de cout minimum par bruteforce}
     \end{algorithm}
+
+  \subsubsection{Exemple}
+    Prenons comme exemple le graphe ci-dessous, et essayons de trouver un parcours
+    partant de A~:
+
+    \begin{center}
+      \begin{tikzpicture}[node distance=1cm,auto]
+        \node[draw, circle] (1) at (0,0) {A};
+        \node[draw, circle] (2) at (3,0) {B};
+        \node[draw, circle] (3) at (3,-2) {C};
+        \node[draw, circle] (4) at (0,-2) {D};
+        \node[draw, circle] (5) at (5,-1) {E};
+        \node[draw, circle] (6) at (-2,-1) {F};
+
+        \path (1) edge node {1} (2);
+        \path (1) edge node {1} (4);
+        \path (1) edge node {1} (6);
+        \path (2) edge node {5} (3);
+        \path (2) edge node {1} (5);
+        \path (3) edge node {1} (5);
+        \path (3) edge node {1} (4);
+        \path (4) edge node {1} (6);
+      \end{tikzpicture}
+    \end{center}
+
+    On créé le graphe partiel~:
+
+    \begin{center}
+      \begin{tikzpicture}[node distance=1cm,auto]
+        \node[draw, circle] (1) at (0,0) {A};
+        \node[draw, circle] (2) at (2,0) {B};
+        \node[draw, circle] (3) at (2,-2) {C};
+        \node[draw, circle] (4) at (0,-2) {D};
+
+        \path (1) edge node {1} (2);
+        \path (1) edge node {1} (4);
+        \path (2) edge node {5} (3);
+        \path (3) edge node {1} (4);
+      \end{tikzpicture}
+    \end{center}
+
+    On le transforme en clique, avec les bons poids~:
+
+    \begin{center}
+      \begin{tikzpicture}[node distance=1cm,auto]
+        \node[draw, circle] (1) at (0,0) {A};
+        \node[draw, circle] (2) at (2,0) {B};
+        \node[draw, circle] (3) at (2,-2) {C};
+        \node[draw, circle] (4) at (0,-2) {D};
+
+        \path (1) edge node {1} (2);
+        \path (1) edge node {1} (4);
+        \path (1) edge node {2} (3);
+        \path (2) edge node {5} (3);
+        \path (2) edge node {2} (4);
+        \path (3) edge node {1} (4);
+      \end{tikzpicture}
+    \end{center}
+
+    Nos couplages parfaits sont donc~:
+
+    \begin{itemize}
+      \item \{AB, DC\} de poids 2
+      \item \{AD, BC\} de poids 6
+      \item \{AC, BD\} de poids 4
+    \end{itemize}
+
+
+    On duplique donc les arêtes AB et DC, et on applique l'algorithme d'Euler~:
+
+    \begin{center}
+      \begin{tikzpicture}[node distance=1cm,auto]
+        \node[draw, circle] (1) at (0,0) {A};
+        \node[draw, circle] (2) at (3,0) {B};
+        \node[draw, circle] (3) at (3,-2) {C};
+        \node[draw, circle] (4) at (0,-2) {D};
+        \node[draw, circle] (5) at (5,-1) {E};
+        \node[draw, circle] (6) at (-2,-1) {F};
+
+        \draw[arrows={-triangle 90}] (1) -- node {1} (2);
+        \draw[arrows={-triangle 90}] (2) -- node {1}(1);
+        \draw[arrows={-triangle 90}] (3) -- node {1} (4);
+        \draw[arrows={-triangle 90}] (4) -- node {1} (3);
+        \draw[arrows={-triangle 90}] (2) -- node {5} (3); % 5
+        \draw[arrows={-triangle 90}] (3) -- node {1} (5);
+        \draw[arrows={-triangle 90}] (5) -- node {1} (2);
+        \draw[arrows={-triangle 90}] (4) -- node {1} (1);
+        \draw[arrows={-triangle 90}] (1) -- node {1} (6);
+        \draw[arrows={-triangle 90}] (6) -- node {1} (4);
+      \end{tikzpicture}
+    \end{center}
 
 \subsection{Problème du voyageur de commerce}\label{sec:tsp}
   \subsubsection{Analyse mathématique}
