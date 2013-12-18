@@ -44,13 +44,12 @@
     Le problème des scarabées peut aisément être modélisé par des chaines de
     Markov. En effet, nos coléoptères se promènent en temps discret dans leur
     graphe de promenade; de plus, l'état d'un scarabée (autrement dit, sa
-    position dans sa promenade) ne dépend pas du passé, mais uniquement de
-    l'état présent.
+    position) ne dépend pas du passé, mais uniquement de l'état présent.
 
-    La matrice de transition de notre promenade représente les probabilités de
-    passer d'un état aux autres. Par conséquent, la matrice de transition à la
-    puissance $n$ représente la probabilité de passer d'un état à un autre par
-    un chemin de longueur $n$.
+    La matrice de transition (dit aussi matrice stochastique) représente les
+    probabilités de passer d'un état aux autres. Par conséquent, la matrice de
+    transition à la puissance $n$ représente la probabilité de passer d'un état
+    à un autre par un chemin de longueur $n$.
 
     On constate qu'on se rapproche beaucoup de la matrice décrite précédemment:
     la matrice d'adjacence du graphe de promenade et la matrice de transition
@@ -79,7 +78,7 @@
 
       Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
       partant de ce même point, il suffit de prendre l'espérance de cette suite
-      $V_k$. %TODO: qui est?
+      $V_k$. %TODO: qui est? bah V_1 + 2 * V_2 + 3 * V_3 + .. c'est du cours de proba !
 
     \paragraph{À partir de deux points différents}
       Dans le cas où les points de départs des scarabées sont différents, on peut
@@ -158,7 +157,19 @@
     scarabée, après un nombre suffisant de tours, la probabilité qu'il soit sur
     le sommet 2 est $0.31915$.
 
-    %todo: temps moyen
+    \paragraph{}
+    En calculant l'espérance de la suite $V_k$, on a le temps moyen entre chaque
+    rencontre:
+
+    \begin{center}
+      \begin{tabular}{|c|c|}
+        \hline
+        Départ & Temps moyen entre chaque rencontre \\\hline
+        A      & 1.991808 \\\hline
+        B      & 2.810620 \\\hline
+        C      & 2.272463 \\\hline
+      \end{tabular}
+    \end{center}
 
 \subsection{Théorie des files d'attente}
   Une file d'attente est un système ayant une entrée par laquelle arrivent des
