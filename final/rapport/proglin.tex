@@ -210,6 +210,43 @@ pour chaque variable d'écart n (n dans [nombre de variables hors base, nombre d
 retourner (-matrice[0, dernière colonne], à_produire, restes)
               \end{lstlisting}
 
+    \begin{algorithm}
+      \KwIn{ Matrice (tableau canonique)}
+      \KwOut{Gain maximal, quantités de
+        chaque produit à faire, quantité des ressources restantes}
+      \Begin{%
+        base = indices des variables de base de la matrice\;
+
+        \While{il reste un coefficient strictement positif dans les bénéfices}{%
+          à\_ajouter = indice du produit qui rapporte le plus\;
+          à\_retirer = $\underset{i}{\text{argmin}}
+          \frac{stock(i)}{matrice(\text{à\_ajouter},i)}$\;
+
+          base(à\_retirer) = à\_ajouter\;
+
+          matrice(à\_retirer,:) = matrice(à\_retirer,:) /
+          matrice(à\_retirer,à\_ajouter)\; 
+          \For{$i$ allant de $1$ au nombre de lignes}{%
+            \If{$i \neq $à\_ajouter}{%
+              matrice($i$,:) = matrice(à\_retirer,:) * matrice($i$,à\_ajouter) /
+              matrice(à\_ajouter,à\_retirer)\;
+            }
+          }
+        }
+
+        \For{$n$ allant de 0 au nombre de variable hors base -1}{%
+          à\_produire(base($n$)) = matrice($n+1$,stock)\;
+        }
+
+        \For{$n$ allant du nombre de variables hors base au nombre de variables
+        total}{%
+          restes(base($n$)) = matrice($n+1$,stock)\;
+        }
+
+        \Return{(-\text{matrice(0,stock),à\_produire,restes})}
+      }
+    \end{algorithm}
+
     \paragraph{Exemple}
       Considérons le problème suivant : nous pouvons créer 4 produits à partir
       de 3 ressources. Chaque produit rapporte un certain bénéfice et nous
