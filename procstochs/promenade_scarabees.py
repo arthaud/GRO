@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import numpy
 import argparse
-from random import random, randrange
+from random import uniform, randrange
 import sys
 
 class Graphe:
@@ -11,13 +11,6 @@ class Graphe:
         self.scarabees = []
         for sommet in open(fichier, 'r').readlines():
             self.sommets.append([int(i) for i in sommet.split(' ')])
-
-    def __repr__(self):
-        print """
-TODO: Graphe.__repr__
-Cette fonction devra retourner la représentation du graphe au format dot, en colorant d'une couleur différente les points où un scarabée est stationné, et d'une couleur plus visible les points où plusieurs scarabées sont présents.
-"""
-        return null
 
 class Scarabee:
     def __init__(self, graphe, fichier_probas):
@@ -35,6 +28,38 @@ class Scarabee:
     def __repr__(self):
         return generer_dot(self.probas)
 
+def simuler_deplacement(matrice, position):
+    probas = [sum(matrice[position][:i+1]) for i in range(len(matrice[0]))]
+    rand = uniform(0, 1)
+    for i, p in enumerate(probas):
+        if rand <= p:
+            return i
+
+def simuler_rencontre(matrices, pos_initiale):
+    '''
+    Simule des scarabées dans un graphe.
+    Retourne le nombre de coup avant qu'ils se rencontrent
+    '''
+    positions = [pos_initiale for _ in matrices]
+    tour = 0
+    while True:
+        for i, m in enumerate(matrices):
+            positions[i] = simuler_deplacement(m, positions[i])
+
+        tour += 1
+        if all(pos == positions[0] for pos in positions):
+            return tour
+
+def simuler_temps_moyen(matrices, pos_initiale, iterations):
+    '''
+    Retourne le nombre moyen de tours entre chaque rencontre
+    '''
+    somme = 0
+    for _ in range(iterations):
+        somme += simuler_rencontre(matrices, pos_initiale)
+
+    return somme / float(iterations)
+
 def rencontres(graphe):
     nb_scarabees_par_sommet = [0] * len(graphe.sommets)
     rencontres = []
@@ -50,17 +75,14 @@ def promenade(graphe, nb_iterations):
     nb_r = 0
     for _ in range(nb_iterations):
         for s in graphe.scarabees:
-            probas = [sum(s.probas[s.position][:i+1]) for i in range(len(s.probas))]
-            destin = random() # entre 0 et 1
-            for i, p in enumerate(probas):
-                if destin <= p:
-                    s.position = i
-                    break
+            s.position = simuler_deplacement(s.probas, s.position)
+
         sommets_rencontres = rencontres(graphe)
         if sommets_rencontres != []:
             nb_r += 1
         for s in sommets_rencontres:
             nb_rencontres[s] += 1
+
     temps_moyens_entre_rencontres = [(nb_iterations / float(nb_r)) if nb_r > 0 else None for nb_r in nb_rencontres]
     return nb_iterations/float(nb_r), temps_moyens_entre_rencontres
 
