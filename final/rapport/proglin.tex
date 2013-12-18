@@ -180,12 +180,12 @@
           correspondent aux variables d'écart ajoutées).
       \end{itemize}
 
-      %todo: algorithmiser
-      \begin{lstlisting}
+              %todo: algorithmiser
+              \begin{lstlisting}
 Entrée : matrice (un tableau canonique)
-Sortie : le résultat optimum
-         les quantités de chaque produit à produire
-         les quantités de chaque ressource restante
+        Sortie : le résultat optimum
+        les quantités de chaque produit à produire
+        les quantités de chaque ressource restante
 
 base = indices des variables de base de la matrice
 
@@ -208,7 +208,71 @@ pour chaque variable d'écart n (n dans [nombre de variables hors base, nombre d
   restes[base[n]] = matrice[n+1, dernière colonne]
 
 retourner (-matrice[0, dernière colonne], à_produire, restes)
-      \end{lstlisting}
+              \end{lstlisting}
+
+    \paragraph{Exemple}
+      Considérons le problème suivant : nous pouvons créer 4 produits à partir
+      de 3 ressources. Chaque produit rapporte un certain bénéfice et nous
+      cherchons à maximiser notre gain.  
+      \begin{center}
+        \begin{tabular}{|c|cccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 &  \\ \hline
+        \end{tabular}
+      \end{center}
+
+      La première étape de l'algorithme revient à constuire le tableau suivant,
+      en rajoutant les variables d'écart $x_1$, $x_2$ et $x_3$.
+
+      \begin{center}
+        \begin{tabular}{|c|ccccccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
+          $R_A$ & 2 & 4 & 5 & 7 & 1 & 0 & 0 & 72 \\
+          $R_B$ & 1 & 1 & 2 & 2 & 0 & 1 & 0 & 17 \\
+          $R_C$ & 1 & 2 & 3 & 3 & 0 & 0 & 1 & 24 \\ \hline
+          bénéfice & 7 & 9 & 18 & 17 & 0 & 0 & 0 & \\ \hline
+        \end{tabular}
+      \end{center}
+
+      Le produit qui rapport le plus est $P_3$, et on peut en produire au
+      maximum 8 ( c'est $\underset{i}{\text{argmin}}
+      \frac{\text{stock}(i)}{P_3(i)}$). On va donc en produire le plus
+      possible, puis mettre à jour le tableau pour aboutir au tableau suivant :
+
+      \begin{center}
+        \begin{tabular}{|c|ccccccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
+          $R_A$ & 1/3 & 2/3 & 0 & 2 & 1 & 0 & -5/3 & 2 \\
+          $R_B$ & 1/3 & -1/3 & 0 & 0 & 0 & 1 & -2/3 & 1 \\
+          $R_C$ & 1/3 & 2/3 & 1 & 1 & 0 & 0 & 1/3 & 8 \\ \hline
+          bénéfice & 1 & -3 & 0 & -1 & 0 & 0 & -6 & -144 \\ \hline
+        \end{tabular}
+      \end{center}
+
+      Dans la case en bas à gauche se trouve l'opposé du gain. Si on
+      recommence, on va donc produire $P_1$ (on en produira $1/3$). Le prochain
+      tableau sera donc le suivant :
+
+      \begin{center}
+        \begin{tabular}{|c|ccccccc|c|}\hline
+          & $P_1$ & $P_2$ & $P_3$ & $P_4$ & $x_1$ & $x_2$ & $x_3$ & stock \\ \hline
+          $R_A$ & 0 & 1 & 0 & 2 & 1 & -1 & -1 & 1 \\
+          $R_B$ & 1 & -1 & 0 & 0 & 0 & 3 & -2 & 3 \\
+          $R_C$ & 0 & 1 & 1 & 1 & 0 & -1 & 1 & 7 \\ \hline
+          bénéfice & 0 & -2 & 0 & -1 & 0 & -3 & -4 & -147 \\ \hline
+        \end{tabular}
+      \end{center}
+
+      On voit maintenant que dans la ligne des bénéfices, les coefficients sont
+      tous négatifs ou nuls. Ainsi, quelque soit la direction dans laquelle on
+      se déplace, on baissera nécessairement notre gain. Nous avons donc
+      atteint l'optimum : le gain maximal sera de 147 et il sera atteint en
+      produisant 3 $P_1$ et 7 $P_3$.
+
+
 
     % todo:
     %       contraintes négatives
