@@ -375,8 +375,7 @@ correspondante contient un $1$.
 
   \subsubsection{Méthode de résolution}
     On remarque que dans le cas d'un graphe eulérien, il suffit d'appliquer
-    l'algorithme d'Euler (voir algorithmes~\ref{alg:postier_chinois}
-    et~\ref{alg:couplage} pour avoir la chaine voulue.
+    l'algorithme d'Euler pour avoir la chaine voulue.
 
     Dans les autres cas, la méthode de résolution consiste à transformer le
     graphe en graphe eulérien, en ajoutant des arêtes. Une méthode possible
@@ -388,10 +387,10 @@ correspondante contient un $1$.
         sommets non reliés entre eux, on crée une arête les rejoignant,
         de poids égal au cout le plus faible possible pour rejoindre ces
         sommets dans le graphe initial (ceci se calcule facilement avec
-        l'algorithme de Dijkstra);
+        l'algorithme de Dijkstra~\ref{alg:dijkstra});
       \item on cherche le couplage parfait de cout minimum en utilisant des
         algorithmes comme celui d'Edmonds. On peut aussi tester simplement
-        toutes les possibilités;
+        toutes les possibilités~\ref{alg:couplage};
       \item pour chaque arête de cet ensemble, on double la chaine la plus
         courte reliant les sommets reliés par cette arête dans le graphe initial;
       \item on obtient alors un graphe eulérien, sur lequel on applique
