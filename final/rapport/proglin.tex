@@ -79,16 +79,12 @@
     objets pourrait être la masse faible, le prix élevé, ou le rapport
     prix/masse élevé.
 
-    % FIXME: Osef des tests ? Ça explique pas en détail, mais c'est trop expérimental je trouve
     Cet algorithme est beaucoup plus rapide que le précédent (il a une
-    complexité en temps de $O(n \log n)$ (pour le tri des objets)) et ne
-    nécessite en mémoire que la liste des objets, mais ce n'est qu'un algorithme
-    approché. Les résultats obtenus sont cependant très satisfaisant, en effet
-    en considérant le ratio \nobreak prix/masse, on obtient des résultats très
-    proches de l'optimum (quelques pourcents d'erreur relative en moyenne, mais
-    aucune garantie n'est fournie: il peut même fournir la pire solution).
+    complexité en temps de $O(n \log n)$, pour le tri des objets) et ne
+    nécessite en mémoire que la liste des objets. De plus il peut être utilisé
+    quand les masses ne sont pas entières. Mais ce n'est qu'un algorithme
+    approché qui ne fourni aucune garantie de résultat.
 
-    De plus il peut être utilisé quand les masses ne sont pas entières.
 
     \paragraph{}
     Un autre algorithme pour résoudre ce problème est inspiré du comportement

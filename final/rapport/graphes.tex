@@ -311,7 +311,7 @@ correspondante contient un $1$.
 
     Pour rechercher une chaine hamiltonienne dans un graphe, on pourrait
     chercher parmi toutes les chaines possibles. La complexité d'un tel
-    algorithme (voir algoritme~\ref{alg:hamil}) dans le pire des cas est donc
+    algorithme (voir algorithme~\ref{alg:hamil}) dans le pire des cas est donc
     très mauvaise: $O(n!)$. Comme on peut s'arrêter dès qu'on a trouvé une
     chaine sans devoir tester toutes les autres chaines possibles, la
     complexité moyenne sera inférieure.
@@ -387,10 +387,10 @@ correspondante contient un $1$.
         sommets non reliés entre eux, on crée une arête les rejoignant,
         de poids égal au cout le plus faible possible pour rejoindre ces
         sommets dans le graphe initial (ceci se calcule facilement avec
-        l'algorithme de Dijkstra~\ref{alg:dijkstra});
+        l'algorithme de Dijkstra, voir algorithme~\ref{alg:dijkstra});
       \item on cherche le couplage parfait de cout minimum en utilisant des
         algorithmes comme celui d'Edmonds. On peut aussi tester simplement
-        toutes les possibilités~\ref{alg:couplage};
+        toutes les possibilités (voir algorithme~\ref{alg:couplage});
       \item pour chaque arête de cet ensemble, on double la chaine la plus
         courte reliant les sommets reliés par cette arête dans le graphe initial;
       \item on obtient alors un graphe eulérien, sur lequel on applique
