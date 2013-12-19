@@ -29,26 +29,6 @@
           \path (4) edge node {} (5);
         \end{tikzpicture}
       \end{center}
-    \item[Graphe connexe] Un graphe est dit connexe quand on peut aller de
-      n'importe quel sommet vers n'importe quel autre sommet en suivant des
-      arêtes.
-      \begin{center}
-        \begin{tikzpicture}[node distance=1.5cm,auto]
-          \node[draw, circle] (1) at (0,0) {1};
-          \node[draw, circle] (2) at (2,-0.5) {2};
-          \node[draw, circle] (3) at (4,0) {3};
-          \node[draw, circle] (4) at (1,1) {4};
-          \node[draw, circle] (5) at (4,2) {5};
-          \node[draw, circle] (6) at (0,1.5) {6};
-
-          \path (2) edge node {} (1);
-          \path (4) edge node {} (2);
-          \path (4) edge node {} (3);
-          \path (1) edge node {} (4);
-          \path (4) edge node {} (5);
-          \path (4) edge node {} (6);
-        \end{tikzpicture}
-      \end{center}
     \item[Graphe orienté] Un graphe orienté n'est pas constitué d'arêtes mais
       d'arcs (des paires de sommets).
       \begin{center}
@@ -68,6 +48,46 @@
           \draw[arrows={triangle 90-triangle 90}] (4) --++ (5);
         \end{tikzpicture}
       \end{center}
+    \item[Graphe connexe] Un graphe est dit connexe quand on peut relier deux
+      sommets quelconques par une chaine (une suite d'arêtes dont chaque terme
+      possède un sommet commun avec le terme précédent).
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
+
+          \path (2) edge node {} (1);
+          \path (4) edge node {} (2);
+          \path (4) edge node {} (3);
+          \path (1) edge node {} (4);
+          \path (4) edge node {} (5);
+          \path (4) edge node {} (6);
+        \end{tikzpicture}
+      \end{center}
+    \item[Graphe fortement connexe] Un graphe orienté est dit fortement connexe
+      quand on peut aller de n'importe quel sommet vers n'importe quel autre
+      sommet en suivant des arcs; on parle alors de chemin.
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
+
+          \draw[arrows={-triangle 90}] (2) --++ (1);
+          \draw[arrows={-triangle 90}] (4) --++ (2);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (3);
+          \draw[arrows={-triangle 90}] (1) --++ (4);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (5);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (6);
+        \end{tikzpicture}
+      \end{center}
     \item[Graphe complet] Un graphe est dit complet quand tout ses sommets sont
       reliés deux à deux par une arrête. Le nombre de d'arêtes d'un tel graphe
       est alors $\frac {n(n-1)} 2$.
@@ -85,7 +105,7 @@
       incidentes à ce sommet.
   \end{description}
 
-\subsection{Modélisation mathématique}
+\subsection{Modélisation}
 Il existe plusieurs moyens de représenter des graphes. Parmi ceux-ci,
 le plus simple est la matrice d'adjacence, où l'on stocke une matrice
 de taille $n\times n$ ($n$ étant le nombre de sommets), dont chaque
@@ -343,11 +363,10 @@ correspondante contient un $1$.
     \end{center}
 
     Nos couplages parfaits sont donc~:
-
     \begin{itemize}
-      \item $\{AB, DC\}$ de poids 2
-      \item $\{AD, BC\}$ de poids 6
-      \item $\{AC, BD\}$ de poids 4
+      \item $\{AB, DC\}$ de poids 2;
+      \item $\{AD, BC\}$ de poids 6;
+      \item $\{AC, BD\}$ de poids 4.
     \end{itemize}
 
 
@@ -435,8 +454,8 @@ correspondante contient un $1$.
     \paragraph{Exemple} Un algorithme de recherche locale adapté au problème
     du voyageur de commerce est le 2-opt (voir algorithme~\ref{alg:2opt}).
     Le principe du 2-opt consiste à tenter d'éliminer les «~boucles~» qui
-    pourraient survenir dans le chemin, afin de le rendre plus court.
-    \cite{two_opt}
+    pourraient survenir dans le chemin, afin de le rendre plus court
+    \cite{two_opt}.
 
     Ainsi, partant du chemin suivant (qu'on obtiendrait logiquement en suivant
     l'heuristique consistant à aller sur le sommet le plus près):
@@ -505,3 +524,10 @@ correspondante contient un $1$.
     comment, dans ce cas précis, on pouvait obtenir des résultats corrects en
     se passant de métaheuristiques. On pourrait donc améliorer ces résultats en
     en utilisant.
+
+\subsection{Conclusion}
+  Les graphes sont donc un outil très utile permettant de résoudre beaucoup de
+  problèmes (nous en verrons d'ailleurs d'autre dans la suite) bien que leur
+  étude peut être difficile d'un niveau algorithmique.
+
+% vim: shiftwidth=2 softtabstop=2 tabstop=2 spell spelllang=fr

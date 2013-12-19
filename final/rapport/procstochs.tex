@@ -8,6 +8,9 @@
   peut la représenter sous forme d'un graphe, dont les sommets représentent des
   états et les arêtes des transitions d'un état à l'autre.
 
+  On parle de chaine irréductible si son graphe est fortement connexe,
+  récurrente positive s'il est possible de retourner à tout ses états.
+
 \subsection{Colonie de scarabées}
   Le problème consiste, à partir d'un graphe dont les nœuds représentent des
   positions et les arêtes contiennent la probabilité pour un scarabée de passer
@@ -38,7 +41,7 @@
   départ par cette matrice nous donnera les probabilités pour le scarabée
   d'être en chaque position une fois qu'il aura suffisamment voyagé et que sa
   position de départ n'aura plus d'importance.
-  %TODO: c'est quoi une chaine irréductible blabla apériodique?
+  %TODO: c'est quoi une chaine apériodique?
 
   \subsubsection{Chaines de Markov}
     Le problème des scarabées peut aisément être modélisé par des chaines de
@@ -78,7 +81,7 @@
 
       Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
       partant de ce même point, il suffit de prendre l'espérance de cette suite
-      $V_k$. %TODO: qui est? bah V_1 + 2 * V_2 + 3 * V_3 + .. c'est du cours de proba !
+      $V_k$.
 
     \paragraph{À partir de deux points différents}
       Dans le cas où les points de départs des scarabées sont différents, on peut
@@ -98,7 +101,7 @@
       \end{align*}
 
       Pour avoir un temps moyen de rencontre global, on fait la moyenne du temps
-      de rencontre pour chaque position initiale possible. %TODO: qui est?
+      de rencontre pour chaque position initiale possible.
 
   \subsubsection{Exemple}
     Partons du graphes suivant:
