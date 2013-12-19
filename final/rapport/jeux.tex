@@ -164,6 +164,12 @@ donc on prendra $5$ dans tous les cas.
 Au final, cette amélioration permet de gagner un temps considérable pour
 obtenir le même résultat.
 
+\subsubsection{Limites}
+Malheureusement, notre algorithme ne fonctionne que dans le cadre des
+morpions $3\times *$. En effet, pour de plus grandes tailles, on peut
+générer de nombreux carrés magiques différents, un détail auquel nous
+n'avions pas songé durant l'UA.
+
 \subsection{Duopôles}
   Les jeux précédents sont des jeux non coopératifs à somme nulle (on peut soit
   gagner, soit perdre).
@@ -219,4 +225,3 @@ obtenir le même résultat.
       Ces deux stratégies sont efficaces à la fois quand l'autre joueur est
       coopératif (on est alors coopératif) et contre un joueur non-coopératif
       (on devient alors agressif).
-
