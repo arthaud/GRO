@@ -1,0 +1,342 @@
+\begin{algorithm}
+  \KwIn{un graphe}
+  \KwOut{%
+    la liste des cycles ou chaines eulériens si le graphe est eulérien
+    semi-eulérien ou la liste vide sinon
+  }
+  \Begin{%
+    \tcc{Construction de la matrice latine du graphe}
+    construire une matrice à n lignes et n colonnes\;
+    remplir la matrice de listes vides\;
+    \For{chaque nœud du graphe}{%
+      \For{chaque arête sortant de ce nœud}{%
+        ajouter la liste [noeud de départ, noeud d'arrivée] à la case de
+        la matrice correspondante\;
+      }
+    }
+    n $\leftarrow$ le nombre d'arêtes total du graphe\;
+    calculer la puissance $(n-1)$ième de la matrice
+
+    \For{chaque coefficient de la matrice ainsi calculée}{%
+      \If{le coefficient n'est pas nul}{%
+        concaténer ce coefficient à la variable de retour\;
+      }
+    }
+  }
+  \caption{Méthode de la matrice latine}
+  \label{alg:meth_mat_lat}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{$A$ et $B$ deux matrices latines}
+  \KwOut{le produit de ces deux matrices}
+  \Begin{%
+    construire la matrice de retour à n lignes et n colonnes\;
+    initialiser chaque coefficient de cette matrice à la liste vide\;
+
+    \For{chaque coefficient de la matrice de retour}{%
+      \For{$k$ allant de $1$ jusqu'à $n$}{%
+        calculer les chaines produits entre a(i,k) et b(k,j)\;
+        ajouter au coefficient de la matrice ces chaines\;
+      }
+    }
+  }
+  \caption{Produit matriciel}
+  \label{alg:prod_mat}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{liste\_1 et liste\_2 deux listes de chaine}
+  \KwOut{une liste de chaines}
+  \Begin{%
+    créer une liste de chaine vide (liste de retour)\;
+    \For{$i$ dans liste\_1}{%
+      \For{$j$ dans liste\_2}{%
+        construire la chaine résultante de la concaténation de $i$ et $j$
+        (en enlevant le nœud présent deux fois)\;
+        construire un ensemble de chaine vide\;
+        \For{$k$ allant de $1$ à la longueur de la chaine construit}{%
+          construire la chaine élémentaire menant du nœud $k$ au nœud $k+1$\;
+          \If{cette chaine n'est pas dans l'ensemble}{%
+            ajouter cette chaine dans l'ensemble\;
+          }
+          \Else{%
+            rendre la chaine nulle\;
+            sortir de la boucle\;
+          }
+        }
+      }
+      \Si{le chaine n'est pas nulle}{%
+        concaténer la chaine trouvée à la liste de retour
+      }
+    }
+  }
+  \caption{Produit entre listes de chaines (coefficients de matrices
+  latines)}
+  \label{alg:prod_chaine}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{un graphe}
+  \KwIn{un sommet de départ optionnel node\_from}
+  \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
+  nodes\_done}
+  \KwOut{une chaine hamiltonienne sous la forme d'une liste ordonnée de
+  sommets, ou None s'il n'en existe pas}
+
+  \Begin{%
+    \If{node\_from n'a pas été fourni}{%
+          node\_from $\leftarrow$ un nœud du graphe\;
+    }
+    ajouter node\_from à nodes\_dones\;
+
+    \If{cardinal(node\_from) == ordre(graphe)}{%
+      \Return{[node\_from]}
+    }
+
+    \For{chaque arête dans le graphe}{%
+      autre $\leftarrow$ le sommet opposé à node\_from par rapport à cette
+      arête\;
+      \If{autre dans nodes\_done}{%
+        passer à la prochaine arête
+      }
+      appeler la fonction récursivement avec le graphe, node\_from et
+      nodes\_dones comme paramètres\;
+      \If{la liste retournée est non-vide}{%
+          y ajouter node\_from au début et la retourner\;
+      }
+    }
+  }
+  \caption{Recherche de chaine hamiltonienne}
+  \label{alg:hamil}
+\end{algorithm}
+
+
+\begin{algorithm}
+  \KwIn{un graphe complet g}
+  \KwOut{(cout, cycle) où cycle est un cycle hamiltonien construit selon la
+  méthode du plus proche voisin et cout son cout associé sous forme de
+  liste de sommets}
+  \Begin{%
+    cout = 0\;
+    cycle = une liste composée d'un sommet de g au hasard\;
+
+    \While{il reste des sommets}{%
+      \tcc{On ajoute au cycle le sommet suivant}
+      plus\_proche = sommet de g sur lequel on est pas encore passé le
+      plus proche du dernier sommet du cycle\;
+
+      cout += cout de plus\_proche au dernier sommet du cycle construit\;
+      ajouter plus\_proche au cycle\;
+    }
+
+    \tcc{On ferme le cycle}
+    cout += cout du dernier au premier sommet de cycle\;
+    ajouter le premier sommet de la chaine à cycle\;
+
+    \Return{(cout, cycle)}
+  }
+  \label{alg:voisin}
+  \caption{Plus proche voisin}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{un cycle hamiltonien (liste de sommets) et son cout}
+  \KwOut{un cycle hamiltonien et son cout inférieur ou égal au coup
+  d'entrée}
+
+  \Begin{%
+    \For{chaque couple de sommets (a, b) dans le cycle}{%
+       $\begin{aligned}
+\text{nouveau\_cout} & \leftarrow
+\text{cout}\\
+&- \text{cout de a à son successeur dans le cycle}\\
+&- \text{cout de b à son successeur dans le cycle}\\
+&+ \text{cout de a à b}\\
+&+ \text{cout du successeur de a au successeur de b dans le
+cycle}\\
+\end{aligned}$\;
+
+      \If{nouveau\_cout < cout}{%
+        cout = nouveau\_cout
+        cycle = cycle crée en échangeant a et b dans cycle\;
+      }
+    }
+    \Return{(cout, cycle)}
+  }
+  \caption{2-opt}
+  \label{alg:2opt}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{Un graphe non-orienté et connexe g}
+  \KwOut{le cycle le plus court permettant de visiter toutes les arêtes de
+  g}
+
+  \Begin{%
+    \tcc{Création du graphe partiel}
+    \For{chaque sommet de g}{%
+      \If{le sommet est de degré impair}{%
+        créer le sommet dans graphe\_partiel\;
+      }
+    }
+    \For{chaque arête de g}{%
+      \If{ses 2 sommets sont dans graphe\_partiel}{%
+        créer la même arête dans graphe\_partiel\;
+      }
+    }
+
+    \tcc{Transformation en clique}
+    \For{chaque couple de sommet (s1, s2) dans graphe\_partiel}{%
+      \If{il n'y a pas d'arête reliant s1 et s2}{%
+        $(cout, chaine) = dijkstra(s1, s2)$\;
+        créer l'arête reliant s1 et s2 dans graphe\_partiel, de cout cout\;
+      }
+    }
+
+    $couplage, cout = aux(ensemble vide, ensemble vide, 0)$\;
+
+    \For{chaque arête dans couplage}{%
+      $(s1, s2) =$ sommets reliés par arête dans g\;
+      $(cout, chaine) = dijkstra(s1, s2)$\;
+      \For{chaque arête dans chaine}{%
+        doubler cette arête dans g\;
+      }
+    }
+
+    \Return{le cycle eulérien de g}
+  }
+  \label{alg:postier_chinois}
+  \caption{Algorithme du postier chinois}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{arêtes, sommets\_visités, cout}
+  \Begin{%
+    \If{sommets\_visités contient tous les sommets de graphe\_partiel}{%
+      \Return{(arêtes, cout)}
+    }
+    \Else{%
+      $meilleur\_couplage = Vide$\;
+      $meilleur\_cout = 0$\;
+      \For{chaque arête de graphe\_partiel}{%
+        \If{les 2 sommets de l'arête ne sont pas dans sommets\_visités}{%
+          arêtes\_copie = copie de arêtes\;
+          sommets\_visités\_copie = copie de sommets\_visités\;
+
+          ajouter arête dans arêtes\_copie\;
+          couplage, cout = aux(arêtes\_copie, sommets\_visités\_copie, cout +
+          cout de arête)\;
+
+          \If{meilleur\_couplage = Vide ou meilleur\_cout > cout}{%
+            meilleur\_couplage = couplage\;
+            meilleur\_cout = cout\;
+          }
+        }
+      }
+      \Return{(meilleur\_couplage, meilleur\_cout)}
+    }
+  }
+  \label{alg:couplage}
+  \caption{Recherche du couplage parfait de cout minimum par bruteforce}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{une liste d'objets}
+  \KwIn{une masse maximale autorisée}
+  \KwOut{la valeur maximale qu'il est possible d'atteindre}
+  \Begin{%
+    ligne\_courante = liste composée de (masse\_max+1) zéros\;
+    ligne\_prec     = liste composée de (masse\_max+1) zéros\;
+    \For{chaque objet obj de la liste d'entrée}{%
+      \For{m variant de 0 à masse\_max}{%
+        \If{masse(obj) $\leq$ m}{%
+          ligne\_courante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
+        }
+      }
+      ligne\_prec $\leftarrow$ ligne\_courante
+    }
+    \Return{ligne\_courante[masse\_max]}
+  }
+  \caption{Algorithme de résolution exacte du problème du sac à dos}
+  \label{alg:sacados}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{Matrice (tableau canonique)}
+  \KwOut{Gain maximal, quantités de
+    chaque produit à faire, quantité des ressources restantes}
+  \Begin{%
+    base = indices des variables de base de la matrice\;
+
+    \While{il reste un coefficient strictement positif dans les bénéfices}{%
+      à\_ajouter = indice du produit qui rapporte le plus\;
+      à\_retirer = $\underset{i}{\text{argmin}}
+      \frac{stock(i)}{matrice(\text{à\_ajouter},i)}$\;
+
+      base(à\_retirer) = à\_ajouter\;
+
+      matrice(à\_retirer,:) = matrice(à\_retirer,:) /
+      matrice(à\_retirer,à\_ajouter)\; 
+      \For{$i$ allant de $1$ au nombre de lignes}{%
+        \If{$i \neq $à\_ajouter}{%
+          matrice($i$,:) = matrice(à\_retirer,:) $\times$ matrice($i$, à\_ajouter) /
+          matrice(à\_ajouter, à\_retirer)\;
+        }
+      }
+    }
+
+    \For{$n$ allant de 0 au nombre de variable hors base -1}{%
+      à\_produire(base($n$)) = matrice($n+1$,stock)\;
+    }
+
+    \For{$n$ allant du nombre de variables hors base au nombre de variables
+    total}{%
+      restes(base($n$)) = matrice($n+1$,stock)\;
+    }
+
+    \Return{(-\text{matrice(0, stock), à\_produire, restes})}
+  }
+  \label{alg:simpl}
+  \caption{Algorithme du simplexe}
+\end{algorithm}
+
+\begin{algorithm}
+  \KwIn{deux sommets s1 et s2}
+  %\Require{il existe une chaine entre les deux sommets}
+  \KwOut{le plus court chemin entre s1 et s2}
+  \Begin{%
+    \For{chaque sommet du graphe}{%
+      sommet.parcouru $\leftarrow \infty$\;
+      sommet.precedent $\leftarrow 0$\;
+    }
+    s1.parcouru $\leftarrow 0$\;
+    non\_visités $\leftarrow$ ensemble des sommets du graphe\;
+
+    \While{non\_visités est non vide}{%
+      s $\leftarrow$ le sommet de non\_visités avec parcouru minimum\;
+      supprimer s de non\_visités\;
+
+      \For{chaque sommet f fils de s}{%
+        \If{f.parcouru > s.parcouru + poids de l'arc entre s et f}{%
+          f.parcouru $\leftarrow$ s.parcouru + poids de l'arc entre s et f\;
+          f.precedent $\leftarrow$ s\;
+          ajouter f dans non\_visités\;
+        }
+      }
+    }
+
+    chaine $\leftarrow$ liste vide\;
+    s = s2\;
+    \While{s $\neq$ s1}{%
+      chaine.ajouter(s)\;
+      s $\leftarrow$ s.precedent\;
+    }
+
+    chaine.ajouter(s1)\;
+    \Return{chaine}
+  }
+  \caption{Algorithme de Dijkstra}
+  \label{alg:dijkstra}
+\end{algorithm}
+

@@ -41,45 +41,6 @@
     Son principe est simple : il parcourt le graphe en gardant en mémoire la
     longueur du chemin le plus court vers chaque sommet.
 
-    \begin{algorithm}
-      \KwIn{deux sommets s1 et s2}
-      %\Require{il existe une chaine entre les deux sommets}
-      \KwOut{le plus court chemin entre s1 et s2}
-      \Begin{%
-        \For{chaque sommet du graphe}{%
-          sommet.parcouru $\leftarrow \infty$\;
-          sommet.precedent $\leftarrow 0$\;
-        }
-        s1.parcouru $\leftarrow 0$\;
-        non\_visités $\leftarrow$ ensemble des sommets du graphe\;
-
-        \While{non\_visités est non vide}{%
-          s $\leftarrow$ le sommet de non\_visités avec parcouru minimum\;
-          supprimer s de non\_visités\;
-
-          \For{chaque sommet f fils de s}{%
-            \If{f.parcouru > s.parcouru + poids de l'arc entre s et f}{%
-              f.parcouru $\leftarrow$ s.parcouru + poids de l'arc entre s et f\;
-              f.precedent $\leftarrow$ s\;
-              ajouter f dans non\_visités\;
-            }
-          }
-        }
-
-        chaine $\leftarrow$ liste vide\;
-        s = s2\;
-        \While{s $\neq$ s1}{%
-          chaine.ajouter(s)\;
-          s $\leftarrow$ s.precedent\;
-        }
-
-        chaine.ajouter(s1)\;
-        \Return{chaine}
-      }
-      \caption{Algorithme de Dijkstra}
-      \label{alg:dijkstra}
-    \end{algorithm}
-
     % TODO : Améliorer ça, c'est pas ma partie..
     Cet algorithme est appliquable une fois qu'on a obtenu un graphe a partir du plan du labyrinthe.
 

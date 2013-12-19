@@ -51,27 +51,6 @@
     du même facteur. De plus on peut réduire la complexité temporelle en
     $O(nW')$ avec $W' = \frac W {\mathrm{ppcm}(\text{toutes les masses})}$.}.
 
-    \begin{algorithm}
-      \KwIn{une liste d'objets}
-      \KwIn{une masse maximale autorisée}
-      \KwOut{la valeur maximale qu'il est possible d'atteindre}
-      \Begin{%
-        ligne\_courante = liste composée de (masse\_max+1) zéros\;
-        ligne\_prec     = liste composée de (masse\_max+1) zéros\;
-        \For{chaque objet obj de la liste d'entrée}{%
-          \For{m variant de 0 à masse\_max}{%
-            \If{masse(obj) $\leq$ m}{%
-              ligne\_courante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
-            }
-          }
-          ligne\_prec $\leftarrow$ ligne\_courante
-        }
-        \Return{ligne\_courante[masse\_max]}
-      }
-      \caption{Algorithme de résolution exacte du problème du sac à dos}
-      \label{alg:sacados}
-    \end{algorithm}
-
   \subsubsection{Résolution approchée}
     Un autre algorithme pour résoudre ce problème, dit algorithme glouton,
     consiste simplement à choisir les «~meilleurs~» objets jusqu'à que la masse
@@ -180,45 +159,6 @@
           sont placés de manière à former une matrice identité (ils
           correspondent aux variables d'écart ajoutées).
       \end{itemize}
-
-    \begin{algorithm}
-      \KwIn{Matrice (tableau canonique)}
-      \KwOut{Gain maximal, quantités de
-        chaque produit à faire, quantité des ressources restantes}
-      \Begin{%
-        base = indices des variables de base de la matrice\;
-
-        \While{il reste un coefficient strictement positif dans les bénéfices}{%
-          à\_ajouter = indice du produit qui rapporte le plus\;
-          à\_retirer = $\underset{i}{\text{argmin}}
-          \frac{stock(i)}{matrice(\text{à\_ajouter},i)}$\;
-
-          base(à\_retirer) = à\_ajouter\;
-
-          matrice(à\_retirer,:) = matrice(à\_retirer,:) /
-          matrice(à\_retirer,à\_ajouter)\; 
-          \For{$i$ allant de $1$ au nombre de lignes}{%
-            \If{$i \neq $à\_ajouter}{%
-              matrice($i$,:) = matrice(à\_retirer,:) $\times$ matrice($i$, à\_ajouter) /
-              matrice(à\_ajouter, à\_retirer)\;
-            }
-          }
-        }
-
-        \For{$n$ allant de 0 au nombre de variable hors base -1}{%
-          à\_produire(base($n$)) = matrice($n+1$,stock)\;
-        }
-
-        \For{$n$ allant du nombre de variables hors base au nombre de variables
-        total}{%
-          restes(base($n$)) = matrice($n+1$,stock)\;
-        }
-
-        \Return{(-\text{matrice(0, stock), à\_produire, restes})}
-      }
-      \label{alg:simpl}
-      \caption{Algorithme du simplexe}
-    \end{algorithm}
 
     \paragraph{Exemple}
       Considérons le problème suivant: nous pouvons créer 4 produits à partir

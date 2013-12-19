@@ -186,84 +186,6 @@ correspondante contient un $1$.
       astucieusement, on parvient à trouver un cycle eulérien de complexité
       linéaire en le nombre d'arêtes du graphe.
 
-    \begin{algorithm}
-      \KwIn{un graphe}
-      \KwOut{%
-        la liste des cycles ou chaines eulériens si le graphe est eulérien
-        semi-eulérien ou la liste vide sinon
-      }
-      \Begin{%
-        \tcc{Construction de la matrice latine du graphe}
-        construire une matrice à n lignes et n colonnes\;
-        remplir la matrice de listes vides\;
-        \For{chaque nœud du graphe}{%
-          \For{chaque arête sortant de ce nœud}{%
-            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de
-            la matrice correspondante\;
-          }
-        }
-        n $\leftarrow$ le nombre d'arêtes total du graphe\;
-        calculer la puissance $(n-1)$ième de la matrice
-
-        \For{chaque coefficient de la matrice ainsi calculée}{%
-          \If{le coefficient n'est pas nul}{%
-            concaténer ce coefficient à la variable de retour\;
-          }
-        }
-      }
-      \caption{Méthode de la matrice latine}
-      \label{alg:meth_mat_lat}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{$A$ et $B$ deux matrices latines}
-      \KwOut{le produit de ces deux matrices}
-      \Begin{%
-        construire la matrice de retour à n lignes et n colonnes\;
-        initialiser chaque coefficient de cette matrice à la liste vide\;
-
-        \For{chaque coefficient de la matrice de retour}{%
-          \For{$k$ allant de $1$ jusqu'à $n$}{%
-            calculer les chaines produits entre a(i,k) et b(k,j)\;
-            ajouter au coefficient de la matrice ces chaines\;
-          }
-        }
-      }
-      \caption{Produit matriciel}
-      \label{alg:prod_mat}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{liste\_1 et liste\_2 deux listes de chaine}
-      \KwOut{une liste de chaines}
-      \Begin{%
-        créer une liste de chaine vide (liste de retour)\;
-        \For{$i$ dans liste\_1}{%
-          \For{$j$ dans liste\_2}{%
-            construire la chaine résultante de la concaténation de $i$ et $j$
-            (en enlevant le nœud présent deux fois)\;
-            construire un ensemble de chaine vide\;
-            \For{$k$ allant de $1$ à la longueur de la chaine construit}{%
-              construire la chaine élémentaire menant du nœud $k$ au nœud $k+1$\;
-              \If{cette chaine n'est pas dans l'ensemble}{%
-                ajouter cette chaine dans l'ensemble\;
-              }
-              \Else{%
-                rendre la chaine nulle\;
-                sortir de la boucle\;
-              }
-            }
-          }
-          \Si{le chaine n'est pas nulle}{%
-            concaténer la chaine trouvée à la liste de retour
-          }
-        }
-      }
-      \caption{Produit entre listes de chaines (coefficients de matrices
-      latines)}
-      \label{alg:prod_chaine}
-    \end{algorithm}
-
 \subsection{Graphes hamiltoniens}
   \subsubsection{Analyse mathématique}
     Un graphe hamiltonien (resp.\ semi-hamiltonien) est un graphe sur lequel on
@@ -316,41 +238,6 @@ correspondante contient un $1$.
     chaine sans devoir tester toutes les autres chaines possibles, la
     complexité moyenne sera inférieure.
 
-    \begin{algorithm}
-      \KwIn{un graphe}
-      \KwIn{un sommet de départ optionnel node\_from}
-      \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
-      nodes\_done}
-      \KwOut{une chaine hamiltonienne sous la forme d'une liste ordonnée de
-      sommets, ou None s'il n'en existe pas}
-
-      \Begin{%
-        \If{node\_from n'a pas été fourni}{%
-          node\_from $\leftarrow$ un nœud du graphe\;
-        }
-        ajouter node\_from à nodes\_dones\;
-
-        \If{cardinal(node\_from) == ordre(graphe)}{%
-          \Return{[node\_from]}
-        }
-
-        \For{chaque arête dans le graphe}{%
-          autre $\leftarrow$ le sommet opposé à node\_from par rapport à cette
-          arête\;
-          \If{autre dans nodes\_done}{%
-            passer à la prochaine arête
-          }
-          appeler la fonction récursivement avec le graphe, node\_from et
-          nodes\_dones comme paramètres\;
-          \If{la liste retournée est non-vide}{%
-              y ajouter node\_from au début et la retourner\;
-          }
-        }
-      }
-      \caption{Recherche de chaine hamiltonienne}
-      \label{alg:hamil}
-    \end{algorithm}
-
 \subsection{Problème du postier chinois}
   \subsubsection{Analyse mathématique}
     Le problème du postier chinois consiste à trouver la chaine la plus courte
@@ -396,79 +283,6 @@ correspondante contient un $1$.
       \item on obtient alors un graphe eulérien, sur lequel on applique
         l'algorithme d'Euler.
     \end{enumerate}
-
-    \begin{algorithm}
-      \KwIn{Un graphe non-orienté et connexe g}
-      \KwOut{le cycle le plus court permettant de visiter toutes les arêtes de
-      g}
-
-      \Begin{%
-        \tcc{Création du graphe partiel}
-        \For{chaque sommet de g}{%
-          \If{le sommet est de degré impair}{%
-            créer le sommet dans graphe\_partiel\;
-          }
-        }
-        \For{chaque arête de g}{%
-          \If{ses 2 sommets sont dans graphe\_partiel}{%
-            créer la même arête dans graphe\_partiel\;
-          }
-        }
-
-        \tcc{Transformation en clique}
-        \For{chaque couple de sommet (s1, s2) dans graphe\_partiel}{%
-          \If{il n'y a pas d'arête reliant s1 et s2}{%
-            $(cout, chaine) = dijkstra(s1, s2)$\;
-            créer l'arête reliant s1 et s2 dans graphe\_partiel, de cout cout\;
-          }
-        }
-
-        $couplage, cout = aux(ensemble vide, ensemble vide, 0)$\;
-
-        \For{chaque arête dans couplage}{%
-          $(s1, s2) =$ sommets reliés par arête dans g\;
-          $(cout, chaine) = dijkstra(s1, s2)$\;
-          \For{chaque arête dans chaine}{%
-            doubler cette arête dans g\;
-          }
-        }
-
-        \Return{le cycle eulérien de g}
-      }
-      \label{alg:postier_chinois}
-      \caption{Algorithme du postier chinois}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{arêtes, sommets\_visités, cout}
-      \Begin{%
-        \If{sommets\_visités contient tous les sommets de graphe\_partiel}{%
-          \Return{(arêtes, cout)}
-        }
-        \Else{%
-          $meilleur\_couplage = Vide$\;
-          $meilleur\_cout = 0$\;
-          \For{chaque arête de graphe\_partiel}{%
-            \If{les 2 sommets de l'arête ne sont pas dans sommets\_visités}{%
-              arêtes\_copie = copie de arêtes\;
-              sommets\_visités\_copie = copie de sommets\_visités\;
-
-              ajouter arête dans arêtes\_copie\;
-              couplage, cout = aux(arêtes\_copie, sommets\_visités\_copie, cout +
-              cout de arête)\;
-
-              \If{meilleur\_couplage = Vide ou meilleur\_cout > cout}{%
-                meilleur\_couplage = couplage\;
-                meilleur\_cout = cout\;
-              }
-            }
-          }
-          \Return{(meilleur\_couplage, meilleur\_cout)}
-        }
-      }
-      \label{alg:couplage}
-      \caption{Recherche du couplage parfait de cout minimum par bruteforce}
-    \end{algorithm}
 
   \subsubsection{Exemple}
     Prenons comme exemple le graphe ci-dessous, et essayons de trouver un parcours
@@ -609,33 +423,6 @@ correspondante contient un $1$.
     Une méthode purement basée sur cette heuristique consisterait donc à parcourir
     tout le graphe, en allant sur le voisin le plus proche du sommet courant~:
 
-    \begin{algorithm}
-      \KwIn{un graphe complet g}
-      \KwOut{(cout, cycle) où cycle est un cycle hamiltonien construit selon la
-      méthode du plus proche voisin et cout son cout associé sous forme de
-      liste de sommets}
-      \Begin{%
-        cout = 0\;
-        cycle = une liste composée d'un sommet de g au hasard\;
-
-        \While{il reste des sommets}{%
-          \tcc{On ajoute au cycle le sommet suivant}
-          plus\_proche = sommet de g sur lequel on est pas encore passé le
-          plus proche du dernier sommet du cycle\;
-
-          cout += cout de plus\_proche au dernier sommet du cycle construit\;
-          ajouter plus\_proche au cycle\;
-        }
-
-        \tcc{On ferme le cycle}
-        cout += cout du dernier au premier sommet de cycle\;
-        ajouter le premier sommet de la chaine à cycle\;
-
-        \Return{(cout, cycle)}
-      }
-      \label{alg:voisin}
-      \caption{Plus proche voisin}
-    \end{algorithm}
 
   \subsubsection{Recherche locale}
     Les heuristiques nous donnant des solutions acceptables, choisies avec un
@@ -663,34 +450,6 @@ correspondante contient un $1$.
     \begin{center}
     \includegraphics[width=0.3\textwidth]{graphes/2opt2.png}
     \end{center}
-
-    \begin{algorithm}
-      \KwIn{un cycle hamiltonien (liste de sommets) et son cout}
-      \KwOut{un cycle hamiltonien et son cout inférieur ou égal au coup
-      d'entrée}
-
-      \Begin{%
-        \For{chaque couple de sommets (a, b) dans le cycle}{%
-           $\begin{aligned}
-             \text{nouveau\_cout} & \leftarrow
-            \text{cout}\\
-            &- \text{cout de a à son successeur dans le cycle}\\
-            &- \text{cout de b à son successeur dans le cycle}\\
-            &+ \text{cout de a à b}\\
-            &+ \text{cout du successeur de a au successeur de b dans le
-            cycle}\\
-          \end{aligned}$\;
-
-          \If{nouveau\_cout < cout}{%
-            cout = nouveau\_cout
-            cycle = cycle crée en échangeant a et b dans cycle\;
-          }
-        }
-        \Return{(cout, cycle)}
-      }
-      \caption{2-opt}
-      \label{alg:2opt}
-    \end{algorithm}
 
     Il a donc une complexité quadratique du nombre de sommets du cycles.
 
