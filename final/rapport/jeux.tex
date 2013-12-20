@@ -230,7 +230,7 @@ obtenir le même résultat.
 
       Pour que chaque entreprise ait le même gain, on a $g_1(x, y) = g_2(x, y)$.
       Elles doivent donc produire $x=y=\frac a {4\beta}$. Le gain de chaque
-      entreprise est alors $\frac a 2$.
+      entreprise est alors $\frac 1 2 \frac {a^2} \beta$.
 
     \paragraph{Non-coopération} Il est aussi possible de ne pas coopérer du
       tout avec l'autre entreprise, c'est-à-dire de vouloir maximiser son gain
@@ -245,6 +245,13 @@ obtenir le même résultat.
 
       Si les deux entreprises adoptent cette stratégie, leur gain sera
       cependant inférieur à ce qu'elles auraient pu espérer en coopérant.
+
+      En effet, en prenant $x_0 = y_0$, $x_{n+1}=\frac {a-\beta y_n} {2\beta}$
+      et $y_{n+1}=\frac {a-\beta x_n} {2\beta}$ on a alors $x_n=y_n$ pour tout
+      $n$ et les suites convergent vers la solution de
+      $x=\frac {a-\beta x} {2\beta}$ qui est $x=\frac a {3\beta}=y$.
+
+      Le gain de chaque entreprise sera alors $\frac 2 9 \frac {a^2} \beta$.
 
     \paragraph{Stackelberg}
       % on profite de l'autre, toussa
