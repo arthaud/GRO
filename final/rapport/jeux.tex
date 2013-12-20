@@ -208,11 +208,11 @@ obtenir le même résultat.
 
     Les gains des entreprises sont donc respectivement:
       \[\begin{array}{c}
-        g_1(x, y) = x\times (p(x, y)-c(x)) = x(\alpha+\gamma-\beta(x+y)) \\
-        g_2(x, y) = y\times (p(x, y)-c(y)) = y(\alpha+\gamma-\beta(x+y))
+        g_1(x, y) = x (p(x, y)-\gamma) = x(\alpha-\gamma-\beta(x+y)) \\
+        g_2(x, y) = y (p(x, y)-\gamma) = y(\alpha-\gamma-\beta(x+y))
       \end{array}\]
 
-    Par la suite, nous noterons $a=\alpha+\sigma$.
+    Par la suite, nous noterons $a=\alpha-\gamma$.
 
   \subsubsection{Stratégies possibles}
     \paragraph{Coopération} Il est possible de coopérer complètement avec
@@ -229,7 +229,22 @@ obtenir le même résultat.
       Le maximum est donc atteint en $x+y=\frac a {2\beta}$.
 
       Pour que chaque entreprise ait le même gain, on a $g_1(x, y) = g_2(x, y)$.
-      Elles doivent donc produire $x=y=\frac a {4\beta}$.
+      Elles doivent donc produire $x=y=\frac a {4\beta}$. Le gain de chaque
+      entreprise est alors $\frac a 2$.
+
+    \paragraph{Non-coopération} Il est aussi possible de ne pas coopérer du
+      tout avec l'autre entreprise, c'est-à-dire de vouloir maximiser son gain
+      personnel, au détriment de l'autre entreprise.
+
+      Pour maximiser $g_1(x, y)$ il faudrait produire
+      $x=\frac {a-\beta y} {2\beta}$.
+      
+      Les entreprises ne connaissant a priori pas la production de l'entreprise
+      adverse, on peut utiliser pour $y$ la valeur produite au dernier tour ou
+      par exemple la moyenne sur les derniers tours.
+
+      Si les deux entreprises adoptent cette stratégie, leur gain sera
+      cependant inférieur à ce qu'elles auraient pu espérer en coopérant.
 
     \paragraph{Stackelberg}
       % on profite de l'autre, toussa
