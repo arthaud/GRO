@@ -79,22 +79,8 @@
         \[V_k = (1 - U_1) \times (1 - U_2) \times \cdots \times (1 - U_{k - 1})
         \times U_k\]
 
-      $V_k$ peut donc se réécrire par récurrence:
-        \begin{align*}
-          V_1       &= U_1 \\
-          V_{k + 1} &= V_k \times \frac{1 - U_k}{U_k}U_{k + 1}
-        \end{align*}
-
-      Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
-      partant de ce même point, il suffit de prendre l'espérance de cette suite
-      $V_k$.
-
-    \paragraph{À partir de deux points différents}
-      Dans le cas où les points de départs des scarabées sont différents, on peut
-      appliquer le même principe.
-
-      Par contre, on ne peut pas supposer $U_k \neq 0$. %todo: pourquoi on pouvait avant?
-      On peut introduire une suite $W_k$: %todo: pourquoi on a pas fait ça avant?
+      Pour éviter le calcul des $U_k$ lors du calcul de $V_k$, on peut l'écrire par
+      récurrence avec une suite $W_k$:
       \begin{align*}
         W_0 &= 1 \\
         W_k &= W_{k-1} \times (1 - U_k)
@@ -105,6 +91,15 @@
         V_1  &= U_1 \\
         V_k &= W_{k-1} \times U_k
       \end{align*}
+
+      Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
+      partant de ce même point, il suffit de prendre l'espérance de cette suite
+      $V_k$.
+
+    \paragraph{À partir de deux points différents}
+      Dans le cas où les points de départs des scarabées sont différents, on peut
+      appliquer le même principe, en prenant $U_k = pA^k(vA^k)^\intercal$, avec
+      $p$ et $v$ matrice ligne indiquant la position initiale des deux scarabées.
 
       Pour avoir un temps moyen de rencontre global, on fait la moyenne du temps
       de rencontre pour chaque position initiale possible.
