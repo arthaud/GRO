@@ -23,27 +23,6 @@
 \renewcommand{\footrulewidth}{\headrulewidth}
 
 \newcommand{\brokencell}[2][c]{\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-\newcommand{\todo}{\Huge TODO \normalsize}
-\usepackage{listings}
-\lstset{frame=single, breaklines=true,
-          breakatwhitespace=true, basicstyle=\scriptsize,
-          showstringspaces=false, escapeinside={(*}{*)},
-          keywordstyle=\color{deepblue},
-          stringstyle=\color{deepred},
-          commentstyle=\color{deepgreen},
-          literate=
-                   {é}{{\'e}}1{É}{{\'E}}1
-                   {è}{{\`e}}1{È}{{\`E}}1
-                   {ê}{{\^e}}1{Ê}{{\^E}}1
-                   {à}{{\`a}}1{À}{{\`A}}1
-                   {ù}{{\`u}}1{Ù}{{\`U}}1
-                   {û}{{\^u}}1{Û}{{\^U}}1
-                   {ô}{{\^o}}1{Ô}{{\^O}}1
-                   {ó}{{\'o}}1{Ó}{{\'O}}1
-                   {ç}{{\c c}}1{Ç}{{\c C}}1
-                   {œ}{{\oe}}1{Œ}{{\OE}}1
-                   {î}{{\^i}}1{Î}{{\^I}}1
-        }
 
 \title{Rapport final}
 \author{Maxence Ahlouche \and Maxime Arthaud \and Korantin Auguste
@@ -88,4 +67,10 @@
   \begin{thebibliography}{99}
     \input{refs}
   \end{thebibliography}
+  \addcontentsline{toc}{section}{Références}
+
+  \newpage
+  \section*{Annexes -- Algorithmes}
+  \addcontentsline{toc}{section}{Annexe -- Algorithmes}
+    \input{algos}
 \end{document}

@@ -1,12 +1,22 @@
-\subsection{Introduction -- Chaines de Markov}
+\subsection{Introduction}
   Un processus stochastique représente l'évolution au cours du temps d'une
   variable aléatoire. Dans cette section, nous étudierons particulièrement les
   processus de Markov, qui sont des processus stochastiques dont l'état futur
   ne dépend pas des états passés.
 
-  Enfin, une chaine de Markov est un processus de Markov à temps discret. On
+  Une chaine de Markov est un processus de Markov à temps discret. On
   peut la représenter sous forme d'un graphe, dont les sommets représentent des
   états et les arêtes des transitions d'un état à l'autre.
+
+  \begin{description}
+    \item[Irréductible] Une chaine de Markov est irréductible si son graphe est
+      fortement connexe.
+    \item[Récurrente] Une chaine de Markov irréductible est récurrente si une
+      trajectoire typique du système passe infiniment souvent par cet état.
+    \item[Apériodique] Une chaine de Markov est apériodique si pour tout sommet $i$,
+      \[pgcd(\{ n \geq 1 \mid A^n[i, j] > 0 \}) = 1\] où $A$ est la matrice
+      d'adjacence de son graphe.
+  \end{description}
 
 \subsection{Colonie de scarabées}
   Le problème consiste, à partir d'un graphe dont les nœuds représentent des
@@ -14,7 +24,7 @@
   d'une position à l'autre, à calculer les probabilités de présence de chaque
   scarabée au bout de $N$ itérations, selon sa position de départ.
 
-  Pour cela, on représente le graphe sous la forme de matrice d'adjacence, où
+  Pour cela, on représente le graphe sous la forme de matrice d'adjacence $A$, où
   chaque élément de la matrice représente la probabilité de passer d'un nœud à
   un autre.
 
@@ -32,22 +42,12 @@
   rencontrer en n'importe quel point, on peut tout simplement sommer les
   probabilités de rencontre sur chaque point.
 
-  De plus, si on calcule $\lim_{N \to \infty} A^N$ (une telle limite n'existera
+  De plus, si on calcule $\displaystyle\lim_{N \to \infty} A^N$ (une telle limite n'existera
   que si la chaine est irréductible, récurrente positive et apériodique, et ça
-  ne sera pas toujours le cas!), le produit du vecteur avec la position de
+  ne sera pas toujours le cas!), le produit du vecteur contenant la position de
   départ par cette matrice nous donnera les probabilités pour le scarabée
   d'être en chaque position une fois qu'il aura suffisamment voyagé et que sa
   position de départ n'aura plus d'importance.
-
-  \begin{description}
-    \item[Irréductible] Une chaine de Markov est irréductible si son graphe est
-      fortement connexe, c'est à dire que pour tous sommets $i \neq j$, il existe
-      un chemin de $i$ vers $j$ et de $j$ vers $i$.
-    \item[Récurrente] Une chaine de Markov irréductible est récurrente si une
-      trajectoire typique du système passe infiniment souvent par cet état.
-    \item[Apériodique] Une chaine est apériodique si pour tout sommet $i$,
-      $pgcd(\{ n \geq 1 \mid A^n[i, j] > 0 \}) = 1$
-  \end{description}
 
   \subsubsection{Chaines de Markov}
     Le problème des scarabées peut aisément être modélisé par des chaines de
@@ -55,7 +55,7 @@
     graphe de promenade; de plus, l'état d'un scarabée (autrement dit, sa
     position) ne dépend pas du passé, mais uniquement de l'état présent.
 
-    La matrice de transition (dit aussi matrice stochastique) représente les
+    La matrice de transition (dite aussi matrice stochastique) représente les
     probabilités de passer d'un état aux autres. Par conséquent, la matrice de
     transition à la puissance $n$ représente la probabilité de passer d'un état
     à un autre par un chemin de longueur $n$.
@@ -65,11 +65,11 @@
     de notre chaine de Markov sont équivalentes!
 
   \subsubsection{Temps moyen entre rencontres}
-    \paragraph{À partir d'un certain point}
-      Considérons que les deux scarabées sont sur le même point.  On peut donc
+    \paragraph{À partir d'un même point}
+      Considérons que les deux scarabées sont sur le même sommet. On peut donc
       calculer la probabilité qu'après $N$ tours, ils finissent à nouveau sur
-      la même case (en sommant le carré des probabilités que chacun se retrouve
-      sur une case).
+      le même sommet (en sommant le carré des probabilités que chacun se retrouve
+      sur un sommet).
 
       Notons $U_k = pA^k(pA^k)^\intercal$ la probabilité que les deux scarabées
       se retrouvent sur la même case après $k$ tours.
@@ -87,14 +87,14 @@
 
       Pour avoir le temps moyen au bout duquel ils vont se rencontrer en
       partant de ce même point, il suffit de prendre l'espérance de cette suite
-      $V_k$. %TODO: qui est? bah V_1 + 2 * V_2 + 3 * V_3 + .. c'est du cours de proba !
+      $V_k$.
 
     \paragraph{À partir de deux points différents}
       Dans le cas où les points de départs des scarabées sont différents, on peut
       appliquer le même principe.
 
-      Par contre, on ne peut pas supposer $U_k \neq 0$.
-      On peut introduire une suite $W_k$:
+      Par contre, on ne peut pas supposer $U_k \neq 0$. %todo: pourquoi on pouvait avant?
+      On peut introduire une suite $W_k$: %todo: pourquoi on a pas fait ça avant?
       \begin{align*}
         W_0 &= 1 \\
         W_k &= W_{k-1} \times (1 - U_k)
@@ -107,10 +107,10 @@
       \end{align*}
 
       Pour avoir un temps moyen de rencontre global, on fait la moyenne du temps
-      de rencontre pour chaque position initiale possible. %TODO: qui est?
+      de rencontre pour chaque position initiale possible.
 
   \subsubsection{Exemple}
-    Partons du graphes suivant:
+    Partons du graphe suivant:
     \begin{center}
       \begin{tikzpicture}[->, >=stealth', shorten >=1pt, auto]
         \node[draw, circle] (1) at (0, 0) {1};
@@ -162,7 +162,7 @@
           0.29787 & 0.31915 & 0.38298
         \end{array}\right)
       \]
-    lorsque $n \to +\infty$, donc quelque soit la position de départ du
+    lorsque $n \to +\infty$, donc quelle que soit la position de départ du
     scarabée, après un nombre suffisant de tours, la probabilité qu'il soit sur
     le sommet 2 est $0.31915$.
 
@@ -174,15 +174,15 @@
       \begin{tabular}{|c|c|}
         \hline
         Départ & Temps moyen entre chaque rencontre \\\hline
-        A      & 1.991808 \\\hline
-        B      & 2.810620 \\\hline
-        C      & 2.272463 \\\hline
+        1      & 1.991808 \\\hline
+        2      & 2.810620 \\\hline
+        3      & 2.272463 \\\hline
       \end{tabular}
     \end{center}
 
 \subsection{Théorie des files d'attente}
   Une file d'attente est un système ayant une entrée par laquelle arrivent des
-  tâches, ou client, qui attendent leur tour avant d'être traitée une pour en
+  tâches, ou clients, qui attendent leur tour avant d'être traitées une par une pour en
   sortir.
 
   Elles sont utilisées pour l'étude de beaucoup de systèmes: attentes de
@@ -200,8 +200,8 @@
 
   \subsubsection{Cas M/M/1}
     On considère une file d'attente où la loi d'entrée suit une loi de Poisson
-    de paramètre $\lambda$ ($\lambda$ est dont le nombre moyen d'arrivées par
-    unité de temps) et que le temps de service suit une loi exponentielle de
+    de paramètre $\lambda$ ($\lambda$ est donc le nombre moyen d'arrivées par
+    unité de temps) et où le temps de service suit une loi exponentielle de
     paramètre $\mu$ ($\frac 1 \mu$ est donc le temps moyen de traitement, sans
     compter l'attente dans la file).
 
@@ -344,6 +344,10 @@
     \frac{\rho^k}{k!} + \frac {\rho^S}{S!} \frac {1}{1-\rho/S} }$ est la
     probabilité que le système soit vide.
 
-    On remarque qu'on retrouve bien les mêmes résultats que précédement pour
+    On remarque qu'on retrouve bien les mêmes résultats que précédemment pour
     $S=1$.
+
+\subsection{Conclusion}
+  Les processus stochastiques nous montrent une fois de plus l'utilité des
+  graphes. %todo
 

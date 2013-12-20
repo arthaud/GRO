@@ -29,26 +29,6 @@
           \path (4) edge node {} (5);
         \end{tikzpicture}
       \end{center}
-    \item[Graphe connexe] Un graphe est dit connexe quand on peut aller de
-      n'importe quel sommet vers n'importe quel autre sommet en suivant des
-      arêtes.
-      \begin{center}
-        \begin{tikzpicture}[node distance=1.5cm,auto]
-          \node[draw, circle] (1) at (0,0) {1};
-          \node[draw, circle] (2) at (2,-0.5) {2};
-          \node[draw, circle] (3) at (4,0) {3};
-          \node[draw, circle] (4) at (1,1) {4};
-          \node[draw, circle] (5) at (4,2) {5};
-          \node[draw, circle] (6) at (0,1.5) {6};
-
-          \path (2) edge node {} (1);
-          \path (4) edge node {} (2);
-          \path (4) edge node {} (3);
-          \path (1) edge node {} (4);
-          \path (4) edge node {} (5);
-          \path (4) edge node {} (6);
-        \end{tikzpicture}
-      \end{center}
     \item[Graphe orienté] Un graphe orienté n'est pas constitué d'arêtes mais
       d'arcs (des paires de sommets).
       \begin{center}
@@ -68,8 +48,48 @@
           \draw[arrows={triangle 90-triangle 90}] (4) --++ (5);
         \end{tikzpicture}
       \end{center}
+    \item[Graphe connexe] Un graphe est dit connexe quand on peut relier deux
+      sommets quelconques par une chaine (une suite d'arêtes dont chaque terme
+      possède un sommet commun avec le terme précédent).
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
+
+          \path (2) edge node {} (1);
+          \path (4) edge node {} (2);
+          \path (4) edge node {} (3);
+          \path (1) edge node {} (4);
+          \path (4) edge node {} (5);
+          \path (4) edge node {} (6);
+        \end{tikzpicture}
+      \end{center}
+    \item[Graphe fortement connexe] Un graphe orienté est dit fortement connexe
+      quand on peut aller de n'importe quel sommet vers n'importe quel autre
+      sommet en suivant des arcs; on parle alors de chemin.
+      \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm,auto]
+          \node[draw, circle] (1) at (0,0) {1};
+          \node[draw, circle] (2) at (2,-0.5) {2};
+          \node[draw, circle] (3) at (4,0) {3};
+          \node[draw, circle] (4) at (1,1) {4};
+          \node[draw, circle] (5) at (4,2) {5};
+          \node[draw, circle] (6) at (0,1.5) {6};
+
+          \draw[arrows={-triangle 90}] (2) --++ (1);
+          \draw[arrows={-triangle 90}] (4) --++ (2);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (3);
+          \draw[arrows={-triangle 90}] (1) --++ (4);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (5);
+          \draw[arrows={triangle 90-triangle 90}] (4) --++ (6);
+        \end{tikzpicture}
+      \end{center}
     \item[Graphe complet] Un graphe est dit complet quand tout ses sommets sont
-      reliés deux à deux par une arrête. Le nombre de d'arêtes d'un tel graphe
+      reliés deux à deux par une arrête. Le nombre d'arêtes d'un tel graphe
       est alors $\frac {n(n-1)} 2$.
       \begin{center}
         \begin{tikzpicture}[node distance=1.5cm,auto]
@@ -85,7 +105,7 @@
       incidentes à ce sommet.
   \end{description}
 
-\subsection{Modélisation mathématique}
+\subsection{Modélisation}
 Il existe plusieurs moyens de représenter des graphes. Parmi ceux-ci,
 le plus simple est la matrice d'adjacence, où l'on stocke une matrice
 de taille $n\times n$ ($n$ étant le nombre de sommets), dont chaque
@@ -106,7 +126,7 @@ correspondante contient un $1$.
   On peut également représenter les graphes par une liste de sommets,
   chacun ayant une liste d'arêtes.
   En mémoire, cette structure est donc constituée d'une liste de pointeurs
-  vers des sommets. Les sommets contenant une liste de pointeurs vers des
+  vers des sommets, les sommets contenant une liste de pointeurs vers des
   arêtes. Chaque arête dispose d'un pointeur vers chaque sommet extrémité.
   Cette structure est évidemment plus efficace, car elle ne stocke que
   les informations nécessaires.
@@ -127,7 +147,7 @@ correspondante contient un $1$.
     celle-ci passe également par toutes les arêtes du graphe une seule et
     unique fois, mais ne retourne pas au sommet de départ. Le théorème précédent
     se généralise alors aux graphes semi-eulériens: un graphe connexe est
-    semi-eulérien si et seulement tous ses sommets sauf deux sont associés à un
+    semi-eulérien si et seulement si tous ses sommets sauf deux sont associés à un
     nombre pair d'arêtes. Dans ce cas, la chaine eulérienne aura pour départ
     l'un des deux sommets associés à un nombre impair d'arêtes et pour sommet
     d'arrivée le deuxième.
@@ -167,7 +187,7 @@ correspondante contient un $1$.
       représentera l'ensemble des chaines de longueur $k$ reliant les nœuds $i$
       et $j$.
 
-      Puisque une chaine eulérienne passe une unique fois par chaque arête, il
+      Puisqu'une chaine eulérienne passe une unique fois par chaque arête, il
       suffira de calculer la matrice latine élevée à cette puissance pour
       trouver sur sa diagonale l'ensemble des cycles possibles. En éliminant à
       chaque produit les chaines qui passent plusieurs fois par la même arête,
@@ -183,96 +203,18 @@ correspondante contient un $1$.
       sous-graphe de notre graphe de départ, puis s'appelle récursivement sur
       chacun des sommets parcourus par cette chaine, dans le graphe où l'on a
       supprimé les arêtes déjà parcourues. En reconstruisant ces cycles
-      astucieusement, on parvient à trouver un cycle eulérien de complexité
-      linéaire en le nombre d'arêtes du graphe.
-
-    \begin{algorithm}
-      \KwIn{un graphe}
-      \KwOut{%
-        la liste des cycles ou chaines eulériens si le graphe est eulérien
-        semi-eulérien ou la liste vide sinon
-      }
-      \Begin{%
-        \tcc{Construction de la matrice latine du graphe}
-        construire une matrice à n lignes et n colonnes\;
-        remplir la matrice de listes vides\;
-        \For{chaque nœud du graphe}{%
-          \For{chaque arête sortant de ce nœud}{%
-            ajouter la liste [noeud de départ, noeud d'arrivée] à la case de
-            la matrice correspondante\;
-          }
-        }
-        n $\leftarrow$ le nombre d'arêtes total du graphe\;
-        calculer la puissance $(n-1)$ième de la matrice
-
-        \For{chaque coefficient de la matrice ainsi calculée}{%
-          \If{le coefficient n'est pas nul}{%
-            concaténer ce coefficient à la variable de retour\;
-          }
-        }
-      }
-      \caption{Méthode de la matrice latine}
-      \label{alg:meth_mat_lat}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{$A$ et $B$ deux matrices latines}
-      \KwOut{le produit de ces deux matrices}
-      \Begin{%
-        construire la matrice de retour à n lignes et n colonnes\;
-        initialiser chaque coefficient de cette matrice à la liste vide\;
-
-        \For{chaque coefficient de la matrice de retour}{%
-          \For{$k$ allant de $1$ jusqu'à $n$}{%
-            calculer les chaines produits entre a(i,k) et b(k,j)\;
-            ajouter au coefficient de la matrice ces chaines\;
-          }
-        }
-      }
-      \caption{Produit matriciel}
-      \label{alg:prod_mat}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{liste\_1 et liste\_2 deux listes de chaine}
-      \KwOut{une liste de chaines}
-      \Begin{%
-        créer une liste de chaine vide (liste de retour)\;
-        \For{$i$ dans liste\_1}{%
-          \For{$j$ dans liste\_2}{%
-            construire la chaine résultante de la concaténation de $i$ et $j$
-            (en enlevant le nœud présent deux fois)\;
-            construire un ensemble de chaine vide\;
-            \For{$k$ allant de $1$ à la longueur de la chaine construit}{%
-              construire la chaine élémentaire menant du nœud $k$ au nœud $k+1$\;
-              \If{cette chaine n'est pas dans l'ensemble}{%
-                ajouter cette chaine dans l'ensemble\;
-              }
-              \Else{%
-                rendre la chaine nulle\;
-                sortir de la boucle\;
-              }
-            }
-          }
-          \Si{le chaine n'est pas nulle}{%
-            concaténer la chaine trouvée à la liste de retour
-          }
-        }
-      }
-      \caption{Produit entre listes de chaines (coefficients de matrices
-      latines)}
-      \label{alg:prod_chaine}
-    \end{algorithm}
+      astucieusement, on parvient à trouver un cycle eulérien avec une complexité
+      linéaire suivant le nombre d'arêtes du graphe.
 
 \subsection{Graphes hamiltoniens}
   \subsubsection{Analyse mathématique}
     Un graphe hamiltonien (resp.\ semi-hamiltonien) est un graphe sur lequel on
-    peut trouver un cycle (resp.\ une chaine) passant par tout les sommets une
+    peut trouver un cycle (resp.\ une chaine) passant par tous les sommets une
     et une seule fois. Ce problème est donc celui d'un enfant qui souhaiterait
     visiter de manière unique toutes les salles d'un musée.
 
     Le problème de savoir si un graphe est (semi-)hamiltonien est NP-complet,
-    de même que de trouver un cycle ou une chaine s'il y en a.
+    de même que trouver un cycle ou une chaine s'il y en a.
 
     Il existe cependant des conditions suffisantes pour lesquelles on peut
     affirmer qu'un graphe est hamiltonien.
@@ -295,7 +237,7 @@ correspondante contient un $1$.
             $\frac{n-1}{2}$ est inférieur ou égal à $\frac{n-1}{2}$.
         \end{itemize}
       \item[Fermeture d'un graphe] La fermeture d'un graphe est le graphe
-        construit à partir de celui en rajoutant des arrêtes entre chaque
+        construit à partir de celui en rajoutant des arêtes entre chaque
         sommets $a$ et $b$ tel que $\deg(a)+\deg(b) > n$ tant qu'il en existe.
       \item[Théorème de Bondy et Chvátal] Un graphe est hamiltonien si et
         seulement si sa fermeture est hamiltonienne.
@@ -305,51 +247,16 @@ correspondante contient un $1$.
     \end{description}
 
   \subsubsection{Méthode de résolution}
-    Pour tester si un graphe est hamiltonien on peut utiliser les théorèmes
+    Pour tester si un graphe est hamiltonien, on peut utiliser les théorèmes
     précédents. Si le graphe ne respecte les conditions d'aucun de ces
     théorèmes, on recherche une chaine hamiltonienne dans ce graphe.
 
     Pour rechercher une chaine hamiltonienne dans un graphe, on pourrait
     chercher parmi toutes les chaines possibles. La complexité d'un tel
-    algorithme (voir algoritme~\ref{alg:hamil}) dans le pire des cas est donc
+    algorithme (voir algorithme~\ref{alg:hamil}) dans le pire des cas est donc
     très mauvaise: $O(n!)$. Comme on peut s'arrêter dès qu'on a trouvé une
     chaine sans devoir tester toutes les autres chaines possibles, la
     complexité moyenne sera inférieure.
-
-    \begin{algorithm}
-      \KwIn{un graphe}
-      \KwIn{un sommet de départ optionnel node\_from}
-      \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
-      nodes\_done}
-      \KwOut{une chaine hamiltonienne sous la forme d'une liste ordonnée de
-      sommets, ou None s'il n'en existe pas}
-
-      \Begin{%
-        \If{node\_from n'a pas été fourni}{%
-          node\_from $\leftarrow$ un nœud du graphe\;
-        }
-        ajouter node\_from à nodes\_dones\;
-
-        \If{cardinal(node\_from) == ordre(graphe)}{%
-          \Return{[node\_from]}
-        }
-
-        \For{chaque arête dans le graphe}{%
-          autre $\leftarrow$ le sommet opposé à node\_from par rapport à cette
-          arête\;
-          \If{autre dans nodes\_done}{%
-            passer à la prochaine arête
-          }
-          appeler la fonction récursivement avec le graphe, node\_from et
-          nodes\_dones comme paramètres\;
-          \If{la liste retournée est non-vide}{%
-              y ajouter node\_from au début et la retourner\;
-          }
-        }
-      }
-      \caption{Recherche de chaine hamiltonienne}
-      \label{alg:hamil}
-    \end{algorithm}
 
 \subsection{Problème du postier chinois}
   \subsubsection{Analyse mathématique}
@@ -358,7 +265,7 @@ correspondante contient un $1$.
     arête, et revenant à son point de départ.
 
     Ce problème est donc celui du facteur qui souhaite réaliser une tournée
-    la plus rapidement possible en passant par toutes les rues et retournant
+    le plus rapidement possible en passant par toutes les rues et retournant
     à la poste.
 
     Ce problème peut être réduit à la recherche d'un couplage parfait de cout
@@ -367,7 +274,7 @@ correspondante contient un $1$.
     \begin{description}
       \item[Couplage] Un couplage d'un graphe est un ensemble d'arêtes de ce
         graphe qui n'ont pas de sommets en commun.
-      \item[Couplage Parfait] Un couplage parfait est un couplage tel que tout
+      \item[Couplage parfait] Un couplage parfait est un couplage tel que tout
         sommet du graphe est présent une fois et une seule dans le couplage.
       \item[Clique] Une clique est un ensemble de sommets deux à deux
         adjacents.
@@ -387,88 +294,15 @@ correspondante contient un $1$.
         sommets non reliés entre eux, on crée une arête les rejoignant,
         de poids égal au cout le plus faible possible pour rejoindre ces
         sommets dans le graphe initial (ceci se calcule facilement avec
-        l'algorithme de Dijkstra~\ref{alg:dijkstra});
+        l'algorithme de Dijkstra, voir algorithme~\ref{alg:dijkstra});
       \item on cherche le couplage parfait de cout minimum en utilisant des
         algorithmes comme celui d'Edmonds. On peut aussi tester simplement
-        toutes les possibilités~\ref{alg:couplage};
+        toutes les possibilités (voir algorithme~\ref{alg:couplage});
       \item pour chaque arête de cet ensemble, on double la chaine la plus
         courte reliant les sommets reliés par cette arête dans le graphe initial;
       \item on obtient alors un graphe eulérien, sur lequel on applique
         l'algorithme d'Euler.
     \end{enumerate}
-
-    \begin{algorithm}
-      \KwIn{Un graphe non-orienté et connexe g}
-      \KwOut{le cycle le plus court permettant de visiter toutes les arêtes de
-      g}
-
-      \Begin{%
-        \tcc{Création du graphe partiel}
-        \For{chaque sommet de g}{%
-          \If{le sommet est de degré impair}{%
-            créer le sommet dans graphe\_partiel\;
-          }
-        }
-        \For{chaque arête de g}{%
-          \If{ses 2 sommets sont dans graphe\_partiel}{%
-            créer la même arête dans graphe\_partiel\;
-          }
-        }
-
-        \tcc{Transformation en clique}
-        \For{chaque couple de sommet (s1, s2) dans graphe\_partiel}{%
-          \If{il n'y a pas d'arête reliant s1 et s2}{%
-            $(cout, chaine) = dijkstra(s1, s2)$\;
-            créer l'arête reliant s1 et s2 dans graphe\_partiel, de cout cout\;
-          }
-        }
-
-        $couplage, cout = aux(ensemble vide, ensemble vide, 0)$\;
-
-        \For{chaque arête dans couplage}{%
-          $(s1, s2) =$ sommets reliés par arête dans g\;
-          $(cout, chaine) = dijkstra(s1, s2)$\;
-          \For{chaque arête dans chaine}{%
-            doubler cette arête dans g\;
-          }
-        }
-
-        \Return{le cycle eulérien de g}
-      }
-      \label{alg:postier_chinois}
-      \caption{Algorithme du postier chinois}
-    \end{algorithm}
-
-    \begin{algorithm}
-      \KwIn{arêtes, sommets\_visités, cout}
-      \Begin{%
-        \If{sommets\_visités contient tous les sommets de graphe\_partiel}{%
-          \Return{(arêtes, cout)}
-        }
-        \Else{%
-          $meilleur\_couplage = Vide$\;
-          $meilleur\_cout = 0$\;
-          \For{chaque arête de graphe\_partiel}{%
-            \If{les 2 sommets de l'arête ne sont pas dans sommets\_visités}{%
-              arêtes\_copie = copie de arêtes\;
-              sommets\_visités\_copie = copie de sommets\_visités\;
-
-              ajouter arête dans arêtes\_copie\;
-              couplage, cout = aux(arêtes\_copie, sommets\_visités\_copie, cout +
-              cout de arête)\;
-
-              \If{meilleur\_couplage = Vide ou meilleur\_cout > cout}{%
-                meilleur\_couplage = couplage\;
-                meilleur\_cout = cout\;
-              }
-            }
-          }
-          \Return{(meilleur\_couplage, meilleur\_cout)}
-        }
-      }
-      \label{alg:couplage}
-      \caption{Recherche du couplage parfait de cout minimum par bruteforce}
-    \end{algorithm}
 
   \subsubsection{Exemple}
     Prenons comme exemple le graphe ci-dessous, et essayons de trouver un parcours
@@ -528,12 +362,11 @@ correspondante contient un $1$.
       \end{tikzpicture}
     \end{center}
 
-    Nos couplages parfaits sont donc~:
-
+    Nos couplages parfaits sont alors~:
     \begin{itemize}
-      \item $\{AB, DC\}$ de poids 2
-      \item $\{AD, BC\}$ de poids 6
-      \item $\{AC, BD\}$ de poids 4
+      \item $\{AB, DC\}$ de poids 2;
+      \item $\{AD, BC\}$ de poids 6;
+      \item $\{AC, BD\}$ de poids 4.
     \end{itemize}
 
 
@@ -567,7 +400,7 @@ correspondante contient un $1$.
     par tous les sommets du graphe, de longueur minimale.
     Ce problème peut s'illustrer par l'exemple d'une
     fraiseuse qui doit percer des trous dans une plaque le plus
-    rapidement possible, ou encore par un car de touristes qui souhaiterait
+    rapidement possible, ou encore par un car de touristes qui souhaiteraient
     trouver l'itinéraire le plus rapide pour visiter un certain nombre de lieux.
 
     On peut modéliser ce problème par un graphe complet, dont les arêtes ont un
@@ -579,13 +412,14 @@ correspondante contient un $1$.
     donc pas d'algorithme efficace pour trouver ce cycle, à part une recherche
     exhaustive.
     En effet, la seule méthode exacte consisterait à tester toutes les chaines
-    hamiltoniennes, et à prendre celle la plus courte, mais le nombre de chaines
+    hamiltoniennes, et à prendre la plus courte, mais le nombre de chaines
     hamiltonniennes croît exponentiellement en fonction du nombre de sommets
     dans le graphe.
 
     Nous allons donc nous concentrer sur les méthodes approchées de résolution,
     qui peuvent donner de très bons résultats tout en étant rapides.
-    Toutefois, le résultat n'est donc pas forcément le plus court.
+    Toutefois, ces méthodes n'offrent aucune garantie quant à la qualité du 
+    résultat.
 
   \subsubsection{Heuristiques}
     Les heuristiques vont nous permettre de construire un chemin court (par
@@ -596,7 +430,7 @@ correspondante contient un $1$.
     explorer.
 
     \paragraph{Exemple} Une heuristique simple consiste à partir d'un sommet au
-    hasard du graphe et d'aller au sommet le plus proche sur lequel on n'est
+    hasard du graphe et à aller au sommet le plus proche sur lequel on n'est
     pas encore passé (puis à retourner au sommet de départ pour boucler le
     cycle). Cet algorithme est en $O(n)$ et donc rapide. Mais il n'offre
     cependant aucune garantie de résultat, il existe même des graphes pour
@@ -607,49 +441,21 @@ correspondante contient un $1$.
     (donc toujours exponentielle si $p \neq 1$).
 
     Une méthode purement basée sur cette heuristique consisterait donc à parcourir
-    tout le graphe, en allant sur le voisin le plus proche du sommet courant~:
-
-    \begin{algorithm}
-      \KwIn{un graphe complet g}
-      \KwOut{(cout, cycle) où cycle est un cycle hamiltonien construit selon la
-      méthode du plus proche voisin et cout son cout associé sous forme de
-      liste de sommets}
-      \Begin{%
-        cout = 0\;
-        cycle = une liste composée d'un sommet de g au hasard\;
-
-        \While{il reste des sommets}{%
-          \tcc{On ajoute au cycle le sommet suivant}
-          plus\_proche = sommet de g sur lequel on est pas encore passé le
-          plus proche du dernier sommet du cycle\;
-
-          cout += cout de plus\_proche au dernier sommet du cycle construit\;
-          ajouter plus\_proche au cycle\;
-        }
-
-        \tcc{On ferme le cycle}
-        cout += cout du dernier au premier sommet de cycle\;
-        ajouter le premier sommet de la chaine à cycle\;
-
-        \Return{(cout, cycle)}
-      }
-      \label{alg:voisin}
-      \caption{Plus proche voisin}
-    \end{algorithm}
+    tout le graphe, en allant sur le voisin le plus proche du sommet courant.
 
   \subsubsection{Recherche locale}
     Les heuristiques nous donnant des solutions acceptables, choisies avec un
-    minimum de «~bon sens~», il est ensuite possible de tenter d'améliorer
+    minimum de bon sens, il est ensuite possible de tenter d'améliorer
     ces solutions, via de la recherche locale.
     Partant d'une solution fournie, on va explorer les solutions voisines
-    à cette dernière, afin de voire si on pourrait pas trouver des solutions
-    encore meilleures parmi leur voisinage.
+    à cette dernière, afin de voir s'il est possible de trouver de meilleures 
+    solutions parmi leur voisinage.
 
     \paragraph{Exemple} Un algorithme de recherche locale adapté au problème
     du voyageur de commerce est le 2-opt (voir algorithme~\ref{alg:2opt}).
     Le principe du 2-opt consiste à tenter d'éliminer les «~boucles~» qui
-    pourraient survenir dans le chemin, afin de le rendre plus court.
-    \cite{two_opt}
+    pourraient survenir dans le chemin, afin de le rendre plus court
+    \cite{two_opt}.
 
     Ainsi, partant du chemin suivant (qu'on obtiendrait logiquement en suivant
     l'heuristique consistant à aller sur le sommet le plus près):
@@ -664,35 +470,7 @@ correspondante contient un $1$.
     \includegraphics[width=0.3\textwidth]{graphes/2opt2.png}
     \end{center}
 
-    \begin{algorithm}
-      \KwIn{un cycle hamiltonien (liste de sommets) et son cout}
-      \KwOut{un cycle hamiltonien et son cout inférieur ou égal au coup
-      d'entrée}
-
-      \Begin{%
-        \For{chaque couple de sommets (a, b) dans le cycle}{%
-           $\begin{aligned}
-             \text{nouveau\_cout} & \leftarrow
-            \text{cout}\\
-            &- \text{cout de a à son successeur dans le cycle}\\
-            &- \text{cout de b à son successeur dans le cycle}\\
-            &+ \text{cout de a à b}\\
-            &+ \text{cout du successeur de a au successeur de b dans le
-            cycle}\\
-          \end{aligned}$\;
-
-          \If{nouveau\_cout < cout}{%
-            cout = nouveau\_cout
-            cycle = cycle crée en échangeant a et b dans cycle\;
-          }
-        }
-        \Return{(cout, cycle)}
-      }
-      \caption{2-opt}
-      \label{alg:2opt}
-    \end{algorithm}
-
-    Il a donc une complexité quadratique du nombre de sommets du cycles.
+    Il a une complexité quadratique suivant le nombre de sommets du cycle.
 
     L'application du 2-opt sur le chemin obtenu via une heuristique simple peut
     donner des résultats plus proches de la solution optimale qu'on pourrait le
@@ -700,8 +478,8 @@ correspondante contient un $1$.
 
   \subsubsection{Métaheuristiques}
 
-  Plutôt que d'utiliser une simple heuristique pour trouver une solution à priori plutôt
-  bonne, puis d'y appliquer une recherche locale pour tenter de l'améliorer encore,
+  Plutôt que d'utiliser une simple heuristique pour trouver une solution à priori
+  bonne, puis d'y appliquer une recherche locale pour tenter de l'améliorer,
   il est possible d'utiliser des «~métaheuristiques~».
   Ces algorithmes vont avoir besoin d'heuristiques et de recherche locale, mais vont
   s'en servir en boucle, pour tenter sans cesse de trouver une solution meilleure.
@@ -717,32 +495,38 @@ correspondante contient un $1$.
     utiliser une heuristique puis appliquer de la recherche locale pour
     améliorer son résultat.  Ensuite, on perturbe légèrement ce résultat, on
     applique à nouveau une recherche locale et on recommence.
-  \item[Recherche tabou] amélioration de la recherche locale itérée, qui va
+  \item[Recherche taboue] amélioration de la recherche locale itérée, qui va
     utiliser une «~liste taboue~» bannissant toute recherche autour des zones de
     l'espace déjà explorées.
-  \item[Recuit simulé] explore d'abord l'espace sans se restreindre aux parties
-    donnant des solutions efficaces, puis se restreint de plus en plus au
-    voisinage de celles-ci. Converge donc vers les solutions les plus efficaces
-    trouvées, puis relâche les contraintes et explore autour de ces dernières,
-    quitte à trouver des solutions vraiment moins efficaces. Recommence à se
-    contraindre aux plus efficaces, etc\dots
-  \item[Algorithmes génétiques] imitent la sélection naturelle, avec une
+  \item[Recuit simulé] exploration au premier abord de l'espace sans se restreindre aux parties
+    donnant des solutions efficaces, puis restriction de plus en plus au
+    voisinage de celles-ci. Convergence donc vers les solutions les plus efficaces
+    trouvées, puis relâchement des contraintes et exploration autour de ces dernières,
+    quitte à trouver des solutions vraiment moins efficaces. Retour au début.
+  \item[Algorithmes génétiques] imitation de la sélection naturelle, avec une
     population de solutions qui évoluent en mutant et en s'échangeant leurs
-    caractéristiques entre elles. On peut même faire évoluer des populations
-    séparément avec les modèles en îles, pour avoir plusieurs populations très
+    caractéristiques entre elles. Il est même possible de faire évoluer des populations
+    séparément avec les modèles en iles, pour avoir plusieurs populations très
     différentes.
-  \item[Colonies de fourmis] imitent là encore la nature en simulant des
+  \item[Colonies de fourmis] simulation des
     phéromones déposées par des fourmis virtuelles, qui orientent la recherche
     au fil du temps.
   \end{description}
 
   \subsubsection{Conclusion}
     Il est intéressant de constater que les heuristiques, les méthodes de
-    recherche locales et les métaheuristiques sont des choses extrêmement
+    recherche locales et les métaheuristiques sont des méthodes extrêmement
     générales, utilisées pour résoudre énormément de problèmes demandant
-    d'explorer un espace extrêmement grand.
+    d'explorer un espace extrêmement grand. Elles ne sont donc pas propres au 
+    voyageur du commerce.
 
-    Elles ne sont donc pas propres au voyageur du commerce, même si on a vu
-    comment, dans ce cas précis, on pouvait obtenir des résultats corrects en
-    se passant de métaheuristiques. On pourrait donc améliorer ces résultats en
-    en utilisant.
+    On a vu comment, dans ce cas précis, on pouvait obtenir des résultats corrects en
+    se passant des métaheuristiques que nous avons décrites. On pourrait néanmoins améliorer 
+    ces résultats en les utilisant.
+
+\subsection{Conclusion}
+  Les graphes sont donc un outil très utile permettant de résoudre beaucoup de
+  problèmes (nous en verrons d'ailleurs d'autres par la suite) bien que leur
+  étude puisse être difficile au niveau algorithmique.
+
+% vim: shiftwidth=2 softtabstop=2 tabstop=2 spell spelllang=fr

@@ -1,5 +1,8 @@
-\subsection{Shifumi}
+\subsection{Introduction}
+  Nous nous intéresserons dans cette section de la résolution de différents
+  jeux.
 
+\subsection{Shifumi}
     \begin{center}\includegraphics[width=6cm]{shifumi.png}\end{center}
 
     Une stratégie simple et efficace à laquelle on pourrait penser pour gagner
@@ -7,8 +10,8 @@
 
     Et en effet, il s'avère que si les deux joueurs jouent de manière équiprobable,
     on a affaire à un équilibre de Nash~: aucun changement de stratégie de la part
-    d'un joueur ne pourra lui permettre d'augmenter ses chances de gagner.
-    %todo: expliquer plus Nash
+    d'un joueur ne pourra lui permettre d'augmenter ses chances de gagner même
+    en connaissant la stratégie adverse.
 
     De plus, si un adversaire ne joue pas de manière aléatoire (ou augmente la
     probabilité de jouer un certain élément), alors on pourra prévoir ce qu'il
@@ -42,16 +45,30 @@
     comme un Shifumi classique.
 
 \subsection{Jeu de la somme magique}
-  Ce jeu consiste à choisir, à tour de rôle, $n$ nombres parmi $n^2$ afin que
-  leur somme soit égale à $\frac{n(n^2+1)}{2}$.
+  Ce jeu consiste à choisir, à tour de rôle, $n$ nombres entre 1 et $n^2$ afin
+  que leur somme soit égale à $\frac{n(n^2+1)}{2}$.
 
   \subsubsection{Représentation sous forme de morpion}
 Une représentation possible de ce jeu est le carré magique: les
-joueurs doivent choisir, l'un après l'autre une case dans un carré
-magique, leur but étant de contrôler une ligne, une colonne ou une
-diagonale entière du carré magique; alors, les nombres qu'ils auront
+joueurs doivent choisir, l'un après l'autre, une case dans un carré
+magique d'ordre $n$, leur but étant de contrôler une ligne, une colonne ou une
+diagonale entière de ce carré magique; alors, les nombres qu'ils auront
 choisis totaliseront le score voulu. De même, ce problème correspond exactement
 au jeu du morpion, étendu à des grilles $n \times n$.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|cccc|}
+    \hline
+    16 & 3  & 2  & 13 \\
+    5  & 10 & 11 & 8  \\
+    9  & 6  & 7  & 12 \\
+    4  & 15 & 14 & 1  \\
+    \hline
+  \end{tabular}
+  \caption{Un carré magique d'ordre 4 -- on remarque que les sommes des lignes,
+    colonnes et diagonales sont biens égales à $\frac {4(4^2+1)} 2 = 34$}
+\end{table}
 
 Ainsi, une des stratégies possibles pour un joueur du jeu de la somme
 magique est de construire un carré magique, et de représenter les
@@ -60,12 +77,14 @@ correspondante. Afin de choisir un nombre, il suffit d'appliquer la
 stratégie de morpion de son choix sur le carré magique, et de
 jouer le nombre correspondant.
 
-Le choix du carré magique n'importe pas. En effet, dans un carré
-magique sont présentes toutes les possibilités de combinaison de
-nombres pour obtenir la somme voulue. Par conséquent, peu importe le
-carré magique d'ordre $n$ que l'on choisit, les représentations sous forme de
-morpion seront toutes équivalentes.
+Cependant, pour $n>3$, il n'y a pas un seul carré magique d'ordre $n$ (en
+ignorant les réflexions et rotations). Cette méthode n'est donc exacte que dans
+le cadre des morpions $3\times 3$. En effet, pour de plus grandes tailles les
+deux joueurs pourraient jouer dans des carrés magiques différents. D'un point
+de vue du morpion, on aura alors l'impression que l'adversaire joue n'importe
+quoi, alors qu'il peut être en train de jouer correctement.
 
+\paragraph{}
 Le morpion étant un jeu où l'on essaie de minimiser la perte maximum,
 on peut s'intéresser à l'algorithme du minimax, pour déterminer une
 stratégie non perdante.
@@ -164,6 +183,7 @@ donc on prendra $5$ dans tous les cas.
 Au final, cette amélioration permet de gagner un temps considérable pour
 obtenir le même résultat.
 
+
 \subsection{Duopôles}
   Les jeux précédents sont des jeux non coopératifs à somme nulle (on peut soit
   gagner, soit perdre).
@@ -178,30 +198,37 @@ obtenir le même résultat.
   donc concurrence, mais plus le marché est inondé de produits, plus leur marge
   est faible (elles peuvent même faire des pertes!).
 
-  On modélise le cout de production par une fonction affine:
-  \[\begin{array}{l}
-    c_E(x) = \sigma + \gamma*x \\
-    c_F(y) = \sigma + \gamma*y
-  \end{array}\]
+  \subsubsection{Modélisation}
+    On modélise le cout de production unitaire par une constante $\gamma$,
+    et le prix de vente unitaire est une fonction affine décroissante de la
+    production totale $x+y$ (où $x$ est la production d'une entreprise, et $y$
+    celle de l'autre): $p(x, y) = \alpha - \beta\times (x + y)$. Ce dernier est bien
+    évidemment commun aux deux entreprises.
 
-  Ainsi, il y a un cout fixe qui modélise l'acquisition de matériel, et un cout
-  directement proportionnel à la quantité de produits fabriqués.
+    Les gains des entreprises sont donc respectivement:
+      \[\begin{array}{c}
+        g_1(x, y) = x\times (p(x, y)-c(x)) = x(\alpha+\gamma-\beta(x+y)) \\
+        g_2(x, y) = y\times (p(x, y)-c(y)) = y(\alpha+\gamma-\beta(x+y))
+      \end{array}\]
 
-  Et le prix de vente est une fonction affine décroissante:
-    $p(z) = \alpha - \beta*(x + y)$.
-  Il est bien évidemment commun aux deux entreprises.
+    Par la suite, nous noterons $a=\alpha+\sigma$.
 
   \subsubsection{Stratégies possibles}
-    % pas sûr qu'il faille parler de NOS stratégies, mais plutôt des
-    % stratégies les plus connues.
-    % +1
-
     \paragraph{Coopération} Il est possible de coopérer complètement avec
       l'adversaire, en partant du principe que s'il produit autant que nous,
       on maximisera le gain commun de chaque entreprise.
       Cette stratégie permet de très bons gains avec toute autre stratégie qui
       coopère, mais elle se fera souvent écraser par des stratégies qui vont
       «~profiter d'elle~».
+
+      Pour coopérer il suffit de maximiser $g_1(x, y)+g_2(x, y)$ par rapport à
+      $x+y$ soit
+        \[g_1(x, y) + g_2(x, y) = 2(x+y)(a - \beta(x+y))\]
+
+      Le maximum est donc atteint en $x+y=\frac a {2\beta}$.
+
+      Pour que chaque entreprise ait le même gain, on a $g_1(x, y) = g_2(x, y)$.
+      Elles doivent donc produire $x=y=\frac a {4\beta}$.
 
     \paragraph{Stackelberg}
       % on profite de l'autre, toussa
@@ -220,3 +247,6 @@ obtenir le même résultat.
       coopératif (on est alors coopératif) et contre un joueur non-coopératif
       (on devient alors agressif).
 
+\subsection{Conclusion}
+  La résolution de jeux est donc un domaine intéressant nécessitant des
+  approches très différentes selon le jeu considéré.
