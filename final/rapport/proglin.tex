@@ -1,23 +1,24 @@
 \subsection{Introduction}
-  La programmation linéaire, ou optimisation linéaire, consiste à maximiser (ou
-  de manière équivalente minimiser) une fonction linéaire sur un polyèdre
-  convexe (dont un cas particulier courant est sous des contraintes linéaires).
+  La programmation linéaire, ou optimisation linéaire, consiste à maximiser (ou,
+  de manière équivalente, minimiser) une fonction linéaire sur un polyèdre
+  convexe (dont un cas particulier courant est la maximisation sous des 
+  contraintes linéaires).
 
 \subsection{Problème du sac à dos}
   \subsubsection{Présentation du problème}
     \begin{center}\includegraphics[width=120pt]{sac_a_dos.jpg}\end{center}
 
-    Ce problème paraît simple en apparence: nous avons un ensemble d'objets,
+    Ce problème parait simple en apparence: nous avons un ensemble d'objets,
     chaque objet pouvant avoir une masse différente et ayant une certaine
     valeur, et nous voulons remplir un sac à dos de manière à maximiser la
     valeur totale, sans dépasser une certaine masse maximale.
 
-    Résoudre ce genre de problème est utile par exemple en gestion de
+    Résoudre ce genre de problèmes est utile par exemple en gestion de
     portefeuilles pour trouver le meilleur rapport entre rendement et risque,
     ou en découpe de matériaux, pour minimiser les chutes.
 
     \paragraph{}
-    Ce problème est un problème d'optimisation linéaire, en effet, cela revient
+    Ce problème est un problème d'optimisation linéaire. En effet, cela revient
     à résoudre le problème:
     \[ \begin{array}{r|l}
         \displaystyle\max_{i \in S' \subset S} v_i &
@@ -38,7 +39,7 @@
 
     Mais, ce problème peut être résolu en utilisant la programmation
     dynamique\footnote{Qui consiste à résoudre un problème de taille $n$ à
-    partir de la résolution d'un problème de taille $n-1$}. En effet, on peut
+    partir de la résolution d'un problème de taille $n-1$.}. En effet, on peut
     déterminer si un objet $i$ fait partie de l'ensemble des objets à choisir en
     considérant le problème sur l'ensemble $S\backslash\{i\}$ et la masse
     maximale $W-m_i$.
@@ -62,7 +63,7 @@
     complexité en temps de $O(n \log n)$, pour le tri des objets) et ne
     nécessite en mémoire que la liste des objets. De plus il peut être utilisé
     quand les masses ne sont pas entières. Mais ce n'est qu'un algorithme
-    approché qui ne fourni aucune garantie de résultat.
+    approché qui ne fournit aucune garantie de résultat.
 
 
     \paragraph{}
@@ -71,8 +72,8 @@
     l'ensemble des possibilités en marquant les objets choisis comme
     intéressants (comme les fourmis le font avec les phéromones). Ces fourmis
     vont essayer de choisir de plus en plus souvent les objets ayant souvent
-    été marqués intéressants. On s'arrête après un certain nombre de tours ou
-    quand les nouvelles itérations ne sont plus considérés suffisamment
+    été marqués intéressants. On s'arrête après un certain nombre de tours, ou
+    quand les nouvelles itérations ne sont plus considérées suffisamment
     intéressantes.
 
   \subsubsection{Relation avec le voyageur de commerce}
@@ -90,7 +91,7 @@
 
     Plus intéressant encore, on peut même construire une «~bijection~» entre un
     problème du sac à dos
-    et un problème du voyageur de commerce sur un graphe! \cite{knapsack_to_tsp}
+    et un problème du voyageur de commerce sur un graphe\cite{knapsack_to_tsp}!
     Ceci démontre que ces deux algorithmes sont équivalents, et appartiennent donc à la même
     classe d'algorithmes. % c'est bôoooo les maths :D
 
@@ -98,7 +99,7 @@
   Le but du problème est de maximiser une fonction linéaire sous certaines
   contraintes, linéaires elles aussi.
 
-  \subsubsection{Point de vu mathématique}
+  \subsubsection{Point de vue mathématique}
       Considérons le problème suivant :
       $$ (P) \quad \max_{x\in C \subset \mathbb{R}^n} f(x)$$
       Nous nous placerons dans le cas où $f$ est linéaire, où $x \geqslant 0$,
@@ -114,7 +115,7 @@
         \item le problème admet un maximum sur $C$.
       \end{itemize}
       Nous savons de plus que $C$ est un polyèdre convexe. Un théorème garantit
-      alors que si ce problème à une solution, alors il a une solution en un de
+      alors que si ce problème a une solution, alors il s'agit d'un de
       ses sommets. Nous allons donc chercher les solutions parmi les sommets de
       $C$.
 
