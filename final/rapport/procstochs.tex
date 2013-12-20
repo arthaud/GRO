@@ -38,7 +38,16 @@
   départ par cette matrice nous donnera les probabilités pour le scarabée
   d'être en chaque position une fois qu'il aura suffisamment voyagé et que sa
   position de départ n'aura plus d'importance.
-  %TODO: c'est quoi une chaine irréductible blabla apériodique?
+
+  \begin{description}
+    \item[Irréductible] Une chaine de Markov est irréductible si son graphe est
+      fortement connexe, c'est à dire que pour tous sommets $i \neq j$, il existe
+      un chemin de $i$ vers $j$ et de $j$ vers $i$.
+    \item[Récurrente] Une chaine de Markov irréductible est récurrente si une
+      trajectoire typique du système passe infiniment souvent par cet état.
+    \item[Apériodique] Une chaine est apériodique si pour tout sommet $i$,
+      $pgcd(\{ n \geq 1 \mid A^n[i, j] > 0 \}) = 1$
+  \end{description}
 
   \subsubsection{Chaines de Markov}
     Le problème des scarabées peut aisément être modélisé par des chaines de
