@@ -1,12 +1,9 @@
-% Si vous vous demandez à quoi servent les empty \mbox après les paragraphes,
-% vous êtes des boulays, apprenez latex.
 \subsection{Introduction}
   La théorie des graphes est un domaine entre les mathématiques et
   l'informatique très utilisé dans la résolution de nombreux problèmes~: cela
   peut aller du routage sur internet au calcul d'itinéraire par des GPS\dots
   
-  Nous verrons dans cette section quelques applications des graphes. Une
-  dernière application sera vu dans la section~\ref{sec:laby}.
+  Nous verrons dans cette section quelques applications des graphes.
 
 \subsection{Définitions}
   \begin{description}
@@ -328,39 +325,39 @@ correspondante contient un $1$.
       \end{tikzpicture}
     \end{center}
 
-    On créé le graphe partiel~:
+    On créé le graphe partiel puis on le transforme en clique, avec les bons
+    poids:
+    \begin{minipage}{\textwidth}\begin{multicols}{2}
+      \begin{center}
+        \begin{tikzpicture}[node distance=1cm,auto]
+          \node[draw, circle] (1) at (0,0) {$A$};
+          \node[draw, circle] (2) at (2,0) {$B$};
+          \node[draw, circle] (3) at (2,-2) {$C$};
+          \node[draw, circle] (4) at (0,-2) {$D$};
 
-    \begin{center}
-      \begin{tikzpicture}[node distance=1cm,auto]
-        \node[draw, circle] (1) at (0,0) {$A$};
-        \node[draw, circle] (2) at (2,0) {$B$};
-        \node[draw, circle] (3) at (2,-2) {$C$};
-        \node[draw, circle] (4) at (0,-2) {$D$};
+          \path (1) edge node {1} (2);
+          \path (1) edge node {1} (4);
+          \path (2) edge node {5} (3);
+          \path (3) edge node {1} (4);
+        \end{tikzpicture}
+      \end{center}
 
-        \path (1) edge node {1} (2);
-        \path (1) edge node {1} (4);
-        \path (2) edge node {5} (3);
-        \path (3) edge node {1} (4);
-      \end{tikzpicture}
-    \end{center}
+      \begin{center}
+        \begin{tikzpicture}[node distance=1cm,auto]
+          \node[draw, circle] (1) at (0,0) {$A$};
+          \node[draw, circle] (2) at (2,0) {$B$};
+          \node[draw, circle] (3) at (2,-2) {$C$};
+          \node[draw, circle] (4) at (0,-2) {$D$};
 
-    On le transforme en clique, avec les bons poids~:
-
-    \begin{center}
-      \begin{tikzpicture}[node distance=1cm,auto]
-        \node[draw, circle] (1) at (0,0) {$A$};
-        \node[draw, circle] (2) at (2,0) {$B$};
-        \node[draw, circle] (3) at (2,-2) {$C$};
-        \node[draw, circle] (4) at (0,-2) {$D$};
-
-        \path (1) edge node {1} (2);
-        \path (1) edge node {1} (4);
-        \path (1) edge [bend right=12] node {2} (3);
-        \path (2) edge node {5} (3);
-        \path (2) edge [bend left=12] node {2} (4);
-        \path (3) edge node {1} (4);
-      \end{tikzpicture}
-    \end{center}
+          \path (1) edge node {1} (2);
+          \path (1) edge node {1} (4);
+          \path (1) edge [bend right=12] node {2} (3);
+          \path (2) edge node {5} (3);
+          \path (2) edge [bend left=12] node {2} (4);
+          \path (3) edge node {1} (4);
+        \end{tikzpicture}
+      \end{center}
+    \end{multicols}\end{minipage}
 
     Nos couplages parfaits sont alors~:
     \begin{itemize}
@@ -368,7 +365,6 @@ correspondante contient un $1$.
       \item $\{AD, BC\}$ de poids 6;
       \item $\{AC, BD\}$ de poids 4.
     \end{itemize}
-
 
     On duplique donc les arêtes AB et DC, et on applique l'algorithme d'Euler~:
 

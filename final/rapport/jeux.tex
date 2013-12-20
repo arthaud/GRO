@@ -1,6 +1,6 @@
 \subsection{Introduction}
-  Nous nous intéresserons dans cette section de la résolution de différents
-  jeux.
+  Nous nous intéresserons dans cette section aux méthodes de résolutions de
+  jeux très différents.
 
 \subsection{Shifumi}
     \begin{center}\includegraphics[width=6cm]{shifumi.png}\end{center}
@@ -140,7 +140,8 @@ compte qu'il ne pourra pas faire mieux.
 
 Dans l'exemple suivant, où les nœuds en bleus sont ceux où l'on doit prendre
 le minimum, et ceux en gris le maximum:
-\begin{multicols}{2}\begin{center}
+
+\begin{minipage}{\textwidth}\begin{multicols}{2}\begin{center}
   \begin{tikzpicture}[node distance=1.3cm,bend angle=45,auto]
     \node[draw, rectangle, gray] (U) {U};
     \node[draw, circle, blue] (5) [below left=of U] {5};
@@ -170,7 +171,7 @@ le minimum, et ceux en gris le maximum:
   \end{tikzpicture}
 
   Coupure Béta
-\end{center}\end{multicols}
+\end{center}\end{multicols}\end{minipage}
 
 On se rend bien compte qu'on n'a pas besoin de parcourir les nœuds suivant,
 car on prend le maximum des minimums, ou l'inverse.
