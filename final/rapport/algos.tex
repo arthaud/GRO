@@ -1,7 +1,7 @@
 \begin{algorithm}
   \KwIn{un graphe}
   \KwOut{%
-    la liste des cycles ou chaines eulériens si le graphe est eulérien
+    la liste des cycles ou chaines eulériens selon si le graphe est eulérien ou
     semi-eulérien ou la liste vide sinon
   }
   \Begin{%
@@ -10,14 +10,14 @@
     remplir la matrice de listes vides\;
     \For{chaque nœud du graphe}{%
       \For{chaque arête sortant de ce nœud}{%
-        ajouter la liste [noeud de départ, noeud d'arrivée] à la case de
+        ajouter la liste [nœud de départ, nœud d'arrivée] à la case de
         la matrice correspondante\;
       }
     }
     n $\leftarrow$ le nombre d'arêtes total du graphe\;
-    calculer la puissance $(n-1)$ième de la matrice
+    calculer la puissance $(n-1)$ième de la matrice\;
 
-    \For{chaque coefficient de la matrice ainsi calculée}{%
+    \For{chaque coefficient de cette matrice}{%
       \If{le coefficient n'est pas nul}{%
         concaténer ce coefficient à la variable de retour\;
       }
@@ -46,7 +46,7 @@
 \end{algorithm}
 
 \begin{algorithm}
-  \KwIn{liste\_1 et liste\_2 deux listes de chaine}
+  \KwIn{liste\_1 et liste\_2 deux listes de chaines}
   \KwOut{une liste de chaines}
   \Begin{%
     créer une liste de chaine vide (liste de retour)\;
@@ -67,7 +67,7 @@
         }
       }
       \Si{le chaine n'est pas nulle}{%
-        concaténer la chaine trouvée à la liste de retour
+        concaténer la chaine trouvée à la liste de retour\;
       }
     }
   }
@@ -77,10 +77,8 @@
 \end{algorithm}
 
 \begin{algorithm}
-  \KwIn{un graphe}
-  \KwIn{un sommet de départ optionnel node\_from}
-  \KwIn{un ensemble (éventuellement vide) de nœuds déjà parcouru
-  nodes\_done}
+  \KwIn{un graphe, un sommet de départ optionnel node\_from et un ensemble
+  (éventuellement vide) de nœuds déjà parcouru nodes\_done}
   \KwOut{une chaine hamiltonienne sous la forme d'une liste ordonnée de
   sommets, ou None s'il n'en existe pas}
 
@@ -91,14 +89,14 @@
     ajouter node\_from à nodes\_dones\;
 
     \If{cardinal(node\_from) == ordre(graphe)}{%
-      \Return{[node\_from]}
+      \Return{[node\_from]}\;
     }
 
     \For{chaque arête dans le graphe}{%
       autre $\leftarrow$ le sommet opposé à node\_from par rapport à cette
       arête\;
       \If{autre dans nodes\_done}{%
-        passer à la prochaine arête
+        passer à la prochaine arête\;
       }
       appeler la fonction récursivement avec le graphe, node\_from et
       nodes\_dones comme paramètres\;
@@ -254,7 +252,7 @@ cycle}\\
           ligne\_courante[m] $\leftarrow$ max(ligne\_prec[m], ligne\_prec\_line[m-masse(obj)] + prix(obj))\;
         }
       }
-      ligne\_prec $\leftarrow$ ligne\_courante
+      ligne\_prec $\leftarrow$ ligne\_courante\;
     }
     \Return{ligne\_courante[masse\_max]}
   }
